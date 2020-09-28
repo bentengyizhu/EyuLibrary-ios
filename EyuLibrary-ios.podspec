@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 #    s.use_frameworks!
   s.name             = 'EyuLibrary-ios'
-  s.version          = '1.3.36'
+  s.version          = '1.3.37'
   s.summary          = 'A short description of EyuLibrary-ios.'
 
 # This description is used to generate tags and improve search results.
