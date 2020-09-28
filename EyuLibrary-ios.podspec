@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 #    s.use_frameworks!
   s.name             = 'EyuLibrary-ios'
-  s.version          = '1.3.35'
+  s.version          = '1.3.36'
   s.summary          = 'A short description of EyuLibrary-ios.'
 
 # This description is used to generate tags and improve search results.
@@ -20,11 +20,11 @@ Pod::Spec.new do |s|
 
   s.description      = 'EyuLibrary'
 
-  s.homepage         = 'https://github.com/moziguang/EyuLibrary-ios'
+  s.homepage         = 'https://github.com/EyugameQy/EyuLibrary-ios'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'WeiqiangLuo' => 'weiqiangluo@qianyuan.tv' }
-  s.source           = { :git => 'https://github.com/moziguang/EyuLibrary-ios.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/EyugameQy/EyuLibrary-ios.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
   s.ios.deployment_target = '9.0'
 
@@ -134,7 +134,6 @@ Pod::Spec.new do |s|
  end
  
  s.subspec 'crashlytics_sdk' do |crash|
-     crash.dependency 'Fabric'
      crash.dependency 'Firebase/Crashlytics'
 end
 
