@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 #    s.use_frameworks!
   s.name             = 'EyuLibrary-ios'
-  s.version          = '1.3.37'
+  s.version          = '1.3.38'
   s.summary          = 'A short description of EyuLibrary-ios.'
 
 # This description is used to generate tags and improve search results.
@@ -69,7 +69,7 @@ Pod::Spec.new do |s|
  end
  
  s.subspec 'fb_ads_sdk' do |fb_ads_sdk|
-     fb_ads_sdk.dependency 'FBAudienceNetwork','5.10.1'
+     fb_ads_sdk.dependency 'FBAudienceNetwork','6.2.0'
      fb_ads_sdk.dependency 'FBSDKCoreKit','7.1.1'
      fb_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) FB_ADS_ENABLED FACEBOOK_ENABLED'}
  end
@@ -81,36 +81,36 @@ Pod::Spec.new do |s|
 # end
  
  s.subspec 'applovin_ads_sdk' do |applovin_ads_sdk|
-     applovin_ads_sdk.dependency 'AppLovinSDK','6.13.5'
+     applovin_ads_sdk.dependency 'AppLovinSDK','6.14.6'
      applovin_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) APPLOVIN_ADS_ENABLED'}
  end
  
  s.subspec 'applovin_max_sdk' do |applovin_max_sdk|
-     applovin_max_sdk.dependency 'AppLovinSDK','6.13.5'
-     applovin_max_sdk.dependency 'AppLovinMediationFacebookAdapter','5.10.1.6'
+     applovin_max_sdk.dependency 'AppLovinSDK','6.14.6'
+     applovin_max_sdk.dependency 'AppLovinMediationFacebookAdapter','6.2.0.0'
 #     applovin_max_sdk.dependency 'AppLovinMediationMintegralAdapter','6.4.1.0.1'
      applovin_max_sdk.dependency 'AppLovinMediationGoogleAdapter','7.64.0.2'
      applovin_max_sdk.dependency 'AppLovinMediationIronSourceAdapter','7.0.1.0.0'
-     applovin_max_sdk.dependency 'AppLovinMediationByteDanceAdapter','3.2.0.1.0'
-     applovin_max_sdk.dependency 'AppLovinMediationUnityAdsAdapter','3.4.8.1'
-     applovin_max_sdk.dependency 'AppLovinMediationVungleAdapter','6.7.1.2'
+     applovin_max_sdk.dependency 'AppLovinMediationByteDanceAdapter','3.3.0.4.0'
+     applovin_max_sdk.dependency 'AppLovinMediationUnityAdsAdapter','3.5.0.1'
+     applovin_max_sdk.dependency 'AppLovinMediationVungleAdapter','6.8.1.0'
      applovin_max_sdk.dependency 'AppLovinMediationFyberAdapter','7.6.4.0'
      applovin_max_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) APPLOVIN_MAX_ENABLED APPLOVIN_ADS_ENABLED BYTE_DANCE_ADS_ENABLED FACEBOOK_ENABLED FB_ADS_ENABLED ADMOB_ADS_ENABLED' }
  end
  
  s.subspec 'unity_ads_sdk' do |unity_ads_sdk|
-     unity_ads_sdk.dependency 'UnityAds','3.4.8'
+     unity_ads_sdk.dependency 'UnityAds','3.5.0'
      unity_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) UNITY_ADS_ENABLED'}
  end
 
  s.subspec 'vungle_ads_sdk' do |vungle_ads_sdk|
-     vungle_ads_sdk.dependency 'VungleSDK-iOS','6.5.2'
+     vungle_ads_sdk.dependency 'VungleSDK-iOS','6.8.1'
      vungle_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VUNGLE_ADS_ENABLED'}
  end
  
  s.subspec 'byte_dance_ads_sdk' do |byte_dance_ads_sdk|
 #     byte_dance_ads_sdk.source 'https://github.com/CocoaPods/Specs.git'
-     byte_dance_ads_sdk.dependency 'Bytedance-UnionAD','3.2.0.1'
+     byte_dance_ads_sdk.dependency 'Bytedance-UnionAD','3.3.0.4'
      byte_dance_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) BYTE_DANCE_ADS_ENABLED'}
  end
  
