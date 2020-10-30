@@ -47,7 +47,10 @@ static id s_sharedRemoteConfigHelperIOS;
     [self.remoteConfig fetchWithExpirationDuration:0 completionHandler:^(FIRRemoteConfigFetchStatus status, NSError *error) {
         if (status == FIRRemoteConfigFetchStatusSuccess) {
             NSLog(@"Config fetched!");
-            [self.remoteConfig activateFetched];
+            [self.remoteConfig activateWithCompletion:^(BOOL changed, NSError * _Nullable error) {
+                NSLog(@"Config not activate");
+                NSLog(@"Error %@", error.localizedDescription);
+            }];
         } else {
             NSLog(@"Config not fetched");
             NSLog(@"Error %@", error.localizedDescription);

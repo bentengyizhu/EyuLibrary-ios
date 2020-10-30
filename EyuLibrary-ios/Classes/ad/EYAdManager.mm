@@ -18,7 +18,9 @@
 #import "EYNativeAdAdapter.h"
 #import "EYNativeAdView.h"
 #import <CoreTelephony/CTCellularData.h>
-
+#ifdef FB_ADS_ENABLED
+#import "FBAdSettings.h"
+#endif
 #ifdef BYTE_DANCE_ADS_ENABLED
 #import <BUAdSDK/BUAdSDKManager.h>
 #endif
@@ -370,7 +372,9 @@ static id s_sharedInstance;
         NSLog(@"lwq, setupWithViewController error,config == nil");
         return;
     }
-    
+#ifdef FB_ADS_ENABLED
+    [FBAdSettings setAdvertiserTrackingEnabled:YES];
+#endif
     [self initSdk:config];
     
     self.adKeyDict = [[NSMutableDictionary alloc] init];
