@@ -62,6 +62,7 @@ bool _adLoaded = false;
     NSLog(@"lwq, admob bannerWillPresentScreen");
     self.isShowing = true;
     [self notifyOnAdShowed];
+    [self notifyOnAdImpression];
 }
 
 - (void)adViewWillDismissScreen:(GADBannerView *)bannerView {

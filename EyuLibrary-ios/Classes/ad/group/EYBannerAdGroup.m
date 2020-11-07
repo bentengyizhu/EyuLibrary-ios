@@ -67,6 +67,44 @@
     return self;
 }
 
+-(void) loadAd:(NSString*)placeId
+{
+    self.adPlaceId = placeId;
+    if(self.adapterArray.count == 0) return;
+    self.curLoadingIndex = 0;
+    self.tryLoadAdCounter = 1;
+    
+    EYBannerAdAdapter* adapter = self.adapterArray[0];
+    [adapter loadAd];
+}
+
+-(EYBannerAdAdapter*) getAvailableAdapter
+{
+    EYBannerAdAdapter* loadAdapter = NULL;
+    int index = 0;
+    for(EYBannerAdAdapter* adapter in self.adapterArray)
+    {
+        if([adapter isAdLoaded])
+        {
+            loadAdapter = adapter;
+            break;
+        }
+        index++;
+    }
+    if(loadAdapter != NULL)
+    {
+        [self.adapterArray removeObject:loadAdapter];
+        EYAdKey* adKey = loadAdapter.adKey;
+        EYBannerAdAdapter* newAdapter = [self createAdAdapterWithKey:adKey adGroup:self.adGroup];
+        if(newAdapter && self.adGroup.isAutoLoad)
+        {
+            [newAdapter loadAd];
+        }
+        [self.adapterArray insertObject:newAdapter atIndex:index];
+    }
+    return loadAdapter;
+}
+
 -(EYBannerAdAdapter*) createAdAdapterWithKey:(EYAdKey*)adKey adGroup:(EYAdGroup*)group
 {
     EYBannerAdAdapter* adapter = NULL;
@@ -92,5 +130,96 @@
         }
     }
     return false;
+}
+
+- (void)onAdLoaded:(EYBannerAdAdapter *)adapter {
+    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
+    {
+        self.curLoadingIndex = -1;
+    }
+    if(self.delegate)
+    {
+        [self.delegate onAdLoaded:self.adPlaceId type:ADTypeBanner];
+    }
+    
+//    if(self.reportEvent){
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        [dic setObject:adapter.adKey.keyId forKey:@"type"];
+        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_SUCCESS]  parameters:dic];
+//    }
+}
+
+- (void)onAdLoadFailed:(EYBannerAdAdapter *)adapter withError:(int)errorCode {
+    EYAdKey* adKey = adapter.adKey;
+    NSLog(@"onAdLoadFailed adKey = %@, errorCode = %d", adKey.keyId, errorCode);
+    
+    if(self.reportEvent){
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        [dic setObject:[[NSString alloc] initWithFormat:@"%d",errorCode] forKey:@"code"];
+        [dic setObject:adKey.keyId forKey:@"type"];
+        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_FAILED]  parameters:dic];
+    }
+    
+    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
+    {
+        if(self.tryLoadAdCounter >= self.maxTryLoadAd){
+            self.curLoadingIndex = -1;
+        }else{
+            self.tryLoadAdCounter++;
+            self.curLoadingIndex = (self.curLoadingIndex+1)%self.adapterArray.count;
+            EYBannerAdAdapter* adapter = self.adapterArray[self.curLoadingIndex];
+            [adapter loadAd];
+            
+            if(self.reportEvent){
+                NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+                [dic setObject:adapter.adKey.keyId forKey:@"type"];
+                [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOADING]  parameters:dic];
+            }
+        }
+    }
+    if(self.delegate)
+    {
+        [self.delegate onAdLoadFailed:self.adPlaceId key:adKey.keyId code:errorCode];
+    }
+}
+
+- (void)onAdShowed:(EYBannerAdAdapter *)adapter {
+    if(self.delegate)
+    {
+        [self.delegate onAdClicked:self.adPlaceId type:ADTypeBanner];
+    }
+    if(self.reportEvent){
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        [dic setObject:adapter.adKey.keyId forKey:@"type"];
+        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_CLICKED]  parameters:dic];
+    }
+}
+
+- (void)onAdClicked:(EYBannerAdAdapter *)adapter {
+    if(self.delegate)
+    {
+        [self.delegate onAdClicked:self.adPlaceId type:ADTypeBanner];
+    }
+    if(self.reportEvent){
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        [dic setObject:adapter.adKey.keyId forKey:@"type"];
+        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_CLICKED]  parameters:dic];
+    }
+}
+
+- (void)onAdImpression:(EYBannerAdAdapter *)adapter {
+    if(self.delegate)
+    {
+        [self.delegate onAdImpression:self.adPlaceId type:ADTypeBanner];
+    }
+    EYAdKey *adKey = adapter.adKey;
+    if(adKey){
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        [dic setObject:adKey.network forKey:@"network"];
+        [dic setObject:adKey.key forKey:@"unit"];
+        [dic setObject:ADTypeBanner forKey:@"type"];
+        [dic setObject:adKey.keyId forKey:@"keyId"];
+        [EYEventUtils logEvent:EVENT_AD_IMPRESSION  parameters:dic];
+    }
 }
 @end
