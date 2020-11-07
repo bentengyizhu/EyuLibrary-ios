@@ -229,6 +229,8 @@ static id s_sharedInstance;
             {
                 [rewardAdGroup loadAd:@"auto"];
             }
+        } else if ([ADTypeBanner isEqualToString:group.type]) {
+            
         }
     }
 }

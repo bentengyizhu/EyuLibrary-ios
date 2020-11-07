@@ -25,6 +25,7 @@
 #define     ADTypeInterstitial               @"interstitialAd"
 #define     ADTypeNative                  @"nativeAd"
 #define     ADTypeReward                  @"rewardAd"
+#define     ADTypeBanner                  @"bannerAd"
 
 #define     EVENT_LOADING  @"_LOADING"
 #define     EVENT_SHOW  @"_SHOW"
