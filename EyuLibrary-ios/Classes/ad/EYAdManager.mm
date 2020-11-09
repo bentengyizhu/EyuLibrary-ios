@@ -17,6 +17,7 @@
 #import "EYRewardAdGroup.h"
 #import "EYNativeAdAdapter.h"
 #import "EYNativeAdView.h"
+#import "EYBannerAdGroup.h"
 #import <CoreTelephony/CTCellularData.h>
 #ifdef FB_ADS_ENABLED
 #import "FBAdSettings.h"
@@ -74,6 +75,7 @@
 @property(nonatomic,strong) NSMutableDictionary<NSString*,EYInterstitialAdGroup*>* interstitialAdGroupDict;
 @property(nonatomic,strong) NSMutableDictionary<NSString*,EYNativeAdGroup*>* nativeAdGroupDict;
 @property(nonatomic,strong) NSMutableDictionary<NSString*,EYRewardAdGroup*>* rewardAdGroupDict;
+@property(nonatomic,strong) NSMutableDictionary<NSString*,EYBannerAdGroup*>* bannerAdGroupDict;
 @property(nonatomic,strong) NSMutableDictionary<NSString*,NSString*>*  nativeAdViewNibDict;
 @property(nonatomic,strong) NSMutableDictionary<NSNumber*,NSMutableDictionary<NSString*,EYNativeAdView*>*>*  nativeAdViewDict;
 @property(nonatomic,weak) UIViewController* nativeAdController;
@@ -106,6 +108,7 @@ static id s_sharedInstance;
 @synthesize interstitialAdGroupDict = _interstitialAdGroupDict;
 @synthesize nativeAdGroupDict = _nativeAdGroupDict;
 @synthesize rewardAdGroupDict = _rewardAdGroupDict;
+@synthesize bannerAdGroupDict = _bannerAdGroupDict;
 @synthesize nativeAdViewDict = _nativeAdViewDict;
 @synthesize nativeAdViewNibDict = _nativeAdViewNibDict;
 @synthesize nativeAdController = _nativeAdController;
@@ -230,7 +233,9 @@ static id s_sharedInstance;
                 [rewardAdGroup loadAd:@"auto"];
             }
         } else if ([ADTypeBanner isEqualToString:group.type]) {
-            
+            EYBannerAdGroup* bannerGroup = [[EYBannerAdGroup alloc]initWithGroup:group adConfig:self.adConfig];
+            [bannerGroup setDelegate:self];
+            [self.bannerAdGroupDict setObject:bannerGroup forKey:group.groupId];
         }
     }
 }
@@ -388,6 +393,7 @@ static id s_sharedInstance;
     self.rewardAdGroupDict = [[NSMutableDictionary alloc] init];
     self.nativeAdViewDict = [[NSMutableDictionary alloc] init];
     self.nativeAdViewNibDict = [[NSMutableDictionary alloc] init];
+    self.bannerAdGroupDict = [[NSMutableDictionary alloc] init];
     self.nativeAdController = nil;
 #ifdef UNITY_ADS_ENABLED
     self.unityAdsDelegateDict = [[NSMutableDictionary alloc] init];
@@ -510,6 +516,35 @@ static id s_sharedInstance;
     return false;
 }
 
+-(bool) isBannerAdLoaded:(NSString*) placeId
+{
+    if(!self.isInited)
+    {
+        return false;
+    }
+    EYAdPlace* adPlace = self.adPlaceDict[placeId];
+    if(adPlace != nil)
+    {
+        EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.groupId];
+        return group!= nil && [group isCacheAvailable];
+    }
+    return false;
+}
+
+-(CGSize) getBannerSize:(NSString*) placeId {
+    if(!self.isInited)
+    {
+        return CGSizeMake(0, 0);
+    }
+    EYAdPlace* adPlace = self.adPlaceDict[placeId];
+    if(adPlace != nil)
+    {
+        EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.groupId];
+        return [group getBannerSize];
+    }
+    return CGSizeMake(0, 0);
+}
+
 -(bool) isInterstitialAdLoaded:(NSString*) placeId
 {
     if(!self.isInited)
@@ -559,6 +594,27 @@ static id s_sharedInstance;
         }
     }else{
         NSLog(@"loadNativeAd error, adPlace==nil, placeId = %@", placeId);
+    }
+}
+
+-(void)loadBannerAd:(NSString*) placeId viewController:(UIViewController *)controller {
+    if(!self.isInited)
+    {
+        return;
+    }
+    NSLog(@"lwq, loadBannerAd start placeId = %@", placeId);
+    EYAdPlace* adPlace = self.adPlaceDict[placeId];
+    if(adPlace != nil)
+    {
+        EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.groupId];
+        if(group!=nil)
+        {
+            [group loadAd:placeId controller:controller];
+        }else{
+            NSLog(@"loadBannerAd error, group==nil, placeId = %@", placeId);
+        }
+    }else{
+        NSLog(@"loadBannerAd error, adPlace==nil, placeId = %@", placeId);
     }
 }
 
@@ -635,6 +691,28 @@ static id s_sharedInstance;
         }else{
             [self loadNativeAd:placeId];
         }
+    }
+}
+
+- (void)showBannerAd:(NSString *)placeId withViewController:(UIViewController *)controller viewGroup:(UIView *)viewGroup {
+    if(!self.isInited)
+    {
+        return;
+    }
+    EYAdPlace* adPlace = self.adPlaceDict[placeId];
+    if(adPlace != nil)
+    {
+        EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.groupId];
+        if(group!=nil)
+        {
+            group.viewGroup = viewGroup;
+            [group loadAd:placeId controller:controller];
+        }else{
+            NSLog(@"showbannerAd error, group==nil, placeId = %@", placeId);
+        }
+    }else{
+        NSLog(@"showBannerAd error, adPlace==nil, placeId = %@", placeId);
+        
     }
 }
 
@@ -1021,6 +1099,7 @@ static id s_sharedInstance;
     [self.rewardAdGroupDict removeAllObjects];
     [self.interstitialAdGroupDict removeAllObjects];
     [self.nativeAdGroupDict removeAllObjects];
+    [self.bannerAdGroupDict removeAllObjects];
     [self.nativeAdViewDict removeAllObjects];
     [self.nativeAdViewNibDict removeAllObjects];
     [self.adKeyDict removeAllObjects];

@@ -25,21 +25,25 @@
     return self;
 }
 
--(void) loadAd
+-(void) loadAd:(UIViewController *)controller
 {
     NSAssert(true, @"子类中实现");
-}
-
--(bool) showAdWithController:(UIViewController*) controller
-{
-    NSAssert(true, @"子类中实现");
-    return false;
 }
 
 -(bool) isAdLoaded
 {
     NSAssert(true, @"子类中实现");
     return false;
+}
+
+- (bool)showAdGroup:(UIView *)viewGroup {
+    NSAssert(true, @"子类中实现");
+    return false;
+}
+
+- (UIView *)getBannerView {
+    NSAssert(true, @"子类中实现");
+    return NULL;
 }
 
 -(void) notifyOnAdLoaded

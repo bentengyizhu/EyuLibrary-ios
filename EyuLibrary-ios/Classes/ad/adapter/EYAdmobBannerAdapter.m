@@ -14,7 +14,7 @@
 @synthesize bannerAdView = _bannerAdView;
 bool _adLoaded = false;
 
--(void) loadAd
+-(void) loadAd:(UIViewController *)controller
 {
     NSLog(@" lwq, admob bannerAd ");
     if([self isAdLoaded])
@@ -25,18 +25,26 @@ bool _adLoaded = false;
     if (self.bannerAdView == NULL) {
         self.bannerAdView = [[GADBannerView alloc]initWithAdSize:kGADAdSizeSmartBannerPortrait];
         self.bannerAdView.adUnitID = self.adKey.keyId;
+        self.bannerAdView.rootViewController = controller;
         self.bannerAdView.delegate = self;
         [self.bannerAdView loadRequest:[[GADRequest alloc] init]];
     }
 }
 
-- (bool)showAdWithController:(UIViewController *)controller {
-    if ([self isAdLoaded])
-    {
-        self.bannerAdView.rootViewController = controller;
-        return true;
+- (bool)showAdGroup:(UIView *)viewGroup {
+    if (self.bannerAdView == NULL) {
+        return false;
     }
-    return false;
+    [self.bannerAdView removeFromSuperview];
+    CGRect bounds = CGRectMake(0,0, self.bannerAdView.frame.size.width, self.bannerAdView.frame.size.height);
+    NSLog(@"lwq, bannerAdView witdh = %f, height = %f ", bounds.size.width, bounds.size.height);
+    self.bannerAdView.frame = bounds;
+    [viewGroup addSubview:self.bannerAdView];
+    return true;
+}
+
+- (UIView *)getBannerView {
+    return self.bannerAdView;
 }
 
 -(bool) isAdLoaded

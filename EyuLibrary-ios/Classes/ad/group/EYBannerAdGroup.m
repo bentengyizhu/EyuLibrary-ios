@@ -32,13 +32,14 @@
 @synthesize curLoadingIndex = _curLoadingIndex;
 @synthesize tryLoadAdCounter = _tryLoadAdCounter;
 @synthesize reportEvent = _reportEvent;
+UIViewController* _controller;
 
 - (EYBannerAdGroup *)initWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig {
     self = [super init];
     if (self) {
         self.adapterClassDict = [[NSDictionary alloc] initWithObjectsAndKeys:
 #ifdef FB_ADS_ENABLED
-            NSClassFromString(@"EYFbBannerAdapter"), ADNetworkFacebook,
+            NSClassFromString(@"EYFBBannerAdapter"), ADNetworkFacebook,
 #endif
                                  
 #ifdef ADMOB_ADS_ENABLED
@@ -67,15 +68,51 @@
     return self;
 }
 
--(void) loadAd:(NSString*)placeId
+-(void) loadAd:(NSString*)placeId controller:(UIViewController*)controller
 {
     self.adPlaceId = placeId;
     if(self.adapterArray.count == 0) return;
     self.curLoadingIndex = 0;
     self.tryLoadAdCounter = 1;
-    
+    _controller = controller;
     EYBannerAdAdapter* adapter = self.adapterArray[0];
-    [adapter loadAd];
+    [adapter loadAd:controller];
+    if (self.adapterArray.count > 1) {
+        self.curLoadingIndex = 1;
+        self.tryLoadAdCounter = 2;
+        EYBannerAdAdapter* adapter2 = self.adapterArray[1];
+        [adapter2 loadAd:controller];
+    }
+}
+
+- (bool)showAdGroup:(UIView *)viewGroup {
+    NSLog(@"showBannerAd placeId = %@", self.adPlaceId);
+    EYBannerAdAdapter* loadAdapter = NULL;
+    for(EYBannerAdAdapter* adapter in self.adapterArray)
+    {
+        if([adapter isAdLoaded])
+        {
+            loadAdapter = adapter;
+            break;
+        }
+    }
+    if(loadAdapter!=NULL)
+    {
+        [loadAdapter showAdGroup:viewGroup];
+        return true;
+    }else{
+        return false;
+    }
+}
+
+-(CGSize) getBannerSize {
+    for (EYBannerAdAdapter *adapter in self.adapterArray) {
+        UIView* view = [adapter getBannerView];
+        if (view.superview) {
+            return view.frame.size;
+        }
+    }
+    return CGSizeMake(0, 0);
 }
 
 -(EYBannerAdAdapter*) getAvailableAdapter
@@ -98,7 +135,7 @@
         EYBannerAdAdapter* newAdapter = [self createAdAdapterWithKey:adKey adGroup:self.adGroup];
         if(newAdapter && self.adGroup.isAutoLoad)
         {
-            [newAdapter loadAd];
+            [newAdapter loadAd:_controller];
         }
         [self.adapterArray insertObject:newAdapter atIndex:index];
     }
@@ -141,7 +178,9 @@
     {
         [self.delegate onAdLoaded:self.adPlaceId type:ADTypeBanner];
     }
-    
+    if (self.viewGroup) {
+        [self showAdGroup:self.viewGroup];
+    }
 //    if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setObject:adapter.adKey.keyId forKey:@"type"];
@@ -168,7 +207,7 @@
             self.tryLoadAdCounter++;
             self.curLoadingIndex = (self.curLoadingIndex+1)%self.adapterArray.count;
             EYBannerAdAdapter* adapter = self.adapterArray[self.curLoadingIndex];
-            [adapter loadAd];
+            [adapter loadAd:_controller];
             
             if(self.reportEvent){
                 NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];

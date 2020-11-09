@@ -22,10 +22,9 @@
 
 -(instancetype) initWithAdKey:(EYAdKey*)adKey adGroup:(EYAdGroup*) group;
 
--(void) loadAd;
--(bool) showAdWithController:(UIViewController*) controller;
+-(void) loadAd:(UIViewController *)controller;
 -(bool) isAdLoaded;
-
+-(bool) showAdGroup:(UIView *)viewGroup;
 -(void) notifyOnAdLoaded;
 -(void) notifyOnAdLoadFailedWithError:(int)errorCode;
 -(void) notifyOnAdShowed;
@@ -33,6 +32,7 @@
 -(void) notifyOnAdRewarded;
 -(void) notifyOnAdClosed;
 -(void) notifyOnAdImpression;
+-(UIView *) getBannerView;
 @end
 
 @protocol IBannerAdDelegate <NSObject>

@@ -48,14 +48,19 @@
 -(void) showInterstitialAd:(NSString*) placeId withViewController:(UIViewController*)controller;
 
 -(void) loadNativeAd:(NSString*) placeId;
+-(void) loadBannerAd:(NSString*) placeId viewController:(UIViewController*)controller;
 -(EYNativeAdAdapter*) getNativeAdAdapter:(NSString*) adPlaceId;
 -(void) showNativeAd:(NSString*) placeId withViewController:(UIViewController*)controller viewGroup:(UIView*)viewGroup;
+-(void) showBannerAd:(NSString*) placeId withViewController:(UIViewController*)controller viewGroup:(UIView*)viewGroup;
 -(void) hideNativeAd:(NSString*) placeId forController:(UIViewController*)controller;
 -(void) removeNativeAdViewCache:(UIViewController*)controller;
 
 -(bool) isNativeAdLoaded:(NSString*) placeId;
+-(bool) isBannerAdLoaded:(NSString*) placeId;
 -(bool) isInterstitialAdLoaded:(NSString*) placeId;
 -(bool) isRewardAdLoaded:(NSString*) placeId;
+
+-(CGSize) getBannerSize:(NSString*) placeId;
 
 -(void) setupWithConfig:(EYAdConfig*) config;
 -(EYAdKey*) getAdKeyWithId:(NSString*) keyId;

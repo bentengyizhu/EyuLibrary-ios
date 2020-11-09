@@ -139,6 +139,7 @@
     }
 }
 
+
 -(bool) isCacheAvailable
 {
     for(EYRewardAdAdapter* adapter in self.adapterArray)
