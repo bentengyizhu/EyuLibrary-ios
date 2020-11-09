@@ -5,10 +5,11 @@
 //  Created by eric on 2020/11/7.
 //
 
-#import "EYAdmobBannerAdapter.h"
+
 //#include "EYBannerAdAdapter.h"
 
 #ifdef ADMOB_ADS_ENABLED
+#include "EYAdmobBannerAdapter.h"
 
 @implementation EYAdmobBannerAdapter
 @synthesize bannerAdView = _bannerAdView;

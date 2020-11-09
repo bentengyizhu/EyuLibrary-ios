@@ -10,7 +10,7 @@
 
 @implementation EYFBBannerAdapter
 @synthesize bannerView = _bannerView;
-bool _adLoaded = false;
+bool _fbadLoaded = false;
 
 -(void) loadAd:(UIViewController *)controller {
     NSLog(@"lwq, fb bannerAd");
@@ -39,25 +39,25 @@ bool _adLoaded = false;
 }
 
 - (UIView *)getBannerView {
-    return  self.bannerView;
+    return self.bannerView;
 }
 
 -(bool) isAdLoaded
 {
-    return _adLoaded;
+    return _fbadLoaded;
 }
 
 - (void)adViewDidLoad:(FBAdView *)adView {
     NSLog(@"lwq fbbanner ad didLoad");
     self.isLoading = false;
-    _adLoaded = true;
+    _fbadLoaded = true;
     [self notifyOnAdLoaded];
 }
 
 - (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error {
     NSLog(@"lwq,fb banner ad failed to load with error: %@", error);
     self.isLoading = false;
-    _adLoaded = false;
+    _fbadLoaded = false;
     [self notifyOnAdLoadFailedWithError:(int)error.code];
 }
 
