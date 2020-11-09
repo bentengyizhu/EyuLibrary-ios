@@ -52,17 +52,6 @@ UIViewController* _controller;
         self.curLoadingIndex = -1;
         self.tryLoadAdCounter = 0;
         self.reportEvent = adConfig.reportEvent;
-        
-        NSMutableArray<EYAdKey*>* keyList = adGroup.keyArray;
-        for(EYAdKey* adKey in keyList)
-        {
-            if(adKey){
-                EYBannerAdAdapter *adapter = [self createAdAdapterWithKey:adKey adGroup:adGroup];
-                if(adapter){
-                    [self.adapterArray addObject:adapter];
-                }
-            }
-        }
         self.maxTryLoadAd = ((int)self.adapterArray.count) * 2;
     }
     return self;
@@ -71,19 +60,20 @@ UIViewController* _controller;
 -(void) loadAd:(NSString*)placeId controller:(UIViewController*)controller
 {
     self.adPlaceId = placeId;
-    if(self.adapterArray.count == 0) return;
     self.curLoadingIndex = 0;
     self.tryLoadAdCounter = 1;
     _controller = controller;
-    EYBannerAdAdapter* adapter = self.adapterArray[0];
-    [adapter loadAd:controller];
-    if (self.adapterArray.count > 1) {
-        self.curLoadingIndex = 1;
-        self.tryLoadAdCounter = 2;
-        EYBannerAdAdapter* adapter2 = self.adapterArray[1];
-        [adapter2 loadAd:controller];
-    }
-}
+    NSMutableArray<EYAdKey*>* keyList = self.adGroup.keyArray;
+    for(EYAdKey* adKey in keyList)
+    {
+        if(adKey){
+            EYBannerAdAdapter *adapter = [self createAdAdapterWithKey:adKey adGroup:self.adGroup];
+            if(adapter){
+                [adapter loadAd:controller];
+                [self.adapterArray addObject:adapter];
+            }
+        }
+    }}
 
 - (bool)showAdGroup:(UIView *)viewGroup {
     NSLog(@"showBannerAd placeId = %@", self.adPlaceId);
@@ -181,6 +171,12 @@ UIViewController* _controller;
     if (self.viewGroup) {
         [self showAdGroup:self.viewGroup];
     }
+    for (EYBannerAdAdapter* ad in self.adapterArray) {
+        if (ad == adapter) {
+            [self.adapterArray removeObject:ad];
+            break;
+        }
+    }
 //    if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setObject:adapter.adKey.keyId forKey:@"type"];
@@ -203,12 +199,17 @@ UIViewController* _controller;
     {
         if(self.tryLoadAdCounter >= self.maxTryLoadAd){
             self.curLoadingIndex = -1;
+            for (EYBannerAdAdapter* ad in self.adapterArray) {
+                if (ad == adapter) {
+                    [self.adapterArray removeObject:ad];
+                    break;
+                }
+            }
         }else{
             self.tryLoadAdCounter++;
             self.curLoadingIndex = (self.curLoadingIndex+1)%self.adapterArray.count;
             EYBannerAdAdapter* adapter = self.adapterArray[self.curLoadingIndex];
             [adapter loadAd:_controller];
-            
             if(self.reportEvent){
                 NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
                 [dic setObject:adapter.adKey.keyId forKey:@"type"];
