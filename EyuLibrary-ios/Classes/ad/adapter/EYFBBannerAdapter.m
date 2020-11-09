@@ -32,16 +32,21 @@ bool _fbadLoaded = false;
         return false;
     }
     [self.bannerView removeFromSuperview];
-    
 //    CGRect bounds = CGRectMake(0,0, self.bannerView.frame.size.width, self.bannerView.frame.size.height);
 //    NSLog(@"lwq, bannerAdView witdh = %f, height = %f ", bounds.size.width, bounds.size.height);
 //    self.bannerView.frame = bounds;
+    CGFloat w = self.bannerView.frame.size.width;
+    CGFloat h = self.bannerView.frame.size.height;
     [viewGroup addSubview:self.bannerView];
     viewGroup.translatesAutoresizingMaskIntoConstraints = NO;
     NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.bannerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
     NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self.bannerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
-    [self.bannerView addConstraint:centerX];
-    [self.bannerView addConstraint:centerY];
+    NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.bannerView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:w];
+    NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:self.bannerView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:h];
+    [viewGroup addConstraint:centerX];
+    [viewGroup addConstraint:centerY];
+    [viewGroup addConstraint:width];
+    [viewGroup addConstraint:height];
     return true;
 }
 
