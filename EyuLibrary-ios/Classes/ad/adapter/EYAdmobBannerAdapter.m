@@ -25,9 +25,10 @@ bool _adLoaded = false;
     }
     if (self.bannerAdView == NULL) {
         self.bannerAdView = [[GADBannerView alloc]initWithAdSize:kGADAdSizeSmartBannerPortrait];
-        self.bannerAdView.adUnitID = self.adKey.keyId;
+        self.bannerAdView.adUnitID = self.adKey.key;
         self.bannerAdView.rootViewController = controller;
         self.bannerAdView.delegate = self;
+        self.bannerAdView.translatesAutoresizingMaskIntoConstraints = NO;
         [self.bannerAdView loadRequest:[[GADRequest alloc] init]];
     }
 }
@@ -37,10 +38,15 @@ bool _adLoaded = false;
         return false;
     }
     [self.bannerAdView removeFromSuperview];
-    CGRect bounds = CGRectMake(0,0, self.bannerAdView.frame.size.width, self.bannerAdView.frame.size.height);
-    NSLog(@"lwq, bannerAdView witdh = %f, height = %f ", bounds.size.width, bounds.size.height);
-    self.bannerAdView.frame = bounds;
+//    CGRect bounds = CGRectMake(0,0, self.bannerAdView.frame.size.width, self.bannerAdView.frame.size.height);
+//    NSLog(@"lwq, bannerAdView witdh = %f, height = %f ", bounds.size.width, bounds.size.height);
+//    self.bannerAdView.frame = bounds;
+    viewGroup.translatesAutoresizingMaskIntoConstraints = NO;
     [viewGroup addSubview:self.bannerAdView];
+    NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.bannerAdView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+    NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self.bannerAdView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+    [self.bannerAdView addConstraint:centerX];
+    [self.bannerAdView addConstraint:centerY];
     return true;
 }
 
