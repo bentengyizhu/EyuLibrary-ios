@@ -308,6 +308,9 @@ adConfig.wmAppKey = @"XXXXXX";
 //展示原生广告 native_ad为广告位id，对应ios_ad_setting.json配置
 [[EYAdManager sharedInstance] showNativeAd:@"native_ad" withViewController:self viewGroup:self.nativeRootView];
 
+//展示Banner广告 banner_ad为广告位id，对应ios_ad_setting.json配置
+bool isSuccess = [[EYAdManager sharedInstance] showBannerAd:@"banner_ad" viewGroup:self.bannerRootView];
+
 //广告回掉EYAdDelegate
 -(void) onAdLoaded:(NSString*) adPlaceId type:(NSString*)type
 {
