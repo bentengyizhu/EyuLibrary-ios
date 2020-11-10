@@ -11,10 +11,20 @@
 #ifdef ADMOB_ADS_ENABLED
 #include "EYAdmobBannerAdapter.h"
 
+@interface EYAdmobBannerAdapter()
+@property(nonatomic,assign)bool adLoaded;
+@end
+
 @implementation EYAdmobBannerAdapter
 @synthesize bannerAdView = _bannerAdView;
-bool _adLoaded = false;
 
+- (instancetype)initWithAdKey:(EYAdKey *)adKey adGroup:(EYAdGroup *)group {
+    self = [super initWithAdKey:adKey adGroup:group];
+    if (self) {
+        self.adLoaded = false;
+    }
+    return self;
+}
 -(void) loadAd:(UIViewController *)controller
 {
     NSLog(@" lwq, admob bannerAd ");
@@ -62,19 +72,19 @@ bool _adLoaded = false;
 
 -(bool) isAdLoaded
 {
-    return _adLoaded;
+    return self.adLoaded;
 }
 
 #pragma mark GADBannerViewDelegate implementation
 - (void)adViewDidReceiveAd:(GADBannerView *)bannerView {
     self.isLoading = false;
-    _adLoaded = true;
+    self.adLoaded = true;
     [self notifyOnAdLoaded];
 }
 
 - (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error {
     self.isLoading = false;
-    _adLoaded = false;
+    self.adLoaded = false;
     [self.delegate onAdLoadFailed:self withError:(int)error.code];
     NSLog(@"lwq, admob banner:didFailToReceiveAdWithError: %@, adKey = %@", [error localizedDescription], self.adKey);
 }

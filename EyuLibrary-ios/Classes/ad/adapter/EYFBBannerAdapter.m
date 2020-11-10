@@ -8,10 +8,19 @@
 #ifdef FB_ADS_ENABLED
 #include "EYFBBannerAdapter.h"
 
+@interface EYFBBannerAdapter()
+@property(nonatomic,assign)bool fbadLoaded;
+@end
+
 @implementation EYFBBannerAdapter
 @synthesize bannerView = _bannerView;
-bool _fbadLoaded = false;
-
+- (instancetype)initWithAdKey:(EYAdKey *)adKey adGroup:(EYAdGroup *)group {
+    self = [super initWithAdKey:adKey adGroup:group];
+    if (self) {
+        self.fbadLoaded = false;
+    }
+    return self;
+}
 -(void) loadAd:(UIViewController *)controller {
     NSLog(@"lwq, fb bannerAd");
     if([self isAdLoaded])
@@ -56,20 +65,20 @@ bool _fbadLoaded = false;
 
 -(bool) isAdLoaded
 {
-    return _fbadLoaded;
+    return self.fbadLoaded;
 }
 
 - (void)adViewDidLoad:(FBAdView *)adView {
     NSLog(@"lwq fbbanner ad didLoad");
     self.isLoading = false;
-    _fbadLoaded = true;
+    self.fbadLoaded = true;
     [self notifyOnAdLoaded];
 }
 
 - (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error {
     NSLog(@"lwq,fb banner ad failed to load with error: %@", error);
     self.isLoading = false;
-    _fbadLoaded = false;
+    self.fbadLoaded = false;
     [self notifyOnAdLoadFailedWithError:(int)error.code];
 }
 

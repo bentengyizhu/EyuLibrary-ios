@@ -169,7 +169,7 @@
     if (self.viewGroup) {
         [self showAdGroup:self.viewGroup];
     }
-    [self.adapterArray removeObject:adapter];
+    [self.adapterArray removeAllObjects];
 //    if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setObject:adapter.adKey.keyId forKey:@"type"];
