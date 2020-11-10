@@ -298,6 +298,8 @@ adConfig.wmAppKey = @"XXXXXX";
 
 [[EYAdManager sharedInstance] setupWithConfig:adConfig];
 [[EYAdManager sharedInstance] setDelegate:self];
+//如果有banner广告需要设置根控制器
+[[EYAdManager sharedInstance] setRootViewController:window.rootViewController];
 
 //展示激励视频 reward_ad为广告位id，对应ios_ad_setting.json配置
 [[EYAdManager sharedInstance] showRewardVideoAd:@"reward_ad" withViewController:self];
