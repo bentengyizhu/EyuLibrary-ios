@@ -52,7 +52,7 @@
 -(void) loadBannerAd:(NSString*) placeId;
 -(EYNativeAdAdapter*) getNativeAdAdapter:(NSString*) adPlaceId;
 -(void) showNativeAd:(NSString*) placeId withViewController:(UIViewController*)controller viewGroup:(UIView*)viewGroup;
--(void) showBannerAd:(NSString*) placeId withViewController:(UIViewController*)controller viewGroup:(UIView*)viewGroup;
+-(bool) showBannerAd:(NSString*) placeId  viewGroup:(UIView*)viewGroup;
 -(void) hideNativeAd:(NSString*) placeId forController:(UIViewController*)controller;
 -(void) removeNativeAdViewCache:(UIViewController*)controller;
 

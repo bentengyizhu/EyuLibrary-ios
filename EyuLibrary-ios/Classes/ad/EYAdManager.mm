@@ -506,7 +506,11 @@ static id s_sharedInstance;
 
 - (void)setRootViewController:(UIViewController *)rootViewController {
     _rootViewController = rootViewController;
-    [self loadBannerAd:@"auto"];
+    for (EYBannerAdGroup *group in self.bannerAdGroupDict.allValues) {
+        if (group.adGroup.isAutoLoad) {
+            [group loadAd:@"auto"];
+        }
+    }
 }
 
 -(bool) isNativeAdLoaded:(NSString*) placeId
@@ -603,9 +607,7 @@ static id s_sharedInstance;
         EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.groupId];
         if(group!=nil)
         {
-            if (!([placeId isEqualToString:@"auto"] && !group.adGroup.isAutoLoad)) {
-                [group loadAd:placeId];
-            }
+            [group loadAd:placeId];
         }else{
             NSLog(@"loadBannerAd error, group==nil, placeId = %@", placeId);
         }
@@ -690,10 +692,10 @@ static id s_sharedInstance;
     }
 }
 
-- (void)showBannerAd:(NSString *)placeId withViewController:(UIViewController *)controller viewGroup:(UIView *)viewGroup {
+- (bool)showBannerAd:(NSString *)placeId viewGroup:(UIView *)viewGroup {
     if(!self.isInited)
     {
-        return;
+        return false;
     }
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
@@ -701,13 +703,14 @@ static id s_sharedInstance;
         EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.groupId];
         if(group!=nil)
         {
-//            [group loadAd:placeId controller:controller];
+            return [group showAdGroup:viewGroup];
         }else{
             NSLog(@"showbannerAd error, group==nil, placeId = %@", placeId);
+            return false;
         }
     }else{
         NSLog(@"showBannerAd error, adPlace==nil, placeId = %@", placeId);
-        
+        return false;
     }
 }
 
