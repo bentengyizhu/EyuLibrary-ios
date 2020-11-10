@@ -18,6 +18,7 @@
     self = [super init];
     if(self)
     {
+        self.tryLoadAdCount = 1;
         self.adKey = adKey;
         self.adGroup = group;
         self.isLoading = false;
@@ -25,7 +26,7 @@
     return self;
 }
 
--(void) loadAd:(UIViewController *)controller
+-(void) loadAd
 {
     NSAssert(true, @"子类中实现");
 }

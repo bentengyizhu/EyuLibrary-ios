@@ -10,6 +10,7 @@
 
 #ifdef ADMOB_ADS_ENABLED
 #include "EYAdmobBannerAdapter.h"
+#include "EYAdManager.h"
 
 @interface EYAdmobBannerAdapter()
 @property(nonatomic,assign)bool adLoaded;
@@ -25,7 +26,7 @@
     }
     return self;
 }
--(void) loadAd:(UIViewController *)controller
+-(void) loadAd
 {
     NSLog(@" lwq, admob bannerAd ");
     if([self isAdLoaded])
@@ -33,10 +34,11 @@
         [self notifyOnAdLoaded];
         return;
     }
+    self.isLoading = true;
     if (self.bannerAdView == NULL) {
         self.bannerAdView = [[GADBannerView alloc]initWithAdSize:kGADAdSizeSmartBannerPortrait];
         self.bannerAdView.adUnitID = self.adKey.key;
-        self.bannerAdView.rootViewController = controller;
+        self.bannerAdView.rootViewController = EYAdManager.sharedInstance.rootViewController;
         self.bannerAdView.delegate = self;
         self.bannerAdView.translatesAutoresizingMaskIntoConstraints = NO;
         [self.bannerAdView loadRequest:[[GADRequest alloc] init]];

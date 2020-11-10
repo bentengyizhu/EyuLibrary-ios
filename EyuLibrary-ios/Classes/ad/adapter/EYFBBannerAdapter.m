@@ -7,6 +7,7 @@
 
 #ifdef FB_ADS_ENABLED
 #include "EYFBBannerAdapter.h"
+#include "EYAdManager.h"
 
 @interface EYFBBannerAdapter()
 @property(nonatomic,assign)bool fbadLoaded;
@@ -21,15 +22,16 @@
     }
     return self;
 }
--(void) loadAd:(UIViewController *)controller {
+-(void) loadAd {
     NSLog(@"lwq, fb bannerAd");
     if([self isAdLoaded])
     {
         [self notifyOnAdLoaded];
         return;
     }
+    self.isLoading = true;
     if (self.bannerView == NULL) {
-        self.bannerView = [[FBAdView alloc] initWithPlacementID:self.adKey.key adSize:kFBAdSizeHeight50Banner rootViewController:controller];
+        self.bannerView = [[FBAdView alloc] initWithPlacementID:self.adKey.key adSize:kFBAdSizeHeight50Banner rootViewController:EYAdManager.sharedInstance.rootViewController];
         self.bannerView.delegate = self;
         self.bannerView.translatesAutoresizingMaskIntoConstraints = NO;
         [self.bannerView loadAd];

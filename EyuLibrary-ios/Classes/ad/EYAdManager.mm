@@ -236,6 +236,9 @@ static id s_sharedInstance;
             EYBannerAdGroup* bannerGroup = [[EYBannerAdGroup alloc]initWithGroup:group adConfig:self.adConfig];
             [bannerGroup setDelegate:self];
             [self.bannerAdGroupDict setObject:bannerGroup forKey:group.groupId];
+            if (group.isAutoLoad && self.rootViewController) {
+                [bannerGroup loadAd:@"auto"];
+            }
         }
     }
 }
@@ -501,6 +504,11 @@ static id s_sharedInstance;
     }
 }
 
+- (void)setRootViewController:(UIViewController *)rootViewController {
+    _rootViewController = rootViewController;
+    [self loadBannerAd:@"auto"];
+}
+
 -(bool) isNativeAdLoaded:(NSString*) placeId
 {
     if(!self.isInited)
@@ -529,20 +537,6 @@ static id s_sharedInstance;
         return group!= nil && [group isCacheAvailable];
     }
     return false;
-}
-
--(CGSize) getBannerSize:(NSString*) placeId {
-    if(!self.isInited)
-    {
-        return CGSizeMake(0, 0);
-    }
-    EYAdPlace* adPlace = self.adPlaceDict[placeId];
-    if(adPlace != nil)
-    {
-        EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.groupId];
-        return [group getBannerSize];
-    }
-    return CGSizeMake(0, 0);
 }
 
 -(bool) isInterstitialAdLoaded:(NSString*) placeId
@@ -597,7 +591,7 @@ static id s_sharedInstance;
     }
 }
 
--(void)loadBannerAd:(NSString*) placeId viewController:(UIViewController *)controller {
+-(void)loadBannerAd:(NSString*) placeId {
     if(!self.isInited)
     {
         return;
@@ -609,7 +603,9 @@ static id s_sharedInstance;
         EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.groupId];
         if(group!=nil)
         {
-            [group loadAd:placeId controller:controller];
+            if (!([placeId isEqualToString:@"auto"] && !group.adGroup.isAutoLoad)) {
+                [group loadAd:placeId];
+            }
         }else{
             NSLog(@"loadBannerAd error, group==nil, placeId = %@", placeId);
         }
@@ -705,8 +701,7 @@ static id s_sharedInstance;
         EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.groupId];
         if(group!=nil)
         {
-            group.viewGroup = viewGroup;
-            [group loadAd:placeId controller:controller];
+//            [group loadAd:placeId controller:controller];
         }else{
             NSLog(@"showbannerAd error, group==nil, placeId = %@", placeId);
         }

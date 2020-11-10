@@ -19,10 +19,11 @@
 @property(nonatomic,strong)EYAdGroup *adGroup;
 @property(nonatomic,assign)bool isLoading;
 @property(nonatomic,assign)bool isShowing;
+@property(nonatomic,assign)int tryLoadAdCount;
 
 -(instancetype) initWithAdKey:(EYAdKey*)adKey adGroup:(EYAdGroup*) group;
 
--(void) loadAd:(UIViewController *)controller;
+-(void) loadAd;
 -(bool) isAdLoaded;
 -(bool) showAdGroup:(UIView *)viewGroup;
 -(void) notifyOnAdLoaded;

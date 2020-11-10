@@ -40,6 +40,7 @@
 @property(nonatomic,strong) EYAdConfig* adConfig;
 @property(nonatomic,assign) bool isAdmobRewardAdLoaded;
 @property(nonatomic,assign) bool isAdmobRewardAdLoading;
+@property(nonatomic,weak) UIViewController *rootViewController;
 
 -(void) loadRewardVideoAd:(NSString*) placeId;
 -(void) showRewardVideoAd:(NSString*) placeId withViewController:(UIViewController*)controller;
@@ -48,7 +49,7 @@
 -(void) showInterstitialAd:(NSString*) placeId withViewController:(UIViewController*)controller;
 
 -(void) loadNativeAd:(NSString*) placeId;
--(void) loadBannerAd:(NSString*) placeId viewController:(UIViewController*)controller;
+-(void) loadBannerAd:(NSString*) placeId;
 -(EYNativeAdAdapter*) getNativeAdAdapter:(NSString*) adPlaceId;
 -(void) showNativeAd:(NSString*) placeId withViewController:(UIViewController*)controller viewGroup:(UIView*)viewGroup;
 -(void) showBannerAd:(NSString*) placeId withViewController:(UIViewController*)controller viewGroup:(UIView*)viewGroup;
@@ -59,8 +60,6 @@
 -(bool) isBannerAdLoaded:(NSString*) placeId;
 -(bool) isInterstitialAdLoaded:(NSString*) placeId;
 -(bool) isRewardAdLoaded:(NSString*) placeId;
-
--(CGSize) getBannerSize:(NSString*) placeId;
 
 -(void) setupWithConfig:(EYAdConfig*) config;
 -(EYAdKey*) getAdKeyWithId:(NSString*) keyId;
