@@ -11,8 +11,9 @@
 @synthesize keyId = _keyId;
 @synthesize network = _network;
 @synthesize key = _key;
+@synthesize placementid = _placementid;
 
--(instancetype) initWithId : (NSString*) keyId network:(NSString*) network key:(NSString*) key
+-(instancetype) initWithId : (NSString*) keyId network:(NSString*) network key:(NSString*) key placementid:(NSString *)placementid
 {
     self = [super init];
     if(self)
@@ -25,6 +26,9 @@
         }
         if(key!=NULL){
             self.key = key;
+        }
+        if (placementid!=NULL) {
+            self.placementid = placementid;
         }
     }
     return self;

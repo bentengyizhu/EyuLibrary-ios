@@ -29,7 +29,7 @@
         self.isLoading = true;
         
         [self startTimeoutTask];
-        [[MTGRewardAdManager sharedInstance] loadVideoWithPlacementId:NULL unitId:self.adKey.key delegate:self];
+        [[MTGRewardAdManager sharedInstance] loadVideoWithPlacementId:self.adKey.placementid unitId:self.adKey.key delegate:self];
 //        [[MTGRewardAdManager sharedInstance] loadVideo:self.adKey.key delegate:self];
     }else{
         if(self.loadingTimer == nil){
@@ -44,7 +44,7 @@
     if([self isAdLoaded])
     {
         self.isShowing = YES;
-        [[MTGRewardAdManager sharedInstance] showVideoWithPlacementId:NULL unitId:self.adKey.key withRewardId:@"1" userId:@"1" delegate:self viewController:controller];
+        [[MTGRewardAdManager sharedInstance] showVideoWithPlacementId:self.adKey.placementid unitId:self.adKey.key withRewardId:@"1" userId:@"1" delegate:self viewController:controller];
 //        [[MTGRewardAdManager sharedInstance] showVideo:self.adKey.key withRewardId:@"1" userId:@"1" delegate:self viewController:controller];
         return true;
     }
@@ -53,7 +53,7 @@
 
 -(bool) isAdLoaded
 {
-    bool isAdLoaded = [[MTGRewardAdManager sharedInstance] isVideoReadyToPlayWithPlacementId:NULL unitId:self.adKey.key];
+    bool isAdLoaded = [[MTGRewardAdManager sharedInstance] isVideoReadyToPlayWithPlacementId:self.adKey.placementid unitId:self.adKey.key];
 //    bool isAdLoaded = [[MTGRewardAdManager sharedInstance] isVideoReadyToPlay:self.adKey.key];
     NSLog(@" lwq, mtg Reward video ad isAdLoaded = %d", isAdLoaded);
     return isAdLoaded;

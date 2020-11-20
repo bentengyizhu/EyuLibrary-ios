@@ -14,7 +14,8 @@
 @property(nonatomic,copy)NSString *keyId;
 @property(nonatomic,copy)NSString *network;
 @property(nonatomic,copy)NSString *key;
+@property(nonatomic,copy)NSString *placementid;
 
--(instancetype) initWithId : (NSString*) keyId network:(NSString*) network key:(NSString*) key;
+-(instancetype) initWithId : (NSString*) keyId network:(NSString*) network key:(NSString*) key placementid:(NSString *)placementid;
 
 @end

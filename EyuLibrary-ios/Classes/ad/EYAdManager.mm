@@ -152,7 +152,8 @@ static id s_sharedInstance;
         NSString *keyId = adKeySetting[@"id"];
         NSString *network = adKeySetting[@"network"];
         NSString *key = adKeySetting[@"key"];
-        EYAdKey *adKey = [[EYAdKey alloc] initWithId:keyId network:network key:key];
+        NSString *placementid = adKeySetting[@"placementid"];
+        EYAdKey *adKey = [[EYAdKey alloc] initWithId:keyId network:network key:key placementid:placementid];
         [self.adKeyDict setObject:adKey forKey:keyId];
     }
     

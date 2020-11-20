@@ -33,7 +33,7 @@
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if(self.interstitialAd == NULL)
     {
-        self.interstitialAd = [[MTGInterstitialVideoAdManager alloc]initWithPlacementId:NULL unitId:self.adKey.key delegate:self];
+        self.interstitialAd = [[MTGInterstitialVideoAdManager alloc]initWithPlacementId:self.adKey.placementid unitId:self.adKey.key delegate:self];
 //        self.interstitialAd = [[MTGInterstitialVideoAdManager alloc] initWithUnitID:self.adKey.key delegate:self];
 
         self.interstitialAd.delegate = self;

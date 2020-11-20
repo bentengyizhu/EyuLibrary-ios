@@ -37,10 +37,10 @@
         {
             self.rewardAd.delegate = nil;
         }
-        EYAdManager* manager = [EYAdManager sharedInstance];
-        NSString* appId = manager.adConfig.gdtAppId;
+//        EYAdManager* manager = [EYAdManager sharedInstance];
+//        NSString* appId = manager.adConfig.gdtAppId;
         self.isLoading = true;
-        self.rewardAd =  [[GDTRewardVideoAd alloc] initWithAppId:appId placementId:self.adKey.key];
+        self.rewardAd =  [[GDTRewardVideoAd alloc] initWithPlacementId:self.adKey.key];
         self.rewardAd.delegate = self;
         [self startTimeoutTask];
         [self.rewardAd loadAd];

@@ -36,7 +36,7 @@
         [self notifyOnAdLoaded];
     }else if(self.nativeAd == NULL)
     {
-        self.nativeAd = [[MTGNativeAdManager alloc]initWithPlacementId:NULL unitID:self.adKey.key supportedTemplates:@[[MTGTemplate templateWithType:MTGAD_TEMPLATE_BIG_IMAGE adsNum:1]] autoCacheImage:NO adCategory:MTGAD_CATEGORY_ALL presentingViewController:nil];
+        self.nativeAd = [[MTGNativeAdManager alloc]initWithPlacementId:self.adKey.placementid unitID:self.adKey.key supportedTemplates:@[[MTGTemplate templateWithType:MTGAD_TEMPLATE_BIG_IMAGE adsNum:1]] autoCacheImage:NO adCategory:MTGAD_CATEGORY_ALL presentingViewController:nil];
 //        self.nativeAd = [[MTGNativeAdManager alloc] initWithUnitID:self.adKey.key fbPlacementId:nil supportedTemplates:@[[MTGTemplate templateWithType:MTGAD_TEMPLATE_BIG_IMAGE adsNum:1]] autoCacheImage:NO adCategory:MTGAD_CATEGORY_ALL presentingViewController:nil];
         self.nativeAd.delegate = self;
         
