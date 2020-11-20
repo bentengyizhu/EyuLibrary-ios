@@ -363,5 +363,10 @@
         "id":"ironsourse_cp",
         "key":"1765427",
         "network":"ironsource"
+    },
+    {
+        "id":"inter_at",
+        "key":"b5bacad6860972",
+        "network":"anythink"
     }
 ]

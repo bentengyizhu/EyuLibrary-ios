@@ -77,6 +77,9 @@
 #ifdef GDT_ADS_ENABLED
         NSClassFromString(@"EYGdtInterstitialAdAdapter"), ADNetworkGdt,
 #endif
+#ifdef ANYTHINK_ENABLED
+        NSClassFromString(@"EYATIntersitialAdAdapter"), ADNetworkAnyThink,
+#endif
 
         nil];
 

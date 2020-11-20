@@ -33,6 +33,10 @@
 #import "Tracking.h"
 #endif
 
+#ifdef ANYTHINK_ENABLED
+#import <AnyThinkSDK/AnyThinkSDK.h>
+#endif
+
 #ifdef AF_ENABLED
 @interface AppsFlyerDelegate : NSObject <AppsFlyerTrackerDelegate> {
 }
@@ -214,6 +218,14 @@ AppsFlyerDelegate *_appflyerDelegate = [AppsFlyerDelegate new];
 + (void)initTrackingWithAppKey:(NSString *)appKey withChannelId:(NSString *)channelId
 {
     [Tracking initWithAppKey:appKey withChannelId:channelId];
+}
+#endif
+
+#ifdef ANYTHINK_ENABLED
++ (void)initAnyThinkWithAppID:(NSString *)appId AppKey:(NSString *)appKey {
+    [ATAPI setLogEnabled:YES];//Turn on debug logs
+    [ATAPI integrationChecking];
+    [[ATAPI sharedInstance] startWithAppID:appId appKey:appKey error:nil];
 }
 #endif
 

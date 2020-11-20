@@ -110,19 +110,22 @@ Pod::Spec.new do |s|
  
  s.subspec 'byte_dance_ads_sdk' do |byte_dance_ads_sdk|
 #     byte_dance_ads_sdk.source 'https://github.com/CocoaPods/Specs.git'
-     byte_dance_ads_sdk.dependency 'Bytedance-UnionAD','3.3.0.4'
+     byte_dance_ads_sdk.dependency 'Bytedance-UnionAD','3.3.0.5'
      byte_dance_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) BYTE_DANCE_ADS_ENABLED'}
  end
  
  s.subspec 'mtg_ads_sdk' do |mtg_ads_sdk|
-    mtg_ads_sdk.dependency 'MintegralAdSDK/InterstitialVideoAd','6.1.3.0'
-    mtg_ads_sdk.dependency 'MintegralAdSDK/RewardVideoAd','6.1.3.0'
-
+    mtg_ads_sdk.dependency 'MintegralAdSDK/InterstitialVideoAd','6.6.8.0'
+    mtg_ads_sdk.dependency 'MintegralAdSDK/RewardVideoAd','6.6.8.0'
+    mtg_ads_sdk.dependency 'MintegralAdSDK','6.6.8.0'
+    mtg_ads_sdk.dependency 'MintegralAdSDK/BidNativeAd','6.6.8.0'
+    mtg_ads_sdk.dependency 'MintegralAdSDK/InterstitialAd','6.6.8.0'
+    mtg_ads_sdk.dependency 'MintegralAdSDK/BannerAd','6.6.8.0'
      mtg_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) MTG_ADS_ENABLED'}
  end
  
  s.subspec 'gdt_ads_sdk' do |gdt_ad|
-     gdt_ad.dependency 'GDTMobSDK','4.11.10'
+     gdt_ad.dependency 'GDTMobSDK','4.11.12'
      gdt_ad.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) GDT_ADS_ENABLED'}
  end
  
@@ -167,6 +170,12 @@ end
      gdt_action.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) GDT_ACTION_ENABLED'}
  end
 
- 
- 
+ s.subspec 'anythink_sdk' do |anythink|
+     anythink.dependency 'AnyThinkiOS', '5.7.4'
+     anythink.dependency 'AnyThinkiOS/AnyThinkTouTiaoAdapter', '5.7.4'
+     anythink.dependency 'AnyThinkiOS/AnyThinkGDTAdapter', '5.7.4'
+     anythink.dependency 'AnyThinkiOS/AnyThinkMintegralAdapter', '5.7.4'
+     anythink.dependency 'AnyThinkiOS/AnyThinkAdmobAdapter', '5.7.4'
+     anythink.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ANYTHINK_ENABLED'}
+ end
 end

@@ -19,6 +19,7 @@
 #define     ADNetworkGdt                    @"gdt"
 #define     ADNetworkMtg                    @"mintegral"
 #define     ADNetworkIronSource             @"ironsource"
+#define     ADNetworkAnyThink               @"anythink"
 
 
 

@@ -52,6 +52,10 @@
 + (void)initTrackingWithAppKey:(NSString *)appKey withChannelId:(NSString *)channelId;
 #endif
 
+#ifdef ANYTHINK_ENABLED
++ (void)initAnyThinkWithAppID:(NSString *)appId AppKey:(NSString *)appKey;
+#endif
+
 + (NSData *)readFileWithName:(NSString *)name;
 + (NSDictionary *)readJsonFileWithName:(NSString *)name;
 

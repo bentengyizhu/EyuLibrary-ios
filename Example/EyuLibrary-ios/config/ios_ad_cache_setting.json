@@ -12,7 +12,7 @@
         "isAutoLoad":"true"
     },
     {
-        "keys":"[\"ios_fbcp_pkjsg\"]",
+        "keys":"[\"inter_at\"]",
         "type":"interstitialAd",
         "id":"inter_ad",
         "isAutoLoad":"true"
