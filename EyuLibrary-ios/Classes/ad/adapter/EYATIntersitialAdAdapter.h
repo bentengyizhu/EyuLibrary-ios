@@ -12,8 +12,8 @@
 #import "EYInterstitialAdAdapter.h"
 #import <AnyThinkInterstitial/AnyThinkInterstitial.h>
 
-@interface EYATIntersitialAdAdapter : EYInterstitialAdAdapter <ATInterstitialDelegate>
-
+@interface EYATIntersitialAdAdapter : EYInterstitialAdAdapter <ATInterstitialDelegate, ATAdLoadingDelegate>
+@property(nonatomic,strong)ATInterstitial *interstitialAd;
 @end
 
 #endif

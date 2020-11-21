@@ -56,6 +56,10 @@
 + (void)initAnyThinkWithAppID:(NSString *)appId AppKey:(NSString *)appKey;
 #endif
 
+//#ifdef MTG_ADS_ENABLED
+//+ (void)initMTGWithAppID:(NSString *)appId AppKey:(NSString *)appKey;
+//#endif
+
 + (NSData *)readFileWithName:(NSString *)name;
 + (NSDictionary *)readJsonFileWithName:(NSString *)name;
 

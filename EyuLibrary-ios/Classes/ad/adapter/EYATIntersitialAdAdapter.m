@@ -16,10 +16,14 @@
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded]){
         [self notifyOnAdLoaded];
-    }else{
+    }else if (!self.isLoading){
         [[ATAdManager sharedManager] loadADWithPlacementID:self.adKey.key extra:@{} delegate:self];
         [self startTimeoutTask];
         self.isLoading = true;
+    } else {
+        if(self.loadingTimer == nil){
+            [self startTimeoutTask];
+        }
     }
 }
 

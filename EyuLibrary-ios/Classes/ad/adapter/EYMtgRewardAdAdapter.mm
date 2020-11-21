@@ -83,7 +83,8 @@
 - (void)onAdLoadSuccess:(nullable NSString *)unitId
 {
     NSLog(@"lwq, mtg reawrded material load success");
-
+    self.isLoading = false;
+    [self cancelTimeoutTask];
 }
 
 /**

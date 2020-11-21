@@ -86,6 +86,9 @@
 #ifdef IRON_ADS_ENABLED
             NSClassFromString(@"EYIronSourceRewardAdAdapter"), ADNetworkIronSource,
 #endif
+#ifdef ANYTHINK_ENABLED
+            NSClassFromString(@"EYATRewardAdAdapter"), ADNetworkAnyThink,
+#endif
                                              nil];
 
         self.adGroup = group;

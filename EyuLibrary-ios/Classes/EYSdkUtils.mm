@@ -37,6 +37,10 @@
 #import <AnyThinkSDK/AnyThinkSDK.h>
 #endif
 
+#ifdef MTG_ADS_ENABLED
+#import <MTGSDK/MTGSDK.h>
+#endif
+
 #ifdef AF_ENABLED
 @interface AppsFlyerDelegate : NSObject <AppsFlyerTrackerDelegate> {
 }
@@ -223,12 +227,17 @@ AppsFlyerDelegate *_appflyerDelegate = [AppsFlyerDelegate new];
 
 #ifdef ANYTHINK_ENABLED
 + (void)initAnyThinkWithAppID:(NSString *)appId AppKey:(NSString *)appKey {
-    [ATAPI setLogEnabled:YES];//Turn on debug logs
-    [ATAPI integrationChecking];
+//    [ATAPI setLogEnabled:YES];//Turn on debug logs
+//    [ATAPI integrationChecking];
     [[ATAPI sharedInstance] startWithAppID:appId appKey:appKey error:nil];
 }
 #endif
 
+#ifdef MTG_ADS_ENABLED
++ (void)initMTGWithAppID:(NSString *)appId AppKey:(NSString *)appKey {
+    [[MTGSDK sharedInstance] setAppID:appId ApiKey:appKey];
+}
+#endif
     
 +(bool) isFBInited
 {

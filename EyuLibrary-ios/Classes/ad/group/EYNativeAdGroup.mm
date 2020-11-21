@@ -54,6 +54,9 @@
 #ifdef MTG_ADS_ENABLED
         NSClassFromString(@"EYMtgNativeAdAdapter"), ADNetworkMtg,
 #endif
+#ifdef ANYTHINK_ENABLED
+        NSClassFromString(@"EYATNativeAdAdapter"), ADNetworkAnyThink,
+#endif
         nil];
         
         self.adGroup = group;

@@ -368,5 +368,20 @@
         "id":"inter_at",
         "key":"b5bacad6860972",
         "network":"anythink"
+    },
+    {
+        "id":"reward_at",
+        "key":"b5c0f7cd196a4c",
+        "network":"anythink"
+    },
+    {
+        "id":"reward_mtg",
+        "key":"146892",
+        "network":"mintegral"
+    },
+    {
+        "id":"native_at",
+        "key":"b5b0f55228375a",
+        "network":"anythink"
     }
 ]

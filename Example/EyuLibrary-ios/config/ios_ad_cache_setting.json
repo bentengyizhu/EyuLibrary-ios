@@ -1,12 +1,12 @@
 [
     {
-        "keys":"[\"ios_wm_reward_ad\"]",
+        "keys":"[\"reward_at\"]",
         "type":"rewardAd",
         "id":"reward_ad",
         "isAutoLoad":"true"
     },
     {
-        "keys":"[\"ios_wm_native_ad\"]",
+        "keys":"[\"native_at\"]",
         "type":"nativeAd",
         "id":"native_ad",
         "isAutoLoad":"true"

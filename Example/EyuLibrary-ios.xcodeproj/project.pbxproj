@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07011E772569207800CE9E5B /* nativeAd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07011E762569207800CE9E5B /* nativeAd.xib */; };
 		5635DFC123EA9BDE0065566A /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5635DFC023EA9BDD0065566A /* iAd.framework */; };
 		56792D5824FDEA9F00655101 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56792D5724FDEA9F00655101 /* File.swift */; };
 		56E252BA21785EE500584CB9 /* ios_ad_key_setting.json in Resources */ = {isa = PBXBuildFile; fileRef = 56E252B321785EE500584CB9 /* ios_ad_key_setting.json */; };
@@ -15,7 +16,6 @@
 		56E252BF21785EE500584CB9 /* ios_ad_cache_setting.json in Resources */ = {isa = PBXBuildFile; fileRef = 56E252B821785EE500584CB9 /* ios_ad_cache_setting.json */; };
 		56E252C221785F5700584CB9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 56E252C121785F5600584CB9 /* GoogleService-Info.plist */; };
 		56E252C521786A7C00584CB9 /* EYViewControllerB.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E252C321786A7C00584CB9 /* EYViewControllerB.m */; };
-		56E252C721786EFD00584CB9 /* nativeAd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56E252C621786EFD00584CB9 /* nativeAd.xib */; };
 		56E252D62178704500584CB9 /* install@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56E252C92178704500584CB9 /* install@2x.png */; };
 		56E252D72178704500584CB9 /* yuanshengguanggao_dikuang.png in Resources */ = {isa = PBXBuildFile; fileRef = 56E252CA2178704500584CB9 /* yuanshengguanggao_dikuang.png */; };
 		56E252D82178704500584CB9 /* ad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56E252CB2178704500584CB9 /* ad@2x.png */; };
@@ -56,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07011E762569207800CE9E5B /* nativeAd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = nativeAd.xib; sourceTree = "<group>"; };
 		0DD451035A305C94C404E430 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		1C79031D01F0DD3B761FBD0D /* libPods-EyuLibrary-ios_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EyuLibrary-ios_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		372537BE4D1D744A193EB00E /* libPods-EyuLibrary-ios_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EyuLibrary-ios_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,7 +74,6 @@
 		56E252C121785F5600584CB9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		56E252C321786A7C00584CB9 /* EYViewControllerB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EYViewControllerB.m; sourceTree = "<group>"; };
 		56E252C421786A7C00584CB9 /* EYViewControllerB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EYViewControllerB.h; sourceTree = "<group>"; };
-		56E252C621786EFD00584CB9 /* nativeAd.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = nativeAd.xib; sourceTree = "<group>"; };
 		56E252C92178704500584CB9 /* install@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "install@2x.png"; sourceTree = "<group>"; };
 		56E252CA2178704500584CB9 /* yuanshengguanggao_dikuang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yuanshengguanggao_dikuang.png; sourceTree = "<group>"; };
 		56E252CB2178704500584CB9 /* ad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ad@2x.png"; sourceTree = "<group>"; };
@@ -222,7 +222,6 @@
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
-				56E252C621786EFD00584CB9 /* nativeAd.xib */,
 			);
 			name = "Example for EyuLibrary-ios";
 			path = "EyuLibrary-ios";
@@ -235,6 +234,7 @@
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
 				6003F59B195388D20070C39A /* EyuLibrary-ios-Prefix.pch */,
+				07011E762569207800CE9E5B /* nativeAd.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -360,6 +360,7 @@
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				56E252E22178704500584CB9 /* yuanshengguanggao_dikuang01@2x.png in Resources */,
 				56E252E02178704500584CB9 /* guanggaoguanbi@2x.png in Resources */,
+				07011E772569207800CE9E5B /* nativeAd.xib in Resources */,
 				56E252BF21785EE500584CB9 /* ios_ad_cache_setting.json in Resources */,
 				56E252BE21785EE500584CB9 /* defaults_setting.json in Resources */,
 				56E252D82178704500584CB9 /* ad@2x.png in Resources */,
@@ -368,7 +369,6 @@
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 				56E252BC21785EE500584CB9 /* ios_ad_setting.json in Resources */,
 				56E252BA21785EE500584CB9 /* ios_ad_key_setting.json in Resources */,
-				56E252C721786EFD00584CB9 /* nativeAd.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,6 +653,7 @@
 					APPLOVIN_MAX_ENABLED,
 					BYTE_DANCE_ADS_ENABLED,
 					ANYTHINK_ENABLED,
+					MTG_ADS_ENABLED,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
