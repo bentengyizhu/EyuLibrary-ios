@@ -34,17 +34,11 @@
         return  false;
     }
     ATNativeADConfiguration *config = [[ATNativeADConfiguration alloc] init];
-    config.ADFrame = nativeAdLayout.bounds;
+    config.ADFrame = mediaLayout.bounds;
     config.delegate = self;
-    config.renderingViewClass = [ATNativeADView class];
+    config.renderingViewClass = [EYATNativeAdView class];
     config.rootViewController = controller;
-    self.nativeAdView = [[ATAdManager sharedManager] retriveAdViewWithPlacementID:self.adKey.key configuration:config];
-//    if(mediaLayout!= NULL && self.nativeAdView.mediaView!=NULL){
-//        [self.nativeAdView.videoAdView removeFromSuperview];
-//        CGRect mediaViewBounds = CGRectMake(0,0, mediaLayout.frame.size.width, mediaLayout.frame.size.height);
-//        self.nativeAdView.videoAdView.frame = mediaViewBounds;
-//        [mediaLayout addSubview:self.nativeAdView.videoAdView];
-//    }
+    self.nativeAdView = (EYATNativeAdView *)[[ATAdManager sharedManager] retriveAdViewWithPlacementID:self.adKey.key configuration:config];
     if(nativeAdIcon != NULL)
     {
         nativeAdIcon.image = self.nativeAdView.nativeAd.icon;
@@ -57,12 +51,17 @@
         nativeAdDesc.text = self.nativeAdView.nativeAd.mainText;
     }
     if(actBtn != NULL){
-        actBtn.hidden = false;
         if (self.nativeAdView.nativeAd.ctaText) {
+            actBtn.hidden = false;
             [actBtn setTitle:self.nativeAdView.nativeAd.ctaText forState:UIControlStateNormal];
+        } else {
+            actBtn.hidden = true;
         }
     }
-//    [nativeAdLayout addSubview:self.nativeAdView];
+    if (self.nativeAdView.nativeAd.mainImage && self.nativeAdView.mainImageView.image == nil) {
+        self.nativeAdView.mainImageView.image = self.nativeAdView.nativeAd.mainImage;
+    }
+    [mediaLayout addSubview:self.nativeAdView];
     return true;
 }
 
@@ -92,6 +91,49 @@
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoadFailedWithError:(int)error.code];
+}
+
+#pragma mark - native delegate
+- (void)didClickNativeAdInAdView:(ATNativeADView *)adView placementID:(NSString *)placementID extra:(NSDictionary *)extra {
+    [self notifyOnAdClicked];
+}
+
+- (void)didEndPlayingVideoInAdView:(ATNativeADView *)adView placementID:(NSString *)placementID extra:(NSDictionary *)extra {
+    NSLog(@"lwq,at videoControllerDidEndVideoPlayback, adLoader = : %@", self);
+}
+
+- (void)didEnterFullScreenVideoInAdView:(ATNativeADView *)adView placementID:(NSString *)placementID extra:(NSDictionary *)extra {
+    
+}
+
+- (void)didExitFullScreenVideoInAdView:(ATNativeADView *)adView placementID:(NSString *)placementID extra:(NSDictionary *)extra {
+    
+}
+
+- (void)didLoadSuccessDrawWith:(NSArray *)views placementID:(NSString *)placementID extra:(NSDictionary *)extra {
+    
+}
+
+- (void)didShowNativeAdInAdView:(ATNativeADView *)adView placementID:(NSString *)placementID extra:(NSDictionary *)extra {
+    if (!self.nativeAdView.mainImageView.image) {
+        self.nativeAdView.mainImageView.image = self.nativeAdView.nativeAd.mainImage;
+    }
+    [self notifyOnAdShowed];
+    [self notifyOnAdImpression];
+}
+
+- (void)didStartPlayingVideoInAdView:(ATNativeADView *)adView placementID:(NSString *)placementID extra:(NSDictionary *)extra {
+    
+}
+
+- (void)didTapCloseButtonInAdView:(ATNativeADView *)adView placementID:(NSString *)placementID extra:(NSDictionary *)extra {
+    
+}
+
+- (void)dealloc
+{
+    NSLog(@"lwq, ATNativeAdAdapter dealloc");
+    [self unregisterView];
 }
 @end
 
