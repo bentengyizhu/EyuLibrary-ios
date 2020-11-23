@@ -58,9 +58,6 @@
             actBtn.hidden = true;
         }
     }
-    if (self.nativeAdView.nativeAd.mainImage && self.nativeAdView.mainImageView.image == nil) {
-        self.nativeAdView.mainImageView.image = self.nativeAdView.nativeAd.mainImage;
-    }
     [mediaLayout addSubview:self.nativeAdView];
     return true;
 }

@@ -44,6 +44,10 @@
 #ifdef ADMOB_ADS_ENABLED
             NSClassFromString(@"EYAdmobBannerAdapter"), ADNetworkAdmob,
 #endif
+                                 
+#ifdef ANYTHINK_ENABLED
+            NSClassFromString(@"EYATBannerAdAdapter"), ADNetworkAnyThink,
+#endif
         nil];
         self.adGroup = adGroup;
         self.adapterArray = [[NSMutableArray alloc] init];

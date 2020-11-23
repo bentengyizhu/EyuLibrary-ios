@@ -20,9 +20,6 @@
     }else if([self isAdLoaded])
     {
         [self notifyOnAdLoaded];
-    }else if([self isAdLoaded]){
-        NSLog(@"lwq,one AdmobRewardAdAdapter was already loaded.");
-        [self notifyOnAdLoadFailedWithError:ERROR_OTHER_ADMOB_REWARD_AD_LOADED];
     }else if(!self.isLoading)
     {
         self.isLoading = YES;

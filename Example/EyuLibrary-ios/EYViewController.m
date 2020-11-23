@@ -33,6 +33,7 @@
 //    UITapGestureRecognizer *gotoGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(gotoNext:)];
 //    [self.gotoBtn addGestureRecognizer:gotoGesture];
 //    [gotoGesture setNumberOfTapsRequired:1];
+    [EYAdManager sharedInstance].rootViewController = self;
     
     UITapGestureRecognizer *rewardAdGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showRewardAd:)];
     [self.rewardAdBtn addGestureRecognizer:rewardAdGesture];
@@ -88,7 +89,7 @@
 
 - (void)showBanner:(UITapGestureRecognizer *)gesture {
     NSLog(@"A showBanner");
-//    [[EYAdManager sharedInstance] showNativeAd:@"banner_ad" withViewController:self viewGroup:self.nativeRootView];
+    [[EYAdManager sharedInstance] showBannerAd:@"banner_ad" viewGroup:self.bannerView];
 }
 
 @end

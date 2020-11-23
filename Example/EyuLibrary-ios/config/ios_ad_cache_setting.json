@@ -18,8 +18,8 @@
         "isAutoLoad":"true"
     },
     {
-        "keys":"[]",
-        "type":"banner",
+        "keys":"[\"banner_at\"]",
+        "type":"bannerAd",
         "id":"banner_group",
         "isAutoLoad":"true"
     }

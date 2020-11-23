@@ -52,13 +52,20 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="banner"/>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lZ9-BY-S3q">
-                                <rect key="frame" x="0.0" y="94" width="375" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lZ9-BY-S3q">
+                                <rect key="frame" x="0.0" y="150" width="375" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="RFi-3R-CcP"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="lZ9-BY-S3q" firstAttribute="leading" secondItem="TpU-gO-2f1" secondAttribute="leading" id="e2u-fI-lzx"/>
+                            <constraint firstAttribute="trailing" secondItem="lZ9-BY-S3q" secondAttribute="trailing" id="sXu-RX-1v5"/>
+                            <constraint firstItem="lZ9-BY-S3q" firstAttribute="top" secondItem="uEw-UM-LJ8" secondAttribute="bottom" constant="150" id="ysX-1X-U4v"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="bannerBtn" destination="rf9-Ol-xgf" id="cV2-ut-Koh"/>
