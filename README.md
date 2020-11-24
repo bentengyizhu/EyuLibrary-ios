@@ -36,9 +36,10 @@ it, simply add the following line to your Podfile:
     FB登录             :'fb_login_sdk'          FACEBOOK_ENABLED FACEBOOK_LOGIN_ENABLED 
     热云               :'ReYunTracking'         TRACKING_ENABLED
     
-    ADMOB             :'admob_sdk'              ADMOB_ADS_ENABLED
+    ADMOB             :'admob_sdk'             ADMOB_ADS_ENABLED
     
-    applovin MAX       :'applovin_max_sdk'      APPLOVIN_MAX_ENABLED
+    applovin MAX      :'applovin_max_sdk'      APPLOVIN_MAX_ENABLED
+    AnyThink          :'anythink_sdk'          ANYTHINK_ENABLED
 ```
 ### IOS 14适配
 skadnetwork说明文档
@@ -268,6 +269,16 @@ adConfig.admobClientId = @"ca-app-pub-7585239226773233~4631740346";
 ```txt
 热云  需要在GCC_PREPROCESSOR_DEFINITIONS 加上 TRACKING_ENABLED
 [EYSdkUtils initTrackingWithAppKey:appKey];
+```
+### 19、applovin MAX
+```txt
+max  需要在GCC_PREPROCESSOR_DEFINITIONS 加上 APPLOVIN_MAX_ENABLED
+```
+### 20、AnyThink
+```txt
+AnyThink  需要在GCC_PREPROCESSOR_DEFINITIONS 加上 ANYTHINK_ENABLED
+并集成需要用到的广告模块，比如用到了admob广告则需要额外添加"admob_sdk"模块，或者手动添加admob对应版本的的SDK
+[EYSdkUtils initAnyThinkWithAppID:appid AppKey:appKey];
 ```
 
 ### 初始化FB， Firebase， UMMobSdk， AppFlyer， GDTActionSdk，及firebase 远程配置
