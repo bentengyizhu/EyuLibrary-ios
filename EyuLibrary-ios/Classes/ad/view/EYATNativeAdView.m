@@ -19,18 +19,24 @@
 //    } else {
     [self addSubview:_mainImageView];
     _mainImageView.layer.zPosition = -2;
-    self.mediaView.layer.zPosition = -1;
 //    }
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     _mainImageView.frame = self.bounds;
-    if (self.mediaView) {
-        self.mediaView.frame = self.bounds;
-    }
 }
 
+- (void)layoutMediaView {
+    self.mediaView.layer.zPosition = -1;
+    self.mediaView.frame = self.bounds;
+}
+
+-(NSArray<UIView*>*)clickableViews {
+    NSMutableArray<UIView*> *clickableViews = [NSMutableArray<UIView*> arrayWithObjects:_mainImageView, nil];
+    if (self.mediaView != nil) { [clickableViews addObject:self.mediaView]; }
+    return clickableViews;
+}
 
 @end
 #endif

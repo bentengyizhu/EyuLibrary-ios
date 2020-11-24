@@ -31,11 +31,12 @@
 
 -(bool)showAdWithAdLayout:(UIView *)nativeAdLayout iconView:(UIImageView *)nativeAdIcon titleView:(UILabel *)nativeAdTitle descView:(UILabel *)nativeAdDesc mediaLayout:(UIView *)mediaLayout actBtn:(UIButton *)actBtn controller:(UIViewController *)controller {
     if (![self isAdLoaded]) {
-        return  false;
+        return false;
     }
     ATNativeADConfiguration *config = [[ATNativeADConfiguration alloc] init];
     config.ADFrame = mediaLayout.bounds;
     config.delegate = self;
+    config.mediaViewFrame = mediaLayout.bounds;
     config.renderingViewClass = [EYATNativeAdView class];
     config.rootViewController = controller;
     self.nativeAdView = (EYATNativeAdView *)[[ATAdManager sharedManager] retriveAdViewWithPlacementID:self.adKey.key configuration:config];
@@ -112,9 +113,9 @@
 }
 
 - (void)didShowNativeAdInAdView:(ATNativeADView *)adView placementID:(NSString *)placementID extra:(NSDictionary *)extra {
-    if (!self.nativeAdView.mainImageView.image) {
-        self.nativeAdView.mainImageView.image = self.nativeAdView.nativeAd.mainImage;
-    }
+//    if (!self.nativeAdView.mainImageView.image) {
+//        self.nativeAdView.mainImageView.image = self.nativeAdView.nativeAd.mainImage;
+//    }
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
 }
