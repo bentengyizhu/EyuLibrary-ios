@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 #    s.use_frameworks!
   s.name             = 'EyuLibrary-ios'
-  s.version          = '1.3.51'
+  s.version          = '1.3.52'
   s.summary          = 'A short description of EyuLibrary-ios.'
 
 # This description is used to generate tags and improve search results.
@@ -95,7 +95,7 @@ Pod::Spec.new do |s|
      applovin_max_sdk.dependency 'AppLovinMediationUnityAdsAdapter','3.5.0.1'
      applovin_max_sdk.dependency 'AppLovinMediationVungleAdapter','6.8.1.0'
      applovin_max_sdk.dependency 'AppLovinMediationFyberAdapter','7.7.2.0'
-     applovin_max_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) APPLOVIN_MAX_ENABLED APPLOVIN_ADS_ENABLED BYTE_DANCE_ADS_ENABLED FACEBOOK_ENABLED FB_ADS_ENABLED ADMOB_ADS_ENABLED' }
+     applovin_max_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) APPLOVIN_MAX_ENABLED' }
  end
 
  s.subspec 'unity_ads_sdk' do |unity_ads_sdk|
