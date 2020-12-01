@@ -124,14 +124,13 @@
 
 - (void)didCompleteRewardedVideoForAd:(MAAd *)ad {
     NSLog(@"lwq, MAX reward ad didCompleteRewardedVideoForAd");
-    self.isRewarded = true;
 }
 
 - (void)didRewardUserForAd:(MAAd *)ad withReward:(MAReward *)reward
 {
     // Rewarded ad was displayed and user should receive the reward
     NSLog(@"lwq, MAX reward ad didRewardUserForAd");
-
+    self.isRewarded = true;
 }
 
 @end
