@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 #    s.use_frameworks!
   s.name             = 'EyuLibrary-ios'
-  s.version          = '1.3.52'
+  s.version          = '1.3.53'
   s.summary          = 'A short description of EyuLibrary-ios.'
 
 # This description is used to generate tags and improve search results.
@@ -64,7 +64,7 @@ Pod::Spec.new do |s|
  end
 
  s.subspec 'admob_sdk' do |admob|
-     admob.dependency 'Google-Mobile-Ads-SDK'
+     admob.dependency 'Google-Mobile-Ads-SDK','7.64.0'
      admob.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ADMOB_ADS_ENABLED'}
  end
 
