@@ -55,7 +55,7 @@
 //    self.bannerAdView.frame = bounds;
     CGFloat w = self.bannerAdView.frame.size.width;
     CGFloat h = self.bannerAdView.frame.size.height;
-    viewGroup.translatesAutoresizingMaskIntoConstraints = NO;
+//    viewGroup.translatesAutoresizingMaskIntoConstraints = NO;
     [viewGroup addSubview:self.bannerAdView];
     NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.bannerAdView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
     NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self.bannerAdView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
