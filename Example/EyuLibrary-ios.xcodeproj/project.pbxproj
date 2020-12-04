@@ -648,6 +648,7 @@
 					GDT_ADS_ENABLED,
 					ANYTHINK_ENABLED,
 					MTG_ADS_ENABLED,
+					TRACKING_ENABLED,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
