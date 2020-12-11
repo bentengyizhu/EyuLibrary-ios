@@ -40,6 +40,8 @@ it, simply add the following line to your Podfile:
     
     applovin MAX      :'applovin_max_sdk'      APPLOVIN_MAX_ENABLED
     AnyThink          :'anythink_sdk'          ANYTHINK_ENABLED
+    
+    注意：引入的模块的预编译宏在debug和release下均需添加
 ```
 ### IOS 14适配
 skadnetwork说明文档
