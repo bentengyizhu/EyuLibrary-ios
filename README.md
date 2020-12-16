@@ -276,7 +276,8 @@ admob关于ios14的建议
 https://support.google.com/admob/answer/9997589?hl=zh-Hans
 
 1.在info.plist文件里添加跟踪权限请求描述说明
-```<key>NSUserTrackingUsageDescription</key>
+```xml
+<key>NSUserTrackingUsageDescription</key>
 <string>This identifier will be used to deliver personalized ads to you.</string>
 ```
 
