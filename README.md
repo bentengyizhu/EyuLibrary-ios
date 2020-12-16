@@ -283,7 +283,8 @@ https://support.google.com/admob/answer/9997589?hl=zh-Hans
 
 2.获取App Tracking Transparency权限  
 建议在block的回调中对对应平台sdk进行初始化
-```#import <AppTrackingTransparency/AppTrackingTransparency.h>
+```oc
+#import <AppTrackingTransparency/AppTrackingTransparency.h>
 if (@available(iOS 14, *)) {
     //iOS 14
     [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
@@ -307,7 +308,8 @@ if (@available(iOS 14, *)) {
 要启用此功能，您需要在info.plist中添加SKAdNetworkItems，下面例举几个常用的SDK平台需要添加的内容，其他请参考对应官方文档
 
  Google Admob
- ```<key>SKAdNetworkItems</key>
+ ```xml
+ <key>SKAdNetworkItems</key>
  <array>
      <dict>
        <key>SKAdNetworkIdentifier</key>
@@ -317,7 +319,8 @@ if (@available(iOS 14, *)) {
  ```
  
  穿山甲(Pangle)
- ``` <key>SKAdNetworkItems</key>
+ ``` xml
+ <key>SKAdNetworkItems</key>
  <array>
      <dict>
          <key>SKAdNetworkIdentifier</key>
@@ -331,7 +334,8 @@ if (@available(iOS 14, *)) {
  ```
  
  UnityAds
- ```<key>SKAdNetworkItems</key>
+ ```xml
+ <key>SKAdNetworkItems</key>
  <array>
      <dict>
          <key>SKAdNetworkIdentifier</key>
@@ -345,7 +349,8 @@ if (@available(iOS 14, *)) {
  ```
  
  Mintegral
- ```<key>SKAdNetworkItems</key>
+ ```xml
+ <key>SKAdNetworkItems</key>
  <array>
      <dict>
          <key>SKAdNetworkIdentifier</key>
@@ -427,7 +432,8 @@ if (@available(iOS 14, *)) {
  ```
  
  Facebook
- ``` <key>SKAdNetworkItems</key>
+ ```xml
+ <key>SKAdNetworkItems</key>
  <array>
      <dict>
          <key>SKAdNetworkIdentifier</key>
@@ -441,7 +447,8 @@ if (@available(iOS 14, *)) {
  ```
  
  Sigmob
- ```<key>SKAdNetworkItems</key>
+ ```xml
+ <key>SKAdNetworkItems</key>
  <array>
      <dict>
          <key>SKAdNetworkIdentifier</key>
@@ -449,6 +456,93 @@ if (@available(iOS 14, *)) {
      </dict>
  </array>
  ```
+
+MAX
+```xml
+<key>SKAdNetworkItems</key>
+ <array>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>2u9pt9hc89.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>4468km3ulz.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>4fzdc2evr5.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>7ug5zh24hu.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>8s468mfl3y.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>9rd848q2bz.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>9t245vhmpl.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>av6w8kgt66.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>f38h382jlk.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>hs6bdukanm.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>kbd757ywx3.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>ludvb6z3bs.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>m8dbw4sv7c.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>mlmmfzh3r3.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>prcb7njmu6.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>t38b2kh725.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>tl55sbb4fm.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>wzmmz9fp6w.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>yclnxrl5pm.skadnetwork</string>
+    </dict>
+    <dict>
+        <key>SKAdNetworkIdentifier</key>
+        <string>ydx93a7ass.skadnetwork</string>
+    </dict>
+</array>
+```
 
 ## Author
 
