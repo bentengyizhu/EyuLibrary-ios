@@ -284,6 +284,7 @@ https://support.google.com/admob/answer/9997589?hl=zh-Hans
 2.获取App Tracking Transparency权限  
 ```oc
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
+//建议在请求权限后再请求广告（如果配置文件的isAutoLoad为true,setupWithConfig方法会自动加载广告）
 if (@available(iOS 14, *)) {
     //iOS 14
     [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
