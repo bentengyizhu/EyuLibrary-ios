@@ -289,7 +289,9 @@ if (@available(iOS 14, *)) {
     //iOS 14
     [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
         //to do something，like preloading
-        [[EYAdManager sharedInstance] setupWithConfig:adConfig];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[EYAdManager sharedInstance] setupWithConfig:adConfig];
+        }
     }];
 } else {
     [[EYAdManager sharedInstance] setupWithConfig:adConfig];
