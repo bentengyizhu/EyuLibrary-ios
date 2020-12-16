@@ -280,7 +280,7 @@ https://support.google.com/admob/answer/9997589?hl=zh-Hans
 <string>This identifier will be used to deliver personalized ads to you.</string>
 ```
 
-2.获取App Tracking Transparency权限\n
+2.获取App Tracking Transparency权限  
 建议在block的回调中对对应平台sdk进行初始化
 ```#import <AppTrackingTransparency/AppTrackingTransparency.h>
 if (@available(iOS 14, *)) {
