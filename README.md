@@ -282,23 +282,16 @@ https://support.google.com/admob/answer/9997589?hl=zh-Hans
 ```
 
 2.获取App Tracking Transparency权限  
-建议在block的回调中对对应平台sdk进行初始化
 ```oc
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
 if (@available(iOS 14, *)) {
     //iOS 14
     [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
-        [EYSdkUtils initFirebaseSdk];
-        [EYSdkUtils initUMMobSdk:@"XXXXXXXXXXXXXXXXXX" channel:@"channel"];
-        [EYSdkUtils initAppFlyer:@"XXXXXXXXXXXXXXXXX" appId:@"XXXXXXXXXXXXX"];
-        [EYSdkUtils initGDTActionSdk:@"XXXXXX" secretkey:@"XXXXXXXXX"];
         //to do something，like preloading
+        [[EYAdManager sharedInstance] setupWithConfig:adConfig];
     }];
 } else {
-    [EYSdkUtils initFirebaseSdk];
-    [EYSdkUtils initUMMobSdk:@"XXXXXXXXXXXXXXXXXX" channel:@"channel"];
-    [EYSdkUtils initAppFlyer:@"XXXXXXXXXXXXXXXXX" appId:@"XXXXXXXXXXXXX"];
-    [EYSdkUtils initGDTActionSdk:@"XXXXXX" secretkey:@"XXXXXXXXX"];
+    [[EYAdManager sharedInstance] setupWithConfig:adConfig];
 }
 ```
 注意：该权限只有Xcode 12及以上版本才有，需要更新Xcode 12版本来进行测试使用。
