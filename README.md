@@ -43,12 +43,6 @@ it, simply add the following line to your Podfile:
     
     注意：引入的模块的预编译宏在debug和release下均需添加
 ```
-### IOS 14适配
-skadnetwork说明文档
-https://developer.apple.com/documentation/storekit/skadnetwork
-
-admob关于ios14的建议
-https://support.google.com/admob/answer/9997589?hl=zh-Hans
 
 ### 1、修改项目的Podfile文件，例如
 ```pod
@@ -98,106 +92,6 @@ FB广告 需要在GCC_PREPROCESSOR_DEFINITIONS 加上 FB_ADS_ENABLED 及FACEBOOK
     <string>xxxxxx</string>
     <key>FacebookDisplayName</key>
     <string>xxxxxx</string>
-
-    <key>NSAppTransportSecurity</key>
-    <dict>
-        <key>NSAllowsArbitraryLoads</key>
-        <true/>
-    </dict>
-    <key>NSUserTrackingUsageDescription</key>
-    <string>Your data will be used to provide you a better and personalized ad experience.
-We try to show ads for apps and products that will be most interesting to you based on the apps you use.</string>
-    <key>SKAdNetworkItems</key>
-    <array>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>SU67R6K2V3.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>4DZT52R2T5.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>bvpn9ufa9b.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>ludvb6z3bs.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>4FZDC2EVR5.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>2U9PT9HC89.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>WZMMZ9FP6W.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>t38b2kh725.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>9T245VHMPL.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>7UG5ZH24HU.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>M8DBW4SV7C.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>mlmmfzh3r3.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>TL55SBB4FM.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>KBD757YWX3.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>F38H382JLK.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>YCLNXRL5PM.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>hs6bdukanm.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>av6w8kgt66.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>8s468mfl3y.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>prcb7njmu6.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>4468km3ulz.skadnetwork</string>
-        </dict>
-        <dict>
-            <key>SKAdNetworkIdentifier</key>
-            <string>9RD848Q2BZ.skadnetwork</string>
-        </dict>
-    </array>
 ```
 ### 9、unity广告
 ```txt
@@ -373,6 +267,186 @@ NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
 [dic setObject:@"testValue" forKey:@"testKey"];
 [EYEventUtils logEvent:@"EVENT_NAME"  parameters:dic];
 ```
+
+### IOS 14适配
+skadnetwork说明文档
+https://developer.apple.com/documentation/storekit/skadnetwork
+
+admob关于ios14的建议
+https://support.google.com/admob/answer/9997589?hl=zh-Hans
+
+1.在info.plist文件里添加跟踪权限请求描述说明
+<key>NSUserTrackingUsageDescription</key>
+<string>This identifier will be used to deliver personalized ads to you.</string>
+
+2.获取App Tracking Transparency权限
+建议在block的回调中对对应平台sdk进行初始化
+```#import <AppTrackingTransparency/AppTrackingTransparency.h>
+if (@available(iOS 14, *)) {
+    //iOS 14
+    [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
+        [EYSdkUtils initFirebaseSdk];
+        [EYSdkUtils initUMMobSdk:@"XXXXXXXXXXXXXXXXXX" channel:@"channel"];
+        [EYSdkUtils initAppFlyer:@"XXXXXXXXXXXXXXXXX" appId:@"XXXXXXXXXXXXX"];
+        [EYSdkUtils initGDTActionSdk:@"XXXXXX" secretkey:@"XXXXXXXXX"];
+        //to do something，like preloading
+    }];
+} else {
+    [EYSdkUtils initFirebaseSdk];
+    [EYSdkUtils initUMMobSdk:@"XXXXXXXXXXXXXXXXXX" channel:@"channel"];
+    [EYSdkUtils initAppFlyer:@"XXXXXXXXXXXXXXXXX" appId:@"XXXXXXXXXXXXX"];
+    [EYSdkUtils initGDTActionSdk:@"XXXXXX" secretkey:@"XXXXXXXXX"];
+}
+```
+注意：该权限只有Xcode 12及以上版本才有，需要更新Xcode 12版本来进行测试使用。
+
+3.使用S​​KAdNetwork跟踪转化
+使用Apple的转化跟踪SKAdNetwork，这意味着即使IDFA不可用，广告平台也可以通过这个获取应用安装归因。请参阅Apple的SKAdNetwork文档，以了解更多信息。
+要启用此功能，您需要在info.plist中添加SKAdNetworkItems，下面例举几个常用的SDK平台需要添加的内容，其他请参考对应官方文档
+
+ Google Admob
+ ```<key>SKAdNetworkItems</key>
+ <array>
+     <dict>
+       <key>SKAdNetworkIdentifier</key>
+       <string>cstr6suwn9.skadnetwork</string>
+     </dict>
+ </array>
+ ```
+ 
+ 穿山甲(Pangle)
+ ``` <key>SKAdNetworkItems</key>
+ <array>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>238da6jt44.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>22mmun2rn5.skadnetwork</string>
+     </dict>
+ </array>
+ ```
+ 
+ UnityAds
+ ```<key>SKAdNetworkItems</key>
+ <array>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>4DZT52R2T5.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>bvpn9ufa9b.skadnetwork</string>
+     </dict>
+ </array>
+ ```
+ 
+ Mintegral
+ ```<key>SKAdNetworkItems</key>
+ <array>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>KBD757YWX3.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>wg4vff78zm.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>737z793b9f.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>ydx93a7ass.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>prcb7njmu6.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>7UG5ZH24HU.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>44jx6755aq.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>2U9PT9HC89.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>W9Q455WK68.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>YCLNXRL5PM.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>TL55SBB4FM.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>8s468mfl3y.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>GLQZH8VGBY.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>c6k4g5qg8m.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>mlmmfzh3r3.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>4PFYVQ9L8R.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>av6w8kgt66.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>6xzpu9s2p8.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>hs6bdukanm.skadnetwork</string>
+     </dict>
+ </array>
+ ```
+ 
+ Facebook
+ ``` <key>SKAdNetworkItems</key>
+ <array>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>v9wttpbfk9.skadnetwork</string>
+     </dict>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>n38lu8286q.skadnetwork</string>
+     </dict>
+ </array>
+ ```
+ 
+ Sigmob
+ ```<key>SKAdNetworkItems</key>
+ <array>
+     <dict>
+         <key>SKAdNetworkIdentifier</key>
+         <string>58922NB4GD.skadnetwork</string>
+     </dict>
+ </array>
+ ```
 
 ## Author
 
