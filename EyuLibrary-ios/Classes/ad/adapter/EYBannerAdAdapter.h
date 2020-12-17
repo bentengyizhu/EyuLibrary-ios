@@ -20,6 +20,7 @@
 @property(nonatomic,assign)bool isLoading;
 @property(nonatomic,assign)bool isShowing;
 @property(nonatomic,assign)int tryLoadAdCount;
+@property(nonatomic,strong)NSTimer *loadingTimer;
 
 -(instancetype) initWithAdKey:(EYAdKey*)adKey adGroup:(EYAdGroup*) group;
 
@@ -34,6 +35,9 @@
 -(void) notifyOnAdClosed;
 -(void) notifyOnAdImpression;
 -(UIView *) getBannerView;
+
+-(void) startTimeoutTask;
+-(void) cancelTimeoutTask;
 @end
 
 @protocol IBannerAdDelegate <NSObject>

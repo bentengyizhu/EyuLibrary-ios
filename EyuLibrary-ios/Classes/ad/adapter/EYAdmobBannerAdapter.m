@@ -33,15 +33,21 @@
     {
         [self notifyOnAdLoaded];
         return;
-    }
-    self.isLoading = true;
-    if (self.bannerAdView == NULL) {
-        self.bannerAdView = [[GADBannerView alloc]initWithAdSize:kGADAdSizeSmartBannerPortrait];
-        self.bannerAdView.adUnitID = self.adKey.key;
-        self.bannerAdView.rootViewController = EYAdManager.sharedInstance.rootViewController;
-        self.bannerAdView.delegate = self;
-        self.bannerAdView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.bannerAdView loadRequest:[[GADRequest alloc] init]];
+    } else if (!self.isLoading) {
+        if (self.bannerAdView == NULL) {
+            self.isLoading = true;
+            self.bannerAdView = [[GADBannerView alloc]initWithAdSize:kGADAdSizeSmartBannerPortrait];
+            self.bannerAdView.adUnitID = self.adKey.key;
+            self.bannerAdView.rootViewController = EYAdManager.sharedInstance.rootViewController;
+            self.bannerAdView.delegate = self;
+            self.bannerAdView.translatesAutoresizingMaskIntoConstraints = NO;
+            [self.bannerAdView loadRequest:[[GADRequest alloc] init]];
+            [self startTimeoutTask];
+        }
+    } else {
+        if(self.loadingTimer == nil){
+            [self startTimeoutTask];
+        }
     }
 }
 

@@ -106,8 +106,30 @@
     }
 }
 
+-(void) startTimeoutTask
+{
+    [self cancelTimeoutTask];
+    self.loadingTimer = [NSTimer scheduledTimerWithTimeInterval:TIMEOUT_TIME target:self selector:@selector(timeout) userInfo:nil repeats:false];
+}
+
+- (void) timeout{
+    NSLog(@"lwq, timeout");
+    self.isLoading = false;
+    [self cancelTimeoutTask];
+    [self notifyOnAdLoadFailedWithError:ERROR_TIMEOUT];
+}
+
+-(void) cancelTimeoutTask
+{
+    if (self.loadingTimer) {
+        [self.loadingTimer invalidate];
+        self.loadingTimer = nil;
+    }
+}
+
 - (void)dealloc
 {
+    [self cancelTimeoutTask];
     self.delegate = NULL;
     self.adKey = NULL;
     self.adGroup = NULL;

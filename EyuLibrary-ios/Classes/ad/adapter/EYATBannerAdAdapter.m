@@ -17,10 +17,16 @@
     {
         [self notifyOnAdLoaded];
         return;
+    } else if (!self.isLoading) {
+        self.isLoading = true;
+        GADAdSize admobSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth([UIScreen mainScreen].bounds.size.width);
+        [[ATAdManager sharedManager] loadADWithPlacementID:self.adKey.key extra:@{kATAdLoadingExtraBannerAdSizeKey:[NSValue valueWithCGSize:admobSize.size], kATAdLoadingExtraBannerSizeAdjustKey:@NO,kATAdLoadingExtraAdmobBannerSizeKey:[NSValue valueWithCGSize:admobSize.size],kATAdLoadingExtraAdmobAdSizeFlagsKey:@(admobSize.flags)} delegate:self];
+        [self startTimeoutTask];
+    } else {
+        if(self.loadingTimer == nil){
+            [self startTimeoutTask];
+        }
     }
-    self.isLoading = true;
-    GADAdSize admobSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth([UIScreen mainScreen].bounds.size.width);
-    [[ATAdManager sharedManager] loadADWithPlacementID:self.adKey.key extra:@{kATAdLoadingExtraBannerAdSizeKey:[NSValue valueWithCGSize:admobSize.size], kATAdLoadingExtraBannerSizeAdjustKey:@NO,kATAdLoadingExtraAdmobBannerSizeKey:[NSValue valueWithCGSize:admobSize.size],kATAdLoadingExtraAdmobAdSizeFlagsKey:@(admobSize.flags)} delegate:self];
 }
 
 - (bool)isAdLoaded {

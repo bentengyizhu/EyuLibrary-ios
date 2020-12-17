@@ -104,6 +104,7 @@
 
 - (void) timeout{
     NSLog(@"lwq, timeout");
+    self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoadFailedWithError:ERROR_TIMEOUT];
 }

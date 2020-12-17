@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 #    s.use_frameworks!
   s.name             = 'EyuLibrary-ios'
-  s.version          = '1.3.57'
+  s.version          = '1.3.58'
   s.summary          = 'A short description of EyuLibrary-ios.'
 
 # This description is used to generate tags and improve search results.
@@ -178,6 +178,8 @@ end
      anythink.dependency 'AnyThinkiOS/AnyThinkAdmobAdapter', '5.7.4'
      anythink.dependency 'AnyThinkiOS/AnyThinkSigmobAdapter', '5.7.4'
      anythink.dependency 'SigmobAd-iOS', '2.23.1'
+     anythink.dependency 'AnyThinkiOS/AnyThinkUnityAdsAdapter', '5.7.4'
+     anythink.dependency 'AnyThinkiOS/AnyThinkVungleAdapter', '5.7.4'
      anythink.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ANYTHINK_ENABLED'}
  end
 end

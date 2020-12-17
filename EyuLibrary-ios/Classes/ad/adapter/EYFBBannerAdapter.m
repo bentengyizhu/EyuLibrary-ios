@@ -28,13 +28,19 @@
     {
         [self notifyOnAdLoaded];
         return;
-    }
-    self.isLoading = true;
-    if (self.bannerView == NULL) {
-        self.bannerView = [[FBAdView alloc] initWithPlacementID:self.adKey.key adSize:kFBAdSizeHeight50Banner rootViewController:EYAdManager.sharedInstance.rootViewController];
-        self.bannerView.delegate = self;
-        self.bannerView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.bannerView loadAd];
+    } else if (!self.isLoading) {
+        if (self.bannerView == NULL) {
+            self.isLoading = true;
+            self.bannerView = [[FBAdView alloc] initWithPlacementID:self.adKey.key adSize:kFBAdSizeHeight50Banner rootViewController:EYAdManager.sharedInstance.rootViewController];
+            self.bannerView.delegate = self;
+            self.bannerView.translatesAutoresizingMaskIntoConstraints = NO;
+            [self.bannerView loadAd];
+            [self startTimeoutTask];
+        }
+    } else {
+        if(self.loadingTimer == nil){
+            [self startTimeoutTask];
+        }
     }
 }
 

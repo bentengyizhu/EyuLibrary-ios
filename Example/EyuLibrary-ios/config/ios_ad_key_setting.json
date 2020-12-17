@@ -366,18 +366,13 @@
     },
     {
         "id":"inter_at",
-        "key":"b5bacad6860972",
+        "key":"b5baf61edafdbb",
         "network":"anythink"
     },
     {
         "id":"reward_at",
-        "key":"b5b44a02bf08c0",
+        "key":"b5b44a0d05d707",
         "network":"anythink"
-    },
-    {
-        "id":"reward_mtg",
-        "key":"146892",
-        "network":"mintegral"
     },
     {
         "id":"native_at",
@@ -386,7 +381,7 @@
     },
     {
         "id":"banner_at",
-        "key":"b5bacad0803fd1",
+        "key":"b5ee89f3e63d80",
         "network":"anythink"
     }
 ]
