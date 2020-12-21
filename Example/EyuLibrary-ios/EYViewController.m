@@ -76,7 +76,7 @@
     if([[EYAdManager sharedInstance] isInterstitialAdLoaded:@"inter_ad"])
     {
         [[EYAdManager sharedInstance] showInterstitialAd:@"inter_ad" withViewController:self];
-
+        
     }else{
         [[EYAdManager sharedInstance] loadInterstitialAd:@"inter_ad"];
     }

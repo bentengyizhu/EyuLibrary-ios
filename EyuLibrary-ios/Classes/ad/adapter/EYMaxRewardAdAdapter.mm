@@ -68,7 +68,7 @@
 {
     // Rewarded ad is ready to be shown. '[self.rewardedAd isReady]' will now return 'YES'
     // We now have an interstitial ad we can show!
-    NSLog(@"lwq, applovin didLoadAd adKey = %@", self.adKey);
+    NSLog(@"lwq, MAX reward didLoadAd adKey = %@", self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
@@ -76,7 +76,7 @@
 
 - (void)didFailToLoadAdForAdUnitIdentifier:(NSString *)adUnitIdentifier withErrorCode:(NSInteger)errorCode
 {
-    NSLog(@"lwq, applovin reward didFailToLoadAdWithError: %ld, adKey = %@", errorCode, self.adKey);
+    NSLog(@"lwq, MAX reward didFailToLoadAdWithError: %ld, adKey = %@", errorCode, self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoadFailedWithError:(int)errorCode];
