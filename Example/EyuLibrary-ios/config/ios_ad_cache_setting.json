@@ -1,6 +1,6 @@
 [
     {
-        "keys":"[\"ios_wm_reward_ad\"]",
+        "keys":"[\"reward_at\"]",
         "type":"rewardAd",
         "id":"reward_ad",
         "isAutoLoad":"true"
