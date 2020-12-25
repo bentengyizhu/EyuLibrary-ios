@@ -41,7 +41,9 @@
 @property(nonatomic,assign) bool isAdmobRewardAdLoaded;
 @property(nonatomic,assign) bool isAdmobRewardAdLoading;
 @property(nonatomic,weak) UIViewController *rootViewController;
-
+#ifdef ADMOB_MEDIATION_ENABLED
+@property(nonatomic,strong) NSMutableArray* vunglePlacementIds;
+#endif
 -(void) loadRewardVideoAd:(NSString*) placeId;
 -(void) showRewardVideoAd:(NSString*) placeId withViewController:(UIViewController*)controller;
 

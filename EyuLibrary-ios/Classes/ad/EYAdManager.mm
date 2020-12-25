@@ -22,6 +22,14 @@
 #ifdef FB_ADS_ENABLED
 #import "FBAdSettings.h"
 #endif
+
+#ifdef ADMOB_MEDIATION_ENABLED
+#import "FBAdSettings.h"
+#ifndef ADMOB_ADS_ENABLED
+#define ADMOB_ADS_ENABLED
+#endif
+#endif
+
 #ifdef BYTE_DANCE_ADS_ENABLED
 #import <BUAdSDK/BUAdSDKManager.h>
 #endif
@@ -115,7 +123,9 @@ static id s_sharedInstance;
 #ifdef UNITY_ADS_ENABLED
 @synthesize unityAdsDelegateDict = _unityAdsDelegateDict;
 #endif
-
+#ifdef ADMOB_MEDIATION_ENABLED
+@synthesize vunglePlacementIds = _vunglePlacementIds;
+#endif
 #ifdef VUNGLE_ADS_ENABLED
 @synthesize vungleAdsDelegateDict = _vungleAdsDelegateDict;
 #endif
@@ -384,6 +394,9 @@ static id s_sharedInstance;
         return;
     }
 #ifdef FB_ADS_ENABLED
+    [FBAdSettings setAdvertiserTrackingEnabled:YES];
+#endif
+#ifdef ADMOB_MEDIATION_ENABLED
     [FBAdSettings setAdvertiserTrackingEnabled:YES];
 #endif
     [self initSdk:config];

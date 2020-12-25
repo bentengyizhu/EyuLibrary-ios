@@ -7,7 +7,9 @@
 
 #include "EYAdmobRewardAdAdapter.h"
 #include "EYAdManager.h"
-
+#ifdef ADMOB_MEDIATION_ENABLED
+#import <VungleAdapter/VungleAdapter.h>
+#endif
 #ifdef ADMOB_ADS_ENABLED
 
 @implementation EYAdmobRewardAdAdapter
@@ -42,6 +44,11 @@
         [[EYAdManager sharedInstance] setIsAdmobRewardAdLoading:YES];
         [GADRewardBasedVideoAd sharedInstance].delegate = self;
         GADRequest* request = [GADRequest request];
+#ifdef ADMOB_MEDIATION_ENABLED
+        VungleAdNetworkExtras *extras = [[VungleAdNetworkExtras alloc] init];
+        extras.allPlacements = [EYAdManager sharedInstance].vunglePlacementIds;
+        [request registerAdNetworkExtras:extras];
+#endif
         //request.testDevices = @[ @"9b80927958fbfef89ca335966239ca9a",@"46fd4577df207ecb050bffa2948d5e52" ];
         [[GADRewardBasedVideoAd sharedInstance] loadRequest:request withAdUnitID:self.adKey.key];
         [self startTimeoutTask];

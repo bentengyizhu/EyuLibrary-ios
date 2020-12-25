@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 #    s.use_frameworks!
   s.name             = 'EyuLibrary-ios'
-  s.version          = '1.3.62'
+  s.version          = '1.3.63'
   s.summary          = 'A short description of EyuLibrary-ios.'
 
 # This description is used to generate tags and improve search results.
@@ -64,7 +64,7 @@ Pod::Spec.new do |s|
  end
 
  s.subspec 'admob_sdk' do |admob|
-     admob.dependency 'Google-Mobile-Ads-SDK','7.64.0'
+     admob.dependency 'Google-Mobile-Ads-SDK','7.68.0'
      admob.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ADMOB_ADS_ENABLED'}
  end
 
@@ -149,7 +149,7 @@ end
      firebase.dependency 'Firebase/Firestore', '6.34.0'
      firebase.dependency 'Firebase/Storage', '6.34.0'
      firebase.dependency 'Firebase/DynamicLinks', '6.34.0'
-     firebase.dependency 'Firebase/AdMob','6.34.0'
+     firebase.dependency 'Firebase/AdMob', '6.34.0'
      firebase.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) FIREBASE_ENABLED ADMOB_ADS_ENABLED'}
  end
 
@@ -181,5 +181,16 @@ end
      anythink.dependency 'AnyThinkiOS/AnyThinkUnityAdsAdapter', '5.7.4'
      anythink.dependency 'AnyThinkiOS/AnyThinkVungleAdapter', '5.7.4'
      anythink.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ANYTHINK_ENABLED'}
+ end
+ 
+ s.subspec 'admob_mediation_sdk' do |admob_mediation|
+     admob_mediation.dependency 'Google-Mobile-Ads-SDK','7.68.0'
+     admob_mediation.dependency 'GoogleMobileAdsMediationAppLovin', '6.14.9.0'
+     admob_mediation.dependency 'GoogleMobileAdsMediationFacebook', '6.2.0.0'
+     admob_mediation.dependency 'GoogleMobileAdsMediationFyber', '7.7.2.0'
+     admob_mediation.dependency 'GoogleMobileAdsMediationIronSource', '7.0.4.0'
+     admob_mediation.dependency 'GoogleMobileAdsMediationUnity', '3.5.1.1'
+     admob_mediation.dependency 'GoogleMobileAdsMediationVungle', '6.8.1.0'
+     admob_mediation.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ADMOB_MEDIATION_ENABLED ADMOB_ADS_ENABLED'}
  end
 end

@@ -46,7 +46,7 @@ it, simply add the following line to your Podfile:
 
 ### 1、修改项目的Podfile文件，例如
 ```pod
-pod 'EyuLibrary-ios',:subspecs => ['Core','byte_dance_ads_sdk','um_sdk', 'af_sdk', 'gdt_action','gdt_ads_sdk', 'mtg_ads_sdk', 'fb_ads_sdk', 'unity_ads_sdk', 'vungle_ads_sdk', 'applovin_ads_sdk', 'iron_ads_sdk', 'firebase_sdk', 'crashlytics_sdk','fb_login_sdk'], :git => 'https://github.com/EyugameQy/EyuLibrary-ios.git',:tag =>'1.3.59'
+pod 'EyuLibrary-ios',:subspecs => ['Core','byte_dance_ads_sdk','um_sdk', 'af_sdk', 'gdt_action','gdt_ads_sdk', 'mtg_ads_sdk', 'fb_ads_sdk', 'unity_ads_sdk', 'vungle_ads_sdk', 'applovin_ads_sdk', 'iron_ads_sdk', 'firebase_sdk', 'crashlytics_sdk','fb_login_sdk'], :git => 'https://github.com/EyugameQy/EyuLibrary-ios.git',:tag =>'1.3.63'
     （以上模块可以根据项目需要进行删减）
 ```
 ### 2、在终端里运行 pod install或者pod update，并留意执行是否有警告或者报错
@@ -177,6 +177,12 @@ AnyThink  需要在GCC_PREPROCESSOR_DEFINITIONS 加上 ANYTHINK_ENABLED
 [EYSdkUtils initAnyThinkWithAppID:appid AppKey:appKey];
 ```
 
+### 20、AdmobMediation
+```txt
+AdmobMediation  需要在GCC_PREPROCESSOR_DEFINITIONS 加上 ADMOB_MEDIATION_ENABLED
+如果有vungle广告需要配置 [EYAdManager sharedInstance].vunglePlacementIds = [placepentId1, placepentId2...];
+```
+
 ### 初始化FB， Firebase， UMMobSdk， AppFlyer， GDTActionSdk，及firebase 远程配置
 ```oc
 [EYSdkUtils initFirebaseSdk];
@@ -202,11 +208,13 @@ adConfig.vungleClientId = @"XXXXXXXXXXXXXXX";
 adConfig.ironSourceAppKey = @"XXXXXXX";
 adConfig.wmAppKey = @"XXXXXX";
 
+//如果有banner广告需要设置根控制器
+[[EYAdManager sharedInstance] setRootViewController:window.rootViewController];
+//如果集成了AdmobMediation且配置了vungle广告
+[EYAdManager sharedInstance].vunglePlacementIds = @[placepentId1, placepentId2...];
 
 [[EYAdManager sharedInstance] setupWithConfig:adConfig];
 [[EYAdManager sharedInstance] setDelegate:self];
-//如果有banner广告需要设置根控制器
-[[EYAdManager sharedInstance] setRootViewController:window.rootViewController];
 
 //展示激励视频 reward_ad为广告位id，对应ios_ad_setting.json配置
 [[EYAdManager sharedInstance] showRewardVideoAd:@"reward_ad" withViewController:self];

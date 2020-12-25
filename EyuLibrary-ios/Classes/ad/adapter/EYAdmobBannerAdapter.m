@@ -11,6 +11,9 @@
 #ifdef ADMOB_ADS_ENABLED
 #include "EYAdmobBannerAdapter.h"
 #include "EYAdManager.h"
+#ifdef ADMOB_MEDIATION_ENABLED
+#import <VungleAdapter/VungleAdapter.h>
+#endif
 
 @interface EYAdmobBannerAdapter()
 @property(nonatomic,assign)bool adLoaded;
@@ -41,7 +44,13 @@
             self.bannerAdView.rootViewController = EYAdManager.sharedInstance.rootViewController;
             self.bannerAdView.delegate = self;
             self.bannerAdView.translatesAutoresizingMaskIntoConstraints = NO;
-            [self.bannerAdView loadRequest:[[GADRequest alloc] init]];
+            GADRequest *request = [[GADRequest alloc] init];
+#ifdef ADMOB_MEDIATION_ENABLED
+        VungleAdNetworkExtras *extras = [[VungleAdNetworkExtras alloc] init];
+        extras.allPlacements = [EYAdManager sharedInstance].vunglePlacementIds;
+        [request registerAdNetworkExtras:extras];
+#endif
+            [self.bannerAdView loadRequest:request];
             [self startTimeoutTask];
         }
     } else {
