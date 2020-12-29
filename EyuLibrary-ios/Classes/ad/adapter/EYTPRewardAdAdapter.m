@@ -18,6 +18,7 @@
     NSLog(@" lwq, tp loadAd isAdLoaded = %d", [self isAdLoaded]);
     if ([EYAdManager sharedInstance].isTradPlusInited == false) {
         NSLog(@" lwq, tp init not compeleted");
+        [self notifyOnAdLoadFailedWithError:ERROR_SDK_UNINITED];
         return;
     }
     if([self isShowing]){

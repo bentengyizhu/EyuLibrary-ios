@@ -19,6 +19,7 @@
     NSLog(@" lwq, tp interstitialAd loadAd ");
     if ([EYAdManager sharedInstance].isTradPlusInited == false) {
         NSLog(@" lwq, tp init not compeleted");
+        [self notifyOnAdLoadFailedWithError:ERROR_SDK_UNINITED];
         return;
     }
     if([self isShowing ]){

@@ -12,7 +12,7 @@
         "isAutoLoad":"true"
     },
     {
-        "keys":"[\"inter_at\"]",
+        "keys":"[\"inter_tp\"]",
         "type":"interstitialAd",
         "id":"inter_ad",
         "isAutoLoad":"true"

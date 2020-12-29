@@ -378,8 +378,6 @@ static id s_sharedInstance;
     [MsSDKUtils msSDKInit:^(NSError * _Nonnull error) {
         if (!error) {
             NSLog(@"tradplus sdk init success!");
-        } else {
-            NSLog(@"%@", error.localizedDescription);
             self.isTradPlusInited = true;
             if(self.interstitialAdGroupDict)
             {
@@ -400,6 +398,8 @@ static id s_sharedInstance;
                     }
                 }
             }
+        } else {
+            NSLog(@"%@", error.localizedDescription);
         }
     }];
 #endif
