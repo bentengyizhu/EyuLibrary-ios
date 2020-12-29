@@ -80,7 +80,9 @@
 #ifdef ANYTHINK_ENABLED
         NSClassFromString(@"EYATIntersitialAdAdapter"), ADNetworkAnyThink,
 #endif
-
+#ifdef TRADPLUS_ENABLED
+        NSClassFromString(@"EYTPInterstitialAdAdapter"), ADNetworkTradPlus,
+#endif
         nil];
 
         self.adGroup = adGroup;

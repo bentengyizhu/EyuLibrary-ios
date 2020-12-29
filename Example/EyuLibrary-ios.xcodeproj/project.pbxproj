@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		07011E772569207800CE9E5B /* nativeAd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07011E762569207800CE9E5B /* nativeAd.xib */; };
+		07571B2A259ADD2600C99F68 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07571B29259ADD2600C99F68 /* WebKit.framework */; };
+		07571B2E259ADD3B00C99F68 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07571B2D259ADD3B00C99F68 /* CoreMotion.framework */; };
+		07571B32259ADD9600C99F68 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07571B31259ADD9600C99F68 /* CoreTelephony.framework */; };
 		5635DFC123EA9BDE0065566A /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5635DFC023EA9BDD0065566A /* iAd.framework */; };
 		56792D5824FDEA9F00655101 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56792D5724FDEA9F00655101 /* File.swift */; };
 		56E252BA21785EE500584CB9 /* ios_ad_key_setting.json in Resources */ = {isa = PBXBuildFile; fileRef = 56E252B321785EE500584CB9 /* ios_ad_key_setting.json */; };
@@ -57,6 +60,9 @@
 
 /* Begin PBXFileReference section */
 		07011E762569207800CE9E5B /* nativeAd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = nativeAd.xib; sourceTree = "<group>"; };
+		07571B29259ADD2600C99F68 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		07571B2D259ADD3B00C99F68 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		07571B31259ADD9600C99F68 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		0DD451035A305C94C404E430 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		1C79031D01F0DD3B761FBD0D /* libPods-EyuLibrary-ios_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EyuLibrary-ios_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		372537BE4D1D744A193EB00E /* libPods-EyuLibrary-ios_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EyuLibrary-ios_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +121,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07571B32259ADD9600C99F68 /* CoreTelephony.framework in Frameworks */,
+				07571B2E259ADD3B00C99F68 /* CoreMotion.framework in Frameworks */,
+				07571B2A259ADD2600C99F68 /* WebKit.framework in Frameworks */,
 				5635DFC123EA9BDE0065566A /* iAd.framework in Frameworks */,
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
@@ -195,6 +204,9 @@
 		6003F58C195388D20070C39A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				07571B31259ADD9600C99F68 /* CoreTelephony.framework */,
+				07571B2D259ADD3B00C99F68 /* CoreMotion.framework */,
+				07571B29259ADD2600C99F68 /* WebKit.framework */,
 				5635DFC023EA9BDD0065566A /* iAd.framework */,
 				6003F58D195388D20070C39A /* Foundation.framework */,
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
@@ -268,12 +280,10 @@
 			buildConfigurationList = 6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "EyuLibrary-ios_Example" */;
 			buildPhases = (
 				CBE20B5DA5973A71FA2724D5 /* [CP] Check Pods Manifest.lock */,
-				C6BC487E062CBBDA908C4B06 /* [CP] Prepare Artifacts */,
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
-				8348D6EEF5E018FE8A15FFF1 /* [CP] Copy Pods Resources */,
-				97716F8141AAEBDF66907300 /* [CP] Embed Pods Frameworks */,
+				D5A8D6A42AA43C9EF79908AA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -314,6 +324,7 @@
 				ORGANIZATIONNAME = WeiqiangLuo;
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
+						DevelopmentTeam = 8W3A588RTU;
 						LastSwiftMigration = 1160;
 					};
 					6003F5AD195388D20070C39A = {
@@ -403,68 +414,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8348D6EEF5E018FE8A15FFF1 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-resources.sh",
-				"${PODS_ROOT}/AnyThinkiOS/AnyThinkiOS/AnyThinkSDK.bundle",
-				"${PODS_ROOT}/Bytedance-UnionAD/Bytedance-UnionAd/Frameworks/BUAdSDK.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FFToast/FFToast.bundle",
-				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
-				"${PODS_ROOT}/SigmobAd-iOS/WindSDK/Sigmob.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AnyThinkSDK.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BUAdSDK.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FFToast.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Sigmob.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		97716F8141AAEBDF66907300 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C6BC487E062CBBDA908C4B06 /* [CP] Prepare Artifacts */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-artifacts.sh",
-				"${PODS_ROOT}/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework",
-				"${PODS_ROOT}/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework",
-			);
-			name = "[CP] Prepare Artifacts";
-			outputPaths = (
-				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-artifacts.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		CBE20B5DA5973A71FA2724D5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -485,6 +434,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D5A8D6A42AA43C9EF79908AA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-resources.sh",
+				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-6.14.10/AppLovinSDKResources.bundle",
+				"${PODS_ROOT}/Bytedance-UnionAD/Bytedance-UnionAd/Frameworks/BUAdSDK.bundle",
+				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FFToast/FFToast.bundle",
+				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+				"${PODS_ROOT}/SigmobAd-iOS/WindSDK/Sigmob.bundle",
+				"${PODS_ROOT}/TradPlusSDK/TradPlusSDK/TradPlusAds.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppLovinSDKResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BUAdSDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FFToast.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Sigmob.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TradPlusAds.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -621,7 +600,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 8W3A588RTU;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -646,6 +625,7 @@
 					MTG_ADS_ENABLED,
 					TRACKING_ENABLED,
 					BYTE_DANCE_ADS_ENABLED,
+					TRADPLUS_ENABLED,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

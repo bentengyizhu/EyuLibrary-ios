@@ -20,6 +20,7 @@
 #define     ADNetworkMtg                    @"mintegral"
 #define     ADNetworkIronSource             @"ironsource"
 #define     ADNetworkAnyThink               @"anythink"
+#define     ADNetworkTradPlus               @"tradplus"
 
 
 

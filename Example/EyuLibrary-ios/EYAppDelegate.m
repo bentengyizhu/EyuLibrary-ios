@@ -25,7 +25,7 @@
 //    [EYSdkUtils initFirebaseSdk];
     [EYSdkUtils initTrackingWithAppKey:@"475938c702f7451a88eaffb524962649"];
 //    [EYSdkUtils initFacebookSdkWithApplication:application options:launchOptions];
-    [EYSdkUtils initAnyThinkWithAppID:@"a5b0e8491845b3" AppKey:@"7eae0567827cfe2b22874061763f30c9"];
+//    [EYSdkUtils initAnyThinkWithAppID:@"a5b0e8491845b3" AppKey:@"7eae0567827cfe2b22874061763f30c9"];
     // Override point for customization after application launch.
 //    EYAdConfig* adConfig2 = [[EYAdConfig alloc] init];
     EYAdConfig* adConfig = [[EYAdConfig alloc] init];
@@ -37,7 +37,7 @@
 
 //    adConfig.mtgAppId = @"111418";
 //    adConfig.mtgAppKey = @"a339a16bbaca844012276afad6f59eaa";
-    adConfig.admobClientId = @"ca-app-pub-7585239226773233~4631740346";
+    adConfig.admobClientId = @"ca-app-pub-1111111111111111~1111111111";
 //    adConfig.wmAppKey = @"5084877";
 //    adConfig.gdtAppId = @"1108127036";
 //    adConfig.unityClientId = @"2340038";

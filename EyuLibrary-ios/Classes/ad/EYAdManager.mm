@@ -34,6 +34,10 @@
 #import <BUAdSDK/BUAdSDKManager.h>
 #endif
 
+#ifdef TRADPLUS_ENABLED
+#import <TradPlusAds/MsSDKUtils.h>
+#endif
+
 #ifdef APPLOVIN_MAX_ENABLED
 #ifndef APPLOVIN_ADS_ENABLED
 #define APPLOVIN_ADS_ENABLED
@@ -134,7 +138,9 @@ static id s_sharedInstance;
 @synthesize ironRewardDelegateDict = _ironRewardDelegateDict;
 @synthesize ironInterDelegateDict = _ironInterDelegateDict;
 #endif
-
+#ifdef TRADPLUS_ENABLED
+@synthesize isTradPlusInited = _isTradPlusInited;
+#endif
 @synthesize isAdmobRewardAdLoaded = _isAdmobRewardAdLoaded;
 @synthesize isAdmobRewardAdLoading = _isAdmobRewardAdLoading;
 @synthesize cellularData = _cellularData;
@@ -147,6 +153,17 @@ static id s_sharedInstance;
     }
 
     return s_sharedInstance;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+#ifdef TRADPLUS_ENABLED
+    self.isTradPlusInited = false;
+#endif
+    }
+    return self;
 }
 
 -(void) loadAdConfig:(EYAdConfig*)config
@@ -355,6 +372,36 @@ static id s_sharedInstance;
                 NSLog(@"lwq, setup VungleSDK error =  %@", error);
             }
         }
+#endif
+    
+#ifdef TRADPLUS_ENABLED
+    [MsSDKUtils msSDKInit:^(NSError * _Nonnull error) {
+        if (!error) {
+            NSLog(@"tradplus sdk init success!");
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+            self.isTradPlusInited = true;
+            if(self.interstitialAdGroupDict)
+            {
+                for(NSString* groupName in self.interstitialAdGroupDict)
+                {
+                    EYAdGroup* group = self.adGroupDict[groupName];
+                    if(group && group.isAutoLoad){
+                        [self.interstitialAdGroupDict[groupName] loadAd:@"auto"];
+                    }
+                }
+            }
+            if(self.rewardAdGroupDict){
+                for(NSString* groupName in self.rewardAdGroupDict)
+                {
+                    EYAdGroup* group = self.adGroupDict[groupName];
+                    if(group && group.isAutoLoad){
+                        [self.rewardAdGroupDict[groupName] loadAd:@"auto"];
+                    }
+                }
+            }
+        }
+    }];
 #endif
     
 #ifdef IRON_ADS_ENABLED

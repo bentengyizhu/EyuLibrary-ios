@@ -89,6 +89,9 @@
 #ifdef ANYTHINK_ENABLED
             NSClassFromString(@"EYATRewardAdAdapter"), ADNetworkAnyThink,
 #endif
+#ifdef TRADPLUS_ENABLED
+            NSClassFromString(@"EYTPRewardAdAdapter"), ADNetworkTradPlus,
+#endif
                                              nil];
 
         self.adGroup = group;

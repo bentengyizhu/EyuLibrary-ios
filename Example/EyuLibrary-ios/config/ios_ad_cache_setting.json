@@ -1,6 +1,6 @@
 [
     {
-        "keys":"[\"reward_at\"]",
+        "keys":"[\"reward_tp\"]",
         "type":"rewardAd",
         "id":"reward_ad",
         "isAutoLoad":"true"
