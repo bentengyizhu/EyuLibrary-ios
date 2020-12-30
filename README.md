@@ -35,12 +35,13 @@ it, simply add the following line to your Podfile:
     广点通买量          :'gdt_action'             GDT_ACTION_ENABLED
     FB登录             :'fb_login_sdk'          FACEBOOK_ENABLED FACEBOOK_LOGIN_ENABLED 
     热云               :'ReYunTracking'         TRACKING_ENABLED
-    
     ADMOB             :'admob_sdk'             ADMOB_ADS_ENABLED
-    
     applovin MAX      :'applovin_max_sdk'      APPLOVIN_MAX_ENABLED
     AnyThink          :'anythink_sdk'          ANYTHINK_ENABLED
     AdmobMediation    :'admob_mediation_sdk'   ADMOB_MEDIATION_ENABLED ADMOB_ADS_ENABLED
+    
+    数数(Thinking)     :'thinking_sdk'          THINKING_ENABLED
+    sigmob            :'sigmob_ads_sdk'
     注意：引入的模块的预编译宏在debug和release下均需添加
 ```
 
@@ -173,7 +174,7 @@ max  需要在GCC_PREPROCESSOR_DEFINITIONS 加上 APPLOVIN_MAX_ENABLED
 ### 20、AnyThink
 ```txt
 AnyThink  需要在GCC_PREPROCESSOR_DEFINITIONS 加上 ANYTHINK_ENABLED
-并集成需要用到的广告模块，比如用到了admob广告则需要额外添加"admob_sdk"模块，或者手动添加admob对应版本的的SDK
+并集成需要用到的广告模块，比如用到了admob广告则需要额外添加"admob_sdk"模块，或者自己额外集成admob对应版本的的SDK
 [EYSdkUtils initAnyThinkWithAppID:appid AppKey:appKey];
 ```
 
@@ -181,6 +182,18 @@ AnyThink  需要在GCC_PREPROCESSOR_DEFINITIONS 加上 ANYTHINK_ENABLED
 ```txt
 AdmobMediation  需要在GCC_PREPROCESSOR_DEFINITIONS 加上 ADMOB_MEDIATION_ENABLED ADMOB_ADS_ENABLED
 如果有vungle广告需要配置 [EYAdManager sharedInstance].vunglePlacementIds = [placepentId1, placepentId2...];
+```
+
+### 21、Thinking
+```txt
+Thinking  需要在GCC_PREPROCESSOR_DEFINITIONS 加上 THINKING_ENABLED 
+初始化: [EYSdkUtils initThinkWithAppID:APP_ID]; 
+默认事件上报给数数的服务器地址 https://receiver.ta.thinkingdata.cn 
+如果您使用的是私有化部署的版本请传入自己的url地址: [EYSdkUtils initThinkWithAppID:APP_ID Url:SERVER_URL]; 
+完成初始化后，您可以按以下方式来使用SDK: 
+#import <ThinkingSDK/ThinkingAnalyticsSDK.h>
+[[ThinkingAnalyticsSDK sharedInstanceWithAppid:APP_ID] track:@"event_name" properties:eventProperties]; 
+更多功能请参考数数SDK文档: https://docs.thinkingdata.cn/ta-manual/latest/installation/installation_menu/client_sdk/ios_sdk_installation/ios_sdk_installation.html
 ```
 
 ### 初始化FB， Firebase， UMMobSdk， AppFlyer， GDTActionSdk，及firebase 远程配置

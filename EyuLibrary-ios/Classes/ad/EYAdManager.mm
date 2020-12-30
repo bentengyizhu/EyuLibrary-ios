@@ -353,7 +353,9 @@ static id s_sharedInstance;
         }else{
             NSLog(@"lwq, setup unityClientId =  %@", unityClientId);
             //[GADMobileAds configureWithApplicationID:unityClientId];
-            [UnityAds initialize:unityClientId delegate:self];
+            [UnityAds initialize:unityClientId];
+            [UnityAds addDelegate:self];
+//            [UnityAds initialize:unityClientId delegate:self];
         }
 #endif
       
@@ -376,31 +378,15 @@ static id s_sharedInstance;
     
 #ifdef TRADPLUS_ENABLED
     [MsSDKUtils msSDKInit:^(NSError * _Nonnull error) {
-        if (!error) {
-            NSLog(@"tradplus sdk init success!");
-            self.isTradPlusInited = true;
-            if(self.interstitialAdGroupDict)
-            {
-                for(NSString* groupName in self.interstitialAdGroupDict)
-                {
-                    EYAdGroup* group = self.adGroupDict[groupName];
-                    if(group && group.isAutoLoad){
-                        [self.interstitialAdGroupDict[groupName] loadAd:@"auto"];
-                    }
-                }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!error) {
+                NSLog(@"tradplus sdk init success!");
+                self.isTradPlusInited = true;
+                [self loadAutoAd];
+            } else {
+                NSLog(@"%@", error.localizedDescription);
             }
-            if(self.rewardAdGroupDict){
-                for(NSString* groupName in self.rewardAdGroupDict)
-                {
-                    EYAdGroup* group = self.adGroupDict[groupName];
-                    if(group && group.isAutoLoad){
-                        [self.rewardAdGroupDict[groupName] loadAd:@"auto"];
-                    }
-                }
-            }
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
+        });
     }];
 #endif
     
@@ -570,6 +556,38 @@ static id s_sharedInstance;
     for (EYBannerAdGroup *group in self.bannerAdGroupDict.allValues) {
         if (group.adGroup.isAutoLoad) {
             [group loadAd:@"auto"];
+        }
+    }
+}
+
+-(void)loadAutoAd {
+    if(self.interstitialAdGroupDict)
+    {
+        for(NSString* groupName in self.interstitialAdGroupDict)
+        {
+            EYAdGroup* group = self.adGroupDict[groupName];
+            if(group && group.isAutoLoad){
+                [self.interstitialAdGroupDict[groupName] loadAd:@"auto"];
+            }
+        }
+    }
+    if(self.rewardAdGroupDict){
+        for(NSString* groupName in self.rewardAdGroupDict)
+        {
+            EYAdGroup* group = self.adGroupDict[groupName];
+            if(group && group.isAutoLoad){
+                [self.rewardAdGroupDict[groupName] loadAd:@"auto"];
+            }
+        }
+    }
+    if(self.bannerAdGroupDict)
+    {
+        for(NSString* groupName in self.bannerAdGroupDict)
+        {
+            EYAdGroup* group = self.adGroupDict[groupName];
+            if(group && group.isAutoLoad){
+                [self.bannerAdGroupDict[groupName] loadAd:@"auto"];
+            }
         }
     }
 }

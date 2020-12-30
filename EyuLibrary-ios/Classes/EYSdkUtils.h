@@ -56,6 +56,11 @@
 + (void)initAnyThinkWithAppID:(NSString *)appId AppKey:(NSString *)appKey;
 #endif
 
+#ifdef THINKING_ENABLED
++ (void)initThinkWithAppID:(NSString *)appId Url:(NSString *)url;
++ (void)initThinkWithAppID:(NSString *)appId;
+#endif
+
 //#ifdef MTG_ADS_ENABLED
 //+ (void)initMTGWithAppID:(NSString *)appId AppKey:(NSString *)appKey;
 //#endif

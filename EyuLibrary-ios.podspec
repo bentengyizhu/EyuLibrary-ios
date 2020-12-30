@@ -177,7 +177,6 @@ Pod::Spec.new do |s|
         anythink.dependency 'AnyThinkiOS/AnyThinkGDTAdapter', '5.7.4'
         anythink.dependency 'AnyThinkiOS/AnyThinkAdmobAdapter', '5.7.4'
         anythink.dependency 'AnyThinkiOS/AnyThinkSigmobAdapter', '5.7.4'
-        anythink.dependency 'SigmobAd-iOS', '2.23.1'
         anythink.dependency 'AnyThinkiOS/AnyThinkUnityAdsAdapter', '5.7.4'
         anythink.dependency 'AnyThinkiOS/AnyThinkVungleAdapter', '5.7.4'
         anythink.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ANYTHINK_ENABLED'}
@@ -216,7 +215,15 @@ Pod::Spec.new do |s|
         tradplus.dependency 'TradPlusSDK/VungleAdapter', '5.0.2'
         tradplus.dependency 'TradPlusSDK/IronSourceAdapter', '5.0.2'
         tradplus.dependency 'TradPlusSDK/SigmobAdapter', '5.0.2'
-        tradplus.dependency 'SigmobAd-iOS', '2.23.1'
         tradplus.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) TRADPLUS_ENABLED'}
+    end
+    
+    s.subspec 'sigmob_ads_sdk' do |sigmob|
+        sigmob.dependency 'SigmobAd-iOS', '2.23.1'
+    end
+    
+    s.subspec 'thinking_sdk' do |thinking|
+        thinking.dependency 'ThinkingSDK'
+        thinking.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) THINKING_ENABLED'}
     end
 end

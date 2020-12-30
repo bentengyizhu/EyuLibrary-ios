@@ -41,6 +41,10 @@
 #import <MTGSDK/MTGSDK.h>
 #endif
 
+#ifdef THINKING_ENABLED
+#import <ThinkingSDK/ThinkingAnalyticsSDK.h>
+#endif
+
 #ifdef AF_ENABLED
 @interface AppsFlyerDelegate : NSObject <AppsFlyerTrackerDelegate> {
 }
@@ -230,6 +234,16 @@ AppsFlyerDelegate *_appflyerDelegate = [AppsFlyerDelegate new];
 //    [ATAPI setLogEnabled:YES];//Turn on debug logs
 //    [ATAPI integrationChecking];
     [[ATAPI sharedInstance] startWithAppID:appId appKey:appKey error:nil];
+}
+#endif
+
+#ifdef THINKING_ENABLED
++ (void)initThinkWithAppID:(NSString *)appId Url:(NSString *)url {
+    [ThinkingAnalyticsSDK startWithAppId:appId withUrl:url];
+}
+
++ (void)initThinkWithAppID:(NSString *)appId {
+    [ThinkingAnalyticsSDK startWithAppId:appId withUrl:@"https://receiver.ta.thinkingdata.cn"];
 }
 #endif
 

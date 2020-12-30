@@ -12,7 +12,7 @@
 @implementation EYATBannerAdAdapter
 -(void) loadAd
 {
-    NSLog(@" lwq, admob bannerAd ");
+    NSLog(@" lwq, at bannerAd ");
     if([self isAdLoaded])
     {
         [self notifyOnAdLoaded];
