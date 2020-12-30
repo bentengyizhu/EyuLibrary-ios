@@ -187,12 +187,14 @@ AdmobMediation  需要在GCC_PREPROCESSOR_DEFINITIONS 加上 ADMOB_MEDIATION_ENA
 ### 21、Thinking
 ```txt
 Thinking  需要在GCC_PREPROCESSOR_DEFINITIONS 加上 THINKING_ENABLED 
-初始化: [EYSdkUtils initThinkWithAppID:APP_ID]; 
-默认事件上报给数数的服务器地址 https://receiver.ta.thinkingdata.cn 
-如果您使用的是私有化部署的版本请传入自己的url地址: [EYSdkUtils initThinkWithAppID:APP_ID Url:SERVER_URL]; 
+//默认使用云服务，服务器地址: https://receiver.ta.thinkingdata.cn 
+[EYSdkUtils initThinkWithAppID:APP_ID]; 
+//如果您使用的是私有化部署的版本请传入自己的url地址 
+[EYSdkUtils initThinkWithAppID:APP_ID Url:SERVER_URL]; 
 完成初始化后，您可以按以下方式来使用SDK: 
 #import <ThinkingSDK/ThinkingAnalyticsSDK.h>
-[[ThinkingAnalyticsSDK sharedInstanceWithAppid:APP_ID] track:@"event_name" properties:eventProperties];
+[[ThinkingAnalyticsSDK sharedInstanceWithAppid:APP_ID] track:@"event_name" properties:eventProperties]; 
+更多功能请参考数数SDK文档:  https://docs.thinkingdata.cn/ta-manual/latest/installation/installation_menu/client_sdk/ios_sdk_installation/ios_sdk_installation.html
 ```
 
 ### 初始化FB， Firebase， UMMobSdk， AppFlyer， GDTActionSdk，及firebase 远程配置
