@@ -6,7 +6,7 @@
         "isAutoLoad":"true"
     },
     {
-        "keys":"[\"native_at\"]",
+        "keys":"[\"navive_tp\"]",
         "type":"nativeAd",
         "id":"native_ad",
         "isAutoLoad":"true"
@@ -18,7 +18,7 @@
         "isAutoLoad":"true"
     },
     {
-        "keys":"[\"banner_at\"]",
+        "keys":"[\"banner_tp\"]",
         "type":"bannerAd",
         "id":"banner_group",
         "isAutoLoad":"true"

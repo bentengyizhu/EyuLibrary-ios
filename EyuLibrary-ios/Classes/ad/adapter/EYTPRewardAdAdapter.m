@@ -7,7 +7,6 @@
 
 #ifdef TRADPLUS_ENABLED
 #import "EYTPRewardAdAdapter.h"
-#import "EYAdManager.h"
 
 @implementation EYTPRewardAdAdapter
 @synthesize isRewarded = _isRewarded;
@@ -16,11 +15,6 @@
 -(void) loadAd
 {
     NSLog(@" lwq, tp loadAd isAdLoaded = %d", [self isAdLoaded]);
-    if ([EYAdManager sharedInstance].isTradPlusInited == false) {
-        NSLog(@" lwq, tp init not compeleted");
-        [self notifyOnAdLoadFailedWithError:ERROR_SDK_UNINITED];
-        return;
-    }
     if([self isShowing]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded])
@@ -93,6 +87,7 @@
 //开始播放视频后回调
 -(void)rewardedVideoAdShown:(MsRewardedVideoAd *)rewardedVideoAd
 {
+    [self notifyOnAdShowed];
     [self notifyOnAdImpression];
 }
 

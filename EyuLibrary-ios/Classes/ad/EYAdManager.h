@@ -44,9 +44,7 @@
 #ifdef ADMOB_MEDIATION_ENABLED
 @property(nonatomic,strong) NSMutableArray* vunglePlacementIds;
 #endif
-#ifdef TRADPLUS_ENABLED
-@property(nonatomic,assign) bool isTradPlusInited;
-#endif
+
 -(void) loadRewardVideoAd:(NSString*) placeId;
 -(void) showRewardVideoAd:(NSString*) placeId withViewController:(UIViewController*)controller;
 

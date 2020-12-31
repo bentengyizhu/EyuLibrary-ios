@@ -7,17 +7,12 @@
 
 #ifdef TRADPLUS_ENABLED
 #import "EYTPBannerAdAdapter.h"
-#include "EYAdManager.h"
+#import "EYAdManager.h"
 
 @implementation EYTPBannerAdAdapter
 -(void) loadAd
 {
     NSLog(@" lwq, tp bannerAd ");
-    if ([EYAdManager sharedInstance].isTradPlusInited == false) {
-        NSLog(@" lwq, tp init not compeleted");
-        [self notifyOnAdLoadFailedWithError:ERROR_SDK_UNINITED];
-        return;
-    }
     if([self isAdLoaded])
     {
         self.isLoadSuccess = true;
@@ -27,6 +22,7 @@
         self.isLoadSuccess = false;
         self.isLoading = true;
         self.bannerView = [[MsBannerView alloc] init];
+        self.bannerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50);
         self.bannerView.delegate = self;
         [self.bannerView setAdUnitID:self.adKey.key];
         [self.bannerView loadAd];

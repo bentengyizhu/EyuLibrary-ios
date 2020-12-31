@@ -138,9 +138,7 @@ static id s_sharedInstance;
 @synthesize ironRewardDelegateDict = _ironRewardDelegateDict;
 @synthesize ironInterDelegateDict = _ironInterDelegateDict;
 #endif
-#ifdef TRADPLUS_ENABLED
-@synthesize isTradPlusInited = _isTradPlusInited;
-#endif
+
 @synthesize isAdmobRewardAdLoaded = _isAdmobRewardAdLoaded;
 @synthesize isAdmobRewardAdLoading = _isAdmobRewardAdLoading;
 @synthesize cellularData = _cellularData;
@@ -153,17 +151,6 @@ static id s_sharedInstance;
     }
 
     return s_sharedInstance;
-}
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-#ifdef TRADPLUS_ENABLED
-    self.isTradPlusInited = false;
-#endif
-    }
-    return self;
 }
 
 -(void) loadAdConfig:(EYAdConfig*)config
@@ -378,15 +365,7 @@ static id s_sharedInstance;
     
 #ifdef TRADPLUS_ENABLED
     [MsSDKUtils msSDKInit:^(NSError * _Nonnull error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (!error) {
-                NSLog(@"tradplus sdk init success!");
-                self.isTradPlusInited = true;
-                [self loadAutoAd];
-            } else {
-                NSLog(@"%@", error.localizedDescription);
-            }
-        });
+        NSLog(@"TPSDKInit %@", error);
     }];
 #endif
     

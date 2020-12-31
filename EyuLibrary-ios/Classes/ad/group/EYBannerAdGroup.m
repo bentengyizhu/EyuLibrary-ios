@@ -48,6 +48,9 @@
 #ifdef ANYTHINK_ENABLED
             NSClassFromString(@"EYATBannerAdAdapter"), ADNetworkAnyThink,
 #endif
+#ifdef TRADPLUS_ENABLED
+            NSClassFromString(@"EYTPBannerAdAdapter"), ADNetworkTradPlus,
+#endif
         nil];
         self.adGroup = adGroup;
         self.adapterArray = [[NSMutableArray alloc] init];

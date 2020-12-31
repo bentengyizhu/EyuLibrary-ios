@@ -57,6 +57,9 @@
 #ifdef ANYTHINK_ENABLED
         NSClassFromString(@"EYATNativeAdAdapter"), ADNetworkAnyThink,
 #endif
+#ifdef TRADPLUS_ENABLED
+        NSClassFromString(@"EYTPNativeAdAdapter"), ADNetworkTradPlus,
+#endif
         nil];
         
         self.adGroup = group;

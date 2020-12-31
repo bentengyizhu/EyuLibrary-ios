@@ -386,12 +386,22 @@
     },
     {
         "id":"reward_tp",
-        "key":"160AFCDF01DDA48CCE0DBDBE69C8C669",
+        "key":"C6E5C2EE17F7CA6FD5158694866B3348",
         "network":"tradplus"
     },
     {
         "id":"inter_tp",
-        "key":"063265866B93A4C6F93D1DDF7BF7329B",
+        "key":"179497335DE8C5446BB024B282C773B9",
+        "network":"tradplus"
+    },
+    {
+        "id":"navive_tp",
+        "key":"C7AB906FBA217502A5A426CC28A261B9",
+        "network":"tradplus"
+    },
+    {
+        "id":"banner_tp",
+        "key":"AEEF02968E70A88AFAAC770E05B71A32",
         "network":"tradplus"
     }
 ]

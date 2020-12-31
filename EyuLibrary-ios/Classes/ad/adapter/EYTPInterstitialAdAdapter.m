@@ -8,7 +8,6 @@
 #ifdef TRADPLUS_ENABLED
 
 #import "EYTPInterstitialAdAdapter.h"
-#import "EYAdManager.h"
 
 @implementation EYTPInterstitialAdAdapter
 
@@ -17,11 +16,6 @@
 -(void) loadAd
 {
     NSLog(@" lwq, tp interstitialAd loadAd ");
-    if ([EYAdManager sharedInstance].isTradPlusInited == false) {
-        NSLog(@" lwq, tp init not compeleted");
-        [self notifyOnAdLoadFailedWithError:ERROR_SDK_UNINITED];
-        return;
-    }
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if(self.interstitialAd == NULL)
