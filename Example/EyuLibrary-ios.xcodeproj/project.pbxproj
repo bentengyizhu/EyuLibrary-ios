@@ -443,23 +443,23 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-resources.sh",
+				"${PODS_ROOT}/AnyThinkiOS/AnyThinkiOS/AnyThinkSDK.bundle",
 				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-6.14.10/AppLovinSDKResources.bundle",
 				"${PODS_ROOT}/Bytedance-UnionAD/Bytedance-UnionAd/Frameworks/BUAdSDK.bundle",
 				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FFToast/FFToast.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 				"${PODS_ROOT}/SigmobAd-iOS/WindSDK/Sigmob.bundle",
-				"${PODS_ROOT}/TradPlusSDK/TradPlusSDK/TradPlusAds.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AnyThinkSDK.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppLovinSDKResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BUAdSDK.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FFToast.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Sigmob.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TradPlusAds.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -626,7 +626,6 @@
 					TRACKING_ENABLED,
 					BYTE_DANCE_ADS_ENABLED,
 					TRADPLUS_ENABLED,
-					THINKING_ENABLED,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -675,7 +674,6 @@
 					"-l\"PromisesObjC\"",
 					"-l\"ReYunTracking\"",
 					"-l\"SVProgressHUD\"",
-					"-l\"ThinkingSDK\"",
 					"-l\"bz2\"",
 					"-l\"c++\"",
 					"-l\"c++abi\"",
@@ -690,11 +688,7 @@
 					"-framework",
 					"\"Accelerate\"",
 					"-framework",
-					"\"AdMobAdapter\"",
-					"-framework",
 					"\"AdSupport\"",
-					"-framework",
-					"\"AppLovinAdapter\"",
 					"-framework",
 					"\"AppLovinSDK\"",
 					"-framework",
@@ -724,11 +718,7 @@
 					"-framework",
 					"\"FBAudienceNetwork\"",
 					"-framework",
-					"\"FacebookAdapter\"",
-					"-framework",
 					"\"Foundation\"",
-					"-framework",
-					"\"GDTMobAdapter\"",
 					"-framework",
 					"\"GoogleAppMeasurement\"",
 					"-framework",
@@ -738,8 +728,6 @@
 					"-framework",
 					"\"IronSource\"",
 					"-framework",
-					"\"IronSourceAdapter\"",
-					"-framework",
 					"\"MapKit\"",
 					"-framework",
 					"\"MediaPlayer\"",
@@ -748,31 +736,21 @@
 					"-framework",
 					"\"MobileCoreServices\"",
 					"-framework",
-					"\"PangleAdapter\"",
-					"-framework",
 					"\"QuartzCore\"",
 					"-framework",
 					"\"SafariServices\"",
 					"-framework",
 					"\"Security\"",
 					"-framework",
-					"\"SigmobAdapter\"",
-					"-framework",
 					"\"StoreKit\"",
 					"-framework",
 					"\"SystemConfiguration\"",
 					"-framework",
-					"\"TradPlusAds\"",
-					"-framework",
 					"\"UIKit\"",
-					"-framework",
-					"\"UnityAdapter\"",
 					"-framework",
 					"\"UnityAds\"",
 					"-framework",
 					"\"UserMessagingPlatform\"",
-					"-framework",
-					"\"VungleAdapter\"",
 					"-framework",
 					"\"VungleSDK\"",
 					"-framework",
@@ -820,7 +798,7 @@
 					"-weak_framework",
 					"\"WebKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.eyu.music.tap.tap2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anythink.AnyThinkSDKDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "EyuLibrary-ios_Example-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

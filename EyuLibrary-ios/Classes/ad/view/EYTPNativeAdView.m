@@ -5,6 +5,7 @@
 //  Created by eric on 2020/12/31.
 //
 
+#ifdef TRADPLUS_ENABLED
 #import "EYTPNativeAdView.h"
 
 @implementation EYTPNativeAdView
@@ -71,3 +72,4 @@
 //}
 
 @end
+#endif

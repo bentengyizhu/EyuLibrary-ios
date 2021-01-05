@@ -1,24 +1,24 @@
 [
     {
-        "keys":"[\"reward_tp\"]",
+        "keys":"[\"reward_at\"]",
         "type":"rewardAd",
         "id":"reward_ad",
         "isAutoLoad":"true"
     },
     {
-        "keys":"[\"navive_tp\"]",
+        "keys":"[\"native_at\"]",
         "type":"nativeAd",
         "id":"native_ad",
         "isAutoLoad":"true"
     },
     {
-        "keys":"[\"inter_tp\"]",
+        "keys":"[\"inter_at\"]",
         "type":"interstitialAd",
         "id":"inter_ad",
         "isAutoLoad":"true"
     },
     {
-        "keys":"[\"banner_tp\"]",
+        "keys":"[\"banner_at\"]",
         "type":"bannerAd",
         "id":"banner_group",
         "isAutoLoad":"true"
