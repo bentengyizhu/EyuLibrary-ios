@@ -577,6 +577,7 @@ MAX
 
 ## 常见问题
 
+```txt
 1.为什么banner首次加载不出来？ 
 答：可能是因为banner广告还没加载完成就调用了show方法，显示广告前请注意判断广告是否已经加载完成。
 
@@ -585,6 +586,7 @@ MAX
 
 3.SDK崩溃 reason: '-[EYAdConfig setXXXAppId:]: unrecognized selector sent to instance 
 答：请注意按文档只设置使用到的广告模块的appid或者appkey，注意只添加使用到的模块对应的预编译宏。
+```
 
 ## Author
 
