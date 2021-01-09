@@ -626,6 +626,7 @@
 					TRACKING_ENABLED,
 					BYTE_DANCE_ADS_ENABLED,
 					TRADPLUS_ENABLED,
+					THINKING_ENABLED,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

@@ -23,8 +23,8 @@
 //    [EYSdkUtils initAppFlyer:@"test" appId:@"test"];
 //    [EYSdkUtils initGDTActionSdk:@"test" secretkey:@"test"];
 //    [EYSdkUtils initFirebaseSdk];
+    [EYSdkUtils initThinkWithAppID:@"6b050bb5557f4734a6b338775d2fafd4"];
     [EYSdkUtils initTrackingWithAppKey:@"475938c702f7451a88eaffb524962649"];
-//    [EYSdkUtils initThinkWithAppID:@"thinkingId" Url:@"url"];
 //    [EYSdkUtils initFacebookSdkWithApplication:application options:launchOptions];
     [EYSdkUtils initAnyThinkWithAppID:@"a5b0e8491845b3" AppKey:@"7eae0567827cfe2b22874061763f30c9"];
     // Override point for customization after application launch.

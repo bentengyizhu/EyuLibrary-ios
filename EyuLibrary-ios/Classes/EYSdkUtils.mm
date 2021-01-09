@@ -51,6 +51,7 @@
 @end
 
 @implementation AppsFlyerDelegate
+
 - (void)onConversionDataFail:(nonnull NSError *)error {
     NSLog(@"onConversionDataFail %@", error);
 }
@@ -99,6 +100,7 @@
 
 @implementation EYSdkUtils
 
+static NSString *distinctId;
 static bool sIsUMInited = false;
 static bool sIsGDTInited = false;
 static bool sIsFBInited = false;
@@ -221,11 +223,17 @@ AppsFlyerDelegate *_appflyerDelegate = [AppsFlyerDelegate new];
 + (void)initTrackingWithAppKey:(NSString *)appKey
 {
     [EYSdkUtils initTrackingWithAppKey:appKey withChannelId:@"_default_"];
+    if (distinctId) {
+        [Tracking setRegisterWithAccountID: distinctId];
+    }
 }
 
 + (void)initTrackingWithAppKey:(NSString *)appKey withChannelId:(NSString *)channelId
 {
     [Tracking initWithAppKey:appKey withChannelId:channelId];
+    if (distinctId) {
+        [Tracking setRegisterWithAccountID: distinctId];
+    }
 }
 #endif
 
@@ -239,11 +247,19 @@ AppsFlyerDelegate *_appflyerDelegate = [AppsFlyerDelegate new];
 
 #ifdef THINKING_ENABLED
 + (void)initThinkWithAppID:(NSString *)appId Url:(NSString *)url {
-    [ThinkingAnalyticsSDK startWithAppId:appId withUrl:url];
+    ThinkingAnalyticsSDK *instance = [ThinkingAnalyticsSDK startWithAppId:appId withUrl:url];
+    distinctId = [instance getDistinctId];
+#ifdef TRACKING_ENABLED
+    [Tracking setRegisterWithAccountID: distinctId];
+#endif
 }
 
 + (void)initThinkWithAppID:(NSString *)appId {
-    [ThinkingAnalyticsSDK startWithAppId:appId withUrl:@"https://receiver.ta.thinkingdata.cn"];
+    ThinkingAnalyticsSDK *instance = [ThinkingAnalyticsSDK startWithAppId:appId withUrl:@"https://receiver.ta.thinkingdata.cn"];
+    distinctId = [instance getDistinctId];
+#ifdef TRACKING_ENABLED
+    [Tracking setRegisterWithAccountID: distinctId];
+#endif
 }
 #endif
 
