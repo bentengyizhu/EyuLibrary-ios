@@ -252,6 +252,12 @@ AppsFlyerDelegate *_appflyerDelegate = [AppsFlyerDelegate new];
 #ifdef TRACKING_ENABLED
     [Tracking setRegisterWithAccountID: distinctId];
 #endif
+     [instance enableAutoTrack:ThinkingAnalyticsEventTypeAppStart |
+     ThinkingAnalyticsEventTypeAppInstall |
+     ThinkingAnalyticsEventTypeAppEnd |
+     ThinkingAnalyticsEventTypeAppViewScreen |
+     ThinkingAnalyticsEventTypeAppClick |
+     ThinkingAnalyticsEventTypeAppViewCrash];
 }
 
 + (void)initThinkWithAppID:(NSString *)appId {
@@ -260,6 +266,12 @@ AppsFlyerDelegate *_appflyerDelegate = [AppsFlyerDelegate new];
 #ifdef TRACKING_ENABLED
     [Tracking setRegisterWithAccountID: distinctId];
 #endif
+    [instance enableAutoTrack:ThinkingAnalyticsEventTypeAppStart |
+    ThinkingAnalyticsEventTypeAppInstall |
+    ThinkingAnalyticsEventTypeAppEnd |
+    ThinkingAnalyticsEventTypeAppViewScreen |
+    ThinkingAnalyticsEventTypeAppClick |
+    ThinkingAnalyticsEventTypeAppViewCrash];
 }
 #endif
 
