@@ -41,10 +41,12 @@
     bannerView.delegate = self;
     bannerView.presentingViewController = EYAdManager.sharedInstance.rootViewController;
     bannerView.translatesAutoresizingMaskIntoConstraints = NO;
+//    [viewGroup layoutIfNeeded];
+//    bannerView.frame = viewGroup.bounds;
     CGFloat w = viewGroup.frame.size.width;
     CGFloat h = viewGroup.frame.size.height;
     [viewGroup addSubview:bannerView];
-//    viewGroup.translatesAutoresizingMaskIntoConstraints = NO;
+    viewGroup.translatesAutoresizingMaskIntoConstraints = NO;
     NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:bannerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
     NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:bannerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
     NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:bannerView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:w];
