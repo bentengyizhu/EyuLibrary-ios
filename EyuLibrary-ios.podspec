@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '1.3.69'
+    s.version          = '1.3.70'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -108,10 +108,14 @@ Pod::Spec.new do |s|
         vungle_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VUNGLE_ADS_ENABLED'}
     end
     
-    s.subspec 'byte_dance_ads_sdk' do |byte_dance_ads_sdk|
-        #     byte_dance_ads_sdk.source 'https://github.com/CocoaPods/Specs.git'
-        byte_dance_ads_sdk.dependency 'Bytedance-UnionAD','3.3.6.1'
-        byte_dance_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) BYTE_DANCE_ADS_ENABLED'}
+    s.subspec 'bytedance_ads_cn_sdk' do |bytedance_ads_cn_sdk|
+        bytedance_ads_cn_sdk.dependency 'Ads-CN', '3.4.1.1'
+        bytedance_ads_cn_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) BYTE_DANCE_ADS_ENABLED'}
+    end
+    
+    s.subspec 'bytedance_ads_global_sdk' do |bytedance_ads_global_sdk|
+        bytedance_ads_global_sdk.dependency 'Ads-Global', '3.4.1.1'
+        bytedance_ads_global_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) BYTE_DANCE_ADS_ENABLED'}
     end
     
     s.subspec 'mtg_ads_sdk' do |mtg_ads_sdk|
