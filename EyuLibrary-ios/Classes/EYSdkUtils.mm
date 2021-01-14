@@ -104,6 +104,7 @@ static NSString *distinctId;
 static bool sIsUMInited = false;
 static bool sIsGDTInited = false;
 static bool sIsFBInited = false;
+static bool sIsTrackingInited = false;
 
     
 #ifdef FACEBOOK_ENABLED
@@ -223,14 +224,12 @@ AppsFlyerDelegate *_appflyerDelegate = [AppsFlyerDelegate new];
 + (void)initTrackingWithAppKey:(NSString *)appKey
 {
     [EYSdkUtils initTrackingWithAppKey:appKey withChannelId:@"_default_"];
-    if (distinctId) {
-        [Tracking setRegisterWithAccountID: distinctId];
-    }
 }
 
 + (void)initTrackingWithAppKey:(NSString *)appKey withChannelId:(NSString *)channelId
 {
     [Tracking initWithAppKey:appKey withChannelId:channelId];
+    sIsTrackingInited = true;
     if (distinctId) {
         [Tracking setRegisterWithAccountID: distinctId];
     }
@@ -250,7 +249,9 @@ AppsFlyerDelegate *_appflyerDelegate = [AppsFlyerDelegate new];
     ThinkingAnalyticsSDK *instance = [ThinkingAnalyticsSDK startWithAppId:appId withUrl:url];
     distinctId = [instance getDistinctId];
 #ifdef TRACKING_ENABLED
-    [Tracking setRegisterWithAccountID: distinctId];
+    if (sIsTrackingInited == true) {
+        [Tracking setRegisterWithAccountID: distinctId];
+    }
 #endif
      [instance enableAutoTrack:ThinkingAnalyticsEventTypeAppStart |
      ThinkingAnalyticsEventTypeAppInstall |
@@ -264,7 +265,9 @@ AppsFlyerDelegate *_appflyerDelegate = [AppsFlyerDelegate new];
     ThinkingAnalyticsSDK *instance = [ThinkingAnalyticsSDK startWithAppId:appId withUrl:@"https://receiver.ta.thinkingdata.cn"];
     distinctId = [instance getDistinctId];
 #ifdef TRACKING_ENABLED
-    [Tracking setRegisterWithAccountID: distinctId];
+    if (sIsTrackingInited == true) {
+        [Tracking setRegisterWithAccountID: distinctId];
+    }
 #endif
     [instance enableAutoTrack:ThinkingAnalyticsEventTypeAppStart |
     ThinkingAnalyticsEventTypeAppInstall |
