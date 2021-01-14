@@ -198,17 +198,6 @@ Pod::Spec.new do |s|
         admob_mediation.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ADMOB_MEDIATION_ENABLED ADMOB_ADS_ENABLED'}
     end
     
-    s.subspec 'admob_mediation_sdk' do |admob_mediation|
-        admob_mediation.dependency 'Google-Mobile-Ads-SDK','7.68.0'
-        admob_mediation.dependency 'GoogleMobileAdsMediationAppLovin', '6.14.9.0'
-        admob_mediation.dependency 'GoogleMobileAdsMediationFacebook', '6.2.0.0'
-        admob_mediation.dependency 'GoogleMobileAdsMediationFyber', '7.7.2.0'
-        admob_mediation.dependency 'GoogleMobileAdsMediationIronSource', '7.0.4.0'
-        admob_mediation.dependency 'GoogleMobileAdsMediationUnity', '3.5.1.1'
-        admob_mediation.dependency 'GoogleMobileAdsMediationVungle', '6.8.1.0'
-        admob_mediation.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ADMOB_MEDIATION_ENABLED ADMOB_ADS_ENABLED'}
-    end
-    
     s.subspec 'tradplus_sdk' do |tradplus|
         tradplus.dependency 'TradPlusSDK', '5.0.2'
         tradplus.dependency 'TradPlusSDK/FacebookAdapter', '5.0.2'
