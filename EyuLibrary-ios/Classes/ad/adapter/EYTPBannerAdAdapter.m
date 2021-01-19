@@ -22,7 +22,7 @@
         self.isLoadSuccess = false;
         self.isLoading = true;
         self.bannerView = [[MsBannerView alloc] init];
-        self.bannerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50);
+//        self.bannerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50);
         self.bannerView.delegate = self;
         [self.bannerView setAdUnitID:self.adKey.key];
         [self.bannerView loadAd];
@@ -64,6 +64,10 @@
         return EYAdManager.sharedInstance.rootViewController;
     }
     return UIApplication.sharedApplication.keyWindow.rootViewController;
+}
+
+- (UIView *)getBannerView {
+    return self.bannerView;
 }
 
 //ad加载成功

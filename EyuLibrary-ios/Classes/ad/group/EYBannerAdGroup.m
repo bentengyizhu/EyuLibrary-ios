@@ -51,6 +51,9 @@
 #ifdef TRADPLUS_ENABLED
             NSClassFromString(@"EYTPBannerAdAdapter"), ADNetworkTradPlus,
 #endif
+#ifdef APPLOVIN_MAX_ENABLED
+            NSClassFromString(@"EYMaxBannerAdAdapter"), ADNetworkMAX,
+#endif
         nil];
         self.adGroup = adGroup;
         self.adapterArray = [[NSMutableArray alloc] init];
