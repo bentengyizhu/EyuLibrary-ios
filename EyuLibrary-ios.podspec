@@ -87,7 +87,7 @@ Pod::Spec.new do |s|
     
     s.subspec 'applovin_max_sdk' do |applovin_max_sdk|
         applovin_max_sdk.dependency 'AppLovinSDK','6.14.10'
-        applovin_max_sdk.dependency 'AppLovinMediationFacebookAdapter','6.2.0.1'
+        applovin_max_sdk.dependency 'AppLovinMediationFacebookAdapter','6.2.1.0'
         #     applovin_max_sdk.dependency 'AppLovinMediationMintegralAdapter','6.4.1.0.1'
         applovin_max_sdk.dependency 'AppLovinMediationGoogleAdapter','7.69.0.0'
         applovin_max_sdk.dependency 'AppLovinMediationIronSourceAdapter','7.0.4.0.0'
