@@ -626,7 +626,7 @@ MAX
 
 ## Author
 
-WeiqiangLuo, weiqiangluo@qianyuan.tv
+eric, erictang@eyugame.com
 
 ## License
 
