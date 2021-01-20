@@ -17,7 +17,7 @@ EyuLibrary-ios is available through [CocoaPods](https://cocoapods.org). To insta
 it, simply add the following line to your Podfile:
 
 
-## 一 SDK集成
+## 一.SDK集成
 ### 1、本SDK所有第三方sdk均可以模块形式集成，下面是所有模块及对应的需要添加的预编译宏
 ```pod
 模块：易娱 sdk          :'Core'
@@ -65,7 +65,7 @@ LIBRARY_SEARCH_PATHS 加上 $(inherited)
 OTHER_LDFLAGS 加上 $(inherited)
 ```
 
-## 二 SDK初始化
+## 二.SDK初始化
 ### 1、穿山甲SDK 
 ```txt
 在GCC_PREPROCESSOR_DEFINITIONS 加上 BYTE_DANCE_ADS_ENABLED
@@ -248,23 +248,29 @@ adConfig.wmAppKey = @"XXXXXX";
 [[EYAdManager sharedInstance] setupWithConfig:adConfig];
 ```
 
-## 二 加载广告
-一般来说cache配置文件默认配置isAutoLoad的值为true，表示SDK初始化后将自动加载缓存广告无需手动调用,若需关闭自动加载则将对应的值改为false，并手动调用load方法
+## 三.加载广告
+一般来说cache配置文件默认配置isAutoLoad的值为true，表示SDK初始化后将自动加载缓存广告,可直接跳过此步骤,若需手动加载广告则将对应的值改为false，并手动调用load方法加载广告
 ```oc
-//加载广告
+//加载插屏广告
 [[EYAdManager sharedInstance] loadInterstitialAd: placeId];
+
+//加载激励视频
 [[EYAdManager sharedInstance] loadRewardVideoAd: placeId];
+
+//加载原生广告
 [[EYAdManager sharedInstance] loadNativeAd: placeId];
+
+//加载Banner
 [[EYAdManager sharedInstance] loadBannerAd: placeId];
 
 //判断广告是否加载完成
-bool isAdLoaded = [[EYAdManager sharedInstance] isNativeAdLoaded: placeId];
-bool isAdLoaded = [[EYAdManager sharedInstance] isBannerAdLoaded: placeId];
-bool isAdLoaded = [[EYAdManager sharedInstance] isInterstitialAdLoaded: placeId];
-bool isAdLoaded = [[EYAdManager sharedInstance] isRewardAdLoaded: placeId];
+bool isNativeAdLoaded = [[EYAdManager sharedInstance] isNativeAdLoaded: placeId];
+bool isBannerAdLoaded = [[EYAdManager sharedInstance] isBannerAdLoaded: placeId];
+bool isInterstitialAdLoaded = [[EYAdManager sharedInstance] isInterstitialAdLoaded: placeId];
+bool isRewardAdLoaded = [[EYAdManager sharedInstance] isRewardAdLoaded: placeId];
 ```
 
-## 三 显示广告
+## 四.显示广告
 ```oc
 //展示激励视频 reward_ad为广告位id，对应ios_ad_setting.json配置
 [[EYAdManager sharedInstance] showRewardVideoAd:@"reward_ad" withViewController:self];
@@ -279,7 +285,7 @@ bool isAdLoaded = [[EYAdManager sharedInstance] isRewardAdLoaded: placeId];
 bool isSuccess = [[EYAdManager sharedInstance] showBannerAd:@"banner_ad" viewGroup:self.bannerRootView];
 ```
 
-## 四 广告事件回调
+## 五.广告事件回调
 ```oc
 [[EYAdManager sharedInstance] setDelegate:self];
 
@@ -324,7 +330,7 @@ bool isSuccess = [[EYAdManager sharedInstance] showBannerAd:@"banner_ad" viewGro
 }
 ```
 
-## 五 事件上报功能
+## 事件上报
 ```oc
 事件上报
 #import "EYEventUtils.h"
