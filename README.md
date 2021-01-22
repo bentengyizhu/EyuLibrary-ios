@@ -201,6 +201,7 @@ Thinking  需要在GCC_PREPROCESSOR_DEFINITIONS 加上 THINKING_ENABLED
 
 //如果您使用的是私有化部署的版本请传入自己的url地址 
 [EYSdkUtils initThinkWithAppID:APP_ID Url:SERVER_URL]; 
+```
 
 ### 19、TradPlus
 ```txt
