@@ -202,12 +202,6 @@ Thinking  需要在GCC_PREPROCESSOR_DEFINITIONS 加上 THINKING_ENABLED
 //如果您使用的是私有化部署的版本请传入自己的url地址 
 [EYSdkUtils initThinkWithAppID:APP_ID Url:SERVER_URL]; 
 
-完成初始化后，您可以按以下方式来使用SDK: 
-#import <ThinkingSDK/ThinkingAnalyticsSDK.h>
-[[ThinkingAnalyticsSDK sharedInstanceWithAppid:APP_ID] track:@"event_name" properties:eventProperties]; 
-更多功能请参考数数SDK文档: https://docs.thinkingdata.cn/ta-manual/latest/installation/installation_menu/client_sdk/ios_sdk_installation/ios_sdk_installation.html
-```
-
 ### 19、TradPlus
 ```txt
 TradPlus  需要在GCC_PREPROCESSOR_DEFINITIONS 加上 TRADPLUS_ENABLED 
@@ -335,8 +329,17 @@ bool isSuccess = [[EYAdManager sharedInstance] showBannerAd:@"banner_ad" viewGro
 ```
 
 ## 事件上报
+### 1、Thinking（数数）事件上传
 ```oc
-事件上报
+完成数数初始化后（见步骤二SDK初始化第18条），您可以按以下方式来使用SDK: 
+#import <ThinkingSDK/ThinkingAnalyticsSDK.h>
+[[ThinkingAnalyticsSDK sharedInstanceWithAppid:APP_ID] track:@"event_name" properties:eventProperties]; 
+更多功能请参考数数SDK文档: https://docs.thinkingdata.cn/ta-manual/latest/installation/installation_menu/client_sdk/ios_sdk_installation/ios_sdk_installation.html
+```
+
+### 2、EyuSDK事件上传
+```oc
+//SDK自带事件上报
 #import "EYEventUtils.h"
 NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
 [dic setObject:@"testValue" forKey:@"testKey"];
