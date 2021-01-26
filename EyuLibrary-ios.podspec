@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '1.3.73'
+    s.version          = '1.3.74'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -81,25 +81,25 @@ Pod::Spec.new do |s|
     # end
     
     s.subspec 'applovin_ads_sdk' do |applovin_ads_sdk|
-        applovin_ads_sdk.dependency 'AppLovinSDK','6.14.10'
+        applovin_ads_sdk.dependency 'AppLovinSDK','6.15.1'
         applovin_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) APPLOVIN_ADS_ENABLED'}
     end
     
     s.subspec 'applovin_max_sdk' do |applovin_max_sdk|
-        applovin_max_sdk.dependency 'AppLovinSDK','6.14.10'
+        applovin_max_sdk.dependency 'AppLovinSDK','6.15.1'
         applovin_max_sdk.dependency 'AppLovinMediationFacebookAdapter','6.2.1.0'
         #     applovin_max_sdk.dependency 'AppLovinMediationMintegralAdapter','6.4.1.0.1'
-        applovin_max_sdk.dependency 'AppLovinMediationGoogleAdapter','7.69.0.0'
-        applovin_max_sdk.dependency 'AppLovinMediationIronSourceAdapter','7.0.4.0.0'
-        applovin_max_sdk.dependency 'AppLovinMediationByteDanceAdapter','3.3.6.1.0'
-        applovin_max_sdk.dependency 'AppLovinMediationUnityAdsAdapter','3.5.1.1'
-        applovin_max_sdk.dependency 'AppLovinMediationVungleAdapter','6.8.1.2'
-        applovin_max_sdk.dependency 'AppLovinMediationFyberAdapter','7.7.3.0'
+        applovin_max_sdk.dependency 'AppLovinMediationGoogleAdapter','7.69.0.1'
+        applovin_max_sdk.dependency 'AppLovinMediationIronSourceAdapter','7.1.0.0.0'
+        applovin_max_sdk.dependency 'AppLovinMediationByteDanceAdapter','3.3.6.2.0'
+        applovin_max_sdk.dependency 'AppLovinMediationUnityAdsAdapter','3.6.0.0'
+        applovin_max_sdk.dependency 'AppLovinMediationVungleAdapter','6.8.1.3'
+        applovin_max_sdk.dependency 'AppLovinMediationFyberAdapter','7.8.0.1'
         applovin_max_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) APPLOVIN_MAX_ENABLED' }
     end
     
     s.subspec 'unity_ads_sdk' do |unity_ads_sdk|
-        unity_ads_sdk.dependency 'UnityAds','3.4.8'
+        unity_ads_sdk.dependency 'UnityAds','3.6.0'
         unity_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) UNITY_ADS_ENABLED'}
     end
     
