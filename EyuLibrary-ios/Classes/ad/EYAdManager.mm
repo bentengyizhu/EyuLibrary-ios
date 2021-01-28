@@ -35,6 +35,7 @@
 #endif
 
 #ifdef TRADPLUS_ENABLED
+#import "FBAdSettings.h"
 #import <TradPlusAds/MsSDKUtils.h>
 #endif
 
@@ -42,6 +43,7 @@
 #ifndef APPLOVIN_ADS_ENABLED
 #define APPLOVIN_ADS_ENABLED
 #endif
+#import "FBAdSettings.h"
 #endif
 
 #ifdef APPLOVIN_ADS_ENABLED
@@ -305,6 +307,7 @@ static id s_sharedInstance;
      *需要在info.plist里设置AppLovinSdkKey
      **/
 #ifdef APPLOVIN_MAX_ENABLED
+    [FBAdSettings setAdvertiserTrackingEnabled:YES];
     [ALSdk shared].mediationProvider = @"max";
 #endif
     [[ALSdk shared] initializeSdkWithCompletionHandler:^(ALSdkConfiguration *configuration) {
@@ -364,6 +367,7 @@ static id s_sharedInstance;
 #endif
     
 #ifdef TRADPLUS_ENABLED
+    [FBAdSettings setAdvertiserTrackingEnabled:YES];
     [MsSDKUtils msSDKInit:^(NSError * _Nonnull error) {
         NSLog(@"TPSDKInit %@", error);
     }];
