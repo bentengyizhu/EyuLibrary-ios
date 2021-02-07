@@ -443,23 +443,19 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-resources.sh",
+				"${PODS_ROOT}/Ads-CN/PangleSDK/BUAdSDK.bundle",
 				"${PODS_ROOT}/AnyThinkiOS/AnyThinkiOS/AnyThinkSDK.bundle",
-				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-6.15.1/AppLovinSDKResources.bundle",
-				"${PODS_ROOT}/Bytedance-UnionAD/Bytedance-UnionAd/Frameworks/BUAdSDK.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FFToast/FFToast.bundle",
-				"${PODS_ROOT}/Fyber_Marketplace_SDK/IASDKCore/IASDKResources.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/gRPC-C++/gRPCCertificates-Cpp.bundle",
+				"${PODS_ROOT}/SigmobAd-iOS/WindSDK/Sigmob.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AnyThinkSDK.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppLovinSDKResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BUAdSDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AnyThinkSDK.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FFToast.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IASDKResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates-Cpp.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Sigmob.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -617,16 +613,13 @@
 					"PB_FIELD_32BIT=1",
 					"PB_NO_PACKED_STRUCTS=1",
 					"PB_ENABLE_MALLOC=1",
-					APPLOVIN_MAX_ENABLED,
 					AF_ENABLED,
 					ADMOB_ADS_ENABLED,
 					ANYTHINK_ENABLED,
 					MTG_ADS_ENABLED,
 					TRACKING_ENABLED,
 					BYTE_DANCE_ADS_ENABLED,
-					TRADPLUS_ENABLED,
 					THINKING_ENABLED,
-					FIREBASE_ENABLED,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -667,7 +660,6 @@
 					"$(inherited)",
 					"-ObjC",
 					"-l\"EyuLibrary-ios\"",
-					"-l\"FBSDKCoreKit\"",
 					"-l\"FFToast\"",
 					"-l\"GDTMobSDK\"",
 					"-l\"GoogleUtilities\"",
@@ -690,8 +682,6 @@
 					"\"Accelerate\"",
 					"-framework",
 					"\"AdSupport\"",
-					"-framework",
-					"\"AppLovinSDK\"",
 					"-framework",
 					"\"AudioToolbox\"",
 					"-framework",
@@ -717,8 +707,6 @@
 					"-framework",
 					"\"CoreVideo\"",
 					"-framework",
-					"\"FBAudienceNetwork\"",
-					"-framework",
 					"\"Foundation\"",
 					"-framework",
 					"\"GoogleAppMeasurement\"",
@@ -726,8 +714,6 @@
 					"\"GoogleMobileAds\"",
 					"-framework",
 					"\"ImageIO\"",
-					"-framework",
-					"\"IronSource\"",
 					"-framework",
 					"\"MapKit\"",
 					"-framework",

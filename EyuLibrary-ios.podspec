@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '1.3.76'
+    s.version          = '1.3.77'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -109,27 +109,27 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'bytedance_ads_cn_sdk' do |bytedance_ads_cn_sdk|
-        bytedance_ads_cn_sdk.dependency 'Ads-CN', '3.4.1.1'
+        bytedance_ads_cn_sdk.dependency 'Ads-CN', '3.4.2.3'
         bytedance_ads_cn_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) BYTE_DANCE_ADS_ENABLED'}
     end
     
     s.subspec 'bytedance_ads_global_sdk' do |bytedance_ads_global_sdk|
-        bytedance_ads_global_sdk.dependency 'Ads-Global', '3.4.1.1'
+        bytedance_ads_global_sdk.dependency 'Ads-Global', '3.4.2.3'
         bytedance_ads_global_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) BYTE_DANCE_ADS_ENABLED'}
     end
     
     s.subspec 'mtg_ads_sdk' do |mtg_ads_sdk|
-        mtg_ads_sdk.dependency 'MintegralAdSDK/InterstitialVideoAd','6.6.8.0'
-        mtg_ads_sdk.dependency 'MintegralAdSDK/RewardVideoAd','6.6.8.0'
-        mtg_ads_sdk.dependency 'MintegralAdSDK','6.6.8.0'
-        mtg_ads_sdk.dependency 'MintegralAdSDK/BidNativeAd','6.6.8.0'
-        mtg_ads_sdk.dependency 'MintegralAdSDK/InterstitialAd','6.6.8.0'
-        mtg_ads_sdk.dependency 'MintegralAdSDK/BannerAd','6.6.8.0'
+        mtg_ads_sdk.dependency 'MintegralAdSDK/InterstitialVideoAd','6.7.3.0'
+        mtg_ads_sdk.dependency 'MintegralAdSDK/RewardVideoAd','6.7.3.0'
+        mtg_ads_sdk.dependency 'MintegralAdSDK','6.7.3.0'
+        mtg_ads_sdk.dependency 'MintegralAdSDK/BidNativeAd','6.7.3.0'
+        mtg_ads_sdk.dependency 'MintegralAdSDK/InterstitialAd','6.7.3.0'
+        mtg_ads_sdk.dependency 'MintegralAdSDK/BannerAd','6.7.3.0'
         mtg_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) MTG_ADS_ENABLED'}
     end
     
     s.subspec 'gdt_ads_sdk' do |gdt_ad|
-        gdt_ad.dependency 'GDTMobSDK','4.11.12'
+        gdt_ad.dependency 'GDTMobSDK','4.12.3'
         gdt_ad.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) GDT_ADS_ENABLED'}
     end
     
@@ -176,14 +176,14 @@ Pod::Spec.new do |s|
     
     s.subspec 'anythink_sdk' do |anythink|
 #        anythink.vendored_frameworks = 'EyuLibrary-ios/Classes/framework/AnyThinkMTGAdapter/*.framework'
-        anythink.dependency 'AnyThinkiOS', '5.7.7'
-        anythink.dependency 'AnyThinkiOS/AnyThinkTouTiaoAdapter', '5.7.7'
-        anythink.dependency 'AnyThinkiOS/AnyThinkMintegralAdapter', '5.7.7'
-        anythink.dependency 'AnyThinkiOS/AnyThinkGDTAdapter', '5.7.7'
-        anythink.dependency 'AnyThinkiOS/AnyThinkAdmobAdapter', '5.7.7'
-        anythink.dependency 'AnyThinkiOS/AnyThinkSigmobAdapter', '5.7.7'
-        anythink.dependency 'AnyThinkiOS/AnyThinkUnityAdsAdapter', '5.7.7'
-        anythink.dependency 'AnyThinkiOS/AnyThinkVungleAdapter', '5.7.7'
+        anythink.dependency 'AnyThinkiOS', '5.7.11'
+        anythink.dependency 'AnyThinkiOS/AnyThinkTouTiaoAdapter', '5.7.11'
+        anythink.dependency 'AnyThinkiOS/AnyThinkMintegralAdapter', '5.7.11'
+        anythink.dependency 'AnyThinkiOS/AnyThinkGDTAdapter', '5.7.11'
+        anythink.dependency 'AnyThinkiOS/AnyThinkAdmobAdapter', '5.7.11'
+        anythink.dependency 'AnyThinkiOS/AnyThinkSigmobAdapter', '5.7.11'
+        anythink.dependency 'AnyThinkiOS/AnyThinkUnityAdsAdapter', '5.7.11'
+        anythink.dependency 'AnyThinkiOS/AnyThinkVungleAdapter', '5.7.11'
         anythink.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ANYTHINK_ENABLED'}
     end
     
@@ -213,7 +213,7 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'sigmob_ads_sdk' do |sigmob|
-        sigmob.dependency 'SigmobAd-iOS', '2.24.0'
+        sigmob.dependency 'SigmobAd-iOS', '2.24.1'
     end
     
     s.subspec 'thinking_sdk' do |thinking|

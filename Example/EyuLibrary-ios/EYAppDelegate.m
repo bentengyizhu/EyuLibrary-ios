@@ -22,7 +22,7 @@
 //    [EYSdkUtils initUMMobSdk:@"test" channel:@"eyu"];
 //    [EYSdkUtils initAppFlyer:@"test" appId:@"test"];
 //    [EYSdkUtils initGDTActionSdk:@"test" secretkey:@"test"];
-    [EYSdkUtils initFirebaseSdk];
+//    [EYSdkUtils initFirebaseSdk];
     [EYSdkUtils initTrackingWithAppKey:@"475938c702f7451a88eaffb524962649"];
     [EYSdkUtils initThinkWithAppID:@"your_think_id"];
 //    [EYSdkUtils initFacebookSdkWithApplication:application options:launchOptions];
@@ -35,7 +35,6 @@
     adConfig.adKeyData =  [EYSdkUtils readFileWithName:@"ios_ad_key_setting"];
     adConfig.adGroupData = [EYSdkUtils readFileWithName:@"ios_ad_cache_setting"];
     adConfig.adPlaceData = [EYSdkUtils readFileWithName:@"ios_ad_setting"];
-
 //    adConfig.mtgAppId = @"111418";
 //    adConfig.mtgAppKey = @"a339a16bbaca844012276afad6f59eaa";
     adConfig.admobClientId = @"ca-app-pub-1111111111111111~1111111111";
@@ -46,8 +45,6 @@
 //    adConfig.ironSourceAppKey = @"cceee1bd";//@"a78e7db5";
     [[EYAdManager sharedInstance] setupWithConfig:adConfig];
     [[EYAdManager sharedInstance] setDelegate:self];
-    
-    
 //    [EYSdkUtils initFacebookSdkWithApplication:application options:launchOptions];
     return YES;
 }
