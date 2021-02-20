@@ -54,6 +54,9 @@
 #ifdef APPLOVIN_MAX_ENABLED
             NSClassFromString(@"EYMaxBannerAdAdapter"), ADNetworkMAX,
 #endif
+#ifdef BYTE_DANCE_ADS_ENABLED
+            NSClassFromString(@"EYWMBannerAdAdapter"), ADNetworkWM,
+#endif
         nil];
         self.adGroup = adGroup;
         self.adapterArray = [[NSMutableArray alloc] init];
@@ -237,6 +240,18 @@
         [dic setObject:ADTypeBanner forKey:@"type"];
         [dic setObject:adKey.keyId forKey:@"keyId"];
         [EYEventUtils logEvent:EVENT_AD_IMPRESSION  parameters:dic];
+    }
+}
+
+-(void) onAdClosed:(EYInterstitialAdAdapter*)adapter
+{
+    if(self.delegate)
+    {
+        [self.delegate onAdClosed:self.adPlaceId type:ADTypeBanner];
+    }
+    
+    if (self.adGroup.isAutoLoad) {
+        [self loadAd:@"auto"];
     }
 }
 @end

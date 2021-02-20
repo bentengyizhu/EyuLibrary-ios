@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '1.3.77'
+    s.version          = '1.3.78'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -141,7 +141,7 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'crashlytics_sdk' do |crash|
-        crash.dependency 'Firebase/Crashlytics'
+        crash.dependency 'Firebase/Crashlytics', '7.4.0'
     end
     
     s.subspec 'firebase_sdk' do |firebase|
