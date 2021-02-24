@@ -13,4 +13,4 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-说明文档地址[https://eyugameqy.github.io](https://eyugameqy.github.io)
+说明文档地址:[https://eyugameqy.github.io](https://eyugameqy.github.io).
