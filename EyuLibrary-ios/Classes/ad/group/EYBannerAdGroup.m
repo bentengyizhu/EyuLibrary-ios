@@ -190,12 +190,14 @@
         
     }else{
         adapter.tryLoadAdCount++;
-        [adapter loadAd];
         if(self.reportEvent){
             NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
             [dic setObject:adapter.adKey.keyId forKey:@"type"];
             [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOADING]  parameters:dic];
         }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [adapter loadAd];
+         });
     }
     if(self.delegate)
     {

@@ -50,6 +50,7 @@
 -(void) notifyOnAdLoaded
 {
     self.isLoading = false;
+    [self cancelTimeoutTask];
     if(self.delegate!=NULL)
     {
         [self.delegate onAdLoaded:self];
@@ -59,6 +60,7 @@
 -(void) notifyOnAdLoadFailedWithError:(int)errorCode;
 {
     self.isLoading = false;
+    [self cancelTimeoutTask];
     if(self.delegate!=NULL)
     {
         [self.delegate onAdLoadFailed:self withError:errorCode];
