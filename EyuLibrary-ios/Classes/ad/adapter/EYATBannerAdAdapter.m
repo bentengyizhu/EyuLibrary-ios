@@ -96,11 +96,6 @@
     [self notifyOnAdImpression];
 }
 
-- (void)bannerView:(ATBannerView *)bannerView didCloseWithPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
-    NSLog(@"lwq atbanner ad close");
-}
-
-
 - (void)bannerView:(ATBannerView *)bannerView didDeepLinkOrJumpForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra result:(BOOL)success {
     
 }
