@@ -46,7 +46,7 @@
     CGFloat w = viewGroup.frame.size.width;
     CGFloat h = viewGroup.frame.size.height;
     [viewGroup addSubview:bannerView];
-    viewGroup.translatesAutoresizingMaskIntoConstraints = NO;
+//    viewGroup.translatesAutoresizingMaskIntoConstraints = NO;
     NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:bannerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
     NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:bannerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
     NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:bannerView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:w];
@@ -95,5 +95,15 @@
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
 }
+
+- (void)bannerView:(ATBannerView *)bannerView didCloseWithPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
+    NSLog(@"lwq atbanner ad close");
+}
+
+
+- (void)bannerView:(ATBannerView *)bannerView didDeepLinkOrJumpForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra result:(BOOL)success {
+    
+}
+
 @end
 #endif
