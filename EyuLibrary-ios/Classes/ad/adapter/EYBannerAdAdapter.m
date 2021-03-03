@@ -100,6 +100,14 @@
     }
 }
 
+- (void)notifyOnAdShowedData:(NSDictionary *)data {
+    self.isLoading = false;
+    if(self.delegate!=NULL)
+    {
+        [self.delegate onAdShowed:self extraData:data];
+    }
+}
+
 -(void) notifyOnAdImpression
 {
     if(self.delegate!=NULL)

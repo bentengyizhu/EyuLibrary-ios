@@ -37,7 +37,7 @@
 -(void) notifyOnAdShowed;
 -(void) notifyOnAdClicked;
 -(void) notifyOnAdImpression;
-
+-(void) notifyOnAdShowedData:(NSDictionary *)data;
 
 -(void) startTimeoutTask;
 -(void) cancelTimeoutTask;
@@ -53,5 +53,5 @@
 -(void) onAdShowed:(EYNativeAdAdapter *)adapter;
 -(void) onAdClicked:(EYNativeAdAdapter *)adapter;
 -(void) onAdImpression:(EYNativeAdAdapter *)adapter;
-
+-(void) onAdShowed:(EYNativeAdAdapter *)adapter extraData:(NSDictionary *)extraData;
 @end

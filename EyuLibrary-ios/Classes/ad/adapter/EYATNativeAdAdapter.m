@@ -117,6 +117,7 @@
 //        self.nativeAdView.mainImageView.image = self.nativeAdView.nativeAd.mainImage;
 //    }
     [self notifyOnAdShowed];
+    [self notifyOnAdShowedData:extra];
     [self notifyOnAdImpression];
 }
 

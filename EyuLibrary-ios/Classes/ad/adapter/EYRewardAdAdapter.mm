@@ -73,6 +73,13 @@
     }
 }
 
+- (void)notifyOnAdShowedData:(NSDictionary *)data {
+    if(self.delegate!=NULL)
+    {
+        [self.delegate onAdShowed:self extraData:data];
+    }
+}
+
 -(void) notifyOnAdClicked
 {
     if(self.delegate!=NULL)

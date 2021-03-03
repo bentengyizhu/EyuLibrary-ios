@@ -84,6 +84,7 @@
 -(void) rewardedVideoDidFailToPlayForPlacementID:(NSString*)placementID error:(NSError*)error extra:(NSDictionary *)extra {
     NSLog(@"lwq, at reward ad wasDisplayedIn");
     [self notifyOnAdShowed];
+    [self notifyOnAdShowedData:extra];
     [self notifyOnAdImpression];
 }
 

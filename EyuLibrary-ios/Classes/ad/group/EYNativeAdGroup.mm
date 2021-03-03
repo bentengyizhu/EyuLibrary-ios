@@ -218,6 +218,13 @@
 //    }
 }
 
+- (void)onAdShowed:(EYNativeAdAdapter *)adapter extraData:(NSDictionary *)extraData {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onAdShowed:type:extraData:)])
+    {
+        [self.delegate onAdShowed:self.adPlaceId type:ADTypeNative extraData:extraData];
+    }
+}
+
 -(void) onAdClicked:(EYNativeAdAdapter*)adapter
 {
     if(self.delegate)

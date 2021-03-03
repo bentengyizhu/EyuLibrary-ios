@@ -263,6 +263,13 @@
 //    }
 }
 
+- (void)onAdShowed:(EYInterstitialAdAdapter *)adapter extraData:(NSDictionary *)extraData {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onAdShowed:type:extraData:)])
+    {
+        [self.delegate onAdShowed:self.adPlaceId type:ADTypeInterstitial extraData:extraData];
+    }
+}
+
 -(void) onAdClicked:(EYInterstitialAdAdapter*)adapter
 {
     if(self.delegate)

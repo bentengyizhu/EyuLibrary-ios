@@ -34,6 +34,7 @@
 -(void) notifyOnAdRewarded;
 -(void) notifyOnAdClosed;
 -(void) notifyOnAdImpression;
+-(void) notifyOnAdShowedData:(NSDictionary *)data;
 -(UIView *) getBannerView;
 
 -(void) startTimeoutTask;
@@ -50,4 +51,5 @@
 -(void) onAdClosed:(EYBannerAdAdapter *)adapter;
 -(void) onAdRewarded:(EYBannerAdAdapter *)adapter;
 -(void) onAdImpression:(EYBannerAdAdapter *)adapter;
+-(void) onAdShowed:(EYBannerAdAdapter *)adapter extraData:(NSDictionary *)extraData;
 @end

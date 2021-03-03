@@ -91,5 +91,4 @@
     NSLog(@"A showBanner");
     [[EYAdManager sharedInstance] showBannerAd:@"banner_ad" viewGroup:self.bannerView];
 }
-
 @end

@@ -7,7 +7,6 @@
 #ifdef ANYTHINK_ENABLED
 #import "EYATBannerAdAdapter.h"
 #include "EYAdManager.h"
-#import <GoogleMobileAds/GoogleMobileAds.h>
 
 @implementation EYATBannerAdAdapter
 -(void) loadAd
@@ -19,8 +18,7 @@
         return;
     } else if (!self.isLoading) {
         self.isLoading = true;
-        GADAdSize admobSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth([UIScreen mainScreen].bounds.size.width);
-        [[ATAdManager sharedManager] loadADWithPlacementID:self.adKey.key extra:@{kATAdLoadingExtraBannerAdSizeKey:[NSValue valueWithCGSize:admobSize.size], kATAdLoadingExtraBannerSizeAdjustKey:@NO,kATAdLoadingExtraAdmobBannerSizeKey:[NSValue valueWithCGSize:admobSize.size],kATAdLoadingExtraAdmobAdSizeFlagsKey:@(admobSize.flags)} delegate:self];
+        [[ATAdManager sharedManager] loadADWithPlacementID:self.adKey.key extra:@{kATAdLoadingExtraBannerAdSizeKey:[NSValue valueWithCGSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, 50)], kATAdLoadingExtraBannerSizeAdjustKey:@NO} delegate:self];
         [self startTimeoutTask];
     } else {
         if(self.loadingTimer == nil){
@@ -93,6 +91,7 @@
 - (void)bannerView:(ATBannerView *)bannerView didShowAdWithPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
     NSLog(@"lwq atbanner ad willLogImpression");
     [self notifyOnAdShowed];
+    [self notifyOnAdShowedData:extra];
     [self notifyOnAdImpression];
 }
 

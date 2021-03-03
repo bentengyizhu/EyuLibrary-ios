@@ -40,6 +40,7 @@
 -(void) notifyOnAdRewarded;
 -(void) notifyOnAdClosed;
 -(void) notifyOnAdImpression;
+-(void) notifyOnAdShowedData:(NSDictionary *)data;
 
 -(void) startTimeoutTask;
 -(void) cancelTimeoutTask;
@@ -56,5 +57,5 @@
 -(void) onAdClosed:(EYRewardAdAdapter *)adapter;
 -(void) onAdRewarded:(EYRewardAdAdapter *)adapter;
 -(void) onAdImpression:(EYRewardAdAdapter *)adapter;
-
+-(void) onAdShowed:(EYRewardAdAdapter *)adapter extraData:(NSDictionary *)extraData;
 @end

@@ -37,7 +37,7 @@
     adConfig.adPlaceData = [EYSdkUtils readFileWithName:@"ios_ad_setting"];
 //    adConfig.mtgAppId = @"111418";
 //    adConfig.mtgAppKey = @"a339a16bbaca844012276afad6f59eaa";
-    adConfig.admobClientId = @"ca-app-pub-1111111111111111~1111111111";
+//    adConfig.admobClientId = @"ca-app-pub-1111111111111111~1111111111";
 //    adConfig.wmAppKey = @"12345";
 //    adConfig.gdtAppId = @"1108127036";
 //    adConfig.unityClientId = @"2340038";
@@ -98,6 +98,10 @@
 {
     NSLog(@"lwq, onAdClicked adPlaceId = %@, type = %@", adPlaceId, type);
 
+}
+
+- (void)onAdShowed:(NSString *)adPlaceId type:(NSString *)type extraData:(NSDictionary *)extraData {
+    NSLog(@"%@", extraData);
 }
 
 - (void)onDefaultNativeAdClicked {

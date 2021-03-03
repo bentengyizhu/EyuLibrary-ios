@@ -208,12 +208,19 @@
 - (void)onAdShowed:(EYBannerAdAdapter *)adapter {
     if(self.delegate)
     {
-        [self.delegate onAdClicked:self.adPlaceId type:ADTypeBanner];
+        [self.delegate onAdShowed:self.adPlaceId type:ADTypeBanner];
     }
-    if(self.reportEvent){
+//    if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setObject:adapter.adKey.keyId forKey:@"type"];
-        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_CLICKED]  parameters:dic];
+        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_SHOW]  parameters:dic];
+//    }
+}
+
+- (void)onAdShowed:(EYBannerAdAdapter *)adapter extraData:(NSDictionary *)extraData {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onAdShowed:type:extraData:)])
+    {
+        [self.delegate onAdShowed:self.adPlaceId type:ADTypeBanner extraData:extraData];
     }
 }
 

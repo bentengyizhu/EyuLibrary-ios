@@ -846,6 +846,14 @@ static id s_sharedInstance;
     }
 }
 
+- (void)onAdShowed:(NSString *)adPlaceId type:(NSString *)type extraData:(NSDictionary *)extraData {
+    NSLog(@"lwq, AdPlayer onAdShowedData , adPlaceId = %@, type = %@", adPlaceId, type);
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onAdShowed:type:extraData:)])
+    {
+        [self.delegate onAdShowed:adPlaceId type:type extraData:extraData];
+    }
+}
+
 -(void) onAdClosed:(NSString*) adPlaceId  type:(NSString*)type
 {
     NSLog(@"lwq, AdPlayer onAdClosed , adPlaceId = %@, type = %@", adPlaceId, type);

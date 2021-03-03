@@ -48,6 +48,7 @@
 -(void) interstitialDidShowForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
     NSLog(@"lwq, AT interstitialWillPresentScreen");
     [self notifyOnAdShowed];
+    [self notifyOnAdShowedData:extra];
     [self notifyOnAdImpression];
 }
 
