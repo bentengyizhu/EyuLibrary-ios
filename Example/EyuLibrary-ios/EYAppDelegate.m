@@ -101,7 +101,7 @@
 }
 
 - (void)onAdShowed:(NSString *)adPlaceId type:(NSString *)type extraData:(NSDictionary *)extraData {
-    NSLog(@"%@", extraData);
+    NSLog(@"广告展示数据 extraData = %@", extraData);
 }
 
 - (void)onDefaultNativeAdClicked {

@@ -74,6 +74,7 @@
 -(void) rewardedVideoDidStartPlayingForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
     NSLog(@"lwq, at reward ad wasDisplayedIn");
     [self notifyOnAdShowed];
+    [self notifyOnAdShowedData:extra];
     [self notifyOnAdImpression];
 }
 
