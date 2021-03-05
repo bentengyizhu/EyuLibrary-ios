@@ -21,13 +21,14 @@
 #define     ADNetworkIronSource             @"ironsource"
 #define     ADNetworkAnyThink               @"anythink"
 #define     ADNetworkTradPlus               @"tradplus"
+#define     ADNetworkABU                    @"abu"
 
 
-
-#define     ADTypeInterstitial               @"interstitialAd"
+#define     ADTypeInterstitial            @"interstitialAd"
 #define     ADTypeNative                  @"nativeAd"
 #define     ADTypeReward                  @"rewardAd"
 #define     ADTypeBanner                  @"bannerAd"
+#define     ADTypeSplash                  @"splash"
 
 #define     EVENT_LOADING  @"_LOADING"
 #define     EVENT_SHOW  @"_SHOW"

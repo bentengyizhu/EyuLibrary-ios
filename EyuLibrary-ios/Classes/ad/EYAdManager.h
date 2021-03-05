@@ -46,13 +46,14 @@
 #endif
 
 -(void) loadRewardVideoAd:(NSString*) placeId;
--(void) showRewardVideoAd:(NSString*) placeId withViewController:(UIViewController*)controller;
-
 -(void) loadInterstitialAd:(NSString*) placeId;
--(void) showInterstitialAd:(NSString*) placeId withViewController:(UIViewController*)controller;
-
 -(void) loadNativeAd:(NSString*) placeId;
 -(void) loadBannerAd:(NSString*) placeId;
+-(void) loadSplashAd:(NSString*) placeId;
+
+-(void) showSplashoAd:(NSString*) placeId withViewController:(UIViewController*)controller;
+-(void) showRewardVideoAd:(NSString*) placeId withViewController:(UIViewController*)controller;
+-(void) showInterstitialAd:(NSString*) placeId withViewController:(UIViewController*)controller;
 -(EYNativeAdAdapter*) getNativeAdAdapter:(NSString*) adPlaceId;
 -(void) showNativeAd:(NSString*) placeId withViewController:(UIViewController*)controller viewGroup:(UIView*)viewGroup;
 -(bool) showBannerAd:(NSString*) placeId  viewGroup:(UIView*)viewGroup;
@@ -63,6 +64,7 @@
 -(bool) isBannerAdLoaded:(NSString*) placeId;
 -(bool) isInterstitialAdLoaded:(NSString*) placeId;
 -(bool) isRewardAdLoaded:(NSString*) placeId;
+-(bool) isSplashAdLoaded:(NSString*) placeId;
 
 -(void) setupWithConfig:(EYAdConfig*) config;
 -(EYAdKey*) getAdKeyWithId:(NSString*) keyId;

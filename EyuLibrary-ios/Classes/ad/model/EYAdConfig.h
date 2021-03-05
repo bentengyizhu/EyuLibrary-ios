@@ -49,7 +49,9 @@
 @property(nonatomic,copy)NSString *ironSourceAppKey;
 #endif
 
-
+#ifdef ABUADSDK_ENABLED
+@property(nonatomic,copy)NSString *ABUADAppId;
+#endif
 
 
 

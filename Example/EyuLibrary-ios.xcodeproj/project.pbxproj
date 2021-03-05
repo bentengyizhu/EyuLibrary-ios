@@ -283,7 +283,7 @@
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
-				D5A8D6A42AA43C9EF79908AA /* [CP] Copy Pods Resources */,
+				E39713CFC74F6845554158A2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -436,7 +436,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D5A8D6A42AA43C9EF79908AA /* [CP] Copy Pods Resources */ = {
+		E39713CFC74F6845554158A2 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -444,16 +444,16 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-resources.sh",
 				"${PODS_ROOT}/Ads-CN/PangleSDK/BUAdSDK.bundle",
-				"${PODS_ROOT}/AnyThinkiOS/AnyThinkiOS/AnyThinkSDK.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FFToast/FFToast.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+				"${PODS_ROOT}/SigmobAd-iOS/WindSDK/Sigmob.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BUAdSDK.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AnyThinkSDK.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FFToast.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Sigmob.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -654,10 +654,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"EyuLibrary-ios\"",
 					"-l\"FFToast\"",
 					"-l\"ObjC\"",
 					"-l\"ReYunTracking\"",
@@ -763,9 +763,11 @@
 					"-weak_framework",
 					"\"UIKit\"",
 					"-weak_framework",
-					"\"VideoToolbox\"",
-					"-weak_framework",
 					"\"WebKit\"",
+					"-weak_framework",
+					CoreTelephony,
+					"-force_load",
+					"/Users/eric/EyuLibrary-ios/EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdGdtAdapter.framework/ABUAdGdtAdapter",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.anythink.AnyThinkSDKDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -837,6 +839,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

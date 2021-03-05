@@ -18,6 +18,7 @@
 #import "EYNativeAdAdapter.h"
 #import "EYNativeAdView.h"
 #import "EYBannerAdGroup.h"
+#import "EYSplashAdGroup.h"
 #import <CoreTelephony/CTCellularData.h>
 #ifdef FB_ADS_ENABLED
 #import "FBAdSettings.h"
@@ -62,7 +63,9 @@
 #import "GoogleMobileAds/GoogleMobileAds.h"
 #endif
 
-
+#ifdef ABUADSDK_ENABLED
+#import <ABUAdSDK/ABUAdSDK.h>
+#endif
 //#ifndef BYTE_DANCE_ONLY
 //@interface EYAdManager()<UnityAdsDelegate, VungleSDKDelegate, ISDemandOnlyInterstitialDelegate, ISDemandOnlyRewardedVideoDelegate>
 //#else
@@ -90,6 +93,7 @@
 @property(nonatomic,strong) NSMutableDictionary<NSString*,EYNativeAdGroup*>* nativeAdGroupDict;
 @property(nonatomic,strong) NSMutableDictionary<NSString*,EYRewardAdGroup*>* rewardAdGroupDict;
 @property(nonatomic,strong) NSMutableDictionary<NSString*,EYBannerAdGroup*>* bannerAdGroupDict;
+@property(nonatomic,strong) NSMutableDictionary<NSString*,EYSplashAdGroup*>* splashAdGroupDict;
 @property(nonatomic,strong) NSMutableDictionary<NSString*,NSString*>*  nativeAdViewNibDict;
 @property(nonatomic,strong) NSMutableDictionary<NSNumber*,NSMutableDictionary<NSString*,EYNativeAdView*>*>*  nativeAdViewDict;
 @property(nonatomic,weak) UIViewController* nativeAdController;
@@ -123,6 +127,7 @@ static id s_sharedInstance;
 @synthesize nativeAdGroupDict = _nativeAdGroupDict;
 @synthesize rewardAdGroupDict = _rewardAdGroupDict;
 @synthesize bannerAdGroupDict = _bannerAdGroupDict;
+@synthesize splashAdGroupDict = _splashAdGroupDict;
 @synthesize nativeAdViewDict = _nativeAdViewDict;
 @synthesize nativeAdViewNibDict = _nativeAdViewNibDict;
 @synthesize nativeAdController = _nativeAdController;
@@ -255,6 +260,13 @@ static id s_sharedInstance;
             [self.bannerAdGroupDict setObject:bannerGroup forKey:group.groupId];
             if (group.isAutoLoad && self.rootViewController) {
                 [bannerGroup loadAd:@"auto"];
+            }
+        } else if ([ADTypeSplash isEqualToString:group.type]) {
+            EYSplashAdGroup* splashGroup = [[EYSplashAdGroup alloc]initWithGroup:group adConfig:self.adConfig];
+            [splashGroup setDelegate:self];
+            [self.splashAdGroupDict setObject:splashGroup forKey:group.groupId];
+            if (group.isAutoLoad) {
+                [splashGroup loadAd:@"auto"];
             }
         }
     }
@@ -393,6 +405,10 @@ static id s_sharedInstance;
             [ISIntegrationHelper validateIntegration];
         }
 #endif
+    
+#ifdef ABUADSDK_ENABLED
+    [ABUAdSDKManager setAppID:config.ABUADAppId];
+#endif
 }
 
 -(void) setupWithConfig:(EYAdConfig*) config
@@ -427,6 +443,7 @@ static id s_sharedInstance;
     self.nativeAdViewDict = [[NSMutableDictionary alloc] init];
     self.nativeAdViewNibDict = [[NSMutableDictionary alloc] init];
     self.bannerAdGroupDict = [[NSMutableDictionary alloc] init];
+    self.splashAdGroupDict = [[NSMutableDictionary alloc] init];
     self.nativeAdController = nil;
 #ifdef UNITY_ADS_ENABLED
     self.unityAdsDelegateDict = [[NSMutableDictionary alloc] init];
@@ -509,6 +526,27 @@ static id s_sharedInstance;
     }
 }
 
+- (void)loadSplashAd:(NSString *)placeId {
+    if(!self.isInited)
+    {
+        return;
+    }
+    NSLog(@"lwq, loadSplashAd placeId = %@", placeId);
+    EYAdPlace* adPlace = self.adPlaceDict[placeId];
+    if(adPlace != nil)
+    {
+        EYSplashAdGroup *group = self.splashAdGroupDict[adPlace.groupId];
+        if(group!=nil)
+        {
+            [group loadAd:placeId];
+        }else{
+            NSLog(@"loadSplashAd error, group==nil, placeId = %@", placeId);
+        }
+    }else{
+        NSLog(@"loadSplashAd error, adPlace==nil, placeId = %@", placeId);
+    }
+}
+
 -(void) showInterstitialAd:(NSString*) placeId withViewController:(UIViewController*)controller
 {
     if(!self.isInited)
@@ -522,6 +560,30 @@ static id s_sharedInstance;
         if(group!=nil)
         {
             if(![group showAd:placeId controller:controller])
+            {
+                [self checkNetworkStatus];
+            }
+        }else{
+            NSLog(@"showSplashAd error, group==nil, placeId = %@", placeId);
+        }
+    }else{
+        NSLog(@"showSplashAd error, adPlace==nil, placeId = %@", placeId);
+        
+    }
+}
+
+- (void)showSplashoAd:(NSString *)placeId withViewController:(UIViewController *)controller {
+    if(!self.isInited)
+    {
+        return;
+    }
+    EYAdPlace* adPlace = self.adPlaceDict[placeId];
+    if(adPlace != nil)
+    {
+        EYSplashAdGroup *group = self.splashAdGroupDict[adPlace.groupId];
+        if(group!=nil)
+        {
+            if(![group showAd:placeId withController:controller])
             {
                 [self checkNetworkStatus];
             }
@@ -570,6 +632,16 @@ static id s_sharedInstance;
             EYAdGroup* group = self.adGroupDict[groupName];
             if(group && group.isAutoLoad){
                 [self.bannerAdGroupDict[groupName] loadAd:@"auto"];
+            }
+        }
+    }
+    if(self.splashAdGroupDict)
+    {
+        for(NSString* groupName in self.splashAdGroupDict)
+        {
+            EYAdGroup* group = self.adGroupDict[groupName];
+            if(group && group.isAutoLoad){
+                [self.splashAdGroupDict[groupName] loadAd:@"auto"];
             }
         }
     }

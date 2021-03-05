@@ -43,6 +43,10 @@
 @synthesize gdtAppId = _gdtAppId;
 #endif
 
+#ifdef ABUADSDK_ENABLED
+@synthesize ABUADAppId = _ABUADAppId;
+#endif
+
 -(instancetype) initWithPlace:(NSData*)adPlaceData  key: (NSData*) adKeyData group:(NSData*) adGroupData;
 {
     self = [self init];
@@ -74,6 +78,9 @@
 #ifdef MTG_ADS_ESNABLED
         self.mtgAppId = nil;
         self.mtgAppKey = nil;
+#endif
+#ifdef ABUADSDK_ENABLED
+        self.ABUADAppId = nil;
 #endif
     }
     return self;

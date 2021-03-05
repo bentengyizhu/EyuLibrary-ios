@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '1.3.82'
+    s.version          = '1.3.83'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -219,5 +219,17 @@ Pod::Spec.new do |s|
     s.subspec 'thinking_sdk' do |thinking|
         thinking.dependency 'ThinkingSDK'
         thinking.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) THINKING_ENABLED'}
+    end
+    
+    s.subspec 'ABUAdSDK' do |abu|
+#        ABUAdSDK.preserve_paths = 'EyuLibrary-ios/Classes/framework/ReYunTracking/Headers/*.h'
+#       'HEADER_SEARCH_PATHS' => "${PODS_ROOT}/#{s.name}/framework/ReYunTracking/Headers/**",
+        abu.vendored_frameworks = 'EyuLibrary-ios/Classes/framework/ABUAdSDK/*.framework'
+        abu.libraries = 'ABUAdSDK'
+        abu.xcconfig = {'FRAMEWORK_SEARCH_PATHS' => "${PODS_ROOT}/#{s.name}/framework/ABUAdSDK/**"}
+#        abu.xcconfig = {'OTHER_LDFLAGS' => ['-ObjC', '-force_load', '$(PODS_ROOT)/../../EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdSDKAdapter', '-force_load', '${PODS_ROOT}/../../EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdAdmobAdapter', '-force_load', '${PODS_ROOT}/../../EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdGdtAdapter', '-force_load', '${PODS_ROOT}/../../EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdSigmobAdapter', '-force_load', '${PODS_ROOT}/../../EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdUnityAdapter']}
+        abu.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ABUADSDK_ENABLED'}
+        abu.frameworks = 'CoreMotion', 'AdSupport'
+        abu.libraries = 'z', 'c++', 'resolv'
     end
 end
