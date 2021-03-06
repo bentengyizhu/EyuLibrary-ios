@@ -87,6 +87,7 @@
         }
         
         [self.nativeAd registerViewForInteraction:nativeAdLayout mediaView:self.fbMediaView iconView:self.fbIconView viewController:controller clickableViews:clickViews];
+        return true;
     }
     
     return false;

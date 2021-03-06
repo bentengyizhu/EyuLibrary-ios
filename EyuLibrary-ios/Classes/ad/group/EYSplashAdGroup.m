@@ -165,7 +165,7 @@
     }
     if(self.delegate)
     {
-        [self.delegate onAdLoaded:self.adPlaceId type:ADSplash];
+        [self.delegate onAdLoaded:self.adPlaceId type:ADTypeSplash];
     }
     
 //    if(self.reportEvent){
@@ -213,9 +213,9 @@
 - (void)onAdShowed:(EYSplashAdAdapter *)adapter extraData:(NSDictionary *)extraData {
     if(self.delegate)
     {
-        [self.delegate onAdShowed:self.adPlaceId type:ADSplash];
+        [self.delegate onAdShowed:self.adPlaceId type:ADTypeSplash];
         if ([self.delegate respondsToSelector:@selector(onAdShowed:type:extraData:)]) {
-            [self.delegate onAdShowed:self.adPlaceId type:ADSplash extraData:extraData];
+            [self.delegate onAdShowed:self.adPlaceId type:ADTypeSplash extraData:extraData];
         }
     }
 }
@@ -224,7 +224,7 @@
 {
     if(self.delegate)
     {
-        [self.delegate onAdClicked:self.adPlaceId type:ADSplash];
+        [self.delegate onAdClicked:self.adPlaceId type:ADTypeSplash];
     }
     if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
@@ -236,7 +236,7 @@
 {
     if(self.delegate)
     {
-        [self.delegate onAdClosed:self.adPlaceId type:ADSplash];
+        [self.delegate onAdClosed:self.adPlaceId type:ADTypeSplash];
     }
     
     if (self.adGroup.isAutoLoad) {
@@ -248,14 +248,14 @@
 {
     if(self.delegate)
     {
-        [self.delegate onAdImpression:self.adPlaceId type:ADSplash];
+        [self.delegate onAdImpression:self.adPlaceId type:ADTypeSplash];
     }
     EYAdKey *adKey = adapter.adKey;
     if(adKey){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setObject:adKey.network forKey:@"network"];
         [dic setObject:adKey.key forKey:@"unit"];
-        [dic setObject:ADSplash forKey:@"type"];
+        [dic setObject:ADTypeSplash forKey:@"type"];
         [dic setObject:adKey.keyId forKey:@"keyId"];
         [EYEventUtils logEvent:EVENT_AD_IMPRESSION  parameters:dic];
     }

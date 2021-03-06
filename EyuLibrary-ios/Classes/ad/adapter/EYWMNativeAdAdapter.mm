@@ -140,6 +140,7 @@
         [self.relatedView refreshData:self.nativeAd];
         
         [self.nativeAd registerContainer:nativeAdLayout withClickableViews:clickViews];
+        return true;
     }
     
     return false;

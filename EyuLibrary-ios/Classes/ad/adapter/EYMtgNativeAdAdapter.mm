@@ -100,6 +100,7 @@
             [actBtn setTitle:self.campaign.adCall forState:UIControlStateNormal];
         }
         self.nativeView = nativeAdLayout;
+        return true;
     }
     
     return false;
