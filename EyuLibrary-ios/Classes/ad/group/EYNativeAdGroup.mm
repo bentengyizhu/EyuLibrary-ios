@@ -60,6 +60,9 @@
 #ifdef TRADPLUS_ENABLED
         NSClassFromString(@"EYTPNativeAdAdapter"), ADNetworkTradPlus,
 #endif
+#ifdef ABUADSDK_ENABLED
+            NSClassFromString(@"EYABUNativeAdView"), ADNetworkABU,
+#endif
         nil];
         
         self.adGroup = group;

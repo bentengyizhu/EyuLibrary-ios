@@ -92,6 +92,9 @@
 #ifdef TRADPLUS_ENABLED
             NSClassFromString(@"EYTPRewardAdAdapter"), ADNetworkTradPlus,
 #endif
+#ifdef ABUADSDK_ENABLED
+            NSClassFromString(@"EYABURewardAdAdapter"), ADNetworkABU,
+#endif
                                              nil];
 
         self.adGroup = group;

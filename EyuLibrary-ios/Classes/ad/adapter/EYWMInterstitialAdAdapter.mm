@@ -78,7 +78,7 @@
 }
 
 - (void)fullscreenVideoAdVideoDataDidLoad:(BUFullscreenVideoAd *)fullscreenVideoAd {
-    NSLog(@"lwq, wm interstitialAd fullscreenVideoAdDidVisible");
+    NSLog(@"lwq, wm interstitialAd fullscreenVideoAdVideoDataDidLoad");
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];

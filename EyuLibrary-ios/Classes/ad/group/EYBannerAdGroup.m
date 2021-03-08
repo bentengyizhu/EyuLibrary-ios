@@ -57,6 +57,9 @@
 #ifdef BYTE_DANCE_ADS_ENABLED
             NSClassFromString(@"EYWMBannerAdAdapter"), ADNetworkWM,
 #endif
+#ifdef ABUADSDK_ENABLED
+            NSClassFromString(@"EYABUBannerAdAdapter"), ADNetworkABU,
+#endif
         nil];
         self.adGroup = adGroup;
         self.adapterArray = [[NSMutableArray alloc] init];
