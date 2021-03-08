@@ -31,13 +31,14 @@
         __weak typeof(self) weakself = self;
             if(self.adManager.hasAdConfig){
                 [self.adManager loadAdDataWithCount:1];
+                [self startTimeoutTask];
             }else{
                 [self.adManager setConfigSuccessCallback:^{
                     [weakself.adManager loadAdDataWithCount:1];
+                    [weakself startTimeoutTask];
                 }];
             }
         self.isLoading = true;
-        [self startTimeoutTask];
     }else{
         if(self.loadingTimer==nil){
             [self startTimeoutTask];
@@ -130,6 +131,11 @@
         [self.nativeAdView removeFromSuperview];
         self.nativeAdView = NULL;
     }
+    if(self.imageView != NULL)
+    {
+        [self.imageView removeFromSuperview];
+        self.imageView = NULL;
+    }
 }
 
 # pragma mark ---<ABUNativeAdsManagerDelegate>---
@@ -174,14 +180,16 @@
  This method is called when native ad slot has been shown.
  */
 - (void)nativeAdDidBecomeVisible:(ABUNativeAdView *_Nonnull)nativeAdView {
-    
+    [self notifyOnAdShowed];
+    [self notifyOnAdImpression];
 }
 
 /**
  This method is called when native ad is clicked.
  */
 - (void)nativeAdDidClick:(ABUNativeAdView *_Nonnull)nativeAdView withView:(UIView *_Nullable)view {
-   
+    NSLog(@"lwq,abu nativeAdDidClick");
+    [self notifyOnAdClicked];
 }
 
 /**

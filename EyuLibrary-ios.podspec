@@ -125,6 +125,8 @@ Pod::Spec.new do |s|
         mtg_ads_sdk.dependency 'MintegralAdSDK/BidNativeAd','6.7.3.0'
         mtg_ads_sdk.dependency 'MintegralAdSDK/InterstitialAd','6.7.3.0'
         mtg_ads_sdk.dependency 'MintegralAdSDK/BannerAd','6.7.3.0'
+        mtg_ads_sdk.dependency 'MintegralAdSDK/SplashAd','6.7.3.0'
+        mtg_ads_sdk.dependency 'MintegralAdSDK/NativeAdvancedAd','6.7.3.0'
         mtg_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) MTG_ADS_ENABLED'}
     end
     
@@ -221,15 +223,16 @@ Pod::Spec.new do |s|
         thinking.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) THINKING_ENABLED'}
     end
     
-    s.subspec 'ABUAdSDK' do |abu|
+    s.subspec 'abu_ad_sdk' do |abu|
 #        ABUAdSDK.preserve_paths = 'EyuLibrary-ios/Classes/framework/ReYunTracking/Headers/*.h'
 #       'HEADER_SEARCH_PATHS' => "${PODS_ROOT}/#{s.name}/framework/ReYunTracking/Headers/**",
+#        abu.preserve_paths = 'EyuLibrary-ios/Classes/framework/ABUAdSDK/*.framework'
         abu.vendored_frameworks = 'EyuLibrary-ios/Classes/framework/ABUAdSDK/*.framework'
         abu.libraries = 'ABUAdSDK'
         abu.xcconfig = {'FRAMEWORK_SEARCH_PATHS' => "${PODS_ROOT}/#{s.name}/framework/ABUAdSDK/**"}
 #        abu.xcconfig = {'OTHER_LDFLAGS' => ['-ObjC', '-force_load', '$(PODS_ROOT)/../../EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdSDKAdapter', '-force_load', '${PODS_ROOT}/../../EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdAdmobAdapter', '-force_load', '${PODS_ROOT}/../../EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdGdtAdapter', '-force_load', '${PODS_ROOT}/../../EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdSigmobAdapter', '-force_load', '${PODS_ROOT}/../../EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdUnityAdapter']}
-        abu.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ABUADSDK_ENABLED'}
         abu.frameworks = 'CoreMotion', 'AdSupport'
         abu.libraries = 'z', 'c++', 'resolv'
+        abu.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ABUADSDK_ENABLED'}
     end
 end

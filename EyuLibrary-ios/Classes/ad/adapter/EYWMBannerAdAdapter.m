@@ -11,7 +11,7 @@
 
 @implementation EYWMBannerAdAdapter
 -(void) loadAd {
-    NSLog(@"lwq, fb bannerAd");
+    NSLog(@"lwq, wm bannerAd");
     if([self isAdLoaded])
     {
         [self notifyOnAdLoaded];
@@ -59,9 +59,6 @@
     [viewGroup addConstraint:centerY];
     [viewGroup addConstraint:width];
     [viewGroup addConstraint:height];
-    [viewGroup layoutIfNeeded];
-    NSLog(@"%@", self.bannerView);
-    NSLog(@"%@", viewGroup);
     return true;
 }
 
@@ -102,7 +99,8 @@
 }
 
 - (void)nativeExpressBannerAdViewWillBecomVisible:(BUNativeExpressBannerView *)bannerAdView {
-    
+    [self notifyOnAdShowed];
+    [self notifyOnAdImpression];
 }
 
 - (void)nativeExpressBannerAdViewDidCloseOtherController:(BUNativeExpressBannerView *)bannerAdView interactionType:(BUInteractionType)interactionType {
