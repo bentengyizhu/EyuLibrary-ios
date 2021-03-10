@@ -25,7 +25,7 @@
         slot1.position = ABUAdSlotPositionFeed;
         slot1.imgSize = imgSize1;
         slot1.isSupportDeepLink = YES;
-        slot1.adSize = CGSizeMake(414, 300);
+        slot1.adSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 400);
         self.adManager = [[ABUNativeAdsManager alloc] initWithSlot:slot1];
         self.adManager.startMutedIfCan = NO;
         self.adManager.delegate = self;
