@@ -125,8 +125,6 @@ Pod::Spec.new do |s|
         mtg_ads_sdk.dependency 'MintegralAdSDK/BidNativeAd','6.7.3.0'
         mtg_ads_sdk.dependency 'MintegralAdSDK/InterstitialAd','6.7.3.0'
         mtg_ads_sdk.dependency 'MintegralAdSDK/BannerAd','6.7.3.0'
-        mtg_ads_sdk.dependency 'MintegralAdSDK/SplashAd','6.7.3.0'
-        mtg_ads_sdk.dependency 'MintegralAdSDK/NativeAdvancedAd','6.7.3.0'
         mtg_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) MTG_ADS_ENABLED'}
     end
     
@@ -228,6 +226,19 @@ Pod::Spec.new do |s|
 #       'HEADER_SEARCH_PATHS' => "${PODS_ROOT}/#{s.name}/framework/ReYunTracking/Headers/**",
 #        abu.preserve_paths = 'EyuLibrary-ios/Classes/framework/ABUAdSDK/*.framework'
         abu.vendored_frameworks = 'EyuLibrary-ios/Classes/framework/ABUAdSDK/*.framework'
+        abu.dependency 'Google-Mobile-Ads-SDK','7.69.0'
+        abu.dependency 'Ads-CN', '3.4.2.3'
+        abu.dependency 'GDTMobSDK','4.12.3'
+        abu.dependency 'UnityAds','3.6.0'
+        abu.dependency 'SigmobAd-iOS', '2.24.1'
+        abu.dependency 'MintegralAdSDK/InterstitialVideoAd','6.7.3.0'
+        abu.dependency 'MintegralAdSDK/RewardVideoAd','6.7.3.0'
+        abu.dependency 'MintegralAdSDK','6.7.3.0'
+        abu.dependency 'MintegralAdSDK/BidNativeAd','6.7.3.0'
+        abu.dependency 'MintegralAdSDK/InterstitialAd','6.7.3.0'
+        abu.dependency 'MintegralAdSDK/BannerAd','6.7.3.0'
+        abu.dependency 'MintegralAdSDK/SplashAd','6.7.3.0'
+        abu.dependency 'MintegralAdSDK/NativeAdvancedAd','6.7.3.0'
         abu.libraries = 'ABUAdSDK'
         abu.xcconfig = {'FRAMEWORK_SEARCH_PATHS' => "${PODS_ROOT}/#{s.name}/framework/ABUAdSDK/**"}
 #        abu.xcconfig = {'OTHER_LDFLAGS' => ['-ObjC', '-force_load', '$(PODS_ROOT)/../../EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdSDKAdapter', '-force_load', '${PODS_ROOT}/../../EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdAdmobAdapter', '-force_load', '${PODS_ROOT}/../../EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdGdtAdapter', '-force_load', '${PODS_ROOT}/../../EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdSigmobAdapter', '-force_load', '${PODS_ROOT}/../../EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdUnityAdapter']}
