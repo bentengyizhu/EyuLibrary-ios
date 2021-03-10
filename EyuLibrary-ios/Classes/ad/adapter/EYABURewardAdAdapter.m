@@ -26,6 +26,7 @@
         ABURewardedVideoModel *model = [[ABURewardedVideoModel alloc] init];
         model.userId = @"123";
         self.rewardAd = [[ABURewardedVideoAd alloc] initWithAdUnitID:self.adKey.key rewardedVideoModel:model];
+        self.rewardAd.getExpressAdIfCan = YES;
         self.rewardAd.delegate = self;
         
         //该逻辑用于判断配置是否拉取成功。如果拉取成功，可直接加载广告，否则需要调用setConfigSuccessCallback，传入block并在block中调用加载广告。SDK内部会在配置拉取成功后调用传入的block

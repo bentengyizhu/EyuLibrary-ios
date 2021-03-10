@@ -11,7 +11,7 @@
 #import <ABUAdSDK/ABUNativeAdView.h>
 #import <ABUAdSDK/ABUNativeAdsManager.h>
 
-@interface EYABUNativeAdView : EYNativeAdAdapter <ABUNativeAdsManagerDelegate, ABUNativeAdViewDelegate, ABUNativeAdVideoDelegate>
+@interface EYABUNativeAdAdapter : EYNativeAdAdapter <ABUNativeAdsManagerDelegate, ABUNativeAdViewDelegate, ABUNativeAdVideoDelegate>
 @property (nonatomic, strong) ABUNativeAdView *nativeAdView;
 @property (nonatomic, strong) ABUNativeAdsManager *adManager;
 @property(nonatomic,strong)UIImageView *imageView;

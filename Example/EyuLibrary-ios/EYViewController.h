@@ -15,6 +15,7 @@
 @property(nonatomic,strong) IBOutlet UIButton* interstitialAdBtn;
 @property(nonatomic,strong) IBOutlet UIButton* nativeAdBtn;
 @property(nonatomic,strong) IBOutlet UIButton* bannerBtn;
+@property (strong, nonatomic) IBOutlet UIButton *splashAdBtn;
 
 @property(nonatomic,strong) IBOutlet UIView* nativeRootView;
 @property(nonatomic,strong) IBOutlet UIView* bannerView;

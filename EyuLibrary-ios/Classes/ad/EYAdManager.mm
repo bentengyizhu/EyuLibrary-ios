@@ -407,7 +407,7 @@ static id s_sharedInstance;
 #endif
     
 #ifdef ABUADSDK_ENABLED
-    [ABUAdSDKManager setAppID:config.ABUADAppId];
+    [ABUAdSDKManager setAppID:config.abuAppId];
 #endif
 }
 
@@ -572,7 +572,7 @@ static id s_sharedInstance;
     }
 }
 
-- (void)showSplashoAd:(NSString *)placeId withViewController:(UIViewController *)controller {
+- (void)showSplashAd:(NSString *)placeId withViewController:(UIViewController *)controller {
     if(!self.isInited)
     {
         return;

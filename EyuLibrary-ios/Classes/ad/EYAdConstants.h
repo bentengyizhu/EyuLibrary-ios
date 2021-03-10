@@ -28,7 +28,7 @@
 #define     ADTypeNative                  @"nativeAd"
 #define     ADTypeReward                  @"rewardAd"
 #define     ADTypeBanner                  @"bannerAd"
-#define     ADTypeSplash                  @"splash"
+#define     ADTypeSplash                  @"splashAd"
 
 #define     EVENT_LOADING  @"_LOADING"
 #define     EVENT_SHOW  @"_SHOW"

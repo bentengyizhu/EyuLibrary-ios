@@ -26,5 +26,12 @@
         "id":"banner_ad",
         "nativeAdLayout":"",
         "cacheGroup":"banner_group"
+    },
+    {
+        "isEnabled":"true",
+        "desc":"splash广告",
+        "id":"splash_ad",
+        "nativeAdLayout":"",
+        "cacheGroup":"splash_group"
     }
 ]

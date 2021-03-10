@@ -64,6 +64,7 @@
     if (self.bannerAdView == NULL) {
         return false;
     }
+    viewGroup.bannerAdapter = self;
     [self.bannerAdView removeFromSuperview];
 //    CGRect bounds = CGRectMake(0,0, self.bannerAdView.frame.size.width, self.bannerAdView.frame.size.height);
 //    NSLog(@"lwq, bannerAdView witdh = %f, height = %f ", bounds.size.width, bounds.size.height);

@@ -61,10 +61,12 @@
         NSClassFromString(@"EYTPNativeAdAdapter"), ADNetworkTradPlus,
 #endif
 #ifdef ABUADSDK_ENABLED
-            NSClassFromString(@"EYABUNativeAdView"), ADNetworkABU,
+        NSClassFromString(@"EYABUNativeAdAdapter"), ADNetworkABU,
 #endif
         nil];
-        
+#ifdef ABUADSDK_ENABLED
+        NSLog(@"ABUADSDK_ENABLED");
+#endif
         self.adGroup = group;
         self.adapterArray = [[NSMutableArray alloc] init];
 
@@ -255,6 +257,17 @@
         [dic setObject:ADTypeNative forKey:@"type"];
         [dic setObject:adKey.keyId forKey:@"keyId"];
         [EYEventUtils logEvent:EVENT_AD_IMPRESSION  parameters:dic];
+    }
+}
+
+- (void)onAdClosed:(EYNativeAdAdapter *)adapter {
+    if(self.delegate)
+    {
+        [self.delegate onAdClosed:self.adPlaceId type:ADTypeNative];
+    }
+    
+    if (self.adGroup.isAutoLoad) {
+        [self loadAd:@"auto"];
     }
 }
 @end

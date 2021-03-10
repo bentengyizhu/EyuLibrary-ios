@@ -11,6 +11,7 @@
 #import "EYAdKey.h"
 #import "EYEventUtils.h"
 #import "EYAdManager.h"
+#import "EYABUBannerAdAdapter.h"
 
 @interface EYBannerAdGroup()<IBannerAdDelegate>
 

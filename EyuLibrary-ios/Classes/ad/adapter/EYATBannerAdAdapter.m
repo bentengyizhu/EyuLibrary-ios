@@ -35,6 +35,7 @@
     if (![self isAdLoaded]) {
         return false;
     }
+    viewGroup.bannerAdapter = self;
     ATBannerView *bannerView = [[ATAdManager sharedManager] retrieveBannerViewForPlacementID:self.adKey.key];
     bannerView.delegate = self;
     bannerView.presentingViewController = EYAdManager.sharedInstance.rootViewController;

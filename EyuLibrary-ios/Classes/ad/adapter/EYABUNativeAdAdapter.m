@@ -5,9 +5,9 @@
 //  Created by eric on 2021/3/6.
 //
 #ifdef ABUADSDK_ENABLED
-#import "EYABUNativeAdView.h"
+#import "EYABUNativeAdAdapter.h"
 
-@implementation EYABUNativeAdView
+@implementation EYABUNativeAdAdapter
 -(void) loadAd
 {
     NSLog(@" lwq, abu nativeAd loadAd admanager = %@, key = %@.", self.adManager, self.adKey.key);
@@ -21,6 +21,7 @@
         imgSize1.height = 1920;
         slot1.ID = self.adKey.key;
         slot1.AdType = ABUAdSlotAdTypeFeed;
+        slot1.getExpressAdIfCan = YES;
         slot1.position = ABUAdSlotPositionFeed;
         slot1.imgSize = imgSize1;
         slot1.isSupportDeepLink = YES;
@@ -50,9 +51,22 @@
                   descView:(UILabel*)nativeAdDesc mediaLayout:(UIView*)mediaLayout actBtn:(UIButton*)actBtn controller:(UIViewController*)controller
 {
     NSLog(@" lwq, abu nativeAd showAd self.admanager = %@.", self.adManager);
-    if (!self.isLoaded) {
+    if (![self isAdLoaded]) {
         return false;
     }
+    if (self.nativeAdView.hasExpressAdGot) {
+        for (UIView* view in nativeAdLayout.subviews) {
+            [view removeFromSuperview];
+        }
+        self.nativeAdView.rootViewController = controller;
+        self.adManager.rootViewController = controller;
+        [self.nativeAdView render];
+        CGRect frame = CGRectMake(0,0, nativeAdLayout.frame.size.width, nativeAdLayout.frame.size.height);
+        self.nativeAdView.frame = frame;
+        [nativeAdLayout addSubview:self.nativeAdView];
+        return true;
+    }
+    
     NSMutableArray<UIView*>* clickViews = [[NSMutableArray alloc] init];
     if (mediaLayout != NULL) {
         CGRect mediaViewBounds = CGRectMake(0,0, mediaLayout.frame.size.width, mediaLayout.frame.size.height);
@@ -84,7 +98,7 @@
     }
     if(nativeAdIcon!=NULL){
         [clickViews addObject:nativeAdIcon];
-        
+
         NSURL *url = self.nativeAdView.data.icon.imageURL;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             NSData *imageData = [NSData dataWithContentsOfURL:url];
@@ -93,17 +107,17 @@
             });
         });
     }
-    
+
     if(nativeAdTitle!=NULL){
         nativeAdTitle.text = self.nativeAdView.data.AdTitle;
         [clickViews addObject:nativeAdTitle];
     }
-    
+
     if(nativeAdDesc != NULL){
         nativeAdDesc.text = self.nativeAdView.data.AdDescription;
         [clickViews addObject:nativeAdDesc];
     }
-    
+
     if(actBtn != NULL){
         actBtn.hidden = false;
         [actBtn setTitle:self.nativeAdView.data.buttonText forState:UIControlStateNormal];
@@ -197,6 +211,14 @@
  */
 - (void)nativeAdViewWillPresentFullScreenModal:(ABUNativeAdView *_Nonnull)nativeAdView {
    
+}
+
+- (void)nativeAdExpressViewDidClosed:(ABUNativeAdView *)nativeAdView closeReason:(NSArray<ABUDislikeWords *> *)filterWords {
+    [self.nativeAdView removeFromSuperview];
+    self.adManager.delegate = NULL;
+    self.adManager = NULL;
+    self.nativeAdView = NULL;
+    [self notifyOnAdClosed];
 }
 
 # pragma mark ---<ABUNativeAdVideoDelegate>---

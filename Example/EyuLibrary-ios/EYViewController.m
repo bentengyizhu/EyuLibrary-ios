@@ -53,6 +53,9 @@
     [self.bannerBtn addGestureRecognizer:bannerGesture];
     [bannerGesture setNumberOfTapsRequired:1];
 
+    UITapGestureRecognizer *splashGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showSplash:)];
+    [self.splashAdBtn addGestureRecognizer:splashGesture];
+    [splashGesture setNumberOfTapsRequired:1];
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,5 +93,10 @@
 - (void)showBanner:(UITapGestureRecognizer *)gesture {
     NSLog(@"A showBanner");
     [[EYAdManager sharedInstance] showBannerAd:@"banner_ad" viewGroup:self.bannerView];
+}
+
+- (void)showSplash:(UITapGestureRecognizer *)gesture {
+    NSLog(@"A showSplash");
+    [[EYAdManager sharedInstance] showSplashAd:@"splash_ad" withViewController:self];
 }
 @end

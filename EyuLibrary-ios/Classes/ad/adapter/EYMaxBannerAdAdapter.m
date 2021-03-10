@@ -39,6 +39,7 @@
     if (![self isAdLoaded]) {
         return false;
     }
+    viewGroup.bannerAdapter = self;
     self.adView.translatesAutoresizingMaskIntoConstraints = NO;
     CGFloat w = viewGroup.frame.size.width;
     CGFloat h = viewGroup.frame.size.height;

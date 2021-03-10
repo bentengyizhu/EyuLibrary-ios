@@ -50,7 +50,7 @@
 #endif
 
 #ifdef ABUADSDK_ENABLED
-@property(nonatomic,copy)NSString *ABUADAppId;
+@property(nonatomic,copy)NSString *abuAppId;
 #endif
 
 

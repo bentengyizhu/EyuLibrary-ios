@@ -23,10 +23,10 @@
 //    [EYSdkUtils initAppFlyer:@"test" appId:@"test"];
 //    [EYSdkUtils initGDTActionSdk:@"test" secretkey:@"test"];
 //    [EYSdkUtils initFirebaseSdk];
-    [EYSdkUtils initTrackingWithAppKey:@"475938c702f7451a88eaffb524962649"];
-    [EYSdkUtils initThinkWithAppID:@"your_think_id"];
+//    [EYSdkUtils initTrackingWithAppKey:@"475938c702f7451a88eaffb524962649"];
+//    [EYSdkUtils initThinkWithAppID:@"your_think_id"];
 //    [EYSdkUtils initFacebookSdkWithApplication:application options:launchOptions];
-    [EYSdkUtils initAnyThinkWithAppID:@"a5b0e8491845b3" AppKey:@"7eae0567827cfe2b22874061763f30c9"];
+//    [EYSdkUtils initAnyThinkWithAppID:@"a5b0e8491845b3" AppKey:@"7eae0567827cfe2b22874061763f30c9"];
     // Override point for customization after application launch.
 //    EYAdConfig* adConfig2 = [[EYAdConfig alloc] init];
     EYAdConfig* adConfig = [[EYAdConfig alloc] init];
@@ -35,6 +35,7 @@
     adConfig.adKeyData =  [EYSdkUtils readFileWithName:@"ios_ad_key_setting"];
     adConfig.adGroupData = [EYSdkUtils readFileWithName:@"ios_ad_cache_setting"];
     adConfig.adPlaceData = [EYSdkUtils readFileWithName:@"ios_ad_setting"];
+    adConfig.abuAppId = @"5149732";
 //    adConfig.mtgAppId = @"111418";
 //    adConfig.mtgAppKey = @"a339a16bbaca844012276afad6f59eaa";
 //    adConfig.admobClientId = @"ca-app-pub-1111111111111111~1111111111";

@@ -403,5 +403,30 @@
         "id":"banner_tp",
         "key":"AEEF02968E70A88AFAAC770E05B71A32",
         "network":"tradplus"
-    }
+    },
+    {
+        "id":"banner_abu",
+        "key":"945900450",
+        "network":"abu"
+    },
+    {
+        "id":"navive_abu",
+        "key":"945900447",
+        "network":"abu"
+    },
+    {
+        "id":"splash_abu",
+        "key":"887445940",
+        "network":"abu"
+    },
+    {
+        "id":"reward_abu",
+        "key":"945900440",
+        "network":"abu"
+    },
+    {
+        "id":"inter_abu",
+        "key":"945900441",
+        "network":"abu"
+    },
 ]

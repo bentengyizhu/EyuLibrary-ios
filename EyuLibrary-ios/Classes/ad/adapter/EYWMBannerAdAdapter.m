@@ -43,6 +43,7 @@
     if (self.bannerView == NULL) {
         return false;
     }
+    viewGroup.bannerAdapter = self;
     [self.bannerView removeFromSuperview];
     CGFloat w = self.bannerView.frame.size.width;
     CGFloat h = self.bannerView.frame.size.height;

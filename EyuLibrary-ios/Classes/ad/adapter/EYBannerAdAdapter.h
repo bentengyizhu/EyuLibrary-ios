@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "EYAdKey.h"
 #import "EYAdGroup.h"
+#import "UIViewExtension.h"
 #include "EYAdConstants.h"
 
 @protocol IBannerAdDelegate;

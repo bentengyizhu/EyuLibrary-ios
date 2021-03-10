@@ -53,6 +53,7 @@
     if (self.bannerView == NULL) {
         return false;
     }
+    viewGroup.bannerAdapter = self;
     [self.bannerView removeFromSuperview];
     CGFloat w = self.bannerView.frame.size.width;
     CGFloat h = self.bannerView.frame.size.height;
@@ -94,6 +95,7 @@
  */
 - (void)bannerAd:(ABUBannerAd *_Nonnull)bannerAd didLoadFailWithError:(NSError *_Nullable)error{
     self.bannerView = NULL;
+    self.bannerAd = NULL;
     NSLog(@"lwq,abu banner ad failed to load with error: %@", error);
     self.isLoading = false;
     self.isLoadSuccess = false;
@@ -140,7 +142,8 @@ This method is called when bannerAdView ad slot success to show.
     // 移除
     [self.bannerView removeFromSuperview];
     self.bannerView = NULL;
+    self.bannerAd = NULL;
     [self notifyOnAdClosed];
-}    
+}
 @end
 #endif

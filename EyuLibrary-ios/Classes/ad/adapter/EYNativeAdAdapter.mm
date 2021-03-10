@@ -98,6 +98,14 @@
     }
 }
 
+- (void)notifyOnAdClosed
+{
+    if(self.delegate!=NULL)
+    {
+        [self.delegate onAdClosed:self];
+    }
+}
+
 -(void) startTimeoutTask
 {
     [self cancelTimeoutTask];

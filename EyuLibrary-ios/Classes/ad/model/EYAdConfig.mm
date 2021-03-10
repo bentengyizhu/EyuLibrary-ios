@@ -44,7 +44,7 @@
 #endif
 
 #ifdef ABUADSDK_ENABLED
-@synthesize ABUADAppId = _ABUADAppId;
+@synthesize abuAppId = _abuAppId;
 #endif
 
 -(instancetype) initWithPlace:(NSData*)adPlaceData  key: (NSData*) adKeyData group:(NSData*) adGroupData;
@@ -80,7 +80,7 @@
         self.mtgAppKey = nil;
 #endif
 #ifdef ABUADSDK_ENABLED
-        self.ABUADAppId = nil;
+        self.abuAppId = nil;
 #endif
     }
     return self;

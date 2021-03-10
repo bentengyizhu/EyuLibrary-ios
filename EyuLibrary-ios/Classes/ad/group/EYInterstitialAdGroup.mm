@@ -84,7 +84,7 @@
         NSClassFromString(@"EYTPInterstitialAdAdapter"), ADNetworkTradPlus,
 #endif
 #ifdef ABUADSDK_ENABLED
-            NSClassFromString(@"EYABUInterstitialAdAdapter"), ADNetworkABU,
+        NSClassFromString(@"EYABUInterstitialAdAdapter"), ADNetworkABU,
 #endif
         nil];
 
