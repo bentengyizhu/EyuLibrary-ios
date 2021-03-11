@@ -283,7 +283,7 @@
 				6003F586195388D20070C39A /* Sources */,
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
-				47666C7D71FBAA8804F40D1A /* [CP] Copy Pods Resources */,
+				204BEEF847E6A800C11AEB1B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -392,6 +392,32 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		204BEEF847E6A800C11AEB1B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-resources.sh",
+				"${PODS_ROOT}/Ads-Global/PangleSDK/BUAdSDK.bundle",
+				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-10.0.0/AppLovinSDKResources.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FFToast/FFToast.bundle",
+				"${PODS_ROOT}/Fyber_Marketplace_SDK/IASDKCore/IASDKResources.bundle",
+				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BUAdSDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppLovinSDKResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FFToast.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IASDKResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		38D2C71902C9A9F51F4CB7B8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -412,30 +438,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		47666C7D71FBAA8804F40D1A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-resources.sh",
-				"${PODS_ROOT}/Ads-CN/PangleSDK/BUAdSDK.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FFToast/FFToast.bundle",
-				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
-				"${PODS_ROOT}/SigmobAd-iOS/WindSDK/Sigmob.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BUAdSDK.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FFToast.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Sigmob.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CBE20B5DA5973A71FA2724D5 /* [CP] Check Pods Manifest.lock */ = {
@@ -617,7 +619,6 @@
 					MTG_ADS_ENABLED,
 					TRACKING_ENABLED,
 					THINKING_ENABLED,
-					ABUADSDK_ENABLED,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -660,7 +661,6 @@
 					"-ObjC",
 					"-l\"FFToast\"",
 					"-l\"ObjC\"",
-					"-l\"ReYunTracking\"",
 					"-l\"SVProgressHUD\"",
 					"-l\"bz2\"",
 					"-l\"c++\"",
@@ -678,10 +678,6 @@
 					"\"AdSupport\"",
 					"-framework",
 					"\"AudioToolbox\"",
-					"-framework",
-					"\"BUAdSDK\"",
-					"-framework",
-					"\"BUFoundation\"",
 					"-framework",
 					"\"CFNetwork\"",
 					"-framework",
@@ -766,8 +762,6 @@
 					"\"WebKit\"",
 					"-weak_framework",
 					CoreTelephony,
-					"-force_load",
-					"/Users/eric/EyuLibrary-ios/EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdGdtAdapter.framework/ABUAdGdtAdapter",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.anythink.AnyThinkSDKDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -803,7 +797,6 @@
 					"PB_FIELD_32BIT=1",
 					"PB_NO_PACKED_STRUCTS=1",
 					"PB_ENABLE_MALLOC=1",
-					ABUADSDK_ENABLED,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

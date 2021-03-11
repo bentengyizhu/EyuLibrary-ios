@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '1.3.85'
+    s.version          = '1.3.86'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -30,6 +30,7 @@ Pod::Spec.new do |s|
     s.static_framework = true
     s.subspec 'Core' do |b|
         b.source_files = 'EyuLibrary-ios/Classes/**/*'
+#        b.exclude_files = 'EyuLibrary-ios/Classes/framework/ABUAdSDK/**/*'
         b.dependency 'SVProgressHUD'
         b.dependency 'FFToast'
         # a.resource_bundles = {
@@ -81,20 +82,20 @@ Pod::Spec.new do |s|
     # end
     
     s.subspec 'applovin_ads_sdk' do |applovin_ads_sdk|
-        applovin_ads_sdk.dependency 'AppLovinSDK','6.15.1'
+        applovin_ads_sdk.dependency 'AppLovinSDK','10.0.0'
         applovin_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) APPLOVIN_ADS_ENABLED'}
     end
     
     s.subspec 'applovin_max_sdk' do |applovin_max_sdk|
-        applovin_max_sdk.dependency 'AppLovinSDK','6.15.1'
-        applovin_max_sdk.dependency 'AppLovinMediationFacebookAdapter','6.2.1.0'
+        applovin_max_sdk.dependency 'AppLovinSDK','10.0.0'
+        applovin_max_sdk.dependency 'AppLovinMediationFacebookAdapter','6.3.0.0'
         applovin_max_sdk.dependency 'AppLovinMediationMintegralAdapter','6.7.6.0.0'
-        applovin_max_sdk.dependency 'AppLovinMediationGoogleAdapter','7.69.0.1'
-        applovin_max_sdk.dependency 'AppLovinMediationIronSourceAdapter','7.1.0.0.0'
-        applovin_max_sdk.dependency 'AppLovinMediationByteDanceAdapter','3.3.6.2.0'
+        applovin_max_sdk.dependency 'AppLovinMediationGoogleAdapter','8.1.0.0'
+        applovin_max_sdk.dependency 'AppLovinMediationIronSourceAdapter','7.1.1.0.1'
+        applovin_max_sdk.dependency 'AppLovinMediationByteDanceAdapter','3.4.2.3.0'
         applovin_max_sdk.dependency 'AppLovinMediationUnityAdsAdapter','3.6.0.0'
-        applovin_max_sdk.dependency 'AppLovinMediationVungleAdapter','6.8.1.3'
-        applovin_max_sdk.dependency 'AppLovinMediationFyberAdapter','7.8.0.1'
+        applovin_max_sdk.dependency 'AppLovinMediationVungleAdapter','6.8.1.5'
+        applovin_max_sdk.dependency 'AppLovinMediationFyberAdapter','7.8.1.3'
         applovin_max_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) APPLOVIN_MAX_ENABLED' }
     end
     
