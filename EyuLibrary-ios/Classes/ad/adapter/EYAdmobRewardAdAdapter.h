@@ -12,12 +12,11 @@
 #import "EYRewardAdAdapter.h"
 #import "GoogleMobileAds/GoogleMobileAds.h"
 
-@interface EYAdmobRewardAdAdapter : EYRewardAdAdapter <GADRewardBasedVideoAdDelegate> {
+@interface EYAdmobRewardAdAdapter : EYRewardAdAdapter <GADFullScreenContentDelegate> {
 
 }
 @property(nonatomic,assign)bool isRewarded;
-@property(nonatomic,assign)bool isLoaded;
-
+@property(nonatomic, strong) GADRewardedAd *rewardedAd;
 @end
 
 #endif /* FbRewardAdAdapter_h */

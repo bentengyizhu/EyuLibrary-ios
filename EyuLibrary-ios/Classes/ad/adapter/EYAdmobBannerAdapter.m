@@ -39,7 +39,7 @@
     } else if (!self.isLoading) {
         if (self.bannerAdView == NULL) {
             self.isLoading = true;
-            self.bannerAdView = [[GADBannerView alloc]initWithAdSize:kGADAdSizeSmartBannerPortrait];
+            self.bannerAdView = [[GADBannerView alloc]initWithAdSize:GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth([UIScreen mainScreen].bounds.size.width)];
             self.bannerAdView.adUnitID = self.adKey.key;
             self.bannerAdView.rootViewController = EYAdManager.sharedInstance.rootViewController;
             self.bannerAdView.delegate = self;
@@ -100,18 +100,21 @@
     [self notifyOnAdLoaded];
 }
 
-- (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error {
+- (void)bannerView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(NSError *)error {
     self.isLoading = false;
     self.adLoaded = false;
     [self.delegate onAdLoadFailed:self withError:(int)error.code];
     NSLog(@"lwq, admob banner:didFailToReceiveAdWithError: %@, adKey = %@", [error localizedDescription], self.adKey);
 }
 
+- (void)bannerViewDidRecordImpression:(GADBannerView *)bannerView {
+    [self notifyOnAdImpression];
+}
+
 - (void)adViewWillPresentScreen:(GADBannerView *)bannerView {
     NSLog(@"lwq, admob bannerWillPresentScreen");
     self.isShowing = true;
     [self notifyOnAdShowed];
-    [self notifyOnAdImpression];
 }
 
 - (void)adViewWillDismissScreen:(GADBannerView *)bannerView {

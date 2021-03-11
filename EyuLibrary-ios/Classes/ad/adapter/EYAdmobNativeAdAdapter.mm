@@ -8,7 +8,6 @@
 
 #include "EYAdmobNativeAdAdapter.h"
 
-
 @implementation EYAdmobNativeAdAdapter
 
 @synthesize nativeAdLoader = _nativeAdLoader;
@@ -27,9 +26,9 @@
     {
         GADNativeAdViewAdOptions *adsOptions = [[GADNativeAdViewAdOptions alloc] init];
         adsOptions.preferredAdChoicesPosition = GADAdChoicesPositionTopLeftCorner;
-        self.nativeAdLoader = [[GADAdLoader alloc] initWithAdUnitID:self.adKey.key rootViewController:nil adTypes:@[ kGADAdLoaderAdTypeUnifiedNative ] options:@[ adsOptions ]];
+        self.nativeAdLoader = [[GADAdLoader alloc] initWithAdUnitID:self.adKey.key rootViewController:nil adTypes:@[kGADAdLoaderAdTypeNative] options:@[adsOptions]];
         self.nativeAdLoader.delegate = self;
-        self.nativeAdView = [[GADUnifiedNativeAdView alloc] init];
+        self.nativeAdView = [[GADNativeAdView alloc] init];
         self.isLoading = true;
     }
     if(self.nativeAd == NULL && ![self.nativeAdLoader isLoading]){
@@ -66,7 +65,7 @@
 //        if (self.nativeAd.videoController.hasVideoContent) {
             // By acting as the delegate to the GADVideoController, this ViewController
             // receives messages about events in the video lifecycle.
-            self.nativeAd.videoController.delegate = self;
+            self.nativeAd.mediaContent.videoController.delegate = self;
             self.mediaView = [[GADMediaView alloc] init];
             CGRect mediaViewBounds = CGRectMake(0,0, mediaLayout.frame.size.width, mediaLayout.frame.size.height);
             self.mediaView.frame = mediaViewBounds;
@@ -170,21 +169,23 @@
 
 #pragma mark GADAdLoaderDelegate implementation
 
-- (void)adLoader:(GADAdLoader *)adLoader didFailToReceiveAdWithError:(GADRequestError *)error {
-    NSLog(@"%@lwq, admob adLoader failed with error: %@", adLoader, error);
-    self.isLoading = false;
-    [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
-}
-
-#pragma mark GADUnifiedNativeAdLoaderDelegate implementation
-
-- (void)adLoader:(GADAdLoader *)adLoader didReceiveUnifiedNativeAd:(GADUnifiedNativeAd *)nativeAd {
-    NSLog(@"lwq,admob didReceiveUnifiedNativeAd, adLoader = :%@ , nativeAd = %@", self, nativeAd);
+- (void)adLoader:(GADAdLoader *)adLoader didReceiveNativeAd:(GADNativeAd *)nativeAd {
+    NSLog(@"lwq,admob didReceiveUnifiedNativeAd, adLoader = :%@, nativeAd = %@", self, nativeAd);
     self.isLoading = false;
     self.nativeAd = nativeAd;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
+}
+
+- (void)adLoaderDidFinishLoading:(GADAdLoader *) adLoader {
+    // The adLoader has finished loading ads, and a new request can be sent.
+}
+
+- (void)adLoader:(GADAdLoader *)adLoader didFailToReceiveAdWithError:(NSError *)error {
+    NSLog(@"%@lwq, admob adLoader failed with error: %@", adLoader, error);
+    self.isLoading = false;
+    [self cancelTimeoutTask];
+    [self notifyOnAdLoadFailedWithError:(int)error.code];
 }
 
 #pragma mark GADVideoControllerDelegate implementation
@@ -195,31 +196,32 @@
 
 #pragma mark GADUnifiedNativeAdDelegate
 
-- (void)nativeAdDidRecordClick:(GADUnifiedNativeAd *)nativeAd {
+- (void)nativeAdDidRecordClick:(GADNativeAd *)nativeAd {
     NSLog(@"lwq,%s", __PRETTY_FUNCTION__);
     [self notifyOnAdClicked];
 }
 
-- (void)nativeAdDidRecordImpression:(GADUnifiedNativeAd *)nativeAd {
+- (void)nativeAdDidRecordImpression:(GADNativeAd *)nativeAd {
     NSLog(@"lwq,%s", __PRETTY_FUNCTION__);
     [self notifyOnAdImpression];
 }
 
-- (void)nativeAdWillPresentScreen:(GADUnifiedNativeAd *)nativeAd {
+- (void)nativeAdWillPresentScreen:(GADNativeAd *)nativeAd {
     NSLog(@"lwq,%s", __PRETTY_FUNCTION__);
     [self notifyOnAdShowed];
 }
 
-- (void)nativeAdWillDismissScreen:(GADUnifiedNativeAd *)nativeAd {
+- (void)nativeAdWillDismissScreen:(GADNativeAd *)nativeAd {
     NSLog(@"lwq,%s", __PRETTY_FUNCTION__);
 }
 
-- (void)nativeAdDidDismissScreen:(GADUnifiedNativeAd *)nativeAd {
+- (void)nativeAdDidDismissScreen:(GADNativeAd *)nativeAd {
     NSLog(@"lwq,%s", __PRETTY_FUNCTION__);
 }
 
-- (void)nativeAdWillLeaveApplication:(GADUnifiedNativeAd *)nativeAd {
-    NSLog(@"lwq,%s", __PRETTY_FUNCTION__);
+- (void)nativeAdWillLeaveApplication:(GADNativeAd *)nativeAd {
+  // The native ad will cause the application to become inactive and
+  // open a new application.
 }
 
 - (void)dealloc

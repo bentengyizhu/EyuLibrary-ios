@@ -13,10 +13,10 @@
 #import "EYInterstitialAdAdapter.h"
 #import "GoogleMobileAds/GoogleMobileAds.h"
 
-@interface EYAdmobInterstitialAdAdapter : EYInterstitialAdAdapter <GADInterstitialDelegate> {
+@interface EYAdmobInterstitialAdAdapter : EYInterstitialAdAdapter <GADFullScreenContentDelegate> {
     
 }
-@property(nonatomic,strong)GADInterstitial *interstitialAd;
+@property(nonatomic, strong) GADInterstitialAd *interstitialAd;
 @end
 
 #endif /* AdmobInterstitialAdAdapter_h */

@@ -114,7 +114,7 @@ static bool sIsTrackingInited = false;
 +(void) initFacebookSdkWithApplication:(UIApplication *)application options:(NSDictionary *)launchOptions
 {
     [FBSDKSettings setAutoLogAppEventsEnabled:YES];
-    [FBSDKSettings setAutoInitEnabled: YES ];
+//    [FBSDKSettings setAutoInitEnabled: YES ];
     [FBSDKSettings setAdvertiserIDCollectionEnabled:YES];
     [FBSDKApplicationDelegate initializeSDK:nil];
     

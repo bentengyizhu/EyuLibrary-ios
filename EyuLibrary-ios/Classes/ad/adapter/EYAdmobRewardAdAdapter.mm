@@ -15,8 +15,6 @@
 @implementation EYAdmobRewardAdAdapter
 
 @synthesize isRewarded = _isRewarded;
-@synthesize isLoaded = _isLoaded;
-
 
 -(void) loadAd
 {
@@ -26,31 +24,35 @@
     }else if([self isAdLoaded])
     {
         [self notifyOnAdLoaded];
-    }else if([[EYAdManager sharedInstance] isAdmobRewardAdLoaded]){
+    }else if([self isAdLoaded]){
         NSLog(@"lwq,one AdmobRewardAdAdapter was already loaded.");
         [self notifyOnAdLoadFailedWithError:ERROR_OTHER_ADMOB_REWARD_AD_LOADED];
-    }else if([[EYAdManager sharedInstance] isAdmobRewardAdLoading]){
-        NSLog(@"lwq,one AdmobRewardAdAdapter is loading.");
-        if(self.isLoading){
-            if(self.loadingTimer == nil){
-                [self startTimeoutTask];
-            }
-        }else{
-            [self notifyOnAdLoadFailedWithError:ERROR_OTHER_ADMOB_REWARD_AD_LOADING];
-        }
     }else if(!self.isLoading)
     {
         self.isLoading = YES;
-        [[EYAdManager sharedInstance] setIsAdmobRewardAdLoading:YES];
-        [GADRewardBasedVideoAd sharedInstance].delegate = self;
-        GADRequest* request = [GADRequest request];
+        
+        GADRequest *request = [GADRequest request];
 #ifdef ADMOB_MEDIATION_ENABLED
         VungleAdNetworkExtras *extras = [[VungleAdNetworkExtras alloc] init];
         extras.allPlacements = [EYAdManager sharedInstance].vunglePlacementIds;
         [request registerAdNetworkExtras:extras];
 #endif
         //request.testDevices = @[ @"9b80927958fbfef89ca335966239ca9a",@"46fd4577df207ecb050bffa2948d5e52" ];
-        [[GADRewardBasedVideoAd sharedInstance] loadRequest:request withAdUnitID:self.adKey.key];
+        [GADRewardedAd loadWithAdUnitID:self.adKey.key
+                                request:request
+                      completionHandler:^(GADRewardedAd *ad, NSError *error) {
+            self.isLoading = NO;
+            [self cancelTimeoutTask];
+            if (error) {
+                NSLog(@"lwq, admob Rewarded ad failed to load with error: %@", [error localizedDescription]);
+                [self notifyOnAdLoadFailedWithError:(int)error.code];
+                return;
+            }
+            self.rewardedAd = ad;
+            self.rewardedAd.fullScreenContentDelegate = self;
+            [self notifyOnAdLoaded];
+            NSLog(@"lwq, Admob Rewarded ad loaded.");
+        }];
         [self startTimeoutTask];
     }else{
         if(self.loadingTimer == nil){
@@ -64,10 +66,14 @@
     NSLog(@"lwq, AdmobRewardAdAdapter showAd #############.");
     if([self isAdLoaded])
     {
-        self.isLoaded = NO;
         self.isRewarded = NO;
         self.isShowing = YES;
-        [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:controller];
+        __weak typeof(self) weakSelf = self;
+        [self.rewardedAd presentFromRootViewController:controller
+                              userDidEarnRewardHandler:^{
+            // TODO: Reward the user!
+            weakSelf.isRewarded = true;
+        }];
         return true;
     }
     return false;
@@ -75,56 +81,36 @@
 
 -(bool) isAdLoaded
 {
-    return self.isLoaded && [[GADRewardBasedVideoAd sharedInstance] isReady];
+    return self.rewardedAd != NULL;
 }
 
-- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd didRewardUserWithReward:(GADAdReward *)reward {
-    //[[AdPlayerIOS sharedAdPlayerIOS] onRewardAdRewarded:self];
-    NSLog(@"lwq, AdmobRewardAdAdapter Reward based video ad is rewarded.");
-    self.isRewarded = true;
+/// Tells the delegate that the ad failed to present full screen content.
+- (void)ad:(nonnull id<GADFullScreenPresentingAd>)ad
+didFailToPresentFullScreenContentWithError:(nonnull NSError *)error {
+    NSLog(@"lwq, admobAd did fail to present full screen content.");
+    self.isShowing = NO;
 }
 
-- (void)rewardBasedVideoAdDidReceiveAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    NSLog(@"lwq, AdmobRewardAdAdapter Reward based video ad is received.");
-    [[EYAdManager sharedInstance] setIsAdmobRewardAdLoaded:YES];
-    [[EYAdManager sharedInstance] setIsAdmobRewardAdLoading:NO];
-    self.isLoaded = YES;
-    [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
-}
-
-- (void)rewardBasedVideoAdDidOpen:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    NSLog(@"lwq, AdmobRewardAdAdapter Opened reward based video ad.");
+/// Tells the delegate that the ad presented full screen content.
+- (void)adDidPresentFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
+    NSLog(@"lwq, admobAd did present full screen content.");
     [self notifyOnAdShowed];
-    [self notifyOnAdImpression];
 }
 
-- (void)rewardBasedVideoAdDidStartPlaying:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    NSLog(@"lwq, AdmobRewardAdAdapter Reward based video ad started playing.");
-}
-
-- (void)rewardBasedVideoAdDidClose:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    NSLog(@"lwq, AdmobRewardAdAdapter Reward based video ad is closed. self->isRewarded = %d", self.isRewarded);
-    [[EYAdManager sharedInstance] setIsAdmobRewardAdLoaded:NO];
+/// Tells the delegate that the ad dismissed full screen content.
+- (void)adDidDismissFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
+   NSLog(@"lwq, admobAd did dismiss full screen content.");
     if(self.isRewarded){
         [self notifyOnAdRewarded];
     }
-    self.isLoaded = NO;
+    self.rewardedAd = NULL;
     self.isShowing = NO;
     self.isRewarded = NO;
     [self notifyOnAdClosed];
 }
 
-- (void)rewardBasedVideoAdWillLeaveApplication:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    NSLog(@"lwq, AdmobRewardAdAdapter Reward based video ad will leave application.");
-    [self notifyOnAdClicked];
-}
-
-- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd didFailToLoadWithError:(NSError *)error {
-    NSLog(@"lwq, AdmobRewardAdAdapter Reward based video ad failed to load. error = %@", error);
-    [[EYAdManager sharedInstance] setIsAdmobRewardAdLoading:NO];
-    [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+- (void)adDidRecordImpression:(id<GADFullScreenPresentingAd>)ad {
+    [self notifyOnAdImpression];
 }
 
 @end

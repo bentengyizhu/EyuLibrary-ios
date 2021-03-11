@@ -13,14 +13,13 @@
 #import "EYNativeAdAdapter.h"
 #import "GoogleMobileAds/GoogleMobileAds.h"
 
-@interface EYAdmobNativeAdAdapter : EYNativeAdAdapter <GADUnifiedNativeAdLoaderDelegate, GADVideoControllerDelegate,
-GADUnifiedNativeAdDelegate> {
+@interface EYAdmobNativeAdAdapter : EYNativeAdAdapter <GADNativeAdLoaderDelegate, GADNativeAdDelegate, GADVideoControllerDelegate> {
 
 }
 
 @property(nonatomic,strong)GADAdLoader *nativeAdLoader;
-@property(nonatomic,strong)GADUnifiedNativeAdView *nativeAdView;
-@property(nonatomic,strong)GADUnifiedNativeAd *nativeAd;
+@property(nonatomic,strong)GADNativeAdView *nativeAdView;
+@property(nonatomic,strong)GADNativeAd *nativeAd;
 @property(nonatomic,strong)GADMediaView* mediaView;
 @property(nonatomic,strong)UIImageView * imageView;
 

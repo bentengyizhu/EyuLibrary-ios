@@ -38,8 +38,6 @@
 
 @property(nonatomic,weak) id<EYAdDelegate> delegate;
 @property(nonatomic,strong) EYAdConfig* adConfig;
-@property(nonatomic,assign) bool isAdmobRewardAdLoaded;
-@property(nonatomic,assign) bool isAdmobRewardAdLoading;
 @property(nonatomic,weak) UIViewController *rootViewController;
 #ifdef ADMOB_MEDIATION_ENABLED
 @property(nonatomic,strong) NSMutableArray* vunglePlacementIds;

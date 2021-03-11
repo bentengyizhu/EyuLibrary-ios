@@ -65,13 +65,13 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'admob_sdk' do |admob|
-        admob.dependency 'Google-Mobile-Ads-SDK','7.69.0'
+        admob.dependency 'Google-Mobile-Ads-SDK','8.1.0'
         admob.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ADMOB_ADS_ENABLED'}
     end
     
     s.subspec 'fb_ads_sdk' do |fb_ads_sdk|
-        fb_ads_sdk.dependency 'FBAudienceNetwork','6.2.1'
-        fb_ads_sdk.dependency 'FBSDKCoreKit','7.1.1'
+        fb_ads_sdk.dependency 'FBAudienceNetwork','6.3.0'
+        fb_ads_sdk.dependency 'FBSDKCoreKit','9.0.1'
         fb_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) FB_ADS_ENABLED FACEBOOK_ENABLED'}
     end
     

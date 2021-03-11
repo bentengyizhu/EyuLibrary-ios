@@ -146,8 +146,6 @@ static id s_sharedInstance;
 @synthesize ironInterDelegateDict = _ironInterDelegateDict;
 #endif
 
-@synthesize isAdmobRewardAdLoaded = _isAdmobRewardAdLoaded;
-@synthesize isAdmobRewardAdLoading = _isAdmobRewardAdLoading;
 @synthesize cellularData = _cellularData;
 
 +(EYAdManager*) sharedInstance
@@ -1245,8 +1243,6 @@ static id s_sharedInstance;
     [self.adKeyDict removeAllObjects];
     [self.adGroupDict removeAllObjects];
     [self.adPlaceDict removeAllObjects];
-    self.isAdmobRewardAdLoaded = NO;
-    self.isAdmobRewardAdLoading = NO;
     self.isInited = NO;
 }
 
