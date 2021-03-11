@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '1.3.87'
+    s.version          = '1.3.88'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -143,19 +143,19 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'crashlytics_sdk' do |crash|
-        crash.dependency 'Firebase/Crashlytics', '7.4.0'
+        crash.dependency 'Firebase/Crashlytics', '7.8.0'
     end
     
     s.subspec 'firebase_sdk' do |firebase|
-        firebase.dependency 'Firebase/Analytics', '7.4.0'
-        firebase.dependency 'Firebase/Core', '7.4.0'
-        firebase.dependency 'Firebase/Messaging', '7.4.0'
-        firebase.dependency 'Firebase/RemoteConfig', '7.4.0'
-        firebase.dependency 'Firebase/Auth', '7.4.0'
-        firebase.dependency 'Firebase/Firestore', '7.4.0'
-        firebase.dependency 'Firebase/Storage', '7.4.0'
-        firebase.dependency 'Firebase/DynamicLinks', '7.4.0'
-        firebase.dependency 'Firebase/AdMob', '7.4.0'
+        firebase.dependency 'Firebase/Analytics', '7.8.0'
+        firebase.dependency 'Firebase/Core', '7.8.0'
+        firebase.dependency 'Firebase/Messaging', '7.8.0'
+        firebase.dependency 'Firebase/RemoteConfig', '7.8.0'
+        firebase.dependency 'Firebase/Auth', '7.8.0'
+        firebase.dependency 'Firebase/Firestore', '7.8.0'
+        firebase.dependency 'Firebase/Storage', '7.8.0'
+        firebase.dependency 'Firebase/DynamicLinks', '7.8.0'
+#        firebase.dependency 'Firebase/AdMob', '7.8.0'
         firebase.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) FIREBASE_ENABLED ADMOB_ADS_ENABLED'}
     end
     
