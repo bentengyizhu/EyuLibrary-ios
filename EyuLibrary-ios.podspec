@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '1.3.86'
+    s.version          = '1.3.87'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -26,6 +26,7 @@ Pod::Spec.new do |s|
     s.author           = { 'WeiqiangLuo' => 'weiqiangluo@qianyuan.tv' }
     s.source           = { :git => 'https://github.com/EyugameQy/EyuLibrary-ios.git', :tag => s.version.to_s }
     # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+    s.prefix_header_file = 'EyuLibrary-ios/Classes/PrefixHeader.pch'
     s.ios.deployment_target = '10.0'
     s.static_framework = true
     s.subspec 'Core' do |b|

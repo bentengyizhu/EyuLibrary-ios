@@ -35,7 +35,7 @@
     adConfig.adKeyData =  [EYSdkUtils readFileWithName:@"ios_ad_key_setting"];
     adConfig.adGroupData = [EYSdkUtils readFileWithName:@"ios_ad_cache_setting"];
     adConfig.adPlaceData = [EYSdkUtils readFileWithName:@"ios_ad_setting"];
-//    adConfig.abuAppId = @"5149732";
+    adConfig.abuAppId = @"5149732";
 //    adConfig.mtgAppId = @"111418";
 //    adConfig.mtgAppKey = @"a339a16bbaca844012276afad6f59eaa";
 //    adConfig.admobClientId = @"ca-app-pub-1111111111111111~1111111111";
@@ -79,25 +79,25 @@
 
 -(void) onAdLoaded:(NSString*) adPlaceId type:(NSString*)type
 {
-    NSLog(@"lwq, onAdLoaded adPlaceId = %@, type = %@", adPlaceId, type);
+    NSLog(@"lw, onAdLoaded adPlaceId = %@, type = %@", adPlaceId, type);
 }
 -(void) onAdReward:(NSString*) adPlaceId  type:(NSString*)type
 {
-    NSLog(@"lwq, onAdReward adPlaceId = %@, type = %@", adPlaceId, type);
+    NSLog(@"lw, onAdReward adPlaceId = %@, type = %@", adPlaceId, type);
 
 }
 -(void) onAdShowed:(NSString*) adPlaceId  type:(NSString*)type
 {
-    NSLog(@"lwq, onAdShowed adPlaceId = %@, type = %@", adPlaceId, type);
+    NSLog(@"lw, onAdShowed adPlaceId = %@, type = %@", adPlaceId, type);
 }
 -(void) onAdClosed:(NSString*) adPlaceId  type:(NSString*)type
 {
-    NSLog(@"lwq, onAdClosed adPlaceId = %@, type = %@", adPlaceId, type);
+    NSLog(@"lw, onAdClosed adPlaceId = %@, type = %@", adPlaceId, type);
     [[EYAdManager sharedInstance] loadRewardVideoAd:@"reward_ad"];
 }
 -(void) onAdClicked:(NSString*) adPlaceId  type:(NSString*)type
 {
-    NSLog(@"lwq, onAdClicked adPlaceId = %@, type = %@", adPlaceId, type);
+    NSLog(@"lw, onAdClicked adPlaceId = %@, type = %@", adPlaceId, type);
 
 }
 
@@ -110,12 +110,12 @@
 }
 
 - (void)onAdLoadFailed:(nonnull NSString *)adPlaceId key:(nonnull NSString *)key code:(int)code {
-    NSLog(@"lwq, onAdLoadFailed adPlaceId = %@, key = %@, code = %d", adPlaceId, key, code);
+    NSLog(@"lw, onAdLoadFailed adPlaceId = %@, key = %@, code = %d", adPlaceId, key, code);
 }
 
 -(void) onAdImpression:(NSString*) adPlaceId  type:(NSString*)type
 {
-    NSLog(@"lwq, onAdImpression adPlaceId = %@, type = %@", adPlaceId, type);
+    NSLog(@"lw, onAdImpression adPlaceId = %@, type = %@", adPlaceId, type);
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
