@@ -318,6 +318,9 @@ static id s_sharedInstance;
      **/
 #ifdef APPLOVIN_MAX_ENABLED
     [FBAdSettings setAdvertiserTrackingEnabled:YES];
+//    let settings = ALSdkSettings()
+//    settings.consentFlowSettings.isEnabled = true
+//    settings.consentFlowSettings.privacyPolicyURL = URL(string: "https://your_company_name.com/privacy_policy")
     [ALSdk shared].mediationProvider = @"max";
 #endif
     [[ALSdk shared] initializeSdkWithCompletionHandler:^(ALSdkConfiguration *configuration) {
