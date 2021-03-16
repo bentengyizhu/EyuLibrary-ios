@@ -23,8 +23,7 @@
         self.isLoadSuccess = false;
         self.adView = [[MAAdView alloc] initWithAdUnitIdentifier: self.adKey.key];
         self.adView.delegate = self;
-        [self.adView loadAd];
-//        self.adView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50);
+        self.adView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50);
         [self.adView loadAd];
         [self startTimeoutTask];
     } else {
@@ -43,6 +42,10 @@
     self.adView.translatesAutoresizingMaskIntoConstraints = NO;
     CGFloat w = viewGroup.frame.size.width;
     CGFloat h = viewGroup.frame.size.height;
+    if (w == 0 || h == 0) {
+        w = [UIScreen mainScreen].bounds.size.width;
+        h = 50;
+    };
     [viewGroup addSubview:self.adView];
     NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:_adView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
     NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:_adView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];

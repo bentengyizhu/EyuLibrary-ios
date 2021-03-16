@@ -71,6 +71,10 @@
 //    self.bannerAdView.frame = bounds;
     CGFloat w = self.bannerAdView.frame.size.width;
     CGFloat h = self.bannerAdView.frame.size.height;
+    if (w == 0 || h == 0) {
+        w = [UIScreen mainScreen].bounds.size.width;
+        h = 50;
+    };
 //    viewGroup.translatesAutoresizingMaskIntoConstraints = NO;
     [viewGroup addSubview:self.bannerAdView];
     NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.bannerAdView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
