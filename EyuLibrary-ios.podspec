@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '1.3.92'
+    s.version          = '1.3.93'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -73,7 +73,7 @@ Pod::Spec.new do |s|
     
     s.subspec 'fb_ads_sdk' do |fb_ads_sdk|
         fb_ads_sdk.dependency 'FBAudienceNetwork','6.3.0'
-#        fb_ads_sdk.dependency 'FBSDKCoreKit','9.0.1'
+        fb_ads_sdk.dependency 'FBSDKCoreKit','9.1.0'
         fb_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) FB_ADS_ENABLED FACEBOOK_ENABLED'}
     end
     
