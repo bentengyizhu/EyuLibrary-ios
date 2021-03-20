@@ -22,10 +22,12 @@
 #import <CoreTelephony/CTCellularData.h>
 #ifdef FB_ADS_ENABLED
 #import "FBAdSettings.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #endif
 
 #ifdef ADMOB_MEDIATION_ENABLED
 #import "FBAdSettings.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #ifndef ADMOB_ADS_ENABLED
 #define ADMOB_ADS_ENABLED
 #endif
@@ -37,6 +39,7 @@
 
 #ifdef TRADPLUS_ENABLED
 #import "FBAdSettings.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <TradPlusAds/MsSDKUtils.h>
 #endif
 
@@ -45,6 +48,7 @@
 #define APPLOVIN_ADS_ENABLED
 #endif
 #import "FBAdSettings.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #endif
 
 #ifdef APPLOVIN_ADS_ENABLED
@@ -318,6 +322,7 @@ static id s_sharedInstance;
      **/
 #ifdef APPLOVIN_MAX_ENABLED
     [FBAdSettings setAdvertiserTrackingEnabled:YES];
+    [FBSDKSettings setAdvertiserIDCollectionEnabled:YES];
 //    let settings = ALSdkSettings()
 //    settings.consentFlowSettings.isEnabled = true
 //    settings.consentFlowSettings.privacyPolicyURL = URL(string: "https://your_company_name.com/privacy_policy")
@@ -380,7 +385,8 @@ static id s_sharedInstance;
 #endif
     
 #ifdef TRADPLUS_ENABLED
-    [FBAdSettings setAdvertiserTrackingEnabled:YES];
+    [FBAdSettings setAdvertiserTrackingEnabled:YES];\
+    [FBSDKSettings setAdvertiserIDCollectionEnabled:YES];
     [MsSDKUtils msSDKInit:^(NSError * _Nonnull error) {
         NSLog(@"TPSDKInit %@", error);
     }];
@@ -428,9 +434,11 @@ static id s_sharedInstance;
     }
 #ifdef FB_ADS_ENABLED
     [FBAdSettings setAdvertiserTrackingEnabled:YES];
+    [FBSDKSettings setAdvertiserIDCollectionEnabled:YES];
 #endif
 #ifdef ADMOB_MEDIATION_ENABLED
     [FBAdSettings setAdvertiserTrackingEnabled:YES];
+    [FBSDKSettings setAdvertiserIDCollectionEnabled:YES];
 #endif
     [self initSdk:config];
     
