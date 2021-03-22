@@ -130,11 +130,11 @@
     self.nativeAdView.frame = bounds;
     self.nativeAdView.userInteractionEnabled = YES;
     //[nativeAdLayout addSubview:nativeAdView];
-    if(mediaLayout!= NULL){
-        [nativeAdLayout insertSubview:self.nativeAdView belowSubview:mediaLayout];
-    }else{
+//    if(mediaLayout!= NULL){
+//        [nativeAdLayout insertSubview:self.nativeAdView belowSubview:mediaLayout];
+//    }else{
         [nativeAdLayout addSubview:self.nativeAdView];
-    }
+//    }
     return true;
 }
 
