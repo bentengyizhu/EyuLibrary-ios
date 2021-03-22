@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '1.3.94'
+    s.version          = '1.3.95'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -98,6 +98,7 @@ Pod::Spec.new do |s|
         applovin_max_sdk.dependency 'AppLovinMediationUnityAdsAdapter','3.6.0.0'
         applovin_max_sdk.dependency 'AppLovinMediationVungleAdapter','6.8.1.5'
         applovin_max_sdk.dependency 'AppLovinMediationFyberAdapter','7.8.1.3'
+        applovin_max_sdk.dependency 'FBSDKCoreKit','9.1.0'
         applovin_max_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) APPLOVIN_MAX_ENABLED' }
     end
     
@@ -137,9 +138,9 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'fb_login_sdk' do |fb|
-        fb.dependency 'FBSDKCoreKit','7.1.1'
-        fb.dependency 'FBSDKShareKit','7.1.1'
-        fb.dependency 'FBSDKLoginKit','7.1.1'
+        fb.dependency 'FBSDKCoreKit','9.1.0'
+        fb.dependency 'FBSDKShareKit','9.1.0'
+        fb.dependency 'FBSDKLoginKit','9.1.0'
         fb.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) FACEBOOK_LOGIN_ENABLED FACEBOOK_ENABLED'}
     end
     
