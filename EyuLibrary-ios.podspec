@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '1.3.96'
+    s.version          = '1.3.97'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -158,7 +158,7 @@ Pod::Spec.new do |s|
         firebase.dependency 'Firebase/Storage', '7.8.0'
         firebase.dependency 'Firebase/DynamicLinks', '7.8.0'
 #        firebase.dependency 'Firebase/AdMob', '7.8.0'
-        firebase.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) FIREBASE_ENABLED ADMOB_ADS_ENABLED'}
+        firebase.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) FIREBASE_ENABLED'}
     end
     
     s.subspec 'ReYunTracking' do |tracking|
