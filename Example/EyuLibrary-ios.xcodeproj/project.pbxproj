@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07011E772569207800CE9E5B /* nativeAd.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07011E762569207800CE9E5B /* nativeAd.xib */; };
 		07571B2A259ADD2600C99F68 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07571B29259ADD2600C99F68 /* WebKit.framework */; };
 		07571B2E259ADD3B00C99F68 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07571B2D259ADD3B00C99F68 /* CoreMotion.framework */; };
 		07571B32259ADD9600C99F68 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07571B31259ADD9600C99F68 /* CoreTelephony.framework */; };
+		079D595B2609E4A700FFCE3B /* EYCustomNativeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 079D595A2609E4A700FFCE3B /* EYCustomNativeView.m */; };
+		4B87BD752085F532D3C4C817 /* libPods-EyuLibrary-ios_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A75768B97155249B76354D9 /* libPods-EyuLibrary-ios_Example.a */; };
 		5635DFC123EA9BDE0065566A /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5635DFC023EA9BDD0065566A /* iAd.framework */; };
 		56792D5824FDEA9F00655101 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56792D5724FDEA9F00655101 /* File.swift */; };
 		56E252BA21785EE500584CB9 /* ios_ad_key_setting.json in Resources */ = {isa = PBXBuildFile; fileRef = 56E252B321785EE500584CB9 /* ios_ad_key_setting.json */; };
@@ -42,10 +43,9 @@
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
-		65867A33ADF725D90320CD82 /* libPods-EyuLibrary-ios_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 372537BE4D1D744A193EB00E /* libPods-EyuLibrary-ios_Example.a */; };
+		601F1783A51FC1811D2D8C22 /* libPods-EyuLibrary-ios_Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 536A12CD00CE11483CD786D4 /* libPods-EyuLibrary-ios_Tests.a */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
-		95E9CC8E40F2A8266E924BC3 /* libPods-EyuLibrary-ios_Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C79031D01F0DD3B761FBD0D /* libPods-EyuLibrary-ios_Tests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,14 +59,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		07011E762569207800CE9E5B /* nativeAd.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = nativeAd.xib; sourceTree = "<group>"; };
 		07571B29259ADD2600C99F68 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		07571B2D259ADD3B00C99F68 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		07571B31259ADD9600C99F68 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		079D59592609E4A700FFCE3B /* EYCustomNativeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EYCustomNativeView.h; sourceTree = "<group>"; };
+		079D595A2609E4A700FFCE3B /* EYCustomNativeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EYCustomNativeView.m; sourceTree = "<group>"; };
 		0DD451035A305C94C404E430 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		1C79031D01F0DD3B761FBD0D /* libPods-EyuLibrary-ios_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EyuLibrary-ios_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		372537BE4D1D744A193EB00E /* libPods-EyuLibrary-ios_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EyuLibrary-ios_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A75768B97155249B76354D9 /* libPods-EyuLibrary-ios_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EyuLibrary-ios_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		37374FD33AEC6D404E1C48F2 /* Pods-EyuLibrary-ios_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyuLibrary-ios_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EyuLibrary-ios_Tests/Pods-EyuLibrary-ios_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		536A12CD00CE11483CD786D4 /* libPods-EyuLibrary-ios_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EyuLibrary-ios_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5635DFC023EA9BDD0065566A /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		56792D5624FDEA9F00655101 /* EyuLibrary-ios_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EyuLibrary-ios_Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		56792D5724FDEA9F00655101 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -128,7 +129,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				65867A33ADF725D90320CD82 /* libPods-EyuLibrary-ios_Example.a in Frameworks */,
+				4B87BD752085F532D3C4C817 /* libPods-EyuLibrary-ios_Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,7 +140,7 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				95E9CC8E40F2A8266E924BC3 /* libPods-EyuLibrary-ios_Tests.a in Frameworks */,
+				601F1783A51FC1811D2D8C22 /* libPods-EyuLibrary-ios_Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,8 +213,8 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				372537BE4D1D744A193EB00E /* libPods-EyuLibrary-ios_Example.a */,
-				1C79031D01F0DD3B761FBD0D /* libPods-EyuLibrary-ios_Tests.a */,
+				2A75768B97155249B76354D9 /* libPods-EyuLibrary-ios_Example.a */,
+				536A12CD00CE11483CD786D4 /* libPods-EyuLibrary-ios_Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -231,6 +232,8 @@
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* EYViewController.h */,
 				6003F5A6195388D20070C39A /* EYViewController.m */,
+				079D59592609E4A700FFCE3B /* EYCustomNativeView.h */,
+				079D595A2609E4A700FFCE3B /* EYCustomNativeView.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -246,7 +249,6 @@
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
 				6003F59B195388D20070C39A /* EyuLibrary-ios-Prefix.pch */,
-				07011E762569207800CE9E5B /* nativeAd.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -370,7 +372,6 @@
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				56E252E22178704500584CB9 /* yuanshengguanggao_dikuang01@2x.png in Resources */,
 				56E252E02178704500584CB9 /* guanggaoguanbi@2x.png in Resources */,
-				07011E772569207800CE9E5B /* nativeAd.xib in Resources */,
 				56E252BF21785EE500584CB9 /* ios_ad_cache_setting.json in Resources */,
 				56E252BE21785EE500584CB9 /* defaults_setting.json in Resources */,
 				56E252D82178704500584CB9 /* ad@2x.png in Resources */,
@@ -399,21 +400,19 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-resources.sh",
-				"${PODS_ROOT}/Ads-Global/PangleSDK/BUAdSDK.bundle",
-				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-10.0.0/AppLovinSDKResources.bundle",
-				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
+				"${PODS_ROOT}/Ads-CN/PangleSDK/BUAdSDK.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/EyuLibrary-ios/EyuLibrary.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FFToast/FFToast.bundle",
-				"${PODS_ROOT}/Fyber_Marketplace_SDK/IASDKCore/IASDKResources.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+				"${PODS_ROOT}/SigmobAd-iOS/WindSDK/Sigmob.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BUAdSDK.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppLovinSDKResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EyuLibrary.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FFToast.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IASDKResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Sigmob.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -473,6 +472,7 @@
 			files = (
 				56792D5824FDEA9F00655101 /* File.swift in Sources */,
 				6003F59E195388D20070C39A /* EYAppDelegate.m in Sources */,
+				079D595B2609E4A700FFCE3B /* EYCustomNativeView.m in Sources */,
 				56E252C521786A7C00584CB9 /* EYViewControllerB.m in Sources */,
 				6003F5A7195388D20070C39A /* EYViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
@@ -662,7 +662,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"FFToast\"",
 					"-l\"ObjC\"",
 					"-l\"SVProgressHUD\"",
 					"-l\"bz2\"",

@@ -107,6 +107,7 @@ This method is called when bannerAdView ad slot success to show.
 */
 - (void)bannerAdDidBecomVisible:(ABUBannerAd *_Nonnull)ABUBannerAd bannerView:(UIView *)bannerView{
     [self notifyOnAdShowed];
+    [self notifyOnAdShowedData:@{@"ecpm": ABUBannerAd.getPreEcpm}];
     [self notifyOnAdImpression];
 }
 

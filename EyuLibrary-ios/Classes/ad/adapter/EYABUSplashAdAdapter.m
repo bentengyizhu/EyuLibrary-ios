@@ -102,7 +102,7 @@
  */
 - (void)splashAdWillVisible:(ABUSplashAd *_Nonnull)splashAd {
     NSLog(@"lwq, abu splashAd splashAdWillVisible");
-    [self notifyOnAdShowedData:nil];
+    [self notifyOnAdShowedData:@{@"ecpm": splashAd.getPreEcpm}];
     [self notifyOnAdImpression];
 }
 

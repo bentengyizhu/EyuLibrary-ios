@@ -102,6 +102,8 @@
 @property(nonatomic,strong) NSMutableDictionary<NSNumber*,NSMutableDictionary<NSString*,EYNativeAdView*>*>*  nativeAdViewDict;
 @property(nonatomic,weak) UIViewController* nativeAdController;
 
+@property(nonatomic, strong) Class nativeClass;
+
 #ifdef UNITY_ADS_ENABLED
 @property(nonatomic,strong) NSMutableDictionary<NSString*, id<UnityAdsDelegate>>* unityAdsDelegateDict;
 #endif
@@ -454,6 +456,7 @@ static id s_sharedInstance;
     self.bannerAdGroupDict = [[NSMutableDictionary alloc] init];
     self.splashAdGroupDict = [[NSMutableDictionary alloc] init];
     self.nativeAdController = nil;
+    self.nativeClass = [EYNativeAdView class];
 #ifdef UNITY_ADS_ENABLED
     self.unityAdsDelegateDict = [[NSMutableDictionary alloc] init];
 #endif
@@ -716,6 +719,20 @@ static id s_sharedInstance;
     return false;
 }
 
+- (bool)isSplashAdLoaded:(NSString *)placeId {
+    if(!self.isInited)
+    {
+        return false;
+    }
+    EYAdPlace* adPlace = self.adPlaceDict[placeId];
+    if(adPlace != nil)
+    {
+        EYSplashAdGroup *group = self.splashAdGroupDict[adPlace.groupId];
+        return group!= nil && [group isCacheAvailable];
+    }
+    return false;
+}
+
 -(void)loadNativeAd:(NSString*) placeId
 {
     if(!self.isInited)
@@ -757,6 +774,10 @@ static id s_sharedInstance;
     }else{
         NSLog(@"loadBannerAd error, adPlace==nil, placeId = %@", placeId);
     }
+}
+
+- (void)registerNativeAdCustomClass:(Class)nativeClass {
+    self.nativeClass = nativeClass;
 }
 
 -(EYNativeAdView*) getNativeAdViewFromCache:(NSString* )placeId withViewController:(UIViewController*)controller
@@ -804,7 +825,7 @@ static id s_sharedInstance;
         CGRect rect = viewGroup.frame;
         rect.origin.x = 0;
         rect.origin.y = 0;
-        view = [[EYNativeAdView alloc] initWithFrame:rect nibName:nativeAdViewNib];
+        view = [[_nativeClass alloc] initWithFrame:rect nibName:nativeAdViewNib];
         [viewGroup addSubview:view];
         [self putNativeAdViewToCache:view placeId:placeId withViewController:controller];
     }

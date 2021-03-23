@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '1.3.97'
+    s.version          = '1.3.98'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -32,6 +32,7 @@ Pod::Spec.new do |s|
     s.subspec 'Core' do |b|
         b.source_files = 'EyuLibrary-ios/Classes/**/*'
         b.private_header_files = 'EyuLibrary-ios/Classes/framework/ABUAdSDK/ABUAdSDK.framework/Headers/ABUAdapterRewardAdInfo.h'
+        b.resource_bundle = { 'EyuLibrary' => 'EyuLibrary-ios/Classes/ad/view/*.xib'}
 #        b.exclude_files = 'EyuLibrary-ios/Classes/framework/ABUAdSDK/**/*'
         b.dependency 'SVProgressHUD'
         b.dependency 'FFToast'

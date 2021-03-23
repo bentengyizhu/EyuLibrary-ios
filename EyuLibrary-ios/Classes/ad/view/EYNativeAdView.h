@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(EYNativeAdAdapter*) getAdapter;
 -(void) updateNativeAdAdapter:(EYNativeAdAdapter*)adapter;
 -(void) unregisterView;
-
+-(void) initFromXib;
 
 @end
 

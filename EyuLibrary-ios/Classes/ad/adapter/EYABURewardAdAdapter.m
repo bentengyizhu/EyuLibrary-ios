@@ -114,6 +114,7 @@
 - (void)rewardedVideoAdDidVisible:(ABURewardedVideoAd *_Nonnull)rewardedVideoAd {
     NSLog(@"lwq, abu rewarded video will visible");
     [self notifyOnAdShowed];
+    [self notifyOnAdShowedData:@{@"ecpm": rewardedVideoAd.getPreEcpm}];
     [self notifyOnAdImpression];
 }
 

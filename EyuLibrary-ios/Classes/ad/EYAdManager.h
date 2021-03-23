@@ -67,6 +67,8 @@
 -(void) setupWithConfig:(EYAdConfig*) config;
 -(EYAdKey*) getAdKeyWithId:(NSString*) keyId;
 
+-(void) registerNativeAdCustomClass:(Class) nativeClass;
+
 #ifdef UNITY_ADS_ENABLED
 -(void) addUnityAdsDelegate:(id<UnityAdsDelegate>) delegate withKey:(NSString*) adKey;
 -(void) removeUnityAdsDelegate:(id<UnityAdsDelegate>) delegate forKey:(NSString *)adKey;

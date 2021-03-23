@@ -195,6 +195,7 @@
  */
 - (void)nativeAdDidBecomeVisible:(ABUNativeAdView *_Nonnull)nativeAdView {
     [self notifyOnAdShowed];
+    [self notifyOnAdShowedData:@{@"ecpm": nativeAdView.getPreEcpm}];
     [self notifyOnAdImpression];
 }
 

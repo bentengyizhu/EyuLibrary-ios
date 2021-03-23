@@ -102,6 +102,7 @@
 - (void)fullscreenVideoAdDidVisible:(ABUFullscreenVideoAd *_Nonnull)fullscreenVideoAd {
     NSLog(@"lwq, abu interstitialAd fullscreenVideoAdDidVisible");
     [self notifyOnAdShowed];
+    [self notifyOnAdShowedData:@{@"ecpm": fullscreenVideoAd.getPreEcpm}];
     [self notifyOnAdImpression];
 }
 

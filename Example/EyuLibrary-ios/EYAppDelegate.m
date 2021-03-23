@@ -11,6 +11,7 @@
 #import "EYAdConfig.h"
 #import "EYRemoteConfigHelper.h"
 #import "EYSdkUtils.h"
+#import "EYCustomNativeView.h"
 //#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 
@@ -45,6 +46,7 @@
 //    adConfig.vungleClientId = @"5bdbc67a6d9d2200139056f9";
 //    adConfig.ironSourceAppKey = @"cceee1bd";//@"a78e7db5";
     [[EYAdManager sharedInstance] setupWithConfig:adConfig];
+    [[EYAdManager sharedInstance] registerNativeAdCustomClass:[EYCustomNativeView class]];
     [[EYAdManager sharedInstance] setDelegate:self];
 //    [EYSdkUtils initFacebookSdkWithApplication:application options:launchOptions];
     return YES;

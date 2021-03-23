@@ -44,7 +44,13 @@
     self = [super initWithFrame:frame];
     if (self) {
         //self.userInteractionEnabled = false;
-        NSArray *nibView =  [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
+        NSArray *nibView;
+        if ([nibName  isEqualToString: @"nativeAd"]) {
+            NSString *bundlePath = [[NSBundle bundleForClass:self] pathForResource:@"EyuLibrary" ofType:@"bundle"];
+            nibView =  [[NSBundle bundleWithPath:bundlePath] loadNibNamed:nibName owner:self options:nil];
+        } else {
+            nibView =  [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
+        }
         UIView* rootView = [nibView firstObject];
         rootView.frame = frame;
         [self addSubview:rootView];
@@ -61,8 +67,13 @@
             auto closeTapGesture = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector(didTapCloseAd:)];
             [self.closeBtn addGestureRecognizer:closeTapGesture];
         }
+        [self initFromXib];
     }
     return self;
+}
+
+-(void)initFromXib {
+    
 }
 
 -(EYNativeAdAdapter*) getAdapter{
