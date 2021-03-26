@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '1.3.98'
+    s.version          = '1.3.99'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -193,13 +193,14 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'admob_mediation_sdk' do |admob_mediation|
-        admob_mediation.dependency 'Google-Mobile-Ads-SDK','7.68.0'
-        admob_mediation.dependency 'GoogleMobileAdsMediationAppLovin', '6.14.9.0'
-        admob_mediation.dependency 'GoogleMobileAdsMediationFacebook', '6.2.0.0'
-        admob_mediation.dependency 'GoogleMobileAdsMediationFyber', '7.7.2.0'
-        admob_mediation.dependency 'GoogleMobileAdsMediationIronSource', '7.0.4.0'
-        admob_mediation.dependency 'GoogleMobileAdsMediationUnity', '3.5.1.1'
-        admob_mediation.dependency 'GoogleMobileAdsMediationVungle', '6.8.1.0'
+        admob_mediation.dependency 'Google-Mobile-Ads-SDK','8.2.0'
+        admob_mediation.dependency 'GoogleMobileAdsMediationAppLovin', '10.0.1.0'
+        admob_mediation.dependency 'GoogleMobileAdsMediationFacebook', '6.3.0.0'
+        admob_mediation.dependency 'FBSDKCoreKit','9.1.0'
+        admob_mediation.dependency 'GoogleMobileAdsMediationFyber', '7.8.2.0'
+        admob_mediation.dependency 'GoogleMobileAdsMediationIronSource', '7.1.3.0'
+        admob_mediation.dependency 'GoogleMobileAdsMediationUnity', '3.6.0.0'
+        admob_mediation.dependency 'GoogleMobileAdsMediationVungle', '6.9.1.0'
         admob_mediation.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ADMOB_MEDIATION_ENABLED ADMOB_ADS_ENABLED'}
     end
     
