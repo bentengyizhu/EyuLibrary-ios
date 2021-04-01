@@ -7,7 +7,7 @@
 //
 
 #import "EYAppDelegate.h"
-#import "EYAdManager.h"
+//#import "EYAdManager.h"
 #import "EYAdConfig.h"
 #import "EYRemoteConfigHelper.h"
 #import "EYSdkUtils.h"
@@ -36,6 +36,7 @@
     adConfig.adKeyData =  [EYSdkUtils readFileWithName:@"ios_ad_key_setting"];
     adConfig.adGroupData = [EYSdkUtils readFileWithName:@"ios_ad_cache_setting"];
     adConfig.adPlaceData = [EYSdkUtils readFileWithName:@"ios_ad_setting"];
+    adConfig.adSuiteData = [EYSdkUtils readFileWithName:@"ios_ad_group_setting"];
     adConfig.abuAppId = @"5149732";
 //    adConfig.mtgAppId = @"111418";
 //    adConfig.mtgAppKey = @"a339a16bbaca844012276afad6f59eaa";

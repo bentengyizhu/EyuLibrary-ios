@@ -5,15 +5,11 @@
 //  Created by eric on 2020/11/7.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import "EYAdKey.h"
-#import "EYAdGroup.h"
+#import "EYAdAdapter.h"
 #import "UIViewExtension.h"
-#include "EYAdConstants.h"
 
 @protocol IBannerAdDelegate;
-@interface EYBannerAdAdapter : NSObject
+@interface EYBannerAdAdapter : EYAdAdapter
 
 @property(nonatomic,weak)id<IBannerAdDelegate> delegate;
 @property(nonatomic,strong)EYAdKey *adKey;

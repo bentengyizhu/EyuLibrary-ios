@@ -15,6 +15,9 @@
 @property(nonatomic,strong)NSData *adPlaceData;
 @property(nonatomic,strong)NSData *adKeyData;
 @property(nonatomic,strong)NSData *adGroupData;
+@property(nonatomic,strong)NSData *adSuiteData;
+
+@property(nonatomic,assign)bool isNewJsonSetting;
 
 #ifdef ADMOB_ADS_ENABLED
 @property(nonatomic,copy)NSString *admobClientId;

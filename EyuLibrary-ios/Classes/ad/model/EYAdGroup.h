@@ -8,19 +8,20 @@
 #ifndef AdGroup_h
 #define AdGroup_h
 #import "EYAdKey.h"
+#import "EYAdSuite.h"
 
 @interface EYAdGroup : NSObject{
 
 }
 
 @property(nonatomic,copy)NSString *groupId;
-@property(nonatomic,strong)NSMutableArray<EYAdKey*> *keyArray;
 @property(nonatomic,assign)bool isAutoLoad;
 @property(nonatomic,copy)NSString *type;
+@property(nonatomic,strong)NSMutableArray *suiteArray;
 
 -(instancetype) initWithId : (NSString*) groupId;
 
--(void) addAdKey:(EYAdKey*)key;
+-(void) addAdSuite:(EYAdSuite *)suite;
 
 @end
 

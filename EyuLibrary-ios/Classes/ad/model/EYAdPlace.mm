@@ -9,15 +9,15 @@
 
 @implementation EYAdPlace
 @synthesize placeId = _placeId;
-@synthesize groupId = _groupId;
+@synthesize groups = _groups;
 
--(instancetype) initWithId : (NSString*) placeId groupId:(NSString*) groupId
+-(instancetype) initWithId : (NSString*) placeId groups:(NSArray*) groups
 {
     self = [super init];
     if(self)
     {
         self.placeId = placeId;
-        self.groupId = groupId;
+        self.groups = groups;
     }
     return self;
 }

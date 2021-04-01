@@ -4,34 +4,34 @@
         "desc":"激励视频",
         "id":"reward_ad",
         "nativeAdLayout":"",
-        "cacheGroup":"reward_ad"
+        "cacheGroup":["reward1"]
     },
     {
         "isEnabled":"true",
         "desc":"插屏",
         "id":"inter_ad",
         "nativeAdLayout":"",
-        "cacheGroup":"inter_ad"
+        "cacheGroup":["inter1"]
     },
     {
         "isEnabled":"true",
         "desc":"原生广告",
         "id":"native_ad",
         "nativeAdLayout":"nativeAd",
-        "cacheGroup":"native_ad"
+        "cacheGroup":["native1"]
     },
     {
         "isEnabled":"true",
         "desc":"banner广告",
         "id":"banner_ad",
         "nativeAdLayout":"",
-        "cacheGroup":"banner_group"
+        "cacheGroup":["banner1"]
     },
     {
         "isEnabled":"true",
         "desc":"splash广告",
         "id":"splash_ad",
         "nativeAdLayout":"",
-        "cacheGroup":"splash_group"
+        "cacheGroup":["splash1"]
     }
 ]

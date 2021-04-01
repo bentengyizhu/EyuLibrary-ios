@@ -15,6 +15,7 @@
 @synthesize adPlaceData = _adPlaceData;
 @synthesize adKeyData = _adKeyData;
 @synthesize adGroupData = _adGroupData;
+@synthesize adSuiteData = _adSuiteData;
 #ifdef ADMOB_ADS_ENABLED
 @synthesize admobClientId = _admobClientId;
 #endif
@@ -47,7 +48,7 @@
 @synthesize abuAppId = _abuAppId;
 #endif
 
--(instancetype) initWithPlace:(NSData*)adPlaceData  key: (NSData*) adKeyData group:(NSData*) adGroupData;
+-(instancetype) initWithPlace:(NSData*)adPlaceData  key: (NSData*) adKeyData group:(NSData*) adGroupData suite:(NSData*) adSuiteData;
 {
     self = [self init];
     if(self)
@@ -55,7 +56,9 @@
         self.adPlaceData = adPlaceData;
         self.adKeyData = adKeyData;
         self.adGroupData = adGroupData;
+        self.adSuiteData = adSuiteData;
         self.reportEvent = false;
+        self.isNewJsonSetting = true;
 #ifdef BYTE_DANCE_ADS_ENABLED
         self.wmAppKey = nil;
 #endif

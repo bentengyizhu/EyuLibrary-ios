@@ -12,8 +12,8 @@
 }
 
 @property(nonatomic,copy)NSString *placeId;
-@property(nonatomic,copy)NSString *groupId;
+@property(nonatomic,strong)NSArray *groups;
 
--(instancetype) initWithId : (NSString*) placeId groupId:(NSString*) groupId;
+-(instancetype) initWithId : (NSString*) placeId groups:(NSArray*) groups;
 
 @end

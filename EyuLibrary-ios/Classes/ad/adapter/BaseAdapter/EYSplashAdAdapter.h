@@ -5,15 +5,12 @@
 //  Created by eric on 2021/3/5.
 //
 
-#import <UIKit/UIKit.h>
-#import "EYAdKey.h"
-#import "EYAdGroup.h"
-#include "EYAdConstants.h"
+#import "EYAdAdapter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol ISplashAdDelegate;
 
-@interface EYSplashAdAdapter : NSObject
+@interface EYSplashAdAdapter : EYAdAdapter
 @property(nonatomic,weak,nullable)id<ISplashAdDelegate> delegate;
 @property(nonatomic,strong,nullable)EYAdKey *adKey;
 @property(nonatomic,strong,nullable)EYAdGroup *adGroup;

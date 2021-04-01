@@ -12,7 +12,7 @@
 @implementation EYAdGroup
 
 @synthesize groupId = _groupId;
-@synthesize keyArray = _keyArray;
+@synthesize suiteArray = _suiteArray;
 @synthesize isAutoLoad = _isAutoLoad;
 @synthesize type = _type;
 
@@ -22,15 +22,15 @@
     if(self)
     {
         self.groupId = groupId;
-        self.keyArray = [[NSMutableArray alloc] init];
+        self.suiteArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
--(void) addAdKey:(EYAdKey*)key
+-(void) addAdSuite:(EYAdSuite *)suite
 {
-    if(key){
-        [self.keyArray addObject:key];
+    if(suite){
+        [self.suiteArray addObject:suite];
     }
 }
 

@@ -16,7 +16,6 @@
 @interface EYBannerAdGroup()<IBannerAdDelegate>
 
 @property(nonatomic,strong)NSDictionary<NSString*, Class> *adapterClassDict;
-@property(nonatomic,strong)NSMutableArray<EYBannerAdAdapter*> *adapterArray;
 @property(nonatomic,copy)NSString *adPlaceId;
 @property(nonatomic,assign)int  maxTryLoadAd;
 //@property(nonatomic,assign)int tryLoadAdCounter;
@@ -26,8 +25,6 @@
 @end
 
 @implementation EYBannerAdGroup
-@synthesize adGroup = _adGroup;
-@synthesize adapterArray = _adapterArray;
 @synthesize adapterClassDict = _adapterClassDict;
 @synthesize maxTryLoadAd = _maxTryLoadAd;
 //@synthesize curLoadingIndex = _curLoadingIndex;
@@ -35,7 +32,7 @@
 @synthesize reportEvent = _reportEvent;
 
 - (EYBannerAdGroup *)initWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig {
-    self = [super init];
+    self = [super initWithGroup:adGroup adConfig:adConfig];
     if (self) {
         self.adapterClassDict = [[NSDictionary alloc] initWithObjectsAndKeys:
 #ifdef FB_ADS_ENABLED
@@ -62,13 +59,28 @@
             NSClassFromString(@"EYABUBannerAdAdapter"), ADNetworkABU,
 #endif
         nil];
-        self.adGroup = adGroup;
-        self.adapterArray = [[NSMutableArray alloc] init];
-
+        self.adType = ADTypeBanner;
 //        self.curLoadingIndex = -1;
 //        self.tryLoadAdCounter = 0;
         self.reportEvent = adConfig.reportEvent;
-        NSMutableArray<EYAdKey*>* keyList = self.adGroup.keyArray;
+        NSMutableArray<EYAdKey*>* keyList = [[NSMutableArray alloc]init];
+        if (self.isNewJsonSetting) {
+            NSInteger value = [[NSUserDefaults standardUserDefaults]integerForKey:@"currentBannerValue"];
+            for (int i = 0; i < adGroup.suiteArray.count; i++) {
+                EYAdSuite *suite = adGroup.suiteArray[i];
+                if (value >= suite.value) {
+                    self.currentSuiteIndex = suite.value;
+                    break;
+                }
+            }
+            EYAdSuite *currentSuite = adGroup.suiteArray[self.currentSuiteIndex];
+            keyList = currentSuite.keys;
+        } else {
+            for (EYAdSuite *suite in adGroup.suiteArray) {
+                [keyList addObject:suite.keys.firstObject];
+            }
+        }
+        [self.adapterArray removeAllObjects];
         for(EYAdKey* adKey in keyList)
         {
             if(adKey){
@@ -87,14 +99,13 @@
 {
     self.adPlaceId = placeId;
     if(self.adapterArray.count == 0) return;
-    EYBannerAdAdapter* adapter = self.adapterArray[0];
+    EYAdAdapter* adapter = self.adapterArray[0];
     [adapter loadAd];
     if (self.adapterArray.count > 1 && self.adGroup.isAutoLoad) {
         [self.adapterArray[1] loadAd];
     }
 //    self.curLoadingIndex = 0;
 //    self.tryLoadAdCounter = 1;
-
 }
 
 - (bool)showAdGroup:(UIView *)viewGroup{

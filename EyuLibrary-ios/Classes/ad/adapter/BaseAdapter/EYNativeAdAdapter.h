@@ -5,16 +5,12 @@
 //  Created by Woo on 2017/12/19.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import "EYAdKey.h"
-#import "EYAdGroup.h"
-#include "EYAdConstants.h"
+#import "EYAdAdapter.h"
 
 
 @protocol INativeAdDelegate;
 
-@interface EYNativeAdAdapter : NSObject{
+@interface EYNativeAdAdapter : EYAdAdapter{
     
 }
 @property(nonatomic,weak)id<INativeAdDelegate> delegate;
