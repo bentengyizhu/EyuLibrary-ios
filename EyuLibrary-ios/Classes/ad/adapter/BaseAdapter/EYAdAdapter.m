@@ -13,4 +13,10 @@
 - (void)loadAd {
     NSLog(@"子类实现");
 }
+
+-(bool) isAdLoaded
+{
+    NSAssert(true, @"子类中实现");
+    return false;
+}
 @end

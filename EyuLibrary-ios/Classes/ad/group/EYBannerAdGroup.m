@@ -9,27 +9,23 @@
 #import "EYBannerAdGroup.h"
 #import "EYBannerAdAdapter.h"
 #import "EYAdKey.h"
-#import "EYEventUtils.h"
 #import "EYAdManager.h"
 #import "EYABUBannerAdAdapter.h"
 
-@interface EYBannerAdGroup()<IBannerAdDelegate>
+@interface EYBannerAdGroup()
 
 @property(nonatomic,strong)NSDictionary<NSString*, Class> *adapterClassDict;
 @property(nonatomic,copy)NSString *adPlaceId;
-@property(nonatomic,assign)int  maxTryLoadAd;
+
 //@property(nonatomic,assign)int tryLoadAdCounter;
 //@property(nonatomic,assign)int curLoadingIndex;
-@property(nonatomic,assign)bool reportEvent;
 
 @end
 
 @implementation EYBannerAdGroup
 @synthesize adapterClassDict = _adapterClassDict;
-@synthesize maxTryLoadAd = _maxTryLoadAd;
 //@synthesize curLoadingIndex = _curLoadingIndex;
 //@synthesize tryLoadAdCounter = _tryLoadAdCounter;
-@synthesize reportEvent = _reportEvent;
 
 - (EYBannerAdGroup *)initWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig {
     self = [super initWithGroup:adGroup adConfig:adConfig];
@@ -59,54 +55,32 @@
             NSClassFromString(@"EYABUBannerAdAdapter"), ADNetworkABU,
 #endif
         nil];
+        self.adValueKey = @"currentBannerValue";
         self.adType = ADTypeBanner;
 //        self.curLoadingIndex = -1;
 //        self.tryLoadAdCounter = 0;
-        self.reportEvent = adConfig.reportEvent;
-        NSMutableArray<EYAdKey*>* keyList = [[NSMutableArray alloc]init];
-        if (self.isNewJsonSetting) {
-            NSInteger value = [[NSUserDefaults standardUserDefaults]integerForKey:@"currentBannerValue"];
-            for (int i = 0; i < adGroup.suiteArray.count; i++) {
-                EYAdSuite *suite = adGroup.suiteArray[i];
-                if (value >= suite.value) {
-                    self.currentSuiteIndex = suite.value;
-                    break;
-                }
-            }
-            EYAdSuite *currentSuite = adGroup.suiteArray[self.currentSuiteIndex];
-            keyList = currentSuite.keys;
-        } else {
-            for (EYAdSuite *suite in adGroup.suiteArray) {
-                [keyList addObject:suite.keys.firstObject];
-            }
-        }
-        [self.adapterArray removeAllObjects];
-        for(EYAdKey* adKey in keyList)
-        {
-            if(adKey){
-                EYBannerAdAdapter *adapter = [self createAdAdapterWithKey:adKey adGroup:self.adGroup];
-                if(adapter){
-                    [self.adapterArray addObject:adapter];
-                }
-            }
-        }
+        [self initAdatperArray];
         self.maxTryLoadAd = 3;
     }
     return self;
 }
 
--(void) loadAd:(NSString*)placeId 
-{
-    self.adPlaceId = placeId;
-    if(self.adapterArray.count == 0) return;
-    EYAdAdapter* adapter = self.adapterArray[0];
-    [adapter loadAd];
-    if (self.adapterArray.count > 1 && self.adGroup.isAutoLoad) {
-        [self.adapterArray[1] loadAd];
-    }
-//    self.curLoadingIndex = 0;
-//    self.tryLoadAdCounter = 1;
+- (NSString *)adPlaceId {
+    return self.adGroup.groupId;
 }
+
+//-(void) loadAd:(NSString*)placeId
+//{
+//    self.adPlaceId = placeId;
+//    if(self.adapterArray.count == 0) return;
+//    EYAdAdapter* adapter = self.adapterArray[0];
+//    [adapter loadAd];
+//    if (self.adapterArray.count > 1 && self.adGroup.isAutoLoad) {
+//        [self.adapterArray[1] loadAd];
+//    }
+////    self.curLoadingIndex = 0;
+////    self.tryLoadAdCounter = 1;
+//}
 
 - (bool)showAdGroup:(UIView *)viewGroup{
     NSLog(@"showBannerAd placeId = %@", self.adPlaceId);
@@ -148,8 +122,7 @@
     return loadAdapter;
 }
 
--(EYBannerAdAdapter*) createAdAdapterWithKey:(EYAdKey*)adKey adGroup:(EYAdGroup*)group
-{
+- (EYAdAdapter *)createAdAdapterWithKey:(EYAdKey *)adKey adGroup:(EYAdGroup *)group {
     EYBannerAdAdapter* adapter = NULL;
     NSString* network = adKey.network;
     Class adapterClass = self.adapterClassDict[network];

@@ -7,13 +7,10 @@
 
 #import "EYAdAdapter.h"
 
-@protocol IRewardAdDelegate;
-
 @interface EYRewardAdAdapter : EYAdAdapter{
     
 }
-@property(nonatomic,weak)id<IRewardAdDelegate> delegate;
-@property(nonatomic,strong)EYAdKey *adKey;
+
 @property(nonatomic,strong)EYAdGroup *adGroup;
 @property(nonatomic,assign)bool isLoading;
 @property(nonatomic,strong)NSTimer *loadingTimer;
@@ -42,15 +39,3 @@
 
 @end
 
-@protocol IRewardAdDelegate<NSObject>
-
-@optional
--(void) onAdLoaded:(EYRewardAdAdapter *)adapter;
--(void) onAdLoadFailed:(EYRewardAdAdapter *)adapter withError:(int)errorCode;
--(void) onAdShowed:(EYRewardAdAdapter *)adapter;
--(void) onAdClicked:(EYRewardAdAdapter *)adapter;
--(void) onAdClosed:(EYRewardAdAdapter *)adapter;
--(void) onAdRewarded:(EYRewardAdAdapter *)adapter;
--(void) onAdImpression:(EYRewardAdAdapter *)adapter;
--(void) onAdShowed:(EYRewardAdAdapter *)adapter extraData:(NSDictionary *)extraData;
-@end

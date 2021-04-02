@@ -7,14 +7,10 @@
 
 #import "EYAdAdapter.h"
 
-
-@protocol INativeAdDelegate;
-
 @interface EYNativeAdAdapter : EYAdAdapter{
     
 }
-@property(nonatomic,weak)id<INativeAdDelegate> delegate;
-@property(nonatomic,strong)EYAdKey *adKey;
+
 @property(nonatomic,strong)EYAdGroup *adGroup;
 @property(nonatomic,assign)bool isLoading;
 @property(nonatomic,strong)NSTimer *loadingTimer;
@@ -39,17 +35,4 @@
 -(void) startTimeoutTask;
 -(void) cancelTimeoutTask;
 
-@end
-
-
-@protocol INativeAdDelegate<NSObject>
-
-@optional
--(void) onAdLoaded:(EYNativeAdAdapter *)adapter;
--(void) onAdLoadFailed:(EYNativeAdAdapter *)adapter withError:(int)errorCode;
--(void) onAdShowed:(EYNativeAdAdapter *)adapter;
--(void) onAdClicked:(EYNativeAdAdapter *)adapter;
--(void) onAdImpression:(EYNativeAdAdapter *)adapter;
--(void) onAdShowed:(EYNativeAdAdapter *)adapter extraData:(NSDictionary *)extraData;
--(void) onAdClosed:(EYNativeAdAdapter *)adapter;
 @end

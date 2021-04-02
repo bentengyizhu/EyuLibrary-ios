@@ -8,13 +8,10 @@
 #import "EYAdAdapter.h"
 
 
-@protocol IInterstitialAdDelegate;
-
 @interface EYInterstitialAdAdapter : EYAdAdapter{
     
 }
-@property(nonatomic,weak)id<IInterstitialAdDelegate> delegate;
-@property(nonatomic,strong)EYAdKey *adKey;
+
 @property(nonatomic,strong)EYAdGroup *adGroup;
 @property(nonatomic,assign)bool isLoading;
 @property(nonatomic,strong)NSTimer *loadingTimer;
@@ -40,13 +37,4 @@
 @end
 
 @protocol IInterstitialAdDelegate<NSObject>
-
-@optional
--(void) onAdLoaded:(EYInterstitialAdAdapter *)adapter;
--(void) onAdLoadFailed:(EYInterstitialAdAdapter*)adapter withError:(int)errorCode;
--(void) onAdShowed:(EYInterstitialAdAdapter*)adapter;
--(void) onAdClicked:(EYInterstitialAdAdapter*)adapter;
--(void) onAdClosed:(EYInterstitialAdAdapter*)adapter;
--(void) onAdImpression:(EYInterstitialAdAdapter *)adapter;
--(void) onAdShowed:(EYInterstitialAdAdapter *)adapter extraData:(NSDictionary *)extraData;
 @end

@@ -9,9 +9,6 @@
 
 
 @implementation EYInterstitialAdAdapter
-
-@synthesize delegate = _delegate;
-@synthesize adKey = _adKey;
 @synthesize adGroup = _adGroup;
 @synthesize isLoading = _isLoading;
 @synthesize loadingTimer = _loadingTimer;

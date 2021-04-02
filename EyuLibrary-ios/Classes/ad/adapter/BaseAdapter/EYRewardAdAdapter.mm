@@ -8,9 +8,6 @@
 
 
 @implementation EYRewardAdAdapter
-
-@synthesize delegate = _delegate;
-@synthesize adKey = _adKey;
 @synthesize adGroup = _adGroup;
 @synthesize isLoading = _isLoading;
 @synthesize isShowing = _isShowing;

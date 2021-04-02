@@ -11,19 +11,25 @@
 #import "EYAdConstants.h"
 #import "EYAdConfig.h"
 #import "EYAdGroup.h"
+#import "EYEventUtils.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EYBasicAdGroup : NSObject
+@interface EYBasicAdGroup : NSObject <IAdDelegate>
 @property(nonatomic,weak) id<EYAdDelegate> delegate;
 @property(nonatomic,strong)EYAdGroup *adGroup;
 @property(nonatomic,strong)NSMutableArray<EYAdAdapter *> *adapterArray;
 @property(nonatomic,copy)NSString *adType;
+@property(nonatomic,copy)NSString *adValueKey;
 @property(nonatomic,assign)bool isNewJsonSetting;
 @property(nonatomic,assign)int currentSuiteIndex;
+@property(nonatomic,assign)bool reportEvent;
+@property(nonatomic,assign)int  maxTryLoadAd;
 
-- (EYBasicAdGroup *)initWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig;
--(void) loadAd:(NSString*)adPlaceId;
+-(EYBasicAdGroup *)initWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig;
+-(void)loadAd:(NSString*)adPlaceId;
+-(EYAdAdapter*) createAdAdapterWithKey:(EYAdKey*)adKey adGroup:(EYAdGroup*)group;
+-(void)initAdatperArray;
 @end
 
 NS_ASSUME_NONNULL_END

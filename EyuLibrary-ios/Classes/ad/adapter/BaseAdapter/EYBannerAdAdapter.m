@@ -8,8 +8,6 @@
 #import "EYBannerAdAdapter.h"
 
 @implementation EYBannerAdAdapter
-@synthesize delegate = _delegate;
-@synthesize adKey = _adKey;
 @synthesize adGroup = _adGroup;
 @synthesize isLoading = _isLoading;
 
@@ -24,17 +22,6 @@
         self.isLoading = false;
     }
     return self;
-}
-
--(void) loadAd
-{
-    NSAssert(true, @"子类中实现");
-}
-
--(bool) isAdLoaded
-{
-    NSAssert(true, @"子类中实现");
-    return false;
 }
 
 - (bool)showAdGroup:(UIView *)viewGroup {

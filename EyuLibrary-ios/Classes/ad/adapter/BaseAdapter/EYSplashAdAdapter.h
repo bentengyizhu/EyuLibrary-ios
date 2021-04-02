@@ -8,11 +8,9 @@
 #import "EYAdAdapter.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@protocol ISplashAdDelegate;
 
 @interface EYSplashAdAdapter : EYAdAdapter
-@property(nonatomic,weak,nullable)id<ISplashAdDelegate> delegate;
-@property(nonatomic,strong,nullable)EYAdKey *adKey;
+
 @property(nonatomic,strong,nullable)EYAdGroup *adGroup;
 @property(nonatomic,assign)bool isLoading;
 @property(nonatomic,strong,nullable)NSTimer *loadingTimer;
@@ -34,14 +32,4 @@ NS_ASSUME_NONNULL_BEGIN
 -(void) startTimeoutTask;
 -(void) cancelTimeoutTask;
 @end
-
-@protocol ISplashAdDelegate<NSObject>
--(void) onAdLoaded:(EYSplashAdAdapter *)adapter;
--(void) onAdLoadFailed:(EYSplashAdAdapter *)adapter withError:(int)errorCode;
--(void) onAdClosed:(EYSplashAdAdapter *)adapter;
--(void) onAdClicked:(EYSplashAdAdapter *)adapter;
--(void) onAdImpression:(EYSplashAdAdapter *)adapter;
--(void) onAdShowed:(EYSplashAdAdapter *)adapter extraData:(nullable NSDictionary *)extraData;
-@end
-
 NS_ASSUME_NONNULL_END
