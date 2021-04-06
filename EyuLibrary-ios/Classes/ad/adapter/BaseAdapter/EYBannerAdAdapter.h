@@ -11,7 +11,6 @@
 @interface EYBannerAdAdapter : EYAdAdapter
 
 @property(nonatomic,strong)EYAdGroup *adGroup;
-@property(nonatomic,assign)bool isLoading;
 @property(nonatomic,assign)bool isShowing;
 @property(nonatomic,strong)NSTimer *loadingTimer;
 

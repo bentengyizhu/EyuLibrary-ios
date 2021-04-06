@@ -9,7 +9,6 @@
 
 @implementation EYRewardAdAdapter
 @synthesize adGroup = _adGroup;
-@synthesize isLoading = _isLoading;
 @synthesize isShowing = _isShowing;
 @synthesize loadingTimer = _loadingTimer;
 

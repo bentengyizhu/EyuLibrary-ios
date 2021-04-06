@@ -10,7 +10,6 @@
 
 @implementation EYInterstitialAdAdapter
 @synthesize adGroup = _adGroup;
-@synthesize isLoading = _isLoading;
 @synthesize loadingTimer = _loadingTimer;
 @synthesize isShowing = _isShowing;
 

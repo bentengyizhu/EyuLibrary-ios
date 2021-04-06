@@ -13,32 +13,32 @@
 #import <FFToast/FFToast.h>
 #import "EyAdManager.h"
 
-@interface EYRewardAdGroup()<IRewardAdDelegate>
+@interface EYRewardAdGroup()
 
-@property(nonatomic,strong)NSMutableArray<EYRewardAdAdapter*> *adapterArray;
+//@property(nonatomic,strong)NSMutableArray<EYRewardAdAdapter*> *adapterArray;
 @property(nonatomic,strong)NSDictionary<NSString*, Class> *adapterClassDict;
 @property(nonatomic,copy)NSString *adPlaceId;
-@property(nonatomic,assign)int  maxTryLoadAd;
-@property(nonatomic,assign)int tryLoadAdCounter;
-@property(nonatomic,assign)int curLoadingIndex;
+//@property(nonatomic,assign)int  maxTryLoadAd;
+//@property(nonatomic,assign)int tryLoadAdCounter;
+//@property(nonatomic,assign)int curLoadingIndex;
 @property(nonatomic,assign)bool isLoadingDialogShowed;
 @property(nonatomic,strong)NSTimer *loadingTimer;
-@property(nonatomic,assign)bool reportEvent;
+//@property(nonatomic,assign)bool reportEvent;
 
 @end
 
 @implementation EYRewardAdGroup
 
-@synthesize adGroup = _adGroup;
-@synthesize adapterArray = _adapterArray;
+//@synthesize adGroup = _adGroup;
+//@synthesize adapterArray = _adapterArray;
 @synthesize adapterClassDict = _adapterClassDict;
-@synthesize maxTryLoadAd = _maxTryLoadAd;
-@synthesize curLoadingIndex = _curLoadingIndex;
-@synthesize tryLoadAdCounter = _tryLoadAdCounter;
+//@synthesize maxTryLoadAd = _maxTryLoadAd;
+//@synthesize curLoadingIndex = _curLoadingIndex;
+//@synthesize tryLoadAdCounter = _tryLoadAdCounter;
 @synthesize isLoadingDialogShowed = _isLoadingDialogShowed;
 @synthesize loadingTimer = _loadingTimer;
-@synthesize delegate = _delegate;
-@synthesize reportEvent = _reportEvent;
+//@synthesize delegate = _delegate;
+//@synthesize reportEvent = _reportEvent;
 
 
 -(EYRewardAdGroup*) initWithGroup:(EYAdGroup*)group adConfig:(EYAdConfig*) adConfig
@@ -97,24 +97,22 @@
 #endif
                                              nil];
 
-        self.adGroup = group;
-        self.adapterArray = [[NSMutableArray alloc] init];
+//        self.adGroup = group;
+        self.adValueKey = @"currentRewardValue";
+        self.adType = ADTypeReward;
+        [self initAdatperArray];
         
-        self.curLoadingIndex = -1;
-        self.tryLoadAdCounter = 0;
-        self.reportEvent = adConfig.reportEvent;
+//        NSArray<EYAdKey*>* keyList = group.keyArray;
         
-        NSArray<EYAdKey*>* keyList = group.keyArray;
-        
-        for(EYAdKey* adKey:keyList)
-        {
-            if(adKey){
-                EYRewardAdAdapter *adapter = [self createAdAdapterWithKey:adKey adGroup:group];
-                if(adapter){
-                    [self.adapterArray addObject:adapter];
-                }
-            }
-        }
+//        for(EYAdKey* adKey:keyList)
+//        {
+//            if(adKey){
+//                EYRewardAdAdapter *adapter = [self createAdAdapterWithKey:adKey adGroup:group];
+//                if(adapter){
+//                    [self.adapterArray addObject:adapter];
+//                }
+//            }
+//        }
         
         self.maxTryLoadAd = ((int)self.adapterArray.count) * 2;
 
@@ -122,36 +120,40 @@
     return self;
 }
 
--(void) loadAd:(NSString*) placeId
-{
-    NSLog(@"EYRewardAdGroup loadAd placeId = %@, self.curLoadingIndex = %d", placeId, self.curLoadingIndex);
-    self.adPlaceId = placeId;
-    if(self.adapterArray.count == 0) return;
-    self.curLoadingIndex = 0;
-    self.tryLoadAdCounter = 1;
-    
-    EYRewardAdAdapter* adapter = self.adapterArray[0];
-    [adapter loadAd];
-    
-    if(self.adapterArray.count > 1)
-    {
-        EYRewardAdAdapter* adapter = self.adapterArray[1];
-        [adapter loadAd];
-        self.curLoadingIndex = 1;
-        self.tryLoadAdCounter = 2;
-    }
-    
-    if(self.reportEvent){
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setObject:adapter.adKey.keyId forKey:@"type"];
-        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOADING]  parameters:dic];
-    }
+- (NSString *)adPlaceId {
+    return self.adGroup.groupId;
 }
+
+//-(void) loadAd:(NSString*) placeId
+//{
+//    NSLog(@"EYRewardAdGroup loadAd placeId = %@, self.curLoadingIndex = %d", placeId, self.curLoadingIndex);
+//    self.adPlaceId = placeId;
+//    if(self.adapterArray.count == 0) return;
+//    self.curLoadingIndex = 0;
+//    self.tryLoadAdCounter = 1;
+//
+//    EYRewardAdAdapter* adapter = self.adapterArray[0];
+//    [adapter loadAd];
+//
+//    if(self.adapterArray.count > 1)
+//    {
+//        EYRewardAdAdapter* adapter = self.adapterArray[1];
+//        [adapter loadAd];
+//        self.curLoadingIndex = 1;
+//        self.tryLoadAdCounter = 2;
+//    }
+//
+//    if(self.reportEvent){
+//        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+//        [dic setObject:adapter.adKey.keyId forKey:@"type"];
+//        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOADING]  parameters:dic];
+//    }
+//}
 
 
 -(bool) isCacheAvailable
 {
-    for(EYRewardAdAdapter* adapter in self.adapterArray)
+    for(EYAdAdapter* adapter in self.adapterArray)
     {
         if([adapter isAdLoaded])
         {
@@ -163,7 +165,7 @@
 
 -(bool) showAd:(NSString*) placeId withController:(UIViewController*) controller
 {
-    NSLog(@"showAd placeId = %@, self.curLoadingIndex = %d", placeId, self.curLoadingIndex);
+    NSLog(@"showAd placeId = %@", placeId);
     self.adPlaceId = placeId;
     EYRewardAdAdapter* loadAdapter = NULL;
     for(EYRewardAdAdapter* adapter in self.adapterArray)
@@ -240,22 +242,22 @@
 
 -(void) onAdLoaded:(EYRewardAdAdapter *)adapter
 {
-    NSLog(@"onAdLoaded adapter = %@, self.isLoadingDialogShowed = %d", adapter, self.isLoadingDialogShowed);
-    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
-    {
-        self.curLoadingIndex = -1;
-    }
-//    if(self.reportEvent){
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setObject:adapter.adKey.keyId forKey:@"type"];
-        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_SUCCESS]  parameters:dic];
+//    NSLog(@"onAdLoaded adapter = %@, self.isLoadingDialogShowed = %d", adapter, self.isLoadingDialogShowed);
+//    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
+//    {
+//        self.curLoadingIndex = -1;
 //    }
-    
-    if(self.delegate)
-    {
-        [self.delegate onAdLoaded:self.adPlaceId type:ADTypeReward];
-    }
-    
+////    if(self.reportEvent){
+//        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+//        [dic setObject:adapter.adKey.keyId forKey:@"type"];
+//        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_SUCCESS]  parameters:dic];
+////    }
+//
+//    if(self.delegate)
+//    {
+//        [self.delegate onAdLoaded:self.adPlaceId type:ADTypeReward];
+//    }
+    [super onAdLoaded:adapter];
     if(self.isLoadingDialogShowed)
     {
         [self hideLoadingDialog];
@@ -266,41 +268,42 @@
 
 -(void) onAdLoadFailed:(EYRewardAdAdapter*)adapter withError:(int)errorCode
 {
-    EYAdKey* adKey = adapter.adKey;
-    NSLog(@"onAdLoadFailed adKey = %@, errorCode = %d", adKey.keyId, errorCode);
-    
-    if(self.reportEvent){
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setObject:[[NSString alloc] initWithFormat:@"%d",errorCode] forKey:@"code"];
-        [dic setObject:adKey.keyId forKey:@"type"];
-        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_FAILED]  parameters:dic];
-    }
-    
-    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
-    {
-        if(self.tryLoadAdCounter >= self.maxTryLoadAd){
-            self.curLoadingIndex = -1;
-            if(self.isLoadingDialogShowed)
-            {
-                [self showLoadAdFailedToast];
-                [self hideLoadingDialog];
-            }
-        }else{
-            self.tryLoadAdCounter++;
-            self.curLoadingIndex = (self.curLoadingIndex+1)%self.adapterArray.count;
-            EYRewardAdAdapter* adapter = self.adapterArray[self.curLoadingIndex];
-            [adapter loadAd];
-            if(self.reportEvent){
-                NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-                [dic setObject:adapter.adKey.keyId forKey:@"type"];
-                [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOADING]  parameters:dic];
-            }
-        }
-    }
-    if(self.delegate)
-    {
-        [self.delegate onAdLoadFailed:self.adPlaceId key:adKey.keyId code:errorCode];
-    }
+    [super onAdLoadFailed:adapter withError:errorCode];
+//    EYAdKey* adKey = adapter.adKey;
+//    NSLog(@"onAdLoadFailed adKey = %@, errorCode = %d", adKey.keyId, errorCode);
+//
+//    if(self.reportEvent){
+//        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+//        [dic setObject:[[NSString alloc] initWithFormat:@"%d",errorCode] forKey:@"code"];
+//        [dic setObject:adKey.keyId forKey:@"type"];
+//        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_FAILED]  parameters:dic];
+//    }
+//
+//    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
+//    {
+//        if(self.tryLoadAdCounter >= self.maxTryLoadAd){
+//            self.curLoadingIndex = -1;
+//            if(self.isLoadingDialogShowed)
+//            {
+//                [self showLoadAdFailedToast];
+//                [self hideLoadingDialog];
+//            }
+//        }else{
+//            self.tryLoadAdCounter++;
+//            self.curLoadingIndex = (self.curLoadingIndex+1)%self.adapterArray.count;
+//            EYRewardAdAdapter* adapter = self.adapterArray[self.curLoadingIndex];
+//            [adapter loadAd];
+//            if(self.reportEvent){
+//                NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+//                [dic setObject:adapter.adKey.keyId forKey:@"type"];
+//                [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOADING]  parameters:dic];
+//            }
+//        }
+//    }
+//    if(self.delegate)
+//    {
+//        [self.delegate onAdLoadFailed:self.adPlaceId key:adKey.keyId code:errorCode];
+//    }
 }
 
 -(void) onAdShowed:(EYRewardAdAdapter*)adapter
@@ -342,8 +345,14 @@
     {
         [self.delegate onAdClosed:self.adPlaceId type:ADTypeReward];
     }
-    if (self.adGroup.isAutoLoad) {
-        [self loadAd:self.adPlaceId];
+    bool hasAdLoaded = false;
+    for (EYAdAdapter *adapter in self.adapterArray) {
+        if (adapter.isAdLoaded) {
+            hasAdLoaded = true;
+        }
+    }
+    if (self.adGroup.isAutoLoad && hasAdLoaded == false) {
+        [self loadAd:@"auto"];
     }
 }
 

@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,weak)id<IAdDelegate> delegate;
 @property(nonatomic,strong)EYAdKey *adKey;
 @property(nonatomic,assign)int tryLoadAdCount;
+@property(nonatomic,assign)bool isLoading;
 -(void) loadAd;
 -(bool) isAdLoaded;
 @end

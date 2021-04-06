@@ -9,14 +9,12 @@
 
 @implementation EYBannerAdAdapter
 @synthesize adGroup = _adGroup;
-@synthesize isLoading = _isLoading;
 
 -(instancetype) initWithAdKey:(EYAdKey*)adKey adGroup:(EYAdGroup*) group
 {
     self = [super init];
     if(self)
     {
-        self.tryLoadAdCount = 1;
         self.adKey = adKey;
         self.adGroup = group;
         self.isLoading = false;

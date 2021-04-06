@@ -13,7 +13,6 @@
 }
 
 @property(nonatomic,strong)EYAdGroup *adGroup;
-@property(nonatomic,assign)bool isLoading;
 @property(nonatomic,strong)NSTimer *loadingTimer;
 @property(nonatomic,assign)bool isShowing;
 
@@ -34,7 +33,4 @@
 -(void) startTimeoutTask;
 -(void) cancelTimeoutTask;
 
-@end
-
-@protocol IInterstitialAdDelegate<NSObject>
 @end

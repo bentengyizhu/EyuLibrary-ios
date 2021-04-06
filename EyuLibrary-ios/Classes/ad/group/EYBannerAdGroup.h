@@ -14,5 +14,5 @@
 -(EYBannerAdGroup*) initWithGroup:(EYAdGroup*)adGroup adConfig:(EYAdConfig*) adConfig;
 -(bool) isCacheAvailable;
 -(bool) showAdGroup:(UIView *)viewGroup;
--(void) loadAd:(NSString*)adPlaceId;
+//-(void) loadAd:(NSString*)adPlaceId;
 @end

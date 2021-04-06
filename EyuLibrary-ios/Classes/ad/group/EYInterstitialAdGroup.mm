@@ -12,15 +12,15 @@
 #import "EYEventUtils.h"
 #import "EYAdManager.h"
 
-@interface EYInterstitialAdGroup()<IInterstitialAdDelegate>
+@interface EYInterstitialAdGroup()
 
 @property(nonatomic,strong)NSDictionary<NSString*, Class> *adapterClassDict;
-@property(nonatomic,strong)NSMutableArray<EYInterstitialAdAdapter*> *adapterArray;
+//@property(nonatomic,strong)NSMutableArray<EYInterstitialAdAdapter*> *adapterArray;
 @property(nonatomic,copy)NSString *adPlaceId;
-@property(nonatomic,assign)int  maxTryLoadAd;
-@property(nonatomic,assign)int tryLoadAdCounter;
-@property(nonatomic,assign)int curLoadingIndex;
-@property(nonatomic,assign)bool reportEvent;
+//@property(nonatomic,assign)int  maxTryLoadAd;
+//@property(nonatomic,assign)int tryLoadAdCounter;
+//@property(nonatomic,assign)int curLoadingIndex;
+//@property(nonatomic,assign)bool reportEvent;
 
 @end
 
@@ -28,15 +28,15 @@
 
 @implementation EYInterstitialAdGroup
 
-@synthesize adGroup = _adGroup;
-@synthesize adapterArray = _adapterArray;
+//@synthesize adGroup = _adGroup;
+//@synthesize adapterArray = _adapterArray;
 @synthesize adapterClassDict = _adapterClassDict;
-@synthesize maxTryLoadAd = _maxTryLoadAd;
-@synthesize curLoadingIndex = _curLoadingIndex;
-@synthesize tryLoadAdCounter = _tryLoadAdCounter;
+//@synthesize maxTryLoadAd = _maxTryLoadAd;
+//@synthesize curLoadingIndex = _curLoadingIndex;
+//@synthesize tryLoadAdCounter = _tryLoadAdCounter;
 @synthesize adPlaceId = _adPlaceId;
-@synthesize delegate = _delegate;
-@synthesize reportEvent = _reportEvent;
+//@synthesize delegate = _delegate;
+//@synthesize reportEvent = _reportEvent;
 
 -(EYInterstitialAdGroup*) initWithGroup:(EYAdGroup*)adGroup adConfig:(EYAdConfig*) adConfig
 {
@@ -87,26 +87,12 @@
         NSClassFromString(@"EYABUInterstitialAdAdapter"), ADNetworkABU,
 #endif
         nil];
-
-        self.adGroup = adGroup;
-        self.adapterArray = [[NSMutableArray alloc] init];
-//        self.maxTryLoadAd = adConfig.maxTryLoadInterstitialAd > 0 ? adConfig.maxTryLoadInterstitialAd : 7;
-        self.curLoadingIndex = -1;
-        self.tryLoadAdCounter = 0;
-        self.reportEvent = adConfig.reportEvent;
-
-        NSArray<EYAdKey*>* keyList = adGroup.keyArray;
-
-        for(EYAdKey* adKey:keyList)
-        {
-            if(adKey){
-                EYInterstitialAdAdapter *adapter = [self createAdAdapterWithKey:adKey adGroup:adGroup];
-                if(adapter){
-                    [self.adapterArray addObject:adapter];
-                }
-            }
-        }
         
+//        self.maxTryLoadAd = adConfig.maxTryLoadInterstitialAd > 0 ? adConfig.maxTryLoadInterstitialAd : 7;
+//        self.curLoadingIndex = -1;
+        self.adValueKey = @"currentInterstitialValue";
+        self.adType = ADTypeInterstitial;
+        [self initAdatperArray];
         self.maxTryLoadAd = ((int)self.adapterArray.count) * 2;
         
     }
@@ -115,7 +101,7 @@
 
 -(void) cacheAllAd
 {
-    for(EYInterstitialAdAdapter* adapter in self.adapterArray)
+    for(EYAdAdapter* adapter in self.adapterArray)
     {
         if(![adapter isAdLoaded])
         {
@@ -124,9 +110,13 @@
     }
 }
 
+- (NSString *)adPlaceId {
+    return self.adGroup.groupId;
+}
+
 -(bool) isCacheAvailable
 {
-    for(EYInterstitialAdAdapter* adapter in self.adapterArray)
+    for(EYAdAdapter* adapter in self.adapterArray)
     {
         if([adapter isAdLoaded])
         {
@@ -158,31 +148,31 @@
     }
 }
 
--(void) loadAd:(NSString*)adPlaceId
-{
-    NSLog(@"loadAd adPlaceId = %@, self = %@", adPlaceId, self);
-    self.adPlaceId = adPlaceId;
-    if(self.adapterArray.count == 0) return;
-    self.curLoadingIndex = 0;
-    self.tryLoadAdCounter = 1;
-    
-    EYInterstitialAdAdapter* adapter = self.adapterArray[0];
-    [adapter loadAd];
-    
-    if(self.adapterArray.count > 1)
-    {
-        EYInterstitialAdAdapter* adapter = self.adapterArray[1];
-        [adapter loadAd];
-        self.curLoadingIndex = 1;
-        self.tryLoadAdCounter = 2;
-    }
-    
-    if(self.reportEvent){
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setObject:adapter.adKey.keyId forKey:@"type"];
-        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOADING]  parameters:dic];
-    }
-}
+//-(void) loadAd:(NSString*)adPlaceId
+//{
+//    NSLog(@"loadAd adPlaceId = %@, self = %@", adPlaceId, self);
+//    self.adPlaceId = adPlaceId;
+//    if(self.adapterArray.count == 0) return;
+//    self.curLoadingIndex = 0;
+//    self.tryLoadAdCounter = 1;
+//
+//    EYInterstitialAdAdapter* adapter = self.adapterArray[0];
+//    [adapter loadAd];
+//
+//    if(self.adapterArray.count > 1)
+//    {
+//        EYInterstitialAdAdapter* adapter = self.adapterArray[1];
+//        [adapter loadAd];
+//        self.curLoadingIndex = 1;
+//        self.tryLoadAdCounter = 2;
+//    }
+//
+//    if(self.reportEvent){
+//        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+//        [dic setObject:adapter.adKey.keyId forKey:@"type"];
+//        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOADING]  parameters:dic];
+//    }
+//}
 
 -(EYInterstitialAdAdapter*) createAdAdapterWithKey:(EYAdKey*)adKey adGroup:(EYAdGroup*)group
 {
@@ -199,59 +189,59 @@
     return adapter;
 }
 
--(void) onAdLoaded:(EYInterstitialAdAdapter *)adapter
-{
-    NSLog(@"onAdLoaded adPlaceId = %@, self = %@", self.adPlaceId, self);
-    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
-    {
-        self.curLoadingIndex = -1;
-    }
-    if(self.delegate)
-    {
-        [self.delegate onAdLoaded:self.adPlaceId type:ADTypeInterstitial];
-    }
-    
-//    if(self.reportEvent){
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setObject:adapter.adKey.keyId forKey:@"type"];
-        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_SUCCESS]  parameters:dic];
+//-(void) onAdLoaded:(EYInterstitialAdAdapter *)adapter
+//{
+//    NSLog(@"onAdLoaded adPlaceId = %@, self = %@", self.adPlaceId, self);
+//    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
+//    {
+//        self.curLoadingIndex = -1;
 //    }
-}
-
--(void) onAdLoadFailed:(EYInterstitialAdAdapter*)adapter withError:(int)errorCode
-{
-    EYAdKey* adKey = adapter.adKey;
-    NSLog(@"onAdLoadFailed adKey = %@, errorCode = %d", adKey.keyId, errorCode);
-    
-    if(self.reportEvent){
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setObject:[[NSString alloc] initWithFormat:@"%d",errorCode] forKey:@"code"];
-        [dic setObject:adKey.keyId forKey:@"type"];
-        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_FAILED]  parameters:dic];
-    }
-    
-    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
-    {
-        if(self.tryLoadAdCounter >= self.maxTryLoadAd){
-            self.curLoadingIndex = -1;
-        }else{
-            self.tryLoadAdCounter++;
-            self.curLoadingIndex = (self.curLoadingIndex+1)%self.adapterArray.count;
-            EYInterstitialAdAdapter* adapter = self.adapterArray[self.curLoadingIndex];
-            [adapter loadAd];
-            if(self.reportEvent){
-                NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-                [dic setObject:adapter.adKey.keyId forKey:@"type"];
-                [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOADING]  parameters:dic];
-            }
-        }
-    }
-    
-    if(self.delegate)
-    {
-        [self.delegate onAdLoadFailed:self.adPlaceId key:adKey.keyId code:errorCode];
-    }
-}
+//    if(self.delegate)
+//    {
+//        [self.delegate onAdLoaded:self.adPlaceId type:ADTypeInterstitial];
+//    }
+//
+////    if(self.reportEvent){
+//        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+//        [dic setObject:adapter.adKey.keyId forKey:@"type"];
+//        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_SUCCESS]  parameters:dic];
+////    }
+//}
+//
+//-(void) onAdLoadFailed:(EYInterstitialAdAdapter*)adapter withError:(int)errorCode
+//{
+//    EYAdKey* adKey = adapter.adKey;
+//    NSLog(@"onAdLoadFailed adKey = %@, errorCode = %d", adKey.keyId, errorCode);
+//
+//    if(self.reportEvent){
+//        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+//        [dic setObject:[[NSString alloc] initWithFormat:@"%d",errorCode] forKey:@"code"];
+//        [dic setObject:adKey.keyId forKey:@"type"];
+//        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_FAILED]  parameters:dic];
+//    }
+//
+//    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
+//    {
+//        if(self.tryLoadAdCounter >= self.maxTryLoadAd){
+//            self.curLoadingIndex = -1;
+//        }else{
+//            self.tryLoadAdCounter++;
+//            self.curLoadingIndex = (self.curLoadingIndex+1)%self.adapterArray.count;
+//            EYInterstitialAdAdapter* adapter = self.adapterArray[self.curLoadingIndex];
+//            [adapter loadAd];
+//            if(self.reportEvent){
+//                NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+//                [dic setObject:adapter.adKey.keyId forKey:@"type"];
+//                [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOADING]  parameters:dic];
+//            }
+//        }
+//    }
+//
+//    if(self.delegate)
+//    {
+//        [self.delegate onAdLoadFailed:self.adPlaceId key:adKey.keyId code:errorCode];
+//    }
+//}
 
 -(void) onAdShowed:(EYInterstitialAdAdapter*)adapter
 {
@@ -291,8 +281,13 @@
     {
         [self.delegate onAdClosed:self.adPlaceId type:ADTypeInterstitial];
     }
-    
-    if (self.adGroup.isAutoLoad) {
+    bool hasAdLoaded = false;
+    for (EYAdAdapter *adapter in self.adapterArray) {
+        if (adapter.isAdLoaded) {
+            hasAdLoaded = true;
+        }
+    }
+    if (self.adGroup.isAutoLoad && hasAdLoaded == false) {
         [self loadAd:@"auto"];
     }
 }

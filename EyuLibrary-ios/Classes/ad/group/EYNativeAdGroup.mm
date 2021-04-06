@@ -10,28 +10,14 @@
 #import "EYAdKey.h"
 #import "EYEventUtils.h"
 
-@interface EYNativeAdGroup ()<INativeAdDelegate>
-
-@property(nonatomic,strong)NSMutableArray<EYNativeAdAdapter*> *adapterArray;
+@interface EYNativeAdGroup ()
 @property(nonatomic,strong)NSDictionary<NSString*, Class> *adapterClassDict;
 @property(nonatomic,copy)NSString *adPlaceId;
-@property(nonatomic,assign)int  maxTryLoadAd;
-@property(nonatomic,assign)int tryLoadAdCounter;
-@property(nonatomic,assign)int curLoadingIndex;
-@property(nonatomic,assign)bool reportEvent;
 
 @end
 
 @implementation EYNativeAdGroup
-
-@synthesize adGroup = _adGroup;
-@synthesize adapterArray = _adapterArray;
 @synthesize adapterClassDict = _adapterClassDict;
-@synthesize maxTryLoadAd = _maxTryLoadAd;
-@synthesize curLoadingIndex = _curLoadingIndex;
-@synthesize tryLoadAdCounter = _tryLoadAdCounter;
-@synthesize reportEvent = _reportEvent;
-
 
 -(EYNativeAdGroup*) initWithGroup:(EYAdGroup*)group adConfig:(EYAdConfig*) adConfig
 {
@@ -67,40 +53,30 @@
 #ifdef ABUADSDK_ENABLED
         NSLog(@"ABUADSDK_ENABLED");
 #endif
-        self.adGroup = group;
-        self.adapterArray = [[NSMutableArray alloc] init];
+        self.adValueKey = @"currentNativeValue";
+        self.adType = ADTypeNative;
 
 //        self.maxTryLoadAd = adConfig.maxTryLoadNativeAd > 0 ? adConfig.maxTryLoadNativeAd : 7;
-        self.curLoadingIndex = -1;
-        self.tryLoadAdCounter = 0;
-        self.reportEvent = adConfig.reportEvent;
-        
-        NSMutableArray<EYAdKey*>* keyList = group.keyArray;
-        
-        for(EYAdKey* adKey:keyList)
-        {
-            if(adKey){
-                EYNativeAdAdapter *adapter = [self createAdAdapterWithKey:adKey adGroup:group];
-                if(adapter){
-                    [self.adapterArray addObject:adapter];
-                }
-            }
-        }
+        [self initAdatperArray];
         self.maxTryLoadAd = ((int)self.adapterArray.count) * 2;
     }
     return self;
 }
 
--(void) loadAd:(NSString*)placeId
-{
-    self.adPlaceId = placeId;
-    if(self.adapterArray.count == 0) return;
-    self.curLoadingIndex = 0;
-    self.tryLoadAdCounter = 1;
-    
-    EYNativeAdAdapter* adapter = self.adapterArray[0];
-    [adapter loadAd];
+- (NSString *)adPlaceId {
+    return self.adGroup.groupId;
 }
+
+//-(void) loadAd:(NSString*)placeId
+//{
+//    self.adPlaceId = placeId;
+//    if(self.adapterArray.count == 0) return;
+//    self.curLoadingIndex = 0;
+//    self.tryLoadAdCounter = 1;
+//
+//    EYNativeAdAdapter* adapter = self.adapterArray[0];
+//    [adapter loadAd];
+//}
 
 -(bool) isCacheAvailable
 {
@@ -116,9 +92,9 @@
 
 -(EYNativeAdAdapter*) getAvailableAdapter
 {
-    EYNativeAdAdapter* loadAdapter = NULL;
+    EYAdAdapter* loadAdapter = NULL;
     int index = 0;
-    for(EYNativeAdAdapter* adapter in self.adapterArray)
+    for(EYAdAdapter* adapter in self.adapterArray)
     {
         if([adapter isAdLoaded])
         {
@@ -131,14 +107,17 @@
     {
         [self.adapterArray removeObject:loadAdapter];
         EYAdKey* adKey = loadAdapter.adKey;
-        EYNativeAdAdapter* newAdapter = [self createAdAdapterWithKey:adKey adGroup:self.adGroup];
-        if(newAdapter && self.adGroup.isAutoLoad)
-        {
-            [newAdapter loadAd];
-        }
+        EYAdAdapter* newAdapter = [self createAdAdapterWithKey:adKey adGroup:self.adGroup];
+//        if(newAdapter && self.adGroup.isAutoLoad)
+//        {
+//            [newAdapter loadAd];
+//        }
         [self.adapterArray insertObject:newAdapter atIndex:index];
     }
-    return loadAdapter;
+    if (index == self.adapterArray.count-1 || loadAdapter == NULL) {
+        [self loadAd:@"auto"];
+    }
+    return (EYNativeAdAdapter *)loadAdapter;
 }
 
 -(EYNativeAdAdapter*) createAdAdapterWithKey:(EYAdKey*)adKey adGroup:(EYAdGroup*)group
@@ -156,58 +135,58 @@
     return adapter;
 }
 
--(void) onAdLoaded:(EYNativeAdAdapter *)adapter
-{
-    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
-    {
-        self.curLoadingIndex = -1;
-    }
-    if(self.delegate)
-    {
-        [self.delegate onAdLoaded:self.adPlaceId type:ADTypeNative];
-    }
-    
-//    if(self.reportEvent){
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setObject:adapter.adKey.keyId forKey:@"type"];
-        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_SUCCESS]  parameters:dic];
+//-(void) onAdLoaded:(EYNativeAdAdapter *)adapter
+//{
+//    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
+//    {
+//        self.curLoadingIndex = -1;
 //    }
-}
+//    if(self.delegate)
+//    {
+//        [self.delegate onAdLoaded:self.adPlaceId type:ADTypeNative];
+//    }
+//
+////    if(self.reportEvent){
+//        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+//        [dic setObject:adapter.adKey.keyId forKey:@"type"];
+//        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_SUCCESS]  parameters:dic];
+////    }
+//}
 
--(void) onAdLoadFailed:(EYNativeAdAdapter*)adapter withError:(int)errorCode
-{
-    EYAdKey* adKey = adapter.adKey;
-    NSLog(@"onAdLoadFailed adKey = %@, errorCode = %d", adKey.keyId, errorCode);
-    
-    if(self.reportEvent){
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setObject:[[NSString alloc] initWithFormat:@"%d",errorCode] forKey:@"code"];
-        [dic setObject:adKey.keyId forKey:@"type"];
-        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_FAILED]  parameters:dic];
-    }
-    
-    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
-    {
-        if(self.tryLoadAdCounter >= self.maxTryLoadAd){
-            self.curLoadingIndex = -1;
-        }else{
-            self.tryLoadAdCounter++;
-            self.curLoadingIndex = (self.curLoadingIndex+1)%self.adapterArray.count;
-            EYNativeAdAdapter* adapter = self.adapterArray[self.curLoadingIndex];
-            [adapter loadAd];
-            
-            if(self.reportEvent){
-                NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-                [dic setObject:adapter.adKey.keyId forKey:@"type"];
-                [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOADING]  parameters:dic];
-            }
-        }
-    }
-    if(self.delegate)
-    {
-        [self.delegate onAdLoadFailed:self.adPlaceId key:adKey.keyId code:errorCode];
-    }
-}
+//-(void) onAdLoadFailed:(EYNativeAdAdapter*)adapter withError:(int)errorCode
+//{
+//    EYAdKey* adKey = adapter.adKey;
+//    NSLog(@"onAdLoadFailed adKey = %@, errorCode = %d", adKey.keyId, errorCode);
+//
+//    if(self.reportEvent){
+//        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+//        [dic setObject:[[NSString alloc] initWithFormat:@"%d",errorCode] forKey:@"code"];
+//        [dic setObject:adKey.keyId forKey:@"type"];
+//        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_FAILED]  parameters:dic];
+//    }
+//
+//    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
+//    {
+//        if(self.tryLoadAdCounter >= self.maxTryLoadAd){
+//            self.curLoadingIndex = -1;
+//        }else{
+//            self.tryLoadAdCounter++;
+//            self.curLoadingIndex = (self.curLoadingIndex+1)%self.adapterArray.count;
+//            EYNativeAdAdapter* adapter = self.adapterArray[self.curLoadingIndex];
+//            [adapter loadAd];
+//
+//            if(self.reportEvent){
+//                NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+//                [dic setObject:adapter.adKey.keyId forKey:@"type"];
+//                [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOADING]  parameters:dic];
+//            }
+//        }
+//    }
+//    if(self.delegate)
+//    {
+//        [self.delegate onAdLoadFailed:self.adPlaceId key:adKey.keyId code:errorCode];
+//    }
+//}
 
 -(void) onAdShowed:(EYNativeAdAdapter*)adapter
 {
@@ -264,10 +243,6 @@
     if(self.delegate)
     {
         [self.delegate onAdClosed:self.adPlaceId type:ADTypeNative];
-    }
-    
-    if (self.adGroup.isAutoLoad) {
-        [self loadAd:@"auto"];
     }
 }
 @end

@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface EYSplashAdAdapter : EYAdAdapter
 
 @property(nonatomic,strong,nullable)EYAdGroup *adGroup;
-@property(nonatomic,assign)bool isLoading;
 @property(nonatomic,strong,nullable)NSTimer *loadingTimer;
 @property(nonatomic,assign)bool isShowing;
 

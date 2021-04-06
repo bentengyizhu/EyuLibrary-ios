@@ -9,7 +9,6 @@
 
 @implementation EYNativeAdAdapter
 @synthesize adGroup = _adGroup;
-@synthesize isLoading = _isLoading;
 @synthesize loadingTimer = _loadingTimer;
 
 

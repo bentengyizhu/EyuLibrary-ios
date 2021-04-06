@@ -9,6 +9,14 @@
 
 @implementation EYAdAdapter
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.tryLoadAdCount = 0;
+    }
+    return self;
+}
 
 - (void)loadAd {
     NSLog(@"子类实现");

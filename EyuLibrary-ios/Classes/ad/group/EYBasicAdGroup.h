@@ -23,13 +23,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *adValueKey;
 @property(nonatomic,assign)bool isNewJsonSetting;
 @property(nonatomic,assign)int currentSuiteIndex;
+@property(nonatomic,assign)int currentAdpaterIndex;
+@property(nonatomic,assign)int currentAdValue;
 @property(nonatomic,assign)bool reportEvent;
 @property(nonatomic,assign)int  maxTryLoadAd;
+@property(nonatomic,assign)int tryLoadAdCount;
 
 -(EYBasicAdGroup *)initWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig;
 -(void)loadAd:(NSString*)adPlaceId;
 -(EYAdAdapter*) createAdAdapterWithKey:(EYAdKey*)adKey adGroup:(EYAdGroup*)group;
 -(void)initAdatperArray;
+-(void)loadNextSuite;
 @end
 
 NS_ASSUME_NONNULL_END
