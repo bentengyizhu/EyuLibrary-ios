@@ -53,8 +53,9 @@
 @property(nonatomic,copy)NSString *abuAppId;
 #endif
 
-
-
+#ifdef MOPUB_ENABLED
+@property(nonatomic,copy)NSString *mopubAdUnitId;
+#endif
 
 -(instancetype) initWithPlace:(NSData*)adPlaceData  key:(NSData*) adKeyData group:(NSData*) adGroupData;
 
