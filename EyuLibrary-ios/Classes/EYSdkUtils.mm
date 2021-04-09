@@ -201,6 +201,10 @@ AppsFlyerDelegate *_appflyerDelegate = [AppsFlyerDelegate new];
 - (BOOL)appFlyerContinueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler {
     return [[AppsFlyerLib shared] continueUserActivity:userActivity restorationHandler:restorationHandler];
 }
+
+- (void)appFlyerhandleOpenURL:(NSURL *)url options:(NSDictionary *) options {
+    [[AppsFlyerLib shared] handleOpenUrl:url options:options];
+}
 #endif
 
 #ifdef UM_ENABLED
