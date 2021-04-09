@@ -5,7 +5,7 @@
 //  Created by jesse on 2018/1/19.
 //  Copyright © 2018年 yun. All rights reserved.
 //
-#define REYUN_TRACKING_VERSION @"1.7.8"
+#define REYUN_TRACKING_VERSION @"1.8.2"
 #import <Foundation/Foundation.h>
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,11 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)onDeferredDeeplinkCalllback:(NSDictionary *)params;
 @end
 
-//caid更新代理
-@protocol CAIDUpdateProtocol <NSObject>
+//激活归因回调代理
+@protocol OnAttributionCallbackProtocol <NSObject>
 @required
-- (void)onCAIDUpdateCalllback:(NSString *)caid;
+- (void)OnAttribution:(nullable NSString *)result status:(NSUInteger)httpStatus;
 @end
+
 
 @interface Tracking : NSObject
 
@@ -56,13 +57,10 @@ NS_ASSUME_NONNULL_BEGIN
 +(void)setDeferredDeeplinkCalllbackDelegate:(id<DeferredDeeplinkCalllback>) delegate ;
 @end
 
-@interface Tracking(CAID)
-//调用initWithAppKey:withChannelId:前设置代理对象，可在caid更新后收到onCAIDUpdateCalllback:回调
-+(void)setCAIDUpdateCallbackDelegate:(id<CAIDUpdateProtocol>) delegate ;
-//获取缓存的caid
-+(nullable NSString *)getCachedCaid;
-//获取当前的caid
-+(nullable NSString *)getCurrentCaid;
+@interface Tracking(Attribution)
+//激活归因回调代理设置
++(void)setAttributionCalllbackDelegate:(id<OnAttributionCallbackProtocol>) delegate ;
 @end
+
 
 NS_ASSUME_NONNULL_END

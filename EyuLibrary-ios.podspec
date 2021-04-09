@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '1.4.1'
+    s.version          = '1.4.2'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -252,4 +252,9 @@ Pod::Spec.new do |s|
         abu.libraries = 'z', 'c++', 'resolv'
         abu.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ABUADSDK_ENABLED'}
     end
+    
+#    s.subspec 'mopub_ad_sdk' do |mopub|
+#        mopub.dependency 'mopub-ios-sdk', '5.16.2'
+#        abu.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) MOPUB_ENABLED'}
+#    end
 end
