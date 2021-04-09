@@ -14,7 +14,8 @@
 #endif
 
 #ifdef AF_ENABLED
-#import <AppsFlyerLib/AppsFlyerTracker.h>
+#import <AppsFlyerLib/AppsFlyerLib.h>
+//#import <AppsFlyerLib/AppsFlyerTracker.h>
 #endif
 
 #ifdef GDT_ACTION_ENABLED
@@ -46,7 +47,7 @@
 #endif
 
 #ifdef AF_ENABLED
-@interface AppsFlyerDelegate : NSObject <AppsFlyerTrackerDelegate> {
+@interface AppsFlyerDelegate : NSObject <AppsFlyerLibDelegate> {
 }
 @end
 
@@ -180,10 +181,25 @@ AppsFlyerDelegate *_appflyerDelegate = [AppsFlyerDelegate new];
 
 +(void) initAppFlyer:(NSString*) devKey appId:(NSString*)appId
 {
-    [AppsFlyerTracker sharedTracker].appsFlyerDevKey = devKey;
-    [AppsFlyerTracker sharedTracker].appleAppID = appId;
-    [AppsFlyerTracker sharedTracker].delegate = _appflyerDelegate;
-    [[AppsFlyerTracker sharedTracker] trackAppLaunch];
+    [AppsFlyerLib shared].appsFlyerDevKey = devKey;
+//    [AppsFlyerTracker sharedTracker].appsFlyerDevKey = devKey;
+    [AppsFlyerLib shared].appleAppID = appId;
+    [AppsFlyerLib shared].delegate = _appflyerDelegate;
+    [[AppsFlyerLib shared] waitForATTUserAuthorizationWithTimeoutInterval:60];
+//    [[AppsFlyerLib shared] trackAppLaunch];
+}
+
+- (void)appFlyerStart {
+    [[AppsFlyerLib shared] start];
+}
+
+-(void)appFlyerHandleNotification:(NSDictionary *)userInfo {
+    [[AppsFlyerLib shared] handlePushNotification:userInfo];
+}
+
+// Open Universal Links
+- (BOOL)appFlyerContinueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler {
+    return [[AppsFlyerLib shared] continueUserActivity:userActivity restorationHandler:restorationHandler];
 }
 #endif
 

@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '1.3.99'
+    s.version          = '1.4.0'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -58,7 +58,7 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'af_sdk' do |af|
-        af.dependency 'AppsFlyerFramework','5.4.4'
+        af.dependency 'AppsFlyerFramework','6.2.5'
         af.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) AF_ENABLED'}
     end
     
