@@ -18,7 +18,7 @@
         "isAutoLoad":"true"
     },
     {
-        "keys":"[\"banner_abu\"]",
+        "keys":"[\"banner_mopub\"]",
         "type":"bannerAd",
         "id":"banner_group",
         "isAutoLoad":"true"

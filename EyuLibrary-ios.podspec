@@ -255,6 +255,14 @@ Pod::Spec.new do |s|
     
     s.subspec 'mopub_ad_sdk' do |mopub|
         mopub.dependency 'mopub-ios-sdk', '5.16.2'
+        mopub.dependency 'MoPub-Applovin-Adapters', '10.1.1.0'
+        mopub.dependency 'MoPub-FacebookAudienceNetwork-Adapters', '6.3.0.0'
+        mopub.dependency 'MoPub-AdMob-Adapters', '8.3.0.0'
+        mopub.dependency 'MoPub-Pangle-Adapters', '3.5.1.0.0'
+        mopub.dependency 'MoPub-UnityAds-Adapters', '3.6.0.1'
+        mopub.dependency 'MoPub-Vungle-Adapters', '6.9.1.2'
+        mopub.dependency 'MoPub-IronSource-Adapters', '7.1.4.0.0'
+        mopub.dependency 'FBSDKCoreKit','9.1.0'
         mopub.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) MOPUB_ENABLED'}
     end
 end

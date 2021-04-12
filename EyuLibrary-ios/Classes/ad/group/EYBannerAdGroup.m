@@ -61,6 +61,9 @@
 #ifdef ABUADSDK_ENABLED
             NSClassFromString(@"EYABUBannerAdAdapter"), ADNetworkABU,
 #endif
+#ifdef MOPUB_ENABLED
+            NSClassFromString(@"EYMopubBannerAdAdapter"), ADNetworkMopub,
+#endif
         nil];
         self.adGroup = adGroup;
         self.adapterArray = [[NSMutableArray alloc] init];

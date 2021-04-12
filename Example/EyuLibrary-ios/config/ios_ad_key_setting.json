@@ -428,5 +428,10 @@
         "id":"inter_abu",
         "key":"945900441",
         "network":"abu"
+    },
+    {
+        "id":"banner_mopub",
+        "key":"0ac59b0996d947309c33f59d6676399f",
+        "network":"mopub"
     }
 ]

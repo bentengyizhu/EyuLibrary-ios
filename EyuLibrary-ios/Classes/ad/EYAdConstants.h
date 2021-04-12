@@ -22,6 +22,7 @@
 #define     ADNetworkAnyThink               @"anythink"
 #define     ADNetworkTradPlus               @"tradplus"
 #define     ADNetworkABU                    @"abu"
+#define     ADNetworkMopub                  @"mopub"
 
 
 #define     ADTypeInterstitial            @"interstitialAd"
