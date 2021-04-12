@@ -95,6 +95,9 @@
 #ifdef ABUADSDK_ENABLED
             NSClassFromString(@"EYABURewardAdAdapter"), ADNetworkABU,
 #endif
+#ifdef MOPUB_ENABLED
+            NSClassFromString(@"EYMopubRewardAdAdapter"), ADNetworkMopub,
+#endif
                                              nil];
 
         self.adGroup = group;

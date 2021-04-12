@@ -628,6 +628,7 @@
 					TRACKING_ENABLED,
 					THINKING_ENABLED,
 					ABUADSDK_ENABLED,
+					MOPUB_ENABLED,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

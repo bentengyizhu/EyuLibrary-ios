@@ -86,6 +86,9 @@
 #ifdef ABUADSDK_ENABLED
         NSClassFromString(@"EYABUInterstitialAdAdapter"), ADNetworkABU,
 #endif
+#ifdef MOPUB_ENABLED
+        NSClassFromString(@"EYMopubInterstitialAdAdapter"), ADNetworkMopub,
+#endif
         nil];
 
         self.adGroup = adGroup;

@@ -1,18 +1,18 @@
 [
     {
-        "keys":"[\"reward_abu\"]",
+        "keys":"[\"reward_mopub\"]",
         "type":"rewardAd",
         "id":"reward_ad",
         "isAutoLoad":"true"
     },
     {
-        "keys":"[\"navive_abu\"]",
+        "keys":"[\"native_mopub\"]",
         "type":"nativeAd",
         "id":"native_ad",
         "isAutoLoad":"true"
     },
     {
-        "keys":"[\"inter_abu\"]",
+        "keys":"[\"inter_mopub\"]",
         "type":"interstitialAd",
         "id":"inter_ad",
         "isAutoLoad":"true"
