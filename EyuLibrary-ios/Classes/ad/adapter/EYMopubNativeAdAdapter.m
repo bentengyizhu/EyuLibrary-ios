@@ -61,10 +61,14 @@
     if (![self isAdLoaded]) {
         return false;
     }
-    EYMopubNativeAdView *nativeAdView = (EYMopubNativeAdView *)[self.nativeAd retrieveAdViewWithError:nil];
-    if (nativeAdView == NULL) {
+    UIView *view = [self.nativeAd retrieveAdViewWithError:nil];
+    if (view == NULL) {
         return false;
     }
+    if (view.subviews.count == 0) {
+        return false;
+    }
+    EYMopubNativeAdView *nativeAdView = (EYMopubNativeAdView *)view.subviews[0];
     if(mediaLayout!= NULL) {
         CGRect mediaViewBounds = CGRectMake(0,0, mediaLayout.frame.size.width, mediaLayout.frame.size.height);
 //        self.nativeAdImgView = [[UIImageView alloc] initWithFrame:mediaViewBounds];
@@ -76,6 +80,7 @@
     nativeAdView.titleLabel.frame = CGRectMake(nativeAdTitle.frame.origin.x, nativeAdTitle.frame.origin.y, nativeAdView.titleLabel.frame.size.width, nativeAdView.titleLabel.frame.size.height);
     nativeAdView.mainTextLabel.frame = CGRectMake(nativeAdDesc.frame.origin.x, nativeAdDesc.frame.origin.y, nativeAdView.mainTextLabel.frame.size.width, nativeAdView.mainTextLabel.frame.size.height);
     nativeAdView.callToActionLabel.frame = CGRectMake(actBtn.frame.origin.x, actBtn.frame.origin.y, nativeAdView.callToActionLabel.frame.size.width, nativeAdView.callToActionLabel.frame.size.height);
+    nativeAdView.frame = nativeAdLayout.bounds;
     [nativeAdLayout addSubview:nativeAdView];
 //    if(nativeAdIcon!=NULL){
 //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{

@@ -21,6 +21,7 @@
         if (self.adView == NULL) {
             self.adView = [[MPAdView alloc] initWithAdUnitId:self.adKey.key];
             self.adView.delegate = self;
+            self.adView.translatesAutoresizingMaskIntoConstraints = NO;
             [self.adView loadAdWithMaxAdSize:CGSizeMake(UIScreen.mainScreen.bounds.size.width, 50)];
             self.isLoading = true;
         }
@@ -49,6 +50,7 @@
         h = 50;
     };
     [viewGroup addSubview:self.adView];
+//    self.adView.frame = CGRectMake(0, 0, w, h);
     NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.adView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
     NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self.adView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
     NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.adView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:w];
@@ -57,8 +59,6 @@
     [viewGroup addConstraint:centerY];
     [viewGroup addConstraint:width];
     [viewGroup addConstraint:height];
-    [self.adView layoutIfNeeded];
-    NSLog(@"%@", self.adView);
     return true;
 }
 

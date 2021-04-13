@@ -10,6 +10,21 @@
 
 @implementation EYMopubNativeAdView
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.mainImageView = [UIImageView new];
+        self.mainTextLabel = [UILabel new];
+        self.titleLabel = [UILabel new];
+        self.callToActionLabel = [UILabel new];
+        self.sponsoredByLabel = [UILabel new];
+        self.iconImageView = [UIImageView new];
+        self.privacyInformationIconImageView = [UIImageView new];
+    }
+    return self;
+}
+
 - (UILabel *)nativeMainTextLabel
 {
     return self.mainTextLabel;
