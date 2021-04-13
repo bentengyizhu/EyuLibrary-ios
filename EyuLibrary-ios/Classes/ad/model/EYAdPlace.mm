@@ -8,8 +8,6 @@
 #import "EYAdPlace.h"
 
 @implementation EYAdPlace
-@synthesize placeId = _placeId;
-@synthesize groups = _groups;
 
 -(instancetype) initWithId : (NSString*) placeId groups:(NSArray*) groups
 {

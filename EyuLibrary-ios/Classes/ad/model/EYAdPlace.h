@@ -15,5 +15,4 @@
 @property(nonatomic,strong)NSArray *groups;
 
 -(instancetype) initWithId : (NSString*) placeId groups:(NSArray*) groups;
-
 @end

@@ -7,18 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		073F78F82625502200F4602B /* ios_ad_cache_setting.json in Resources */ = {isa = PBXBuildFile; fileRef = 073F78F52625502100F4602B /* ios_ad_cache_setting.json */; };
+		073F78F92625502200F4602B /* ios_ad_setting.json in Resources */ = {isa = PBXBuildFile; fileRef = 073F78F62625502100F4602B /* ios_ad_setting.json */; };
+		073F78FA2625502200F4602B /* ios_ad_key_setting.json in Resources */ = {isa = PBXBuildFile; fileRef = 073F78F72625502200F4602B /* ios_ad_key_setting.json */; };
 		07571B2A259ADD2600C99F68 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07571B29259ADD2600C99F68 /* WebKit.framework */; };
 		07571B2E259ADD3B00C99F68 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07571B2D259ADD3B00C99F68 /* CoreMotion.framework */; };
 		07571B32259ADD9600C99F68 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07571B31259ADD9600C99F68 /* CoreTelephony.framework */; };
-		0762E6102614838F005A8AA8 /* ios_ad_group_setting.json in Resources */ = {isa = PBXBuildFile; fileRef = 0762E60F2614838F005A8AA8 /* ios_ad_group_setting.json */; };
 		079D595B2609E4A700FFCE3B /* EYCustomNativeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 079D595A2609E4A700FFCE3B /* EYCustomNativeView.m */; };
 		4B87BD752085F532D3C4C817 /* libPods-EyuLibrary-ios_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A75768B97155249B76354D9 /* libPods-EyuLibrary-ios_Example.a */; };
 		5635DFC123EA9BDE0065566A /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5635DFC023EA9BDD0065566A /* iAd.framework */; };
 		56792D5824FDEA9F00655101 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56792D5724FDEA9F00655101 /* File.swift */; };
-		56E252BA21785EE500584CB9 /* ios_ad_key_setting.json in Resources */ = {isa = PBXBuildFile; fileRef = 56E252B321785EE500584CB9 /* ios_ad_key_setting.json */; };
-		56E252BC21785EE500584CB9 /* ios_ad_setting.json in Resources */ = {isa = PBXBuildFile; fileRef = 56E252B521785EE500584CB9 /* ios_ad_setting.json */; };
-		56E252BE21785EE500584CB9 /* defaults_setting.json in Resources */ = {isa = PBXBuildFile; fileRef = 56E252B721785EE500584CB9 /* defaults_setting.json */; };
-		56E252BF21785EE500584CB9 /* ios_ad_cache_setting.json in Resources */ = {isa = PBXBuildFile; fileRef = 56E252B821785EE500584CB9 /* ios_ad_cache_setting.json */; };
 		56E252C221785F5700584CB9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 56E252C121785F5600584CB9 /* GoogleService-Info.plist */; };
 		56E252C521786A7C00584CB9 /* EYViewControllerB.m in Sources */ = {isa = PBXBuildFile; fileRef = 56E252C321786A7C00584CB9 /* EYViewControllerB.m */; };
 		56E252D62178704500584CB9 /* install@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56E252C92178704500584CB9 /* install@2x.png */; };
@@ -60,10 +58,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		073F78F52625502100F4602B /* ios_ad_cache_setting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ios_ad_cache_setting.json; sourceTree = "<group>"; };
+		073F78F62625502100F4602B /* ios_ad_setting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ios_ad_setting.json; sourceTree = "<group>"; };
+		073F78F72625502200F4602B /* ios_ad_key_setting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ios_ad_key_setting.json; sourceTree = "<group>"; };
 		07571B29259ADD2600C99F68 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		07571B2D259ADD3B00C99F68 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		07571B31259ADD9600C99F68 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		0762E60F2614838F005A8AA8 /* ios_ad_group_setting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ios_ad_group_setting.json; sourceTree = "<group>"; };
 		079D59592609E4A700FFCE3B /* EYCustomNativeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EYCustomNativeView.h; sourceTree = "<group>"; };
 		079D595A2609E4A700FFCE3B /* EYCustomNativeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EYCustomNativeView.m; sourceTree = "<group>"; };
 		0DD451035A305C94C404E430 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -76,10 +76,6 @@
 		56792D7424FF997600655101 /* max_iOSAdCacheSetting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = max_iOSAdCacheSetting.json; sourceTree = "<group>"; };
 		56792D7524FF997600655101 /* max_iOSAdSetting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = max_iOSAdSetting.json; sourceTree = "<group>"; };
 		56792D7624FF997600655101 /* max_iOSAdKeySetting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = max_iOSAdKeySetting.json; sourceTree = "<group>"; };
-		56E252B321785EE500584CB9 /* ios_ad_key_setting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ios_ad_key_setting.json; sourceTree = "<group>"; };
-		56E252B521785EE500584CB9 /* ios_ad_setting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ios_ad_setting.json; sourceTree = "<group>"; };
-		56E252B721785EE500584CB9 /* defaults_setting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = defaults_setting.json; sourceTree = "<group>"; };
-		56E252B821785EE500584CB9 /* ios_ad_cache_setting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ios_ad_cache_setting.json; sourceTree = "<group>"; };
 		56E252C121785F5600584CB9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		56E252C321786A7C00584CB9 /* EYViewControllerB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EYViewControllerB.m; sourceTree = "<group>"; };
 		56E252C421786A7C00584CB9 /* EYViewControllerB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EYViewControllerB.h; sourceTree = "<group>"; };
@@ -152,14 +148,12 @@
 		56E252B221785EE500584CB9 /* config */ = {
 			isa = PBXGroup;
 			children = (
+				073F78F52625502100F4602B /* ios_ad_cache_setting.json */,
+				073F78F72625502200F4602B /* ios_ad_key_setting.json */,
+				073F78F62625502100F4602B /* ios_ad_setting.json */,
 				56792D7424FF997600655101 /* max_iOSAdCacheSetting.json */,
 				56792D7624FF997600655101 /* max_iOSAdKeySetting.json */,
 				56792D7524FF997600655101 /* max_iOSAdSetting.json */,
-				56E252B321785EE500584CB9 /* ios_ad_key_setting.json */,
-				56E252B521785EE500584CB9 /* ios_ad_setting.json */,
-				0762E60F2614838F005A8AA8 /* ios_ad_group_setting.json */,
-				56E252B821785EE500584CB9 /* ios_ad_cache_setting.json */,
-				56E252B721785EE500584CB9 /* defaults_setting.json */,
 			);
 			path = config;
 			sourceTree = "<group>";
@@ -370,20 +364,18 @@
 				56E252D62178704500584CB9 /* install@2x.png in Resources */,
 				56E252D92178704500584CB9 /* guanggao_bg.png in Resources */,
 				56E252DA2178704500584CB9 /* guanggaoguanbi02@2x.png in Resources */,
+				073F78F82625502200F4602B /* ios_ad_cache_setting.json in Resources */,
 				56E252DD2178704500584CB9 /* Icon-57.png in Resources */,
-				0762E6102614838F005A8AA8 /* ios_ad_group_setting.json in Resources */,
 				56E252DE2178704500584CB9 /* tubiao@2x.png in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				56E252E22178704500584CB9 /* yuanshengguanggao_dikuang01@2x.png in Resources */,
 				56E252E02178704500584CB9 /* guanggaoguanbi@2x.png in Resources */,
-				56E252BF21785EE500584CB9 /* ios_ad_cache_setting.json in Resources */,
-				56E252BE21785EE500584CB9 /* defaults_setting.json in Resources */,
 				56E252D82178704500584CB9 /* ad@2x.png in Resources */,
 				56E252DC2178704500584CB9 /* guanggaoguanbi.png in Resources */,
 				56E252DF2178704500584CB9 /* guanggao_bk.png in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
-				56E252BC21785EE500584CB9 /* ios_ad_setting.json in Resources */,
-				56E252BA21785EE500584CB9 /* ios_ad_key_setting.json in Resources */,
+				073F78F92625502200F4602B /* ios_ad_setting.json in Resources */,
+				073F78FA2625502200F4602B /* ios_ad_key_setting.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,25 +396,19 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-resources.sh",
-				"${PODS_ROOT}/Ads-Global/PangleSDK/LICENSE",
-				"${PODS_ROOT}/Ads-Global/PangleSDK/BUAdSDK.bundle",
-				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-10.1.1/AppLovinSDKResources.bundle",
+				"${PODS_ROOT}/Ads-CN/PangleSDK/BUAdSDK.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/EyuLibrary-ios/EyuLibrary.bundle",
-				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FFToast/FFToast.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/mopub-ios-sdk/MoPubResources.bundle",
+				"${PODS_ROOT}/SigmobAd-iOS/WindSDK/Sigmob.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LICENSE",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BUAdSDK.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppLovinSDKResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EyuLibrary.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FFToast.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MoPubResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Sigmob.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

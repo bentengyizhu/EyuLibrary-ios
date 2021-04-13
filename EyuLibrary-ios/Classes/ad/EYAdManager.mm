@@ -189,41 +189,25 @@ static id s_sharedInstance;
     }
     
     NSData *adSuiteData = config.adSuiteData;
-    NSArray *adSuiteArray = [NSJSONSerialization JSONObjectWithData:adSuiteData options:kNilOptions error:nil];
-    NSLog(@"lwq, loadAdConfig adSuiteData = %@", adSuiteArray);
     NSMutableDictionary *adSuiteDictionary = [[NSMutableDictionary alloc]init];
-    for(NSDictionary* adSuiteDict:adSuiteArray) {
-        NSString *suiteId = adSuiteDict[@"id"];
-        NSNumber *value = adSuiteDict[@"value"];
-        NSArray *keys = adSuiteDict[@"keys"];
-        EYAdSuite *suite = [[EYAdSuite alloc]init];
-        suite.suiteId = suiteId;
-        suite.value = value.intValue;
-        for (NSString *keyId in keys) {
-            EYAdKey *adKey = self.adKeyDict[keyId];
-            [suite.keys addObject:adKey];
-        }
-        [adSuiteDictionary setValue:suite forKey:suiteId];
-    }
-    
-    NSData* adSettingData = config.adPlaceData;
-//    NSString* adSettingStr = [[NSString alloc] initWithData:adSettingData encoding:NSASCIIStringEncoding];
-    NSArray *adArray = [NSJSONSerialization JSONObjectWithData:adSettingData options:kNilOptions error:nil];
-    NSLog(@"lwq, loadAdConfig adSettingStr = %@", adArray);
-    for(NSDictionary* adSetting:adArray)
-    {
-        NSString *placeId = adSetting[@"id"];
-        NSArray *groups = adSetting[@"cacheGroup"];
-        if ([groups isKindOfClass:[NSString class]]) {
-            config.isNewJsonSetting = false;
-        } else {
-            config.isNewJsonSetting = true;
-        }
-        NSString *nibName = adSetting[@"nativeAdLayout"];
-        EYAdPlace *adPlace = [[EYAdPlace alloc] initWithId:placeId groups:groups];
-        [self.adPlaceDict setObject:adPlace forKey:placeId];
-        if(nibName){
-            [self.nativeAdViewNibDict setObject:nibName forKey:placeId];
+    if (adSuiteData == NULL) {
+        config.isNewJsonSetting = false;
+    } else {
+        config.isNewJsonSetting = true;
+        NSArray *adSuiteArray = [NSJSONSerialization JSONObjectWithData:adSuiteData options:kNilOptions error:nil];
+        NSLog(@"lwq, loadAdConfig adSuiteData = %@", adSuiteArray);
+        for(NSDictionary* adSuiteDict:adSuiteArray) {
+            NSString *suiteId = adSuiteDict[@"id"];
+            NSNumber *value = adSuiteDict[@"value"];
+            NSArray *keys = adSuiteDict[@"keys"];
+            EYAdSuite *suite = [[EYAdSuite alloc]init];
+            suite.suiteId = suiteId;
+            suite.value = value.intValue;
+            for (NSString *keyId in keys) {
+                EYAdKey *adKey = self.adKeyDict[keyId];
+                [suite.keys addObject:adKey];
+            }
+            [adSuiteDictionary setValue:suite forKey:suiteId];
         }
     }
     
@@ -234,18 +218,54 @@ static id s_sharedInstance;
     {
         //NSLog(@"lwq, loadAdConfig adCacheDict = %@", adCacheDict);
         NSString *groupId = adGroupDict[@"id"];
-//        NSString *keys = adGroupDict[@"keys"];
         NSString *type = adGroupDict[@"type"];
         NSString *isAutoLoadStr = adGroupDict[@"isAutoLoad"];
+        NSArray *keysArray;
+        if (config.isNewJsonSetting == false) {
+            NSString *keys = adGroupDict[@"keys"];
+            NSData *data = [keys dataUsingEncoding:NSUTF8StringEncoding];
+            keysArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingFragmentsAllowed error:nil];
+        }
         EYAdGroup *adGroup = [[EYAdGroup alloc] initWithId:groupId];
         EYAdPlace *place = self.adPlaceDict[groupId];
         for (NSString *suiteId in place.groups) {
-            EYAdSuite *suite = adSuiteDictionary[suiteId];
-            [adGroup addAdSuite:suite];
+            if (config.isNewJsonSetting == false) {
+                for (NSString *keyId in keysArray) {
+                    EYAdSuite *suite = [[EYAdSuite alloc]init];
+                    suite.suiteId = suiteId;
+                    EYAdKey *adKey = self.adKeyDict[keyId];
+                    [suite.keys addObject:adKey];
+                    [adGroup addAdSuite:suite];
+                }
+            } else {
+                EYAdSuite *suite = adSuiteDictionary[suiteId];
+                [adGroup addAdSuite:suite];
+            }
         }
         adGroup.isAutoLoad = [@"true" isEqualToString:isAutoLoadStr];
         adGroup.type = type;
         [self.adGroupDict setObject:adGroup forKey:groupId];
+        
+        NSData* adSettingData = config.adPlaceData;
+        NSArray *adArray = [NSJSONSerialization JSONObjectWithData:adSettingData options:kNilOptions error:nil];
+        NSLog(@"lwq, loadAdConfig adSettingStr = %@", adArray);
+        for(NSDictionary* adSetting:adArray)
+        {
+            NSString *placeId = adSetting[@"id"];
+            NSArray *groups;
+            if (config.isNewJsonSetting == false) {
+                NSString *cacheGroup = adSetting[@"cacheGroup"];
+                groups = @[cacheGroup];
+            } else {
+                groups = adSetting[@"cacheGroup"];
+            }
+            NSString *nibName = adSetting[@"nativeAdLayout"];
+            EYAdPlace *adPlace = [[EYAdPlace alloc] initWithId:placeId groups:groups];
+            [self.adPlaceDict setObject:adPlace forKey:placeId];
+            if(nibName){
+                [self.nativeAdViewNibDict setObject:nibName forKey:placeId];
+            }
+        }
     }
 }
 

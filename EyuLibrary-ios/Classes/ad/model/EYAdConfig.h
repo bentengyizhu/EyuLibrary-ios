@@ -60,7 +60,7 @@
 @property(nonatomic,copy)NSString *mopubAdUnitId;
 #endif
 
--(instancetype) initWithPlace:(NSData*)adPlaceData  key:(NSData*) adKeyData group:(NSData*) adGroupData;
+-(instancetype) initWithPlace:(NSData*)adPlaceData  key: (NSData*) adKeyData group:(NSData*) adGroupData suite:(NSData*) adSuiteData;
 
 @end
 

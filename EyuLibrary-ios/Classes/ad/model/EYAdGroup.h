@@ -22,7 +22,6 @@
 -(instancetype) initWithId : (NSString*) groupId;
 
 -(void) addAdSuite:(EYAdSuite *)suite;
-
 @end
 
 #endif /* AdCache_h */
