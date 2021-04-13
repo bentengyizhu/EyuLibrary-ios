@@ -102,8 +102,8 @@
 @implementation EYSdkUtils
 
 static NSString *distinctId;
-//static bool sIsUMInited = false;
-//static bool sIsGDTInited = false;
+static bool sIsUMInited = false;
+static bool sIsGDTInited = false;
 static bool sIsFBInited = false;
 static bool sIsTrackingInited = false;
 
