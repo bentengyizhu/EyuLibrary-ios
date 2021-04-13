@@ -54,6 +54,9 @@
 #ifdef ABUADSDK_ENABLED
             NSClassFromString(@"EYABUBannerAdAdapter"), ADNetworkABU,
 #endif
+#ifdef MOPUB_ENABLED
+            NSClassFromString(@"EYMopubBannerAdAdapter"), ADNetworkMopub,
+#endif
         nil];
         self.adValueKey = @"currentBannerValue";
         self.adType = ADTypeBanner;

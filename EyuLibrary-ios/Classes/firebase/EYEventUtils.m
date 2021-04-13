@@ -9,7 +9,7 @@
 #import "EYEventUtils.h"
 
 #ifdef AF_ENABLED
-#import <AppsFlyerLib/AppsFlyerTracker.h>
+#import <AppsFlyerLib/AppsFlyerLib.h>
 #endif
 
 #ifdef UM_ENABLED
@@ -55,7 +55,7 @@
 #endif
     
 #ifdef AF_ENABLED
-    [[AppsFlyerTracker sharedTracker] trackEvent:event withValues:strDict];
+    [[AppsFlyerLib shared] logEvent:event withValues:strDict];
 #endif
     
 #ifdef GDT_ACTION_ENABLED

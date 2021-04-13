@@ -86,6 +86,9 @@
 #ifdef ABUADSDK_ENABLED
         NSClassFromString(@"EYABUInterstitialAdAdapter"), ADNetworkABU,
 #endif
+#ifdef MOPUB_ENABLED
+        NSClassFromString(@"EYMopubInterstitialAdAdapter"), ADNetworkMopub,
+#endif
         nil];
         
 //        self.maxTryLoadAd = adConfig.maxTryLoadInterstitialAd > 0 ? adConfig.maxTryLoadInterstitialAd : 7;

@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '1.3.99'
+    s.version          = '1.4.4'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -58,7 +58,7 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'af_sdk' do |af|
-        af.dependency 'AppsFlyerFramework','5.4.4'
+        af.dependency 'AppsFlyerFramework','6.2.5'
         af.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) AF_ENABLED'}
     end
     
@@ -251,5 +251,18 @@ Pod::Spec.new do |s|
         abu.frameworks = 'CoreMotion', 'AdSupport'
         abu.libraries = 'z', 'c++', 'resolv'
         abu.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ABUADSDK_ENABLED'}
+    end
+    
+    s.subspec 'mopub_ad_sdk' do |mopub|
+        mopub.dependency 'mopub-ios-sdk', '5.16.2'
+        mopub.dependency 'MoPub-Applovin-Adapters', '10.1.1.0'
+        mopub.dependency 'MoPub-FacebookAudienceNetwork-Adapters', '6.3.0.0'
+        mopub.dependency 'MoPub-AdMob-Adapters', '8.3.0.0'
+        mopub.dependency 'MoPub-Pangle-Adapters', '3.5.1.0.0'
+        mopub.dependency 'MoPub-UnityAds-Adapters', '3.6.0.1'
+        mopub.dependency 'MoPub-Vungle-Adapters', '6.9.1.2'
+        mopub.dependency 'MoPub-IronSource-Adapters', '7.1.4.0.0'
+        mopub.dependency 'FBSDKCoreKit','9.1.0'
+        mopub.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) MOPUB_ENABLED'}
     end
 end

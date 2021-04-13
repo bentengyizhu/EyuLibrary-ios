@@ -428,5 +428,25 @@
         "id":"inter_abu",
         "key":"945900441",
         "network":"abu"
+    },
+    {
+        "id":"banner_mopub",
+        "key":"0ac59b0996d947309c33f59d6676399f",
+        "network":"mopub"
+    },
+    {
+        "id":"inter_mopub",
+        "key":"4f117153f5c24fa6a3a92b818a5eb630",
+        "network":"mopub"
+    },
+    {
+        "id":"reward_mopub",
+        "key":"8f000bd5e00246de9c789eed39ff6096",
+        "network":"mopub"
+    },
+    {
+        "id":"native_mopub",
+        "key":"76a3fefaced247959582d2d2df6f4757",
+        "network":"mopub"
     }
 ]

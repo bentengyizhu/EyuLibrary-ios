@@ -34,6 +34,10 @@
 
 #ifdef AF_ENABLED
 +(void) initAppFlyer:(NSString*) devKey appId:(NSString*)appId;
++ (void)appFlyerStart;
++ (void)appFlyerHandleNotification:(NSDictionary *)userInfo;
++ (BOOL)appFlyerContinueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *))restorationHandler;
++ (void)appFlyerhandleOpenURL:(NSURL *)url options:(NSDictionary *) options;
 #endif
 
 #ifdef UM_ENABLED

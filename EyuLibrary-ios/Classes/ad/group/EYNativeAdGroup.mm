@@ -49,10 +49,10 @@
 #ifdef ABUADSDK_ENABLED
         NSClassFromString(@"EYABUNativeAdAdapter"), ADNetworkABU,
 #endif
-        nil];
-#ifdef ABUADSDK_ENABLED
-        NSLog(@"ABUADSDK_ENABLED");
+#ifdef MOPUB_ENABLED
+        NSClassFromString(@"EYMopubNativeAdAdapter"), ADNetworkMopub,
 #endif
+        nil];
         self.adValueKey = @"currentNativeValue";
         self.adType = ADTypeNative;
 

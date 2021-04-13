@@ -48,6 +48,10 @@
 @synthesize abuAppId = _abuAppId;
 #endif
 
+#ifdef MOPUB_ENABLED
+@synthesize mopubAdUnitId = _mopubAdUnitId;
+#endif
+
 -(instancetype) initWithPlace:(NSData*)adPlaceData  key: (NSData*) adKeyData group:(NSData*) adGroupData suite:(NSData*) adSuiteData;
 {
     self = [self init];
@@ -84,6 +88,9 @@
 #endif
 #ifdef ABUADSDK_ENABLED
         self.abuAppId = nil;
+#endif
+#ifdef MOPUB_ENABLED
+        self.mopubAdUnitId = nil;
 #endif
     }
     return self;

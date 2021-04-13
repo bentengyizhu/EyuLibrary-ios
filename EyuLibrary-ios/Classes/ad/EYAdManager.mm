@@ -71,6 +71,10 @@
 #ifdef ABUADSDK_ENABLED
 #import <ABUAdSDK/ABUAdSDK.h>
 #endif
+
+#ifdef MOPUB_ENABLED
+#import "MoPub.h"
+#endif
 //#ifndef BYTE_DANCE_ONLY
 //@interface EYAdManager()<UnityAdsDelegate, VungleSDKDelegate, ISDemandOnlyInterstitialDelegate, ISDemandOnlyRewardedVideoDelegate>
 //#else
@@ -436,6 +440,17 @@ static id s_sharedInstance;
     
 #ifdef ABUADSDK_ENABLED
     [ABUAdSDKManager setAppID:config.abuAppId];
+#endif
+    
+#ifdef MOPUB_ENABLED
+    MPMoPubConfiguration *sdkConfig = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:config.mopubAdUnitId];
+//    sdkConfig.globalMediationSettings = @[];
+//    sdkConfig.loggingLevel = MPBLogLevelInfo;
+//    sdkConfig.allowLegitimateInterest = YES;
+    [[MoPub sharedInstance] initializeSdkWithConfiguration:sdkConfig completion:^{
+            NSLog(@"SDK initialization complete");
+            // SDK initialization complete. Ready to make ad requests.
+    }];
 #endif
 }
 
