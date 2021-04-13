@@ -6,10 +6,11 @@
 //
 #ifdef MOPUB_ENABLED
 #import "EYMopubBannerAdAdapter.h"
+#import "EYAdManager.h"
 
 @implementation EYMopubBannerAdAdapter
 -(void) loadAd {
-    NSLog(@"lwq, abu bannerAd");
+    NSLog(@"lwq, mopub bannerAd");
     if([self isAdLoaded])
     {
         [self notifyOnAdLoaded];
@@ -20,7 +21,7 @@
         if (self.adView == NULL) {
             self.adView = [[MPAdView alloc] initWithAdUnitId:self.adKey.key];
             self.adView.delegate = self;
-            [self.adView loadAdWithMaxAdSize:kMPPresetMaxAdSize50Height];
+            [self.adView loadAdWithMaxAdSize:CGSizeMake(UIScreen.mainScreen.bounds.size.width, 50)];
             self.isLoading = true;
         }
     } else {
@@ -41,8 +42,8 @@
     }
     viewGroup.bannerAdapter = self;
     [self.adView removeFromSuperview];
-    CGFloat w = kMPPresetMaxAdSizeMatchFrame.width;
-    CGFloat h = kMPPresetMaxAdSizeMatchFrame.height;
+    CGFloat w = self.adView.frame.size.width;
+    CGFloat h = self.adView.frame.size.height;
     if (w == 0 || h == 0) {
         w = [UIScreen mainScreen].bounds.size.width;
         h = 50;
@@ -56,6 +57,8 @@
     [viewGroup addConstraint:centerY];
     [viewGroup addConstraint:width];
     [viewGroup addConstraint:height];
+    [self.adView layoutIfNeeded];
+    NSLog(@"%@", self.adView);
     return true;
 }
 
@@ -72,10 +75,15 @@
 
 - (void)adView:(MPAdView *)view didFailToLoadAdWithError:(NSError *)error {
     self.adView = NULL;
-    NSLog(@"lwq,abu banner ad failed to load with error: %@", error);
+    NSLog(@"lwq,mopub banner ad failed to load with error: %@", error);
     self.isLoading = false;
     self.isLoadSuccess = false;
     [self notifyOnAdLoadFailedWithError:(int)error.code];
 }
+
+- (UIViewController *)viewControllerForPresentingModalView {
+    return [EYAdManager sharedInstance].rootViewController;
+}
+
 @end
 #endif

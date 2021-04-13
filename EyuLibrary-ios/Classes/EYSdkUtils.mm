@@ -189,20 +189,20 @@ AppsFlyerDelegate *_appflyerDelegate = [AppsFlyerDelegate new];
 //    [[AppsFlyerLib shared] trackAppLaunch];
 }
 
-- (void)appFlyerStart {
++ (void)appFlyerStart {
     [[AppsFlyerLib shared] start];
 }
 
--(void)appFlyerHandleNotification:(NSDictionary *)userInfo {
++ (void)appFlyerHandleNotification:(NSDictionary *)userInfo {
     [[AppsFlyerLib shared] handlePushNotification:userInfo];
 }
 
 // Open Universal Links
-- (BOOL)appFlyerContinueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler {
++ (BOOL)appFlyerContinueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *))restorationHandler {
     return [[AppsFlyerLib shared] continueUserActivity:userActivity restorationHandler:restorationHandler];
 }
 
-- (void)appFlyerhandleOpenURL:(NSURL *)url options:(NSDictionary *) options {
++ (void)appFlyerhandleOpenURL:(NSURL *)url options:(NSDictionary *) options {
     [[AppsFlyerLib shared] handleOpenUrl:url options:options];
 }
 #endif
