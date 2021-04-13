@@ -37,11 +37,11 @@
     adConfig.adGroupData = [EYSdkUtils readFileWithName:@"ios_ad_cache_setting"];
     adConfig.adPlaceData = [EYSdkUtils readFileWithName:@"ios_ad_setting"];
     adConfig.adSuiteData = [EYSdkUtils readFileWithName:@"ios_ad_group_setting"];
-    adConfig.abuAppId = @"5149732";
-//    adConfig.mtgAppId = @"111418";
-//    adConfig.mtgAppKey = @"a339a16bbaca844012276afad6f59eaa";
+//    adConfig.abuAppId = @"5149732";
+    adConfig.mtgAppId = @"142996";
+    adConfig.mtgAppKey = @"a339a16bbaca844012276afad6f59eaa";
 //    adConfig.admobClientId = @"ca-app-pub-1111111111111111~1111111111";
-//    adConfig.wmAppKey = @"12345";
+    adConfig.wmAppKey = @"5126512";
 //    adConfig.gdtAppId = @"1108127036";
 //    adConfig.unityClientId = @"2340038";
 //    adConfig.vungleClientId = @"5bdbc67a6d9d2200139056f9";
@@ -96,7 +96,6 @@
 -(void) onAdClosed:(NSString*) adPlaceId  type:(NSString*)type
 {
     NSLog(@"lw, onAdClosed adPlaceId = %@, type = %@", adPlaceId, type);
-    [[EYAdManager sharedInstance] loadRewardVideoAd:@"reward_ad"];
 }
 -(void) onAdClicked:(NSString*) adPlaceId  type:(NSString*)type
 {

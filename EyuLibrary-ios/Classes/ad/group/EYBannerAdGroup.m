@@ -99,12 +99,17 @@
 {
     EYAdAdapter* loadAdapter = NULL;
     int index = 0;
+    bool hasLoadedAdapter = false;
     for (int i = 0; i < self.adapterArray.count; i++) {
         EYAdAdapter* adapter = self.adapterArray[i];
-        if([adapter isAdLoaded] && loadAdapter == NULL)
+        if([adapter isAdLoaded])
         {
-            loadAdapter = adapter;
-            index = i;
+            if (loadAdapter == NULL) {
+                loadAdapter = adapter;
+                index = i;
+            } else {
+                hasLoadedAdapter = true;
+            }
         }
     }
     if(loadAdapter != NULL)
@@ -118,7 +123,7 @@
 //        }
         [self.adapterArray insertObject:newAdapter atIndex:index];
     }
-    if (index == self.adapterArray.count-1 || loadAdapter == NULL) {
+    if (hasLoadedAdapter == false || loadAdapter == NULL) {
         [self loadAd:@"auto"];
     }
     return (EYBannerAdAdapter *)loadAdapter;

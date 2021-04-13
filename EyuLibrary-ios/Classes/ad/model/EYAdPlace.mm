@@ -9,13 +9,14 @@
 
 @implementation EYAdPlace
 
--(instancetype) initWithId : (NSString*) placeId groups:(NSArray*) groups
+-(instancetype) initWithId : (NSString*) placeId groupId:(NSString*) groupId
 {
     self = [super init];
     if(self)
     {
         self.placeId = placeId;
-        self.groups = groups;
+        self.groupId = groupId;
+        
     }
     return self;
 }

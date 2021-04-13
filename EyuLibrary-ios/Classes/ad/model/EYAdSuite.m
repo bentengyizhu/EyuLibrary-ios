@@ -8,5 +8,12 @@
 #import "EYAdSuite.h"
 
 @implementation EYAdSuite
-
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.keys = [NSMutableArray new];
+    }
+    return self;
+}
 @end

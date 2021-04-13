@@ -1,0 +1,68 @@
+[
+    {
+        "keys":["mtg300", "wm300"],
+        "desc":"激励视频第一组",
+        "value": 300,
+        "id":"reward1",
+    },
+    {
+        "keys":["mtg250", "wm250"],
+        "desc":"激励视频第二组",
+        "value": 250,
+        "id":"reward2",
+    },
+    {
+        "keys":["mtg200", "wm200"],
+        "desc":"激励视频第一组",
+        "value": 200,
+        "id":"reward3",
+    },
+    {
+        "keys":["mtg150", "wm150"],
+        "desc":"激励视频第一组",
+        "value": 150,
+        "id":"reward4",
+    },
+    {
+        "keys":["mtg100", "wm100"],
+        "desc":"激励视频第一组",
+        "value": 100,
+        "id":"reward5",
+    },
+    {
+        "keys":["mtg50", "wm50"],
+        "desc":"激励视频第一组",
+        "value": 50,
+        "id":"reward6",
+    },
+    {
+        "keys":["mtg0", "wm0"],
+        "desc":"激励视频第一组",
+        "value": 1,
+        "id":"reward7",
+    },
+    {
+        "keys":["inter_abu"],
+        "value": 100,
+        "desc":"插屏第一组",
+        "id":"inter1",
+    },
+    {
+        "keys":["navive_abu"],
+        "value": 100,
+        "desc":"原生第一组",
+        "id":"native1",
+    },
+    {
+        "keys": ["banner_abu"],
+        "value": 100,
+        "desc":"banner第一组",
+        "id":"banner1",
+    },
+    {
+        "keys":["splash_abu"],
+        "value": 100,
+        "desc":"splash第一组",
+        "id":"splash1",
+    }
+]

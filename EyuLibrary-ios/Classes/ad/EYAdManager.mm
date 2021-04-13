@@ -195,6 +195,12 @@ static id s_sharedInstance;
     } else {
         config.isNewJsonSetting = true;
         NSArray *adSuiteArray = [NSJSONSerialization JSONObjectWithData:adSuiteData options:kNilOptions error:nil];
+        adSuiteArray = [adSuiteArray sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *  _Nonnull obj1, NSDictionary *  _Nonnull obj2) {
+            if ([obj1[@"value"] intValue] > [obj2[@"value"] intValue]) {
+                return NSOrderedAscending;
+            }
+            return NSOrderedDescending;
+        }];
         NSLog(@"lwq, loadAdConfig adSuiteData = %@", adSuiteArray);
         for(NSDictionary* adSuiteDict:adSuiteArray) {
             NSString *suiteId = adSuiteDict[@"id"];
@@ -220,23 +226,23 @@ static id s_sharedInstance;
         NSString *groupId = adGroupDict[@"id"];
         NSString *type = adGroupDict[@"type"];
         NSString *isAutoLoadStr = adGroupDict[@"isAutoLoad"];
-        NSArray *keysArray;
+        NSArray * keysArray;
         if (config.isNewJsonSetting == false) {
             NSString *keys = adGroupDict[@"keys"];
             NSData *data = [keys dataUsingEncoding:NSUTF8StringEncoding];
             keysArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingFragmentsAllowed error:nil];
+        } else {
+            keysArray = adGroupDict[@"child"];
         }
         EYAdGroup *adGroup = [[EYAdGroup alloc] initWithId:groupId];
-        EYAdPlace *place = self.adPlaceDict[groupId];
-        for (NSString *suiteId in place.groups) {
+        //        EYAdPlace *place = self.adPlaceDict[groupId];
+        for (NSString *suiteId in keysArray) {
             if (config.isNewJsonSetting == false) {
-                for (NSString *keyId in keysArray) {
-                    EYAdSuite *suite = [[EYAdSuite alloc]init];
-                    suite.suiteId = suiteId;
-                    EYAdKey *adKey = self.adKeyDict[keyId];
-                    [suite.keys addObject:adKey];
-                    [adGroup addAdSuite:suite];
-                }
+                EYAdKey *adKey = self.adKeyDict[suiteId];
+                EYAdSuite *suite = [[EYAdSuite alloc]init];
+                suite.suiteId = suiteId;
+                [suite.keys addObject:adKey];
+                [adGroup addAdSuite:suite];
             } else {
                 EYAdSuite *suite = adSuiteDictionary[suiteId];
                 [adGroup addAdSuite:suite];
@@ -252,15 +258,9 @@ static id s_sharedInstance;
         for(NSDictionary* adSetting:adArray)
         {
             NSString *placeId = adSetting[@"id"];
-            NSArray *groups;
-            if (config.isNewJsonSetting == false) {
-                NSString *cacheGroup = adSetting[@"cacheGroup"];
-                groups = @[cacheGroup];
-            } else {
-                groups = adSetting[@"cacheGroup"];
-            }
+            NSString *groupId = adSetting[@"cacheGroup"];
             NSString *nibName = adSetting[@"nativeAdLayout"];
-            EYAdPlace *adPlace = [[EYAdPlace alloc] initWithId:placeId groups:groups];
+            EYAdPlace *adPlace = [[EYAdPlace alloc] initWithId:placeId groupId:groupId];
             [self.adPlaceDict setObject:adPlace forKey:placeId];
             if(nibName){
                 [self.nativeAdViewNibDict setObject:nibName forKey:placeId];
@@ -535,7 +535,7 @@ static id s_sharedInstance;
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
-        EYRewardAdGroup *group = self.rewardAdGroupDict[adPlace.placeId];
+        EYRewardAdGroup *group = self.rewardAdGroupDict[adPlace.groupId];
         if(group!=nil)
         {
             [group loadAd:placeId];
@@ -556,7 +556,7 @@ static id s_sharedInstance;
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
-        EYRewardAdGroup *group = self.rewardAdGroupDict[adPlace.placeId];
+        EYRewardAdGroup *group = self.rewardAdGroupDict[adPlace.groupId];
         if(group!=nil)
         {
             if(![group showAd:placeId withController:controller]){
@@ -580,7 +580,7 @@ static id s_sharedInstance;
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
-        EYInterstitialAdGroup *group = self.interstitialAdGroupDict[adPlace.placeId];
+        EYInterstitialAdGroup *group = self.interstitialAdGroupDict[adPlace.groupId];
         if(group!=nil)
         {
             [group loadAd:placeId];
@@ -601,7 +601,7 @@ static id s_sharedInstance;
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
-        EYSplashAdGroup *group = self.splashAdGroupDict[adPlace.placeId];
+        EYSplashAdGroup *group = self.splashAdGroupDict[adPlace.groupId];
         if(group!=nil)
         {
             [group loadAd:placeId];
@@ -622,7 +622,7 @@ static id s_sharedInstance;
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
-        EYInterstitialAdGroup *group = self.interstitialAdGroupDict[adPlace.placeId];
+        EYInterstitialAdGroup *group = self.interstitialAdGroupDict[adPlace.groupId];
         if(group!=nil)
         {
             if(![group showAd:placeId controller:controller])
@@ -646,7 +646,7 @@ static id s_sharedInstance;
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
-        EYSplashAdGroup *group = self.splashAdGroupDict[adPlace.placeId];
+        EYSplashAdGroup *group = self.splashAdGroupDict[adPlace.groupId];
         if(group!=nil)
         {
             if(![group showAd:placeId withController:controller])
@@ -722,7 +722,7 @@ static id s_sharedInstance;
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
-        EYNativeAdGroup *group = self.nativeAdGroupDict[adPlace.placeId];
+        EYNativeAdGroup *group = self.nativeAdGroupDict[adPlace.groupId];
         return group!= nil && [group isCacheAvailable];
     }
     return false;
@@ -737,7 +737,7 @@ static id s_sharedInstance;
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
-        EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.placeId];
+        EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.groupId];
         return group!= nil && [group isCacheAvailable];
     }
     return false;
@@ -752,7 +752,7 @@ static id s_sharedInstance;
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
-        EYInterstitialAdGroup *group = self.interstitialAdGroupDict[adPlace.placeId];
+        EYInterstitialAdGroup *group = self.interstitialAdGroupDict[adPlace.groupId];
         return group!= nil && [group isCacheAvailable];
     }
     return false;
@@ -767,7 +767,7 @@ static id s_sharedInstance;
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
-        EYRewardAdGroup *group = self.rewardAdGroupDict[adPlace.placeId];
+        EYRewardAdGroup *group = self.rewardAdGroupDict[adPlace.groupId];
         return group!= nil && [group isCacheAvailable];
     }
     return false;
@@ -781,7 +781,7 @@ static id s_sharedInstance;
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
-        EYSplashAdGroup *group = self.splashAdGroupDict[adPlace.placeId];
+        EYSplashAdGroup *group = self.splashAdGroupDict[adPlace.groupId];
         return group!= nil && [group isCacheAvailable];
     }
     return false;
@@ -797,7 +797,7 @@ static id s_sharedInstance;
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
-        EYNativeAdGroup *group = self.nativeAdGroupDict[adPlace.placeId];
+        EYNativeAdGroup *group = self.nativeAdGroupDict[adPlace.groupId];
         if(group!=nil)
         {
             [group loadAd:placeId];
@@ -818,7 +818,7 @@ static id s_sharedInstance;
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
-        EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.placeId];
+        EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.groupId];
         if(group!=nil)
         {
             [group loadAd:placeId];
@@ -899,7 +899,7 @@ static id s_sharedInstance;
 //        if(adapter){
 //            [view setHidden:false];
 //        }
-        view.isNeedUpdate = true;
+        view.isNeedUpdate = false;
         view.isCanShow = true;
         adapter = [self getNativeAdAdapter:placeId];
         if(adapter){
@@ -918,7 +918,7 @@ static id s_sharedInstance;
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
-        EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.placeId];
+        EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.groupId];
         if(group!=nil)
         {
             return [group showAdGroup:viewGroup];
@@ -947,7 +947,7 @@ static id s_sharedInstance;
     EYAdPlace* adPlace = self.adPlaceDict[adPlaceId];
     if(adPlace != nil)
     {
-        EYNativeAdGroup *group = self.nativeAdGroupDict[adPlace.placeId];
+        EYNativeAdGroup *group = self.nativeAdGroupDict[adPlace.groupId];
         if(group!=nil && [group isCacheAvailable])
         {
             adapter = [group getAvailableAdapter];

@@ -11,7 +11,7 @@
 #import <MTGSDKReward/MTGRewardAdManager.h>
 
 @interface EYMtgRewardAdAdapter()<MTGRewardAdLoadDelegate,MTGRewardAdShowDelegate>
-
+@property(nonatomic,assign)bool isLoadSuccess;
 @end
 
 @implementation EYMtgRewardAdAdapter
@@ -56,58 +56,37 @@
     bool isAdLoaded = [[MTGRewardAdManager sharedInstance] isVideoReadyToPlayWithPlacementId:self.adKey.placementid unitId:self.adKey.key];
 //    bool isAdLoaded = [[MTGRewardAdManager sharedInstance] isVideoReadyToPlay:self.adKey.key];
     NSLog(@" lwq, mtg Reward video ad isAdLoaded = %d", isAdLoaded);
-    return isAdLoaded;
+    return self.isLoadSuccess && isAdLoaded;
 }
 
 #pragma mark MTGRewardAdLoadDelegate
 
-/**
- *  Called when the ad is loaded , and is ready to be displayed
- completely
- *  @param unitId - the unitId string of the Ad that was loaded.
- */
-- (void)onVideoAdLoadSuccess:(nullable NSString *)unitId
-{
+- (void)onVideoAdLoadSuccess:(NSString *)placementId unitId:(NSString *)unitId {
     NSLog(@"lwq, mtg reawrded video did load");
     self.isLoading = false;
+    self.isLoadSuccess = true;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
 }
 
 
-/**
- *  Called when the ad is loaded , but not ready to be displayed,need to wait download video
- completely
- *  @param unitId - the unitId string of the Ad that was loaded.
- */
-- (void)onAdLoadSuccess:(nullable NSString *)unitId
-{
+- (void)onAdLoadSuccess:(NSString *)placementId unitId:(NSString *)unitId {
     NSLog(@"lwq, mtg reawrded material load success");
     self.isLoading = false;
     [self cancelTimeoutTask];
 }
 
-/**
- *  Called when the ad is loaded failure
- completely
- */
-- (void)onVideoAdLoadFailed:(nullable NSString *)unitId error:(nonnull NSError *)error
-{
+- (void)onVideoAdLoadFailed:(NSString *)placementId unitId:(NSString *)unitId error:(NSError *)error {
     NSLog(@"lwq, mtg rewarded video material load fail unitId = %@, error = %@", unitId, error);
     self.isLoading = false;
+    self.isLoadSuccess = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoadFailedWithError:(int)error.code];
 }
 
 #pragma mark MTGRewardAdShowDelegate
 
-/**
- *  Called when the ad display success
- *
- *  @param unitId - the unitId string of the Ad that display success.
- */
-- (void)onVideoAdShowSuccess:(nullable NSString *)unitId
-{
+- (void)onVideoAdShowSuccess:(NSString *)placementId unitId:(NSString *)unitId {
     NSLog(@"lwq, mtg rewarded video will visible, unitId = %@", unitId);
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
@@ -118,9 +97,7 @@
  *
  *  @param unitId - the unitId string of the Ad that display success.
  */
-
-- (void)onVideoAdShowFailed:(nullable NSString *)unitId withError:(nonnull NSError *)error
-{
+- (void)onVideoAdShowFailed:(NSString *)placementId unitId:(NSString *)unitId withError:(NSError *)error {
     NSLog(@"lwq, mtg onVideoAdShowFailed unitId = %@, error = %@", unitId, error);
 }
 
@@ -129,10 +106,8 @@
  *
  *  @param unitId - the unitId string of the Ad clicked.
  */
-- (void)onVideoAdClicked:(nullable NSString *)unitId
-{
-    NSLog(@"lwq, mtg rewarded video did click, unitId = %@", unitId);
-    [self notifyOnAdClicked];
+- (void)onVideoAdClicked:(NSString *)placementId unitId:(NSString *)unitId {
+    
 }
 
 /**
@@ -142,12 +117,12 @@
  *  @param converted   - BOOL describing whether the ad has converted
  *  @param rewardInfo  - the rewardInfo object containing the info that should be given to your user.
  */
-- (void)onVideoAdDismissed:(nullable NSString *)unitId withConverted:(BOOL)converted withRewardInfo:(nullable MTGRewardAdInfo *)rewardInfo
-{
+- (void)onVideoAdDismissed:(NSString *)placementId unitId:(NSString *)unitId withConverted:(BOOL)converted withRewardInfo:(MTGRewardAdInfo *)rewardInfo {
     NSLog(@"lwq, mtg rewarded video did close, unitId = %@", unitId);
     if(rewardInfo){
         [self notifyOnAdRewarded];
     }
+    self.isLoadSuccess = false;
     self.isShowing = NO;
     [self notifyOnAdClosed];
 }

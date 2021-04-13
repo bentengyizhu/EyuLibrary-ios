@@ -36,7 +36,7 @@
 //@synthesize reportEvent = _reportEvent;
 
 - (EYSplashAdGroup *)initWithGroup:(EYAdGroup *)group adConfig:(EYAdConfig *)adConfig {
-    self = [super init];
+    self = [super initWithGroup:group adConfig:adConfig];
     if(self)
     {
         self.adapterClassDict = [[NSDictionary alloc] initWithObjectsAndKeys:

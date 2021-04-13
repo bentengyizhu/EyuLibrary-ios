@@ -130,7 +130,7 @@
 
 -(bool) isAdLoaded
 {
-    NSLog(@" lwq, wm nativeAd isAdLoaded ? = %d", self.isLoaded);
+    NSLog(@" lwq, abu nativeAd isAdLoaded = %d", self.isLoaded);
     return self.isLoaded;
 }
 

@@ -40,7 +40,7 @@
 
 -(EYInterstitialAdGroup*) initWithGroup:(EYAdGroup*)adGroup adConfig:(EYAdConfig*) adConfig
 {
-    self = [super init];
+    self = [super initWithGroup:adGroup adConfig:adConfig];
     if(self)
     {
 

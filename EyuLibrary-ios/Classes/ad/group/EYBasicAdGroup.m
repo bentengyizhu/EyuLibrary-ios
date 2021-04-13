@@ -32,10 +32,9 @@
 }
 
 - (void)loadAdBySequence {
-    NSLog(@"加载旧版广告");
+    NSLog(@"lwq,加载旧版广告 adtype = %@", self.adType);
     if(self.adapterArray.count == 0) return;
     EYAdAdapter* adapter = self.adapterArray[self.currentAdpaterIndex];
-    self.tryLoadAdCount = 1;
     [adapter loadAd];
     if (self.adGroup.isAutoLoad && self.adapterArray.count > 1) {
         self.currentAdpaterIndex = (self.currentAdpaterIndex+1)%self.adapterArray.count;
@@ -45,17 +44,18 @@
 }
 
 - (void)loadAdByValue: (bool)isCurrentIdnex {
-    NSLog(@"加载新版价值广告");
+    NSLog(@"lwq,加载新版价值广告 adtype = %@", self.adType);
     if (isCurrentIdnex == false && self.currentSuiteIndex > 0) {
+        NSLog(@"lwq,加载上一组价值更高广告currentSuiteIndex = %d adtype = %@",self.currentSuiteIndex, self.adType);
         self.currentSuiteIndex -= 1;
         [self addAdatpers];
     } else {
+        NSLog(@"lwq,已经是价值最高广告或者强制加载本组广告currentSuiteIndex = %d adtype = %@",self.currentSuiteIndex, self.adType);
         if (self.adapterArray.count == 0) {
             [self addAdatpers];
         }
     }
     for (EYAdAdapter* adapter in self.adapterArray) {
-        adapter.tryLoadAdCount = 1;
         [adapter loadAd];
     }
 }
@@ -94,9 +94,13 @@
             }
         }
     }
+    NSLog(@"lwq,初始化adapter数组: %@ adtype = %@", self.adapterArray, self.adType);
 }
 
 -(void)addAdatpers {
+    if (self.adGroup.suiteArray.count <= self.currentSuiteIndex) {
+        return;
+    }
     EYAdSuite *currentSuite = self.adGroup.suiteArray[self.currentSuiteIndex];
     NSArray<EYAdKey*>* keyList = currentSuite.keys;
     [self.adapterArray removeAllObjects];
@@ -105,20 +109,21 @@
         if(adKey){
             EYAdAdapter *adapter = [self createAdAdapterWithKey:adKey adGroup:self.adGroup];
             if(adapter){
-                adapter.tryLoadAdCount = 1;
                 [adapter loadAd];
                 [self.adapterArray addObject:adapter];
             }
         }
     }
+    NSLog(@"lwq 添加adapter %@", self.adapterArray);
 }
 
 -(void)loadNextSuite {
+    NSLog(@"lwq,加载下一组广告currentSuiteIndex = %d, suiteArray = %@ adtype = %@", self.currentSuiteIndex, self.adGroup.suiteArray, self.adType);
     if (self.currentSuiteIndex >= self.adGroup.suiteArray.count-1) {
-        NSLog(@"本组没有拉取到广告并且已经是价值最低的组");
+        NSLog(@"lwq,本组没有拉取到广告并且已经是价值最低的组 adtype = %@", self.adType);
         return;
     }
-    NSLog(@"本组没有拉取到广告放低价值加载下一组广告");
+    NSLog(@"lwq,本组没有拉取到广告放低价值加载下一组广告 adtype = %@", self.adType);
     self.currentSuiteIndex++;
     EYAdSuite *currentSuite = self.adGroup.suiteArray[self.currentSuiteIndex];
     NSMutableArray<EYAdKey*> *keyList = currentSuite.keys;
@@ -140,8 +145,11 @@
 //    {
 //        self.curLoadingIndex = -1;
 //    }
+    NSLog(@"lwq, basic onAdLoaded %d",self.currentAdValue);
+    adapter.tryLoadAdCount ++;
     if (self.isNewJsonSetting) {
         EYAdSuite *suite = self.adGroup.suiteArray[self.currentSuiteIndex];
+        NSLog(@"%d-----%d",suite.value,self.currentAdValue);
         if (self.currentAdValue != suite.value) {
             self.currentAdValue = suite.value;
             [[NSUserDefaults standardUserDefaults]setInteger:suite.value forKey:self.adValueKey];
@@ -161,17 +169,21 @@
 
 - (void)onAdLoadFailed:(EYAdAdapter *)adapter withError:(int)errorCode {
     EYAdKey* adKey = adapter.adKey;
-    NSLog(@"onAdLoadFailed adKey = %@, errorCode = %d", adKey.keyId, errorCode);
+    NSLog(@"lwq,onAdLoadFailed adKey = %@, errorCode = %d", adKey.keyId, errorCode);
+    EYAdSuite *suite = self.adGroup.suiteArray[self.currentSuiteIndex];
+    NSLog(@"%d-----%d",suite.value,self.currentAdValue);
     if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setObject:[[NSString alloc] initWithFormat:@"%d",errorCode] forKey:@"code"];
         [dic setObject:adKey.keyId forKey:@"type"];
         [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_FAILED]  parameters:dic];
     }
+    adapter.tryLoadAdCount ++;
     if (self.isNewJsonSetting) {
         bool isAllLoaded = true;
         for (EYAdAdapter *adapter in self.adapterArray) {
-            if (adapter.tryLoadAdCount == 0 && !adapter.isLoading) {
+            NSLog(@"%d", adapter.tryLoadAdCount);
+            if ((adapter.tryLoadAdCount == 0 && adapter.isLoading) || [adapter isAdLoaded]) {
                 isAllLoaded = false;
             }
         }

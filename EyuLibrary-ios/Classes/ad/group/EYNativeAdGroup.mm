@@ -21,7 +21,7 @@
 
 -(EYNativeAdGroup*) initWithGroup:(EYAdGroup*)group adConfig:(EYAdConfig*) adConfig
 {
-    self = [super init];
+    self = [super initWithGroup:group adConfig:adConfig];
     if(self)
     {
         self.adapterClassDict = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -94,14 +94,19 @@
 {
     EYAdAdapter* loadAdapter = NULL;
     int index = 0;
-    for(EYAdAdapter* adapter in self.adapterArray)
+    bool hasLoadedAdapter = false;
+    for(int i = 0; i < self.adapterArray.count; i++)
     {
+        EYAdAdapter* adapter = self.adapterArray[i];
         if([adapter isAdLoaded])
         {
-            loadAdapter = adapter;
-            break;
+            if (loadAdapter == NULL) {
+                loadAdapter = adapter;
+                index = i;
+            } else {
+                hasLoadedAdapter = true;
+            }
         }
-        index++;
     }
     if(loadAdapter != NULL)
     {
@@ -114,7 +119,7 @@
 //        }
         [self.adapterArray insertObject:newAdapter atIndex:index];
     }
-    if (index == self.adapterArray.count-1 || loadAdapter == NULL) {
+    if (hasLoadedAdapter == false || loadAdapter == NULL) {
         [self loadAd:@"auto"];
     }
     return (EYNativeAdAdapter *)loadAdapter;
