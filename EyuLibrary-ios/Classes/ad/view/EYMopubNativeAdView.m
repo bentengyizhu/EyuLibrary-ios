@@ -21,6 +21,15 @@
         self.sponsoredByLabel = [UILabel new];
         self.iconImageView = [UIImageView new];
         self.privacyInformationIconImageView = [UIImageView new];
+        
+        [self addSubview:self.mainImageView];
+        [self addSubview:self.mainTextLabel];
+        [self addSubview:self.titleLabel];
+        [self addSubview:self.callToActionLabel];
+        [self addSubview:self.sponsoredByLabel];
+        [self addSubview:self.iconImageView];
+        [self addSubview:self.privacyInformationIconImageView];
+        self.backgroundColor = UIColor.whiteColor;
     }
     return self;
 }

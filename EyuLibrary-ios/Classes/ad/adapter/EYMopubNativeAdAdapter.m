@@ -68,9 +68,10 @@
     if (view.subviews.count == 0) {
         return false;
     }
+    self.controller = controller;
     EYMopubNativeAdView *nativeAdView = (EYMopubNativeAdView *)view.subviews[0];
     if(mediaLayout!= NULL) {
-        CGRect mediaViewBounds = CGRectMake(0,0, mediaLayout.frame.size.width, mediaLayout.frame.size.height);
+        CGRect mediaViewBounds = CGRectMake(0,mediaLayout.frame.origin.y, mediaLayout.frame.size.width, mediaLayout.frame.size.height);
 //        self.nativeAdImgView = [[UIImageView alloc] initWithFrame:mediaViewBounds];
 //        self.nativeAdImgView.image = nativeAdView.mainImageView.image;
 //        [mediaLayout addSubview:self.nativeAdImgView];
@@ -78,30 +79,27 @@
     }
     nativeAdView.iconImageView.frame = CGRectMake(nativeAdIcon.frame.origin.x, nativeAdIcon.frame.origin.y, nativeAdView.iconImageView.image.size.width, nativeAdView.iconImageView.image.size.height);
     nativeAdView.titleLabel.frame = CGRectMake(nativeAdTitle.frame.origin.x, nativeAdTitle.frame.origin.y, nativeAdView.titleLabel.frame.size.width, nativeAdView.titleLabel.frame.size.height);
-    nativeAdView.mainTextLabel.frame = CGRectMake(nativeAdDesc.frame.origin.x, nativeAdDesc.frame.origin.y, nativeAdView.mainTextLabel.frame.size.width, nativeAdView.mainTextLabel.frame.size.height);
+    [nativeAdView.titleLabel sizeToFit];
+    [nativeAdView.mainTextLabel sizeToFit];
+    nativeAdView.mainTextLabel.frame = CGRectMake(nativeAdDesc.frame.origin.x, nativeAdDesc.frame.origin.y, 250, nativeAdView.mainTextLabel.frame.size.height);
     nativeAdView.callToActionLabel.frame = CGRectMake(actBtn.frame.origin.x, actBtn.frame.origin.y, nativeAdView.callToActionLabel.frame.size.width, nativeAdView.callToActionLabel.frame.size.height);
-    nativeAdView.frame = nativeAdLayout.bounds;
-    [nativeAdLayout addSubview:nativeAdView];
+    [nativeAdView.callToActionLabel sizeToFit];
+    view.frame = nativeAdLayout.bounds;
+    [nativeAdLayout addSubview:view];
+    
 //    if(nativeAdIcon!=NULL){
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-//            NSData *imageData = [NSData dataWithContentsOfURL:self.nativeAd.iconURL];
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                nativeAdIcon.image = [UIImage imageWithData:imageData];
-//            });
-//        });
+//        nativeAdIcon.image = nativeAdView.iconImageView.image;
 //    }
-//    // Render native ads onto UIView
 //    if(nativeAdTitle!=NULL){
-//        nativeAdTitle.text = self.nativeAd.title;
+//        nativeAdTitle.text = nativeAdView.titleLabel.text;
 //    }
 //    if(nativeAdDesc != NULL){
-//        nativeAdDesc.text = self.nativeAd.descriptionText;
+//        nativeAdDesc.text = nativeAdView.mainTextLabel.text;
 //    }
-//
 //    if(actBtn != NULL){
 //        actBtn.hidden = false;
 //        actBtn.userInteractionEnabled = false;
-//        [actBtn setTitle:self.nativeAd.ctaText forState:UIControlStateNormal];
+//        [actBtn setTitle:nativeAdView.callToActionLabel.text forState:UIControlStateNormal];
 //    }
     return true;
 }

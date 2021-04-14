@@ -903,7 +903,7 @@ static id s_sharedInstance;
         view.isCanShow = true;
         adapter = [self getNativeAdAdapter:placeId];
         if(adapter){
-            [view updateNativeAdAdapter:adapter];
+            [view updateNativeAdAdapter:adapter controller:controller];
         }else{
             [self loadNativeAd:placeId];
         }
@@ -965,7 +965,7 @@ static id s_sharedInstance;
         EYNativeAdAdapter* adapter = [self getNativeAdAdapter:adPlaceId];
         if(adapter)
         {
-            [view updateNativeAdAdapter:adapter];
+            [view updateNativeAdAdapter:adapter controller:self.nativeAdController];
         }
     }
 }

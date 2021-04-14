@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithFrame:(CGRect)frame nibName:(NSString*)nibName;
 
 -(EYNativeAdAdapter*) getAdapter;
--(void) updateNativeAdAdapter:(EYNativeAdAdapter*)adapter;
+-(void) updateNativeAdAdapter:(EYNativeAdAdapter*)adapter controller:(UIViewController *)controller;
 -(void) unregisterView;
 -(void) initFromXib;
 

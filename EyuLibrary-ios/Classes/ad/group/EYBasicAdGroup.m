@@ -120,11 +120,11 @@
     NSLog(@"lwq 添加adapter %@", self.adapterArray);
 }
 
--(void)loadNextSuite {
+-(bool)loadNextSuite {
     NSLog(@"lwq,加载下一组广告currentSuiteIndex = %d, suiteArray = %@ adtype = %@", self.currentSuiteIndex, self.adGroup.suiteArray, self.adType);
     if (self.currentSuiteIndex >= self.adGroup.suiteArray.count-1) {
         NSLog(@"lwq,本组没有拉取到广告并且已经是价值最低的组 adtype = %@", self.adType);
-        return;
+        return false;
     }
     NSLog(@"lwq,本组没有拉取到广告放低价值加载下一组广告 adtype = %@", self.adType);
     self.currentSuiteIndex++;
@@ -140,6 +140,7 @@
             }
         }
     }
+    return  true;
 }
 
 
@@ -191,11 +192,9 @@
             }
         }
         if (isAllLoaded) {
-            for (EYAdAdapter *adapter in self.adapterArray) {
-                NSLog(@"%d----%d", adapter.isAdLoaded, adapter.tryLoadAdCount);
+            if ([self loadNextSuite]) {
+                [self loadAdByValue:true];
             }
-            [self loadNextSuite];
-            [self loadAdByValue:true];
         }
     } else {
         [self tryAgain:adapter withError:errorCode];

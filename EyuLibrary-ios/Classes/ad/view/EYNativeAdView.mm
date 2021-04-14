@@ -80,7 +80,7 @@
     return self.adAdapter;
 }
 
--(void) updateNativeAdAdapter:(EYNativeAdAdapter*)adapter
+-(void) updateNativeAdAdapter:(EYNativeAdAdapter*)adapter controller:(UIViewController *)controller
 {
     [self unregisterView];
     self.adAdapter = adapter;
@@ -91,7 +91,7 @@
                 [view removeFromSuperview];
             }
         }
-        [self.adAdapter showAdWithAdLayout:self.nativeAdLayout iconView:self.nativeAdIcon titleView:self.nativeAdTitle descView:self.nativeAdDesc mediaLayout:self.mediaLayout actBtn:self.actBtn controller:self.controller];
+        [self.adAdapter showAdWithAdLayout:self.nativeAdLayout iconView:self.nativeAdIcon titleView:self.nativeAdTitle descView:self.nativeAdDesc mediaLayout:self.mediaLayout actBtn:self.actBtn controller:controller];
         self.isNeedUpdate = false;
         if(self.isCanShow && self.superview){
             [self.superview setHidden:NO];

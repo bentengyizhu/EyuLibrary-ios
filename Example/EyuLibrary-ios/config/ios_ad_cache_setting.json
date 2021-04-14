@@ -1,8 +1,26 @@
 [
     {
-        "child":["reward1", "reward2", "reward3", "reward4", "reward5", "reward6", "reward7"],
+        "child":["reward_mopub"],
         "type":"rewardAd",
         "id":"reward_ad",
+        "isAutoLoad":"true"
+    },
+    {
+        "child":["inter_mopub"],
+        "type":"interstitialAd",
+        "id":"inter_ad",
+        "isAutoLoad":"true"
+    },
+    {
+        "child":["native_mopub"],
+        "type":"nativeAd",
+        "id":"native_ad",
+        "isAutoLoad":"true"
+    },
+    {
+        "child":["banner_mopub"],
+        "type":"bannerAd",
+        "id":"banner_group",
         "isAutoLoad":"true"
     }
 ]

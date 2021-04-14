@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)loadAd:(NSString*)adPlaceId;
 -(EYAdAdapter*) createAdAdapterWithKey:(EYAdKey*)adKey adGroup:(EYAdGroup*)group;
 -(void)initAdatperArray;
--(void)loadNextSuite;
+-(bool)loadNextSuite;
 @end
 
 NS_ASSUME_NONNULL_END
