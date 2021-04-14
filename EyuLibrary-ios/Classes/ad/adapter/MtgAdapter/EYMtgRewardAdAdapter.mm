@@ -56,7 +56,7 @@
     bool isAdLoaded = [[MTGRewardAdManager sharedInstance] isVideoReadyToPlayWithPlacementId:self.adKey.placementid unitId:self.adKey.key];
 //    bool isAdLoaded = [[MTGRewardAdManager sharedInstance] isVideoReadyToPlay:self.adKey.key];
     NSLog(@" lwq, mtg Reward video ad isAdLoaded = %d", isAdLoaded);
-    return self.isLoadSuccess && isAdLoaded;
+    return self.isLoadSuccess ;
 }
 
 #pragma mark MTGRewardAdLoadDelegate
@@ -64,15 +64,16 @@
 - (void)onVideoAdLoadSuccess:(NSString *)placementId unitId:(NSString *)unitId {
     NSLog(@"lwq, mtg reawrded video did load");
     self.isLoading = false;
-    self.isLoadSuccess = true;
     [self cancelTimeoutTask];
+    self.isLoadSuccess = true;
     [self notifyOnAdLoaded];
 }
 
 
 - (void)onAdLoadSuccess:(NSString *)placementId unitId:(NSString *)unitId {
     NSLog(@"lwq, mtg reawrded material load success");
-    self.isLoading = false;
+//    self.isLoading = false;
+//    self.isLoadSuccess = true;
     [self cancelTimeoutTask];
 }
 

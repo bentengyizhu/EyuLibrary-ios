@@ -39,6 +39,7 @@
     if (self.adGroup.isAutoLoad && self.adapterArray.count > 1) {
         self.currentAdpaterIndex = (self.currentAdpaterIndex+1)%self.adapterArray.count;
         EYAdAdapter* adp = self.adapterArray[self.currentAdpaterIndex];
+        adp.tryLoadAdCount = 0;
         [adp loadAd];
     }
 }
@@ -56,6 +57,7 @@
         }
     }
     for (EYAdAdapter* adapter in self.adapterArray) {
+        adapter.tryLoadAdCount = 0;
         [adapter loadAd];
     }
 }
@@ -109,7 +111,8 @@
         if(adKey){
             EYAdAdapter *adapter = [self createAdAdapterWithKey:adKey adGroup:self.adGroup];
             if(adapter){
-                [adapter loadAd];
+//                adapter.tryLoadAdCount = 0;
+//                [adapter loadAd];
                 [self.adapterArray addObject:adapter];
             }
         }
@@ -188,6 +191,9 @@
             }
         }
         if (isAllLoaded) {
+            for (EYAdAdapter *adapter in self.adapterArray) {
+                NSLog(@"%d----%d", adapter.isAdLoaded, adapter.tryLoadAdCount);
+            }
             [self loadNextSuite];
             [self loadAdByValue:true];
         }
