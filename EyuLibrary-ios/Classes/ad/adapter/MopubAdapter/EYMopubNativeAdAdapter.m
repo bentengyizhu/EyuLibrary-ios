@@ -81,9 +81,10 @@
     nativeAdView.titleLabel.frame = CGRectMake(nativeAdTitle.frame.origin.x, nativeAdTitle.frame.origin.y, nativeAdView.titleLabel.frame.size.width, nativeAdView.titleLabel.frame.size.height);
     [nativeAdView.titleLabel sizeToFit];
     [nativeAdView.mainTextLabel sizeToFit];
-    nativeAdView.mainTextLabel.frame = CGRectMake(nativeAdDesc.frame.origin.x, nativeAdDesc.frame.origin.y, 250, nativeAdView.mainTextLabel.frame.size.height);
-    nativeAdView.callToActionLabel.frame = CGRectMake(actBtn.frame.origin.x, actBtn.frame.origin.y, nativeAdView.callToActionLabel.frame.size.width, nativeAdView.callToActionLabel.frame.size.height);
-    [nativeAdView.callToActionLabel sizeToFit];
+    nativeAdView.mainTextLabel.frame = CGRectMake(nativeAdDesc.frame.origin.x, nativeAdDesc.frame.origin.y, [UIScreen mainScreen].bounds.size.width - nativeAdDesc.frame.origin.x - 15, nativeAdView.mainTextLabel.frame.size.height);
+    [nativeAdView.callToActionLabel setHidden:YES];
+//    nativeAdView.callToActionLabel.frame = CGRectMake(actBtn.frame.origin.x, actBtn.frame.origin.y, nativeAdView.callToActionLabel.frame.size.width, nativeAdView.callToActionLabel.frame.size.height);
+//    [nativeAdView.callToActionLabel sizeToFit];
     view.frame = nativeAdLayout.bounds;
     [nativeAdLayout addSubview:view];
     

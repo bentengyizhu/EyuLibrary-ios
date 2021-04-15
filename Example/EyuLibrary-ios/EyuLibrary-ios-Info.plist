@@ -4,6 +4,8 @@
 <dict>
 	<key>AppLovinSdkKey</key>
 	<string>9aiR-8NXTyh84IIr1CWylMWBF4Fkf1Qpc8FaHc6qZoyd4FS6S-2BKZNaecIIdk6EtLq8zwzWiw8o9aucZxovU9</string>
+    <key>FacebookAppID</key>
+        <string>2873847352839918</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

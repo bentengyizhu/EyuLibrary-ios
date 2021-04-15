@@ -44,8 +44,8 @@
 
 -(bool) isAdLoaded
 {
-    NSArray *rewards = [MPRewardedAds availableRewardsForAdUnitID:self.adKey.key];
-    bool isAdLoaded = rewards != NULL && rewards.count > 1;
+    BOOL isAdLoaded = [MPRewardedAds hasAdAvailableForAdUnitID:self.adKey.key];
+//    bool isAdLoaded = rewards != NULL && rewards.count > 0;
 //    bool isAdLoaded = [[MTGRewardAdManager sharedInstance] isVideoReadyToPlay:self.adKey.key];
     NSLog(@" lwq, mopub Reward video ad isAdLoaded = %d", isAdLoaded);
     return isAdLoaded;

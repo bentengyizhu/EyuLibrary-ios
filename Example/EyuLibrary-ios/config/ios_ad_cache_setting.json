@@ -10,17 +10,5 @@
         "type":"interstitialAd",
         "id":"inter_ad",
         "isAutoLoad":"true"
-    },
-    {
-        "child":["native_mopub"],
-        "type":"nativeAd",
-        "id":"native_ad",
-        "isAutoLoad":"true"
-    },
-    {
-        "child":["banner_mopub"],
-        "type":"bannerAd",
-        "id":"banner_group",
-        "isAutoLoad":"true"
     }
 ]

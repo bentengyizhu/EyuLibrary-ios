@@ -95,6 +95,7 @@
 }
 
 @property(nonatomic,assign) bool isInited;
+@property(nonatomic,assign) bool canLoadAd;
 @property(nonatomic,strong) NSMutableDictionary<NSString*,EYAdKey*>* adKeyDict;
 @property(nonatomic,strong) NSMutableDictionary<NSString*,EYAdGroup*>* adGroupDict;
 @property(nonatomic,strong) NSMutableDictionary<NSString*,EYAdPlace*>* adPlaceDict;
@@ -279,7 +280,7 @@ static id s_sharedInstance;
             EYInterstitialAdGroup* interstitialAdGroup = [[EYInterstitialAdGroup alloc] initWithGroup:group adConfig:self.adConfig];
             [interstitialAdGroup setDelegate:self];
             [self.interstitialAdGroupDict setObject:interstitialAdGroup forKey:group.groupId];
-            if(group.isAutoLoad)
+            if(group.isAutoLoad && self.canLoadAd)
             {
                 [interstitialAdGroup loadAd:@"auto"];
             }
@@ -288,7 +289,7 @@ static id s_sharedInstance;
             EYNativeAdGroup* nativeAdGroup = [[EYNativeAdGroup alloc] initWithGroup:group adConfig:self.adConfig];
             [nativeAdGroup setDelegate:self];
             [self.nativeAdGroupDict setObject:nativeAdGroup forKey:group.groupId];
-            if(group.isAutoLoad)
+            if(group.isAutoLoad && self.canLoadAd)
             {
                 [nativeAdGroup loadAd:@"auto"];
             }
@@ -297,7 +298,7 @@ static id s_sharedInstance;
             EYRewardAdGroup* rewardAdGroup = [[EYRewardAdGroup alloc] initWithGroup:group adConfig:self.adConfig];
             [rewardAdGroup setDelegate:self];
             [self.rewardAdGroupDict setObject:rewardAdGroup forKey:group.groupId];
-            if(group.isAutoLoad)
+            if(group.isAutoLoad && self.canLoadAd)
             {
                 [rewardAdGroup loadAd:@"auto"];
             }
@@ -305,14 +306,14 @@ static id s_sharedInstance;
             EYBannerAdGroup* bannerGroup = [[EYBannerAdGroup alloc]initWithGroup:group adConfig:self.adConfig];
             [bannerGroup setDelegate:self];
             [self.bannerAdGroupDict setObject:bannerGroup forKey:group.groupId];
-            if (group.isAutoLoad && self.rootViewController) {
+            if (group.isAutoLoad && self.rootViewController && self.canLoadAd) {
                 [bannerGroup loadAd:@"auto"];
             }
         } else if ([ADTypeSplash isEqualToString:group.type]) {
             EYSplashAdGroup* splashGroup = [[EYSplashAdGroup alloc]initWithGroup:group adConfig:self.adConfig];
             [splashGroup setDelegate:self];
             [self.splashAdGroupDict setObject:splashGroup forKey:group.groupId];
-            if (group.isAutoLoad) {
+            if (group.isAutoLoad && self.canLoadAd) {
                 [splashGroup loadAd:@"auto"];
             }
         }
@@ -375,25 +376,27 @@ static id s_sharedInstance;
 #endif
     [[ALSdk shared] initializeSdkWithCompletionHandler:^(ALSdkConfiguration *configuration) {
         // AppLovin SDK is initialized, start loading ads
-        if(self.interstitialAdGroupDict)
-        {
-            for(NSString* groupName in self.interstitialAdGroupDict)
-            {
-                EYAdGroup* group = self.adGroupDict[groupName];
-                if(group && group.isAutoLoad){
-                    [self.interstitialAdGroupDict[groupName] loadAd:@"auto"];
-                }
-            }
-        }
-        if(self.rewardAdGroupDict){
-            for(NSString* groupName in self.rewardAdGroupDict)
-            {
-                EYAdGroup* group = self.adGroupDict[groupName];
-                if(group && group.isAutoLoad){
-                    [self.rewardAdGroupDict[groupName] loadAd:@"auto"];
-                }
-            }
-        }
+        self.canLoadAd = true;
+        [self loadAutoAd];
+//        if(self.interstitialAdGroupDict)
+//        {
+//            for(NSString* groupName in self.interstitialAdGroupDict)
+//            {
+//                EYAdGroup* group = self.adGroupDict[groupName];
+//                if(group && group.isAutoLoad){
+//                    [self.interstitialAdGroupDict[groupName] loadAd:@"auto"];
+//                }
+//            }
+//        }
+//        if(self.rewardAdGroupDict){
+//            for(NSString* groupName in self.rewardAdGroupDict)
+//            {
+//                EYAdGroup* group = self.adGroupDict[groupName];
+//                if(group && group.isAutoLoad){
+//                    [self.rewardAdGroupDict[groupName] loadAd:@"auto"];
+//                }
+//            }
+//        }
     }];
 
 #endif
@@ -465,11 +468,15 @@ static id s_sharedInstance;
 #ifdef MOPUB_ENABLED
     MPMoPubConfiguration *sdkConfig = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:config.mopubAdUnitId];
 //    sdkConfig.globalMediationSettings = @[];
-//    sdkConfig.loggingLevel = MPBLogLevelInfo;
+    sdkConfig.loggingLevel = MPBLogLevelInfo;
 //    sdkConfig.allowLegitimateInterest = YES;
     [[MoPub sharedInstance] initializeSdkWithConfiguration:sdkConfig completion:^{
-            NSLog(@"SDK initialization complete");
-            // SDK initialization complete. Ready to make ad requests.
+        NSLog(@"SDK initialization complete");
+        // SDK initialization complete. Ready to make ad requests.
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.canLoadAd = true;
+            [self loadAutoAd];
+        });
     }];
 #endif
 }
@@ -478,6 +485,13 @@ static id s_sharedInstance;
 {
     //NSLog(@"lwq, setup 111111111 %@", [NSThread currentThread]);
     //self.interstitialViewController = [[UIViewController alloc] init];
+    self.canLoadAd = true;
+#ifdef MOPUB_ENABLED
+    self.canLoadAd = false;
+#endif
+#ifdef APPLOVIN_ADS_ENABLED
+    self.canLoadAd = false;
+#endif
     if(self.isInited)
     {
         NSLog(@"lwq, setupWithViewController error,self.isInited = true");
@@ -880,7 +894,7 @@ static id s_sharedInstance;
         rect.origin.x = 0;
         rect.origin.y = 0;
         view = [[_nativeClass alloc] initWithFrame:rect nibName:nativeAdViewNib];
-        [viewGroup addSubview:view];
+//        [viewGroup addSubview:view];
         [self putNativeAdViewToCache:view placeId:placeId withViewController:controller];
     }
     return view;
@@ -903,6 +917,7 @@ static id s_sharedInstance;
         view.isCanShow = true;
         adapter = [self getNativeAdAdapter:placeId];
         if(adapter){
+            [viewGroup addSubview:view];
             [view updateNativeAdAdapter:adapter controller:controller];
         }else{
             [self loadNativeAd:placeId];
