@@ -18,7 +18,7 @@
 
 -(void) loadAd
 {
-    NSLog(@"lwq, admob loadAd interstitialAd = %@", self.interstitialAd);
+    NSLog(@"admob loadAd interstitialAd = %@", self.interstitialAd);
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if(self.interstitialAd == NULL)
@@ -29,11 +29,11 @@
         extras.allPlacements = [EYAdManager sharedInstance].vunglePlacementIds;
         [request registerAdNetworkExtras:extras];
 #endif
-        [GADInterstitialAd loadWithAdUnitID:@"ca-app-pub-3940256099942544/4411468910"
+        [GADInterstitialAd loadWithAdUnitID:self.adKey.key
                                     request:request
                           completionHandler:^(GADInterstitialAd *ad, NSError *error) {
             if (error) {
-                NSLog(@"lwq, admob interstitial:didFailToReceiveAdWithError: %@, adKey = %@", [error localizedDescription], self.adKey);
+                NSLog(@"admob interstitial:didFailToReceiveAdWithError: %@, adKey = %@", [error localizedDescription], self.adKey);
                 self.isLoading = false;
                 if(self.interstitialAd!= NULL)
                 {
@@ -45,7 +45,7 @@
             }
             self.interstitialAd = ad;
             self.interstitialAd.fullScreenContentDelegate = self;
-            NSLog(@"lwq, admob interstitialDidReceiveAd adKey = %@", self.adKey);
+            NSLog(@"admob interstitialDidReceiveAd adKey = %@", self.adKey);
             self.isLoading = false;
             [self cancelTimeoutTask];
             [self notifyOnAdLoaded];
@@ -63,7 +63,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@"lwq, admob showAd [self isAdLoaded] = %d", [self isAdLoaded]);
+    NSLog(@"admob showAd [self isAdLoaded] = %d", [self isAdLoaded]);
     if([self isAdLoaded])
     {
         self.isShowing = true;
@@ -81,19 +81,19 @@
 /// Tells the delegate that the ad failed to present full screen content.
 - (void)ad:(nonnull id<GADFullScreenPresentingAd>)ad
 didFailToPresentFullScreenContentWithError:(nonnull NSError *)error {
-    NSLog(@"lwq, admobAd did fail to present full screen content.");
+    NSLog(@"admobAd did fail to present full screen content.");
     self.isShowing = false;
 }
 
 /// Tells the delegate that the ad presented full screen content.
 - (void)adDidPresentFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
-    NSLog(@"lwq, admobAd did present full screen content.");
+    NSLog(@"admobAd did present full screen content.");
     [self notifyOnAdShowed];
 }
 
 /// Tells the delegate that the ad dismissed full screen content.
 - (void)adDidDismissFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
-   NSLog(@"lwq, admobAd did dismiss full screen content.");
+   NSLog(@"admobAd did dismiss full screen content.");
     if(self.interstitialAd!= NULL)
     {
         self.interstitialAd = NULL;

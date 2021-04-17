@@ -20,7 +20,7 @@
 
 -(void) loadAd
 {
-    NSLog(@"lwq, EYApplovinRewardAdAdapter loadAd #############. adId = #%@#", self.adKey.key);
+    NSLog(@" EYApplovinRewardAdAdapter loadAd #############. adId = #%@#", self.adKey.key);
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded])
@@ -45,7 +45,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@"lwq, EYApplovinRewardAdAdapter showAd #############.");
+    NSLog(@" EYApplovinRewardAdAdapter showAd #############.");
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -67,7 +67,7 @@
 - (void)adService:(nonnull ALAdService *)adService didLoadAd:(nonnull ALAd *)ad
 {
     // We now have an interstitial ad we can show!
-    NSLog(@"lwq, applovin didLoadAd adKey = %@", self.adKey);
+    NSLog(@" applovin didLoadAd adKey = %@", self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
@@ -76,7 +76,7 @@
 - (void)adService:(nonnull ALAdService *)adService didFailToLoadAdWithError:(int)code
 {
     // Look at ALErrorCodes.h for the list of error codes.
-    NSLog(@"lwq, applovin reward didFailToLoadAdWithError: %d, adKey = %@", code, self.adKey);
+    NSLog(@" applovin reward didFailToLoadAdWithError: %d, adKey = %@", code, self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoadFailedWithError:(int)code];
@@ -94,7 +94,7 @@
 - (void)ad:(ALAd *)ad wasDisplayedIn:(UIView *)view
 {
 //    if(self.ad == ad){
-        NSLog(@"lwq, applovin reward ad wasDisplayedIn");
+        NSLog(@" applovin reward ad wasDisplayedIn");
         [self notifyOnAdShowed];
         [self notifyOnAdImpression];
 //    }
@@ -111,7 +111,7 @@
  */
 - (void)ad:(ALAd *)ad wasHiddenIn:(UIView *)view
 {
-    NSLog(@"lwq, applovin reward ad wasHiddenIn isRewarded = %d", self.isRewarded);
+    NSLog(@" applovin reward ad wasHiddenIn isRewarded = %d", self.isRewarded);
     self.isShowing = NO;
     if(self.isRewarded){
         [self notifyOnAdRewarded];
@@ -130,7 +130,7 @@
  */
 - (void)ad:(ALAd *)ad wasClickedIn:(UIView *)view
 {
-    NSLog(@"lwq, applovin reward ad wasClickedIn");
+    NSLog(@" applovin reward ad wasClickedIn");
     [self notifyOnAdClicked];
 }
 
@@ -138,19 +138,19 @@
 {
     /* AppLovin servers validated the reward. Refresh user balance from your server. We will also pass the number of coins
      awarded and the name of the currency. However, ideally, you should verify this with your server before granting it. */
-    NSLog(@"lwq, applovin reward ad didSucceedWithResponse %@", response);
+    NSLog(@" applovin reward ad didSucceedWithResponse %@", response);
     self.isRewarded = true;
 }
 
 - (void)rewardValidationRequestForAd:(ALAd *)ad wasRejectedWithResponse:(NSDictionary *)response
 {
     // The user's reward was marked as fraudulent, they are most likely trying to modify their balance illicitly.
-    NSLog(@"lwq, applovin reward ad wasRejectedWithResponse %@", response);
+    NSLog(@" applovin reward ad wasRejectedWithResponse %@", response);
 }
 
 - (void)rewardValidationRequestForAd:(ALAd *)ad didFailWithError:(NSInteger)responseCode
 {
-    NSLog(@"lwq, applovin reward ad didFailWithError %d", responseCode);
+    NSLog(@" applovin reward ad didFailWithError %d", responseCode);
     if ( responseCode == kALErrorCodeIncentivizedValidationNetworkTimeout )
     {
         // The SDK was unable to reach AppLovin over the network. The user's device is likely experiencing poor connectivity.

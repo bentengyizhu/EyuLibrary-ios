@@ -28,7 +28,7 @@
 
 -(void) loadAd
 {
-    NSLog(@"lwq, EYIronSourceInterstitialAdAdapter loadAd key = %@", self.adKey.key);
+    NSLog(@" EYIronSourceInterstitialAdAdapter loadAd key = %@", self.adKey.key);
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded]) {
@@ -43,7 +43,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@"lwq, EYIronSourceInterstitialAdAdapter showAd");
+    NSLog(@" EYIronSourceInterstitialAdAdapter showAd");
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -56,7 +56,7 @@
 -(bool) isAdLoaded
 {
     bool result = [IronSource hasISDemandOnlyInterstitial:self.adKey.key];
-    NSLog(@"lwq, EYIronSourceInterstitialAdAdapter hasISDemandOnlyInterstitial result = %d, key = %@",result, self.adKey.key);
+    NSLog(@" EYIronSourceInterstitialAdAdapter hasISDemandOnlyInterstitial result = %d, key = %@",result, self.adKey.key);
     return result;
 }
 
@@ -67,7 +67,7 @@
  */
 - (void)interstitialDidLoad:(NSString *)instanceId
 {
-    NSLog(@"lwq, EYIronSourceInterstitialAdAdapter interstitialDidLoad, instance id = %@", instanceId);
+    NSLog(@" EYIronSourceInterstitialAdAdapter interstitialDidLoad, instance id = %@", instanceId);
     self.isLoading = false;
     [self notifyOnAdLoaded];
 }
@@ -79,7 +79,7 @@
  */
 - (void)interstitialDidFailToLoadWithError:(NSError *)error instanceId:(NSString *)instanceId
 {
-    NSLog(@"lwq, EYIronSourceInterstitialAdAdapter interstitialDidFailToLoadWithError, error = %@", error);
+    NSLog(@" EYIronSourceInterstitialAdAdapter interstitialDidFailToLoadWithError, error = %@", error);
     self.isLoading = false;
     [self notifyOnAdLoadFailedWithError:(int)error.code];
 }
@@ -89,7 +89,7 @@
  */
 - (void)interstitialDidOpen:(NSString *)instanceId
 {
-    NSLog(@"lwq, EYIronSourceInterstitialAdAdapter interstitialDidOpen");
+    NSLog(@" EYIronSourceInterstitialAdAdapter interstitialDidOpen");
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
 }
@@ -99,7 +99,7 @@
  */
 - (void)interstitialDidClose:(NSString *)instanceId
 {
-    NSLog(@"lwq, EYIronSourceInterstitialAdAdapter interstitialDidClose");
+    NSLog(@" EYIronSourceInterstitialAdAdapter interstitialDidClose");
     self.isShowing = NO;
     [self notifyOnAdClosed];
 }
@@ -110,7 +110,7 @@
  */
 - (void)interstitialDidFailToShowWithError:(NSError *)error instanceId:(NSString *)instanceId
 {
-    NSLog(@"lwq, EYIronSourceInterstitialAdAdapter interstitialDidFailToShowWithError, error = %@", error);
+    NSLog(@" EYIronSourceInterstitialAdAdapter interstitialDidFailToShowWithError, error = %@", error);
 }
 
 /**
@@ -118,7 +118,7 @@
  */
 - (void)didClickInterstitial:(NSString *)instanceId
 {
-    NSLog(@"lwq, EYIronSourceInterstitialAdAdapter didClickInterstitial");
+    NSLog(@" EYIronSourceInterstitialAdAdapter didClickInterstitial");
     [self notifyOnAdClicked];
 }
 

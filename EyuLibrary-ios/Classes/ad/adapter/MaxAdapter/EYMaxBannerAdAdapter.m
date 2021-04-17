@@ -12,7 +12,7 @@
 @implementation EYMaxBannerAdAdapter
 -(void) loadAd
 {
-    NSLog(@" lwq, laod max bannerAd");
+    NSLog(@"laod max bannerAd");
     if([self isAdLoaded])
     {
         self.isLoadSuccess = true;
@@ -71,12 +71,12 @@
 - (void)didLoadAd:(MAAd *)ad {
     self.isLoadSuccess = true;
     self.isLoading = false;
-    NSLog(@"lwq max banner ad didLoad");
+    NSLog(@"max banner ad didLoad");
     [self notifyOnAdLoaded];
 }
 
 - (void)didFailToLoadAdForAdUnitIdentifier:(NSString *)adUnitIdentifier withErrorCode:(NSInteger)errorCode {
-    NSLog(@"lwq,max banner ad failed to load with error: %ld", (long)errorCode);
+    NSLog(@"max banner ad failed to load with error: %ld", (long)errorCode);
     self.isLoading = false;
     self.isLoadSuccess = false;
     [self notifyOnAdLoadFailedWithError:(int)errorCode];
@@ -87,7 +87,7 @@
 }
 
 - (void)didFailToDisplayAd:(MAAd *)ad withErrorCode:(NSInteger)errorCode {
-    NSLog(@"lwq,max banner ad failed to display with error: %ld", (long)errorCode);
+    NSLog(@"max banner ad failed to display with error: %ld", (long)errorCode);
 }
 
 - (void)didDisplayAd:(nonnull MAAd *)ad {}

@@ -12,7 +12,7 @@
 @implementation EYTPBannerAdAdapter
 -(void) loadAd
 {
-    NSLog(@" lwq, tp bannerAd ");
+    NSLog(@"tp bannerAd ");
     if([self isAdLoaded])
     {
         self.isLoadSuccess = true;
@@ -79,12 +79,12 @@
 - (void)MsBannerViewLoaded:(MsBannerView *)adView {
     self.isLoadSuccess = true;
     self.isLoading = false;
-    NSLog(@"lwq tpbanner ad didLoad");
+    NSLog(@"tpbanner ad didLoad");
     [self notifyOnAdLoaded];
 }
 - (void)MsBannerView:(MsBannerView *)adView didFailWithError:(NSError *)error
 {
-    NSLog(@"lwq,tp banner ad failed to load with error: %@", error);
+    NSLog(@"tp banner ad failed to load with error: %@", error);
     self.isLoading = false;
     self.isLoadSuccess = false;
     [self notifyOnAdLoadFailedWithError:(int)error.code];

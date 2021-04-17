@@ -10,7 +10,7 @@
 @implementation EYABUNativeAdAdapter
 -(void) loadAd
 {
-    NSLog(@" lwq, abu nativeAd loadAd admanager = %@, key = %@.", self.adManager, self.adKey.key);
+    NSLog(@"abu nativeAd loadAd admanager = %@, key = %@.", self.adManager, self.adKey.key);
     if([self isAdLoaded]){
         [self notifyOnAdLoaded];
     }else if(self.adManager == NULL)
@@ -50,7 +50,7 @@
 -(bool) showAdWithAdLayout:(UIView*)nativeAdLayout iconView:(UIImageView*)nativeAdIcon titleView:(UILabel*)nativeAdTitle
                   descView:(UILabel*)nativeAdDesc mediaLayout:(UIView*)mediaLayout actBtn:(UIButton*)actBtn controller:(UIViewController*)controller
 {
-    NSLog(@" lwq, abu nativeAd showAd self.admanager = %@.", self.adManager);
+    NSLog(@"abu nativeAd showAd self.admanager = %@.", self.adManager);
     if (![self isAdLoaded]) {
         return false;
     }
@@ -80,7 +80,7 @@
             self.imageView.userInteractionEnabled = YES;
             self.imageView.frame = mediaViewBounds;
             [mediaLayout addSubview:self.imageView];
-            NSLog(@"lwq, showAdWithAdLayout image strUrl = %@", image.imageURL);
+            NSLog(@"showAdWithAdLayout image strUrl = %@", image.imageURL);
             if (image.imageURL) {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                     NSData *imageData = [NSData dataWithContentsOfURL:image.imageURL];
@@ -130,7 +130,7 @@
 
 -(bool) isAdLoaded
 {
-    NSLog(@" lwq, abu nativeAd isAdLoaded = %d", self.isLoaded);
+    NSLog(@"abu nativeAd isAdLoaded = %d", self.isLoaded);
     return self.isLoaded;
 }
 
@@ -154,7 +154,7 @@
 
 # pragma mark ---<ABUNativeAdsManagerDelegate>---
 - (void)nativeAdsManagerSuccessToLoad:(ABUNativeAdsManager *_Nonnull)adsManager nativeAds:(NSArray<ABUNativeAdView *> *_Nullable)nativeAdViewArray {
-    NSLog(@"lwq, abu nativeAdDidLoad");
+    NSLog(@"abu nativeAdDidLoad");
     self.nativeAdView = nativeAdViewArray.firstObject;
     self.nativeAdView.delegate = self;
     self.nativeAdView.videoDelegate = self;
@@ -165,7 +165,7 @@
 }
 
 - (void)nativeAdsManager:(ABUNativeAdsManager *_Nonnull)adsManager didFailWithError:(NSError *_Nullable)error {
-    NSLog(@"lwq,abu Native ad failed to load with error: %@", error);
+    NSLog(@"abu Native ad failed to load with error: %@", error);
     self.isLoading = false;
     self.isLoaded = false;
     if(self.adManager != NULL)
@@ -203,7 +203,7 @@
  This method is called when native ad is clicked.
  */
 - (void)nativeAdDidClick:(ABUNativeAdView *_Nonnull)nativeAdView withView:(UIView *_Nullable)view {
-    NSLog(@"lwq,abu nativeAdDidClick");
+    NSLog(@"abu nativeAdDidClick");
     [self notifyOnAdClicked];
 }
 

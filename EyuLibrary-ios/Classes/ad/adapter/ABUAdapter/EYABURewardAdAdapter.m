@@ -10,7 +10,7 @@
 @implementation EYABURewardAdAdapter
 -(void) loadAd
 {
-    NSLog(@" lwq, abu loadAd isAdLoaded = %d", [self isAdLoaded]);
+    NSLog(@"abu loadAd isAdLoaded = %d", [self isAdLoaded]);
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded])
@@ -51,7 +51,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@" lwq, abu showAd ");
+    NSLog(@"abu showAd ");
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -78,7 +78,7 @@
  */
 - (void)rewardedVideoAd:(ABURewardedVideoAd *_Nonnull)rewardedVideoAd didFailWithError:(NSError *_Nullable)error {
     self.isLoadSuccess = false;
-    NSLog(@"lwq, abu rewarded video material load fail, %@", error);
+    NSLog(@"abu rewarded video material load fail, %@", error);
     self.isLoading = false;
     if(self.rewardAd != NULL ){
         self.rewardAd.delegate = NULL;
@@ -102,7 +102,7 @@
  */
 - (void)rewardedVideoAdDidDownLoadVideo:(ABURewardedVideoAd *_Nonnull)rewardedVideoAd {
     self.isLoadSuccess = true;
-    NSLog(@"lwq, abu reawrded video did download");
+    NSLog(@"abu reawrded video did download");
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
@@ -112,7 +112,7 @@
  This method is called when video ad slot has been shown.
  */
 - (void)rewardedVideoAdDidVisible:(ABURewardedVideoAd *_Nonnull)rewardedVideoAd {
-    NSLog(@"lwq, abu rewarded video will visible");
+    NSLog(@"abu rewarded video will visible");
     [self notifyOnAdShowed];
     [self notifyOnAdShowedData:@{@"ecpm": rewardedVideoAd.getPreEcpm}];
     [self notifyOnAdImpression];
@@ -122,7 +122,7 @@
  This method is called when video ad is closed.
  */
 - (void)rewardedVideoAdDidClose:(ABURewardedVideoAd *_Nonnull)rewardedVideoAd {
-    NSLog(@"lwq, abu rewarded video did close");
+    NSLog(@"abu rewarded video did close");
     if(self.rewardAd != NULL ){
         self.rewardAd.delegate = NULL;
         self.rewardAd = NULL;
@@ -140,12 +140,12 @@
  This method is called when video ad is clicked.
  */
 - (void)rewardedVideoAdDidClick:(ABURewardedVideoAd *_Nonnull)rewardedVideoAd {
-    NSLog(@"lwq, abu rewarded video did click");
+    NSLog(@"abu rewarded video did click");
     [self notifyOnAdClicked];
 }
 
 - (void)rewardedVideoAdServerRewardDidSucceed:(ABURewardedVideoAd *)rewardedVideoAd rewardInfo:(ABUAdapterRewardAdInfo *)rewardInfo verify:(BOOL)verify {
-    NSLog(@"lwq, abu verify result: %@", verify ? @"success" : @"fail");
+    NSLog(@"abu verify result: %@", verify ? @"success" : @"fail");
     self.isRewarded = true;
 }
 

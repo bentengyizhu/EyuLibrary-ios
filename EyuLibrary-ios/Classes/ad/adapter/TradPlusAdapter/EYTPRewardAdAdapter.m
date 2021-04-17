@@ -14,7 +14,7 @@
 
 -(void) loadAd
 {
-    NSLog(@" lwq, tp loadAd isAdLoaded = %d", [self isAdLoaded]);
+    NSLog(@"tp loadAd isAdLoaded = %d", [self isAdLoaded]);
     if([self isShowing]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded])
@@ -41,7 +41,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@" lwq, tp showAd ");
+    NSLog(@"tp showAd ");
     if([self isAdLoaded])
     {
         bool result = [self.rewardedVideoAd showAdFromRootViewController:controller];
@@ -58,14 +58,14 @@
 -(bool) isAdLoaded
 {
     bool isAdLoaded = self.rewardedVideoAd != NULL && self.rewardedVideoAd.isAdReady;
-    NSLog(@" lwq, tp Reward video ad isAdLoaded = %d", isAdLoaded);
+    NSLog(@"tp Reward video ad isAdLoaded = %d", isAdLoaded);
     return isAdLoaded;
 }
 
 //单个广告源加载成功
 -(void)rewardedVideoAdLoaded:(MsRewardedVideoAd *)rewardedVideoAd
 {
-    NSLog(@" lwq, tp Reward video ad is loaded.");
+    NSLog(@"tp Reward video ad is loaded.");
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
@@ -74,7 +74,7 @@
 //单个广告源加载失败
 -(void)rewardedVideoAd:(MsRewardedVideoAd *)rewardedVideoAd didFailWithError:(NSError *)error
 {
-    NSLog(@" lwq, tp Reward video ad is failed to load. error = %d", (int)error.code);
+    NSLog(@"tp Reward video ad is failed to load. error = %d", (int)error.code);
     self.isLoading = false;
     if(self.rewardedVideoAd != NULL ){
         self.rewardedVideoAd.delegate = NULL;
@@ -94,7 +94,7 @@
 //视频播放结束后，关闭落地页
 -(void)rewardedVideoAdDismissed:(MsRewardedVideoAd *)rewardedVideoAd
 {
-    NSLog(@" lwq, tp Reward video ad is closed.");
+    NSLog(@"tp Reward video ad is closed.");
     if(self.rewardedVideoAd != NULL ){
         self.rewardedVideoAd.delegate = NULL;
         self.rewardedVideoAd = NULL;

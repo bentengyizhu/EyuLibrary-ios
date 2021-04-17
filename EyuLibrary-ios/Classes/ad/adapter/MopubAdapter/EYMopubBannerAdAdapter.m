@@ -10,7 +10,7 @@
 
 @implementation EYMopubBannerAdAdapter
 -(void) loadAd {
-    NSLog(@"lwq, mopub bannerAd");
+    NSLog(@" mopub bannerAd");
     if([self isAdLoaded])
     {
         [self notifyOnAdLoaded];
@@ -69,13 +69,13 @@
 - (void)adViewDidLoadAd:(MPAdView *)view adSize:(CGSize)adSize {
     self.isLoadSuccess = true;
     self.isLoading = false;
-    NSLog(@"lwq mopub ad didLoad");
+    NSLog(@"mopub ad didLoad");
     [self notifyOnAdLoaded];
 }
 
 - (void)adView:(MPAdView *)view didFailToLoadAdWithError:(NSError *)error {
     self.adView = NULL;
-    NSLog(@"lwq,mopub banner ad failed to load with error: %@", error);
+    NSLog(@"mopub banner ad failed to load with error: %@", error);
     self.isLoading = false;
     self.isLoadSuccess = false;
     [self notifyOnAdLoadFailedWithError:(int)error.code];

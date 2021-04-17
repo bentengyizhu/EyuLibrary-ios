@@ -18,14 +18,14 @@
 
 -(void) loadAd
 {
-    NSLog(@"lwq, AdmobRewardAdAdapter loadAd #############. adId = #%@#", self.adKey.key);
+    NSLog(@"AdmobRewardAdAdapter loadAd #############. adId = #%@#", self.adKey.key);
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded])
     {
         [self notifyOnAdLoaded];
     }else if([self isAdLoaded]){
-        NSLog(@"lwq,one AdmobRewardAdAdapter was already loaded.");
+        NSLog(@"one AdmobRewardAdAdapter was already loaded.");
         [self notifyOnAdLoadFailedWithError:ERROR_OTHER_ADMOB_REWARD_AD_LOADED];
     }else if(!self.isLoading)
     {
@@ -44,14 +44,14 @@
             self.isLoading = NO;
             [self cancelTimeoutTask];
             if (error) {
-                NSLog(@"lwq, admob Rewarded ad failed to load with error: %@", [error localizedDescription]);
+                NSLog(@"admob Rewarded ad failed to load with error: %@", [error localizedDescription]);
                 [self notifyOnAdLoadFailedWithError:(int)error.code];
                 return;
             }
             self.rewardedAd = ad;
             self.rewardedAd.fullScreenContentDelegate = self;
             [self notifyOnAdLoaded];
-            NSLog(@"lwq, Admob Rewarded ad loaded.");
+            NSLog(@"Admob Rewarded ad loaded.");
         }];
         [self startTimeoutTask];
     }else{
@@ -63,7 +63,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@"lwq, AdmobRewardAdAdapter showAd #############.");
+    NSLog(@"AdmobRewardAdAdapter showAd #############.");
     if([self isAdLoaded])
     {
         self.isRewarded = NO;
@@ -87,19 +87,19 @@
 /// Tells the delegate that the ad failed to present full screen content.
 - (void)ad:(nonnull id<GADFullScreenPresentingAd>)ad
 didFailToPresentFullScreenContentWithError:(nonnull NSError *)error {
-    NSLog(@"lwq, admobAd did fail to present full screen content.");
+    NSLog(@"admobAd did fail to present full screen content.");
     self.isShowing = NO;
 }
 
 /// Tells the delegate that the ad presented full screen content.
 - (void)adDidPresentFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
-    NSLog(@"lwq, admobAd did present full screen content.");
+    NSLog(@"admobAd did present full screen content.");
     [self notifyOnAdShowed];
 }
 
 /// Tells the delegate that the ad dismissed full screen content.
 - (void)adDidDismissFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
-   NSLog(@"lwq, admobAd did dismiss full screen content.");
+   NSLog(@"admobAd did dismiss full screen content.");
     if(self.isRewarded){
         [self notifyOnAdRewarded];
     }

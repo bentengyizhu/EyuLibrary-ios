@@ -11,7 +11,7 @@
 @implementation EYMopubNativeAdAdapter
 -(void) loadAd
 {
-    NSLog(@" lwq, mopub nativeAd loadAd key = %@.", self.adKey.key);
+    NSLog(@"mopub nativeAd loadAd key = %@.", self.adKey.key);
     if([self isAdLoaded]){
         [self notifyOnAdLoaded];
     }else if(self.nativeAd == NULL)
@@ -57,7 +57,7 @@
 -(bool) showAdWithAdLayout:(UIView*)nativeAdLayout iconView:(UIImageView*)nativeAdIcon titleView:(UILabel*)nativeAdTitle
                   descView:(UILabel*)nativeAdDesc mediaLayout:(UIView*)mediaLayout actBtn:(UIButton*)actBtn controller:(UIViewController*)controller
 {
-    NSLog(@" lwq, mopub nativeAd showAd self.nativeAd = %@.", self.nativeAd);
+    NSLog(@"mopub nativeAd showAd self.nativeAd = %@.", self.nativeAd);
     if (![self isAdLoaded]) {
         return false;
     }

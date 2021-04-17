@@ -19,7 +19,7 @@
 
 -(void) loadAd
 {
-    NSLog(@"lwq, MAX loadAd ad = %@", self.ad);
+    NSLog(@" MAX loadAd ad = %@", self.ad);
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded]){
@@ -42,7 +42,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@"lwq, MAX showAd [self isAdLoaded] = %d", [self isAdLoaded]);
+    NSLog(@" MAX showAd [self isAdLoaded] = %d", [self isAdLoaded]);
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -64,7 +64,7 @@
  */
 - (void)didLoadAd:(MAAd *)ad
 {
-    NSLog(@"lwq, MAX didLoadAd adKey = %@", self.adKey);
+    NSLog(@" MAX didLoadAd adKey = %@", self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
@@ -83,7 +83,7 @@
  */
 - (void)didFailToLoadAdForAdUnitIdentifier:(NSString *)adUnitIdentifier withErrorCode:(NSInteger)errorCode
 {
-    NSLog(@"lwq, MAX interstitial didFailToLoadAdWithError: %ld, adKey = %@", errorCode, self.adKey);
+    NSLog(@" MAX interstitial didFailToLoadAdWithError: %ld, adKey = %@", errorCode, self.adKey);
        self.isLoading = false;
        [self cancelTimeoutTask];
     [self notifyOnAdLoadFailedWithError:(int)errorCode];
@@ -96,7 +96,7 @@
  */
 - (void)didDisplayAd:(MAAd *)ad
 {
-    NSLog(@"lwq, MAX interstitial ad wasDisplayedIn");
+    NSLog(@" MAX interstitial ad wasDisplayedIn");
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
 }
@@ -108,7 +108,7 @@
  */
 - (void)didHideAd:(MAAd *)ad
 {
-    NSLog(@"lwq, MAX interstitial ad wasHiddenIn");
+    NSLog(@" MAX interstitial ad wasHiddenIn");
     self.isShowing = NO;
     [self notifyOnAdClosed];
 }
@@ -120,7 +120,7 @@
  */
 - (void)didClickAd:(MAAd *)ad
 {
-    NSLog(@"lwq, MAX interstitial ad wasClickedIn");
+    NSLog(@" MAX interstitial ad wasClickedIn");
     [self notifyOnAdClicked];
 }
 
@@ -134,7 +134,7 @@
  */
 - (void)didFailToDisplayAd:(MAAd *)ad withErrorCode:(NSInteger)errorCode
 {
-    NSLog(@"lwq, MAX didFailToDisplayAd adKey = %@， code = %ld", self.adKey, errorCode);
+    NSLog(@" MAX didFailToDisplayAd adKey = %@， code = %ld", self.adKey, errorCode);
     self.isShowing = false;
     self.isLoading = false;
     [self cancelTimeoutTask];

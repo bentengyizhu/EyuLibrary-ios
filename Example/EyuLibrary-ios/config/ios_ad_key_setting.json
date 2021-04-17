@@ -86,7 +86,7 @@
     },
     {
         "id":"ios_adys_pkjs",
-        "key":"ca-app-pub-9624926763614741/7902508501",
+        "key":"ca-app-pub-3940256099942544/5662855259",
         "network":"admob"
     },
     {
@@ -437,6 +437,11 @@
     {
         "id":"inter_mopub",
         "key":"faeaaa4fbbc944919b358e8308eb08ab",
+        "network":"mopub"
+    },
+    {
+        "id":"inter_mopub2",
+        "key":"d165754355e84ff5a8b5936d87cd43a9",
         "network":"mopub"
     },
     {

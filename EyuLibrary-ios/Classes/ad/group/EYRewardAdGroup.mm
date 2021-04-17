@@ -227,7 +227,7 @@
 }
 
 - (void) timeout{
-    NSLog(@"lwq, timeout");
+    NSLog(@" timeout");
     [self showLoadAdFailedToast];
     [self hideLoadingDialog];
 }

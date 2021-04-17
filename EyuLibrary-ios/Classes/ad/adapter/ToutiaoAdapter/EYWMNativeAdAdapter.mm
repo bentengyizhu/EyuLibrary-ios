@@ -28,7 +28,7 @@
 
 -(void) loadAd
 {
-    NSLog(@" lwq, wm nativeAd loadAd nativeAd = %@, key = %@.", self.nativeAd, self.adKey.key);
+    NSLog(@"wm nativeAd loadAd nativeAd = %@, key = %@.", self.nativeAd, self.adKey.key);
     if([self isAdLoaded]){
         [self notifyOnAdLoaded];
     }else if(self.nativeAd == NULL)
@@ -61,7 +61,7 @@
 -(bool) showAdWithAdLayout:(UIView*)nativeAdLayout iconView:(UIImageView*)nativeAdIcon titleView:(UILabel*)nativeAdTitle
                   descView:(UILabel*)nativeAdDesc mediaLayout:(UIView*)mediaLayout actBtn:(UIButton*)actBtn controller:(UIViewController*)controller
 {
-    NSLog(@" lwq, wm nativeAd showAd self.nativeAd = %@.", self.nativeAd);
+    NSLog(@"wm nativeAd showAd self.nativeAd = %@.", self.nativeAd);
     if ([self isAdLoaded]) {
 //        self.relatedView.logoImageView.frame = CGRectZero;
 //        [nativeAdLayout addSubview:self.relatedView.logoImageView];
@@ -83,10 +83,10 @@
                 [mediaLayout addSubview:self.imageView];
                 if (self.nativeAd.data.imageAry.count > 0) {
                     BUImage *image = self.nativeAd.data.imageAry.firstObject;
-                    NSLog(@"lwq, showAdWithAdLayout image strUrl = %@", image.imageURL);
+                    NSLog(@" showAdWithAdLayout image strUrl = %@", image.imageURL);
                     if (image.imageURL.length > 0) {
                         NSURL *url = [NSURL URLWithString:[image.imageURL stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
-//                        NSLog(@"lwq, showAdWithAdLayout image url = %@", url);
+//                        NSLog(@" showAdWithAdLayout image url = %@", url);
 //                        NSData* data = [NSData dataWithContentsOfURL: url];
 //                        self.imageView.image = [UIImage imageWithData:data];
                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -148,7 +148,7 @@
 
 -(bool) isAdLoaded
 {
-    NSLog(@" lwq, wm nativeAd isAdLoaded ? = %d", self.isLoaded);
+    NSLog(@"wm nativeAd isAdLoaded ? = %d", self.isLoaded);
     return self.isLoaded;
 }
 
@@ -178,7 +178,7 @@
 
 #pragma mark - BUNativeAdDelegate
 - (void)nativeAdDidLoad:(BUNativeAd *)nativeAd {
-    NSLog(@"lwq, wm nativeAdDidLoad");
+    NSLog(@" wm nativeAdDidLoad");
     self.isLoading = false;
     self.isLoaded = true;
     [self cancelTimeoutTask];
@@ -187,7 +187,7 @@
 
 - (void)nativeAd:(BUNativeAd *)nativeAd didFailWithError:(NSError *_Nullable)error
 {
-    NSLog(@"lwq,wm Native ad failed to load with error: %@", error);
+    NSLog(@"wm Native ad failed to load with error: %@", error);
     self.isLoading = false;
     self.isLoaded = false;
     if(self.nativeAd != NULL)
@@ -202,7 +202,7 @@
 
 - (void)nativeAdDidClick:(BUNativeAd *)nativeAd withView:(UIView *)view
 {
-    NSLog(@"lwq,wm nativeAdDidClick");
+    NSLog(@"wm nativeAdDidClick");
     [self notifyOnAdClicked];
 }
 
@@ -214,7 +214,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"lwq, EYWMNativeAdAdapter dealloc ");
+    NSLog(@" EYWMNativeAdAdapter dealloc ");
     [self unregisterView];
 }
 

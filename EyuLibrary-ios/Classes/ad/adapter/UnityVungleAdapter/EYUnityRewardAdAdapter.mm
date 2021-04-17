@@ -30,7 +30,7 @@
 
 -(void) loadAd
 {
-    NSLog(@" lwq, unity loadAd isAdLoaded = %d", [self isAdLoaded]);
+    NSLog(@"unity loadAd isAdLoaded = %d", [self isAdLoaded]);
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([UnityAds isReady:self.adKey.key])
@@ -43,7 +43,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@" lwq, unity showAd ");
+    NSLog(@"unity showAd ");
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -56,7 +56,7 @@
 -(bool) isAdLoaded
 {
     bool isAdLoaded = [UnityAds isInitialized] && [UnityAds isReady:self.adKey.key];
-    NSLog(@" lwq, unity Reward video ad isAdLoaded = %d", isAdLoaded);
+    NSLog(@"unity Reward video ad isAdLoaded = %d", isAdLoaded);
     return isAdLoaded;
 }
 

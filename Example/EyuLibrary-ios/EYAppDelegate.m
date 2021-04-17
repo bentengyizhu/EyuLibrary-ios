@@ -37,7 +37,7 @@
     adConfig.adGroupData = [EYSdkUtils readFileWithName:@"ios_ad_cache_setting"];
     adConfig.adPlaceData = [EYSdkUtils readFileWithName:@"ios_ad_setting"];
     adConfig.adSuiteData = [EYSdkUtils readFileWithName:@"ios_ad_group_setting"];
-    adConfig.mopubAdUnitId = @"76a3fefaced247959582d2d2df6f4757";
+    adConfig.mopubAdParams = @{@"mopubAdUnitId": @"faeaaa4fbbc944919b358e8308eb08ab", @"app_id": @"5023932"};
 //    adConfig.abuAppId = @"5149732";
 //    adConfig.mtgAppId = @"142996";
 //    adConfig.mtgAppKey = @"a339a16bbaca844012276afad6f59eaa";

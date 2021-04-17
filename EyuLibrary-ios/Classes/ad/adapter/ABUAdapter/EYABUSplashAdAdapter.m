@@ -12,7 +12,7 @@
 @implementation EYABUSplashAdAdapter
 -(void) loadAd
 {
-    NSLog(@" lwq, abusplash loadAd isAdLoaded = %d", [self isAdLoaded]);
+    NSLog(@"abusplash loadAd isAdLoaded = %d", [self isAdLoaded]);
     if([self isShowing]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded])
@@ -53,7 +53,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@" lwq, abu splashAd showAd ");
+    NSLog(@"abu splashAd showAd ");
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -65,7 +65,7 @@
 
 -(bool) isAdLoaded
 {
-    NSLog(@" lwq, abu splashAd isAdLoaded , splashAd = %@", self.splashAd);
+    NSLog(@"abu splashAd isAdLoaded , splashAd = %@", self.splashAd);
     return self.splashAd != NULL && self.isLoadSuccess;
 }
 
@@ -74,7 +74,7 @@
  This method is called when splash ad material loaded successfully.
  */
 - (void)splashAdDidLoad:(ABUSplashAd *_Nonnull)splashAd {
-    NSLog(@"lwq, abu splashAd splashAdDidLoad");
+    NSLog(@"abu splashAd splashAdDidLoad");
     self.isLoadSuccess = true;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
@@ -86,7 +86,7 @@
  */
 - (void)splashAd:(ABUSplashAd *_Nonnull)splashAd didFailWithError:(NSError *_Nullable)error {
     self.isLoadSuccess = false;
-    NSLog(@"lwq, abu splashAd didFailWithError");
+    NSLog(@"abu splashAd didFailWithError");
     [self.splashAd destoryAd];
     if(self.splashAd != NULL)
     {
@@ -101,7 +101,7 @@
  This method is called when splash ad slot will be showing.
  */
 - (void)splashAdWillVisible:(ABUSplashAd *_Nonnull)splashAd {
-    NSLog(@"lwq, abu splashAd splashAdWillVisible");
+    NSLog(@"abu splashAd splashAdWillVisible");
     [self notifyOnAdShowedData:@{@"ecpm": splashAd.getPreEcpm}];
     [self notifyOnAdImpression];
 }
@@ -110,7 +110,7 @@
  This method is called when splash ad is clicked.
  */
 - (void)splashAdDidClick:(ABUSplashAd *_Nonnull)splashAd {
-    NSLog(@"lwq, abu splashAd splashAdDidClick");
+    NSLog(@"abu splashAd splashAdDidClick");
     [self notifyOnAdClicked];
 }
 
@@ -119,7 +119,7 @@
  */
 - (void)splashAdDidClose:(ABUSplashAd *_Nonnull)splashAd {
     [self.splashAd destoryAd];
-    NSLog(@"lwq, abu splashAd splashAdDidClose");
+    NSLog(@"abu splashAd splashAdDidClose");
     if(self.splashAd != NULL)
     {
         self.splashAd.delegate = NULL;
@@ -132,7 +132,7 @@
  This method is called when splash ad is about to close.
  */
 - (void)splashAdWillClose:(ABUSplashAd *_Nonnull)splashAd {
-    NSLog(@"lwq, abu splashAd splashAdWillClose");
+    NSLog(@"abu splashAd splashAdWillClose");
 }
 
 /**
@@ -140,18 +140,18 @@
  *  弹出全屏广告页
  */
 - (void)splashAdWillPresentFullScreenModal:(ABUSplashAd *_Nonnull)splashAd {
-    NSLog(@"lwq, abu splashAd splashAdWillPresentFullScreenModal");
+    NSLog(@"abu splashAd splashAdWillPresentFullScreenModal");
 }
 
 - (void)splashAdWillDissmissFullScreenModal:(ABUSplashAd *)splashAd {
-    NSLog(@"lwq, abu splashAd splashAdWillDissmissFullScreenModal");
+    NSLog(@"abu splashAd splashAdWillDissmissFullScreenModal");
 }
 
 /**
  This method is called when spalashAd countdown equals to zero
  */
 - (void)splashAdCountdownToZero:(ABUSplashAd *_Nonnull)splashAd {
-    NSLog(@"lwq, abu splashAd splashAdCountdownToZero");
+    NSLog(@"abu splashAd splashAdCountdownToZero");
 }
 @end
 

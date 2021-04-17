@@ -74,6 +74,8 @@
 
 #ifdef MOPUB_ENABLED
 #import "MoPub.h"
+#import "PangleAdapterConfiguration.h"
+#import <AppLovinSDK/AppLovinSDK.h>
 #endif
 //#ifndef BYTE_DANCE_ONLY
 //@interface EYAdManager()<UnityAdsDelegate, VungleSDKDelegate, ISDemandOnlyInterstitialDelegate, ISDemandOnlyRewardedVideoDelegate>
@@ -174,11 +176,11 @@ static id s_sharedInstance;
 {
     self.adConfig = config;
     NSData* adKeySettingData = config.adKeyData;
-    //NSLog(@"lwq, loadAdConfig adKeySettingData = %@", adKeySettingData);
+    //NSLog(@"loadAdConfig adKeySettingData = %@", adKeySettingData);
 //    NSString* keyStr = [[NSString alloc] initWithData:adKeySettingData encoding:NSASCIIStringEncoding];
     
     NSArray *adKeyArray = [NSJSONSerialization JSONObjectWithData:adKeySettingData options:kNilOptions error:nil];
-    NSLog(@"lwq, loadAdConfig adKeySettingData = %@", adKeyArray);
+    NSLog(@"loadAdConfig adKeySettingData = %@", adKeyArray);
     for(NSDictionary* adKeySetting:adKeyArray)
     {
         NSString *keyId = adKeySetting[@"id"];
@@ -202,7 +204,7 @@ static id s_sharedInstance;
             }
             return NSOrderedDescending;
         }];
-        NSLog(@"lwq, loadAdConfig adSuiteData = %@", adSuiteArray);
+        NSLog(@"loadAdConfig adSuiteData = %@", adSuiteArray);
         for(NSDictionary* adSuiteDict:adSuiteArray) {
             NSString *suiteId = adSuiteDict[@"id"];
             NSNumber *value = adSuiteDict[@"value"];
@@ -220,10 +222,10 @@ static id s_sharedInstance;
     
     NSData* adGroupData = config.adGroupData;
     NSArray *adGroupArray = [NSJSONSerialization JSONObjectWithData:adGroupData options:kNilOptions error:nil];
-    NSLog(@"lwq, loadAdConfig adGroupData = %@", adGroupArray);
+    NSLog(@"loadAdConfig adGroupData = %@", adGroupArray);
     for(NSDictionary* adGroupDict:adGroupArray)
     {
-        //NSLog(@"lwq, loadAdConfig adCacheDict = %@", adCacheDict);
+        //NSLog(@"loadAdConfig adCacheDict = %@", adCacheDict);
         NSString *groupId = adGroupDict[@"id"];
         NSString *type = adGroupDict[@"type"];
         NSString *isAutoLoadStr = adGroupDict[@"isAutoLoad"];
@@ -255,7 +257,7 @@ static id s_sharedInstance;
         
         NSData* adSettingData = config.adPlaceData;
         NSArray *adArray = [NSJSONSerialization JSONObjectWithData:adSettingData options:kNilOptions error:nil];
-        NSLog(@"lwq, loadAdConfig adSettingStr = %@", adArray);
+        NSLog(@"loadAdConfig adSettingStr = %@", adArray);
         for(NSDictionary* adSetting:adArray)
         {
             NSString *placeId = adSetting[@"id"];
@@ -326,9 +328,9 @@ static id s_sharedInstance;
     NSString* wmAppKey = config.wmAppKey;
     if(wmAppKey == NULL || [wmAppKey isEqualToString:@""])
     {
-        NSLog(@"lwq, setup wmAppKey ==  NULL");
+        NSLog(@"setup wmAppKey ==  NULL");
     }else{
-        NSLog(@"lwq, setup wmAppKey =  %@", wmAppKey);
+        NSLog(@"setup wmAppKey =  %@", wmAppKey);
         [BUAdSDKManager setAppID:wmAppKey];
         [BUAdSDKManager setIsPaidApp:config.isPaidApp];
     }
@@ -340,9 +342,9 @@ static id s_sharedInstance;
     if(mtgAppId == NULL || [mtgAppId isEqualToString:@""] ||
        mtgAppKey == NULL || [mtgAppKey isEqualToString:@""])
     {
-        NSLog(@"lwq, setup mtgAppId ==  NULL");
+        NSLog(@"setup mtgAppId ==  NULL");
     }else{
-        NSLog(@"lwq, setup mtgAppId =  %@, mtgAppKey = %@", mtgAppId, mtgAppKey);
+        NSLog(@"setup mtgAppId =  %@, mtgAppKey = %@", mtgAppId, mtgAppKey);
         [[MTGSDK sharedInstance] setAppID:mtgAppId ApiKey:mtgAppKey];
     }
 #endif
@@ -351,11 +353,11 @@ static id s_sharedInstance;
     NSString* admobClientId = config.admobClientId;
     if(admobClientId == NULL || [admobClientId isEqualToString:@""])
     {
-        NSLog(@"lwq, setup admobClientId ==  NULL");
+        NSLog(@"setup admobClientId ==  NULL");
     }else{
-        NSLog(@"lwq, setup admobClientId =  %@", admobClientId);
+        NSLog(@"setup admobClientId =  %@", admobClientId);
         [[GADMobileAds sharedInstance] startWithCompletionHandler:^(GADInitializationStatus * _Nonnull status) {
-            NSLog(@"lwq, setup admobClient status = %@", status);
+            NSLog(@"setup admobClient status = %@", status);
         }];
     }
 #endif
@@ -405,9 +407,9 @@ static id s_sharedInstance;
         NSString* unityClientId = config.unityClientId;
         if(unityClientId == NULL || [unityClientId isEqualToString:@""])
         {
-            NSLog(@"lwq, setup unityClientId ==  NULL");
+            NSLog(@"setup unityClientId ==  NULL");
         }else{
-            NSLog(@"lwq, setup unityClientId =  %@", unityClientId);
+            NSLog(@"setup unityClientId =  %@", unityClientId);
             //[GADMobileAds configureWithApplicationID:unityClientId];
             [UnityAds initialize:unityClientId];
             [UnityAds addDelegate:self];
@@ -419,15 +421,15 @@ static id s_sharedInstance;
         NSString* vungleClientId = config.vungleClientId;
         if(vungleClientId == NULL || [vungleClientId isEqualToString:@""])
         {
-            NSLog(@"lwq, setup vungleClientId ==  NULL");
+            NSLog(@"setup vungleClientId ==  NULL");
         }else{
-            NSLog(@"lwq, setup vungleClientId =  %@", vungleClientId);
+            NSLog(@"setup vungleClientId =  %@", vungleClientId);
             NSError* error;
             VungleSDK* sdk = [VungleSDK sharedSDK];
             sdk.delegate = self;
             [sdk startWithAppId:vungleClientId error:&error];
             if(error){
-                NSLog(@"lwq, setup VungleSDK error =  %@", error);
+                NSLog(@"setup VungleSDK error =  %@", error);
             }
         }
 #endif
@@ -443,10 +445,10 @@ static id s_sharedInstance;
 #ifdef IRON_ADS_ENABLED
         NSString *ironSourceAppKey = config.ironSourceAppKey;
         if(ironSourceAppKey == NULL || [ironSourceAppKey isEqualToString:@""]) {
-            NSLog(@"lwq, setup ironSourceAppKey ==  NULL");
+            NSLog(@"setup ironSourceAppKey ==  NULL");
         }
         else {
-            NSLog(@"lwq, setup ironSourceAppKey ==  %@", ironSourceAppKey);
+            NSLog(@"setup ironSourceAppKey ==  %@", ironSourceAppKey);
 //            [IronSource setInterstitialDelegate:self];
 //            [IronSource setRewardedVideoDelegate:self];
             [IronSource initISDemandOnly:ironSourceAppKey adUnits:@[IS_INTERSTITIAL]];
@@ -466,9 +468,19 @@ static id s_sharedInstance;
 #endif
     
 #ifdef MOPUB_ENABLED
-    MPMoPubConfiguration *sdkConfig = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:config.mopubAdUnitId];
-//    sdkConfig.globalMediationSettings = @[];
-    sdkConfig.loggingLevel = MPBLogLevelInfo;
+    NSString *mopubAdId = config.mopubAdParams[@"mopubAdUnitId"];
+    MPMoPubConfiguration *sdkConfig = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:mopubAdId];
+    
+    [ALSdk initializeSdk];
+    
+    NSString *pangleId = config.mopubAdParams[@"app_id"];
+    if (pangleId) {
+        sdkConfig.additionalNetworks = @[PangleAdapterConfiguration.class];
+        NSDictionary *pangleConfig = @{@"app_id": pangleId};
+        sdkConfig.mediatedNetworkConfigurations = [@{@"PangleAdapterConfiguration":pangleConfig} mutableCopy];
+    }
+
+    sdkConfig.loggingLevel = MPBLogLevelDebug;
 //    sdkConfig.allowLegitimateInterest = YES;
     [[MoPub sharedInstance] initializeSdkWithConfiguration:sdkConfig completion:^{
         NSLog(@"SDK initialization complete");
@@ -483,7 +495,7 @@ static id s_sharedInstance;
 
 -(void) setupWithConfig:(EYAdConfig*) config
 {
-    //NSLog(@"lwq, setup 111111111 %@", [NSThread currentThread]);
+    //NSLog(@"setup 111111111 %@", [NSThread currentThread]);
     //self.interstitialViewController = [[UIViewController alloc] init];
     self.canLoadAd = true;
 #ifdef MOPUB_ENABLED
@@ -494,12 +506,12 @@ static id s_sharedInstance;
 #endif
     if(self.isInited)
     {
-        NSLog(@"lwq, setupWithViewController error,self.isInited = true");
+        NSLog(@"setupWithViewController error,self.isInited = true");
         return;
     }
     if(config==nil)
     {
-        NSLog(@"lwq, setupWithViewController error,config == nil");
+        NSLog(@"setupWithViewController error,config == nil");
         return;
     }
 #ifdef FB_ADS_ENABLED
@@ -590,7 +602,7 @@ static id s_sharedInstance;
     {
         return;
     }
-    NSLog(@"lwq, loadInterstitialAd placeId = %@", placeId);
+    NSLog(@"loadInterstitialAd placeId = %@", placeId);
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
@@ -611,7 +623,7 @@ static id s_sharedInstance;
     {
         return;
     }
-    NSLog(@"lwq, loadSplashAd placeId = %@", placeId);
+    NSLog(@"loadSplashAd placeId = %@", placeId);
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
@@ -807,7 +819,7 @@ static id s_sharedInstance;
     {
         return;
     }
-    NSLog(@"lwq, loadNativeAd start placeId = %@", placeId);
+    NSLog(@"loadNativeAd start placeId = %@", placeId);
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
@@ -828,7 +840,7 @@ static id s_sharedInstance;
     {
         return;
     }
-    NSLog(@"lwq, loadBannerAd start placeId = %@", placeId);
+    NSLog(@"loadBannerAd start placeId = %@", placeId);
     EYAdPlace* adPlace = self.adPlaceDict[placeId];
     if(adPlace != nil)
     {
@@ -973,7 +985,7 @@ static id s_sharedInstance;
 
 -(void) onNativeAdLoaded:(NSString*) adPlaceId
 {
-    NSLog(@"lwq, AdPlayer onNativeAdLoaded , adPlaceId = %@", adPlaceId);
+    NSLog(@"AdPlayer onNativeAdLoaded , adPlaceId = %@", adPlaceId);
     EYNativeAdView* view = [self getNativeAdViewFromCache:adPlaceId withViewController:self.nativeAdController];
     if(view && view.isCanShow && view.isNeedUpdate)
     {
@@ -987,7 +999,7 @@ static id s_sharedInstance;
 
 -(void) onAdLoaded:(NSString*) adPlaceId type:(NSString*)type
 {
-    NSLog(@"lwq, AdPlayer onAdLoaded , adPlaceId = %@, type = %@", adPlaceId, type);
+    NSLog(@"AdPlayer onAdLoaded , adPlaceId = %@, type = %@", adPlaceId, type);
     if(self.delegate)
     {
         [self.delegate onAdLoaded:adPlaceId type:type];
@@ -1001,7 +1013,7 @@ static id s_sharedInstance;
 
 -(void) onAdReward:(NSString*) adPlaceId  type:(NSString*)type
 {
-    NSLog(@"lwq, AdPlayer onAdReward , adPlaceId = %@, type = %@", adPlaceId, type);
+    NSLog(@"AdPlayer onAdReward , adPlaceId = %@, type = %@", adPlaceId, type);
     if(self.delegate)
     {
         [self.delegate onAdReward:adPlaceId type:type];
@@ -1010,7 +1022,7 @@ static id s_sharedInstance;
 
 -(void) onAdShowed:(NSString*) adPlaceId  type:(NSString*)type
 {
-    NSLog(@"lwq, AdPlayer onAdShowed , adPlaceId = %@, type = %@", adPlaceId, type);
+    NSLog(@"AdPlayer onAdShowed , adPlaceId = %@, type = %@", adPlaceId, type);
     if(self.delegate)
     {
         [self.delegate onAdShowed:adPlaceId type:type];
@@ -1018,7 +1030,7 @@ static id s_sharedInstance;
 }
 
 - (void)onAdShowed:(NSString *)adPlaceId type:(NSString *)type extraData:(NSDictionary *)extraData {
-    NSLog(@"lwq, AdPlayer onAdShowedData , adPlaceId = %@, type = %@", adPlaceId, type);
+    NSLog(@"AdPlayer onAdShowedData , adPlaceId = %@, type = %@", adPlaceId, type);
     if(self.delegate && [self.delegate respondsToSelector:@selector(onAdShowed:type:extraData:)])
     {
         [self.delegate onAdShowed:adPlaceId type:type extraData:extraData];
@@ -1027,7 +1039,7 @@ static id s_sharedInstance;
 
 -(void) onAdClosed:(NSString*) adPlaceId  type:(NSString*)type
 {
-    NSLog(@"lwq, AdPlayer onAdClosed , adPlaceId = %@, type = %@", adPlaceId, type);
+    NSLog(@"AdPlayer onAdClosed , adPlaceId = %@, type = %@", adPlaceId, type);
     if(self.delegate)
     {
         [self.delegate onAdClosed:adPlaceId type:type];
@@ -1036,7 +1048,7 @@ static id s_sharedInstance;
 
 -(void) onAdClicked:(NSString*) adPlaceId  type:(NSString*)type
 {
-    NSLog(@"lwq, AdPlayer onAdClicked , adPlaceId = %@, type = %@", adPlaceId, type);
+    NSLog(@"AdPlayer onAdClicked , adPlaceId = %@, type = %@", adPlaceId, type);
     if(self.delegate)
     {
         [self.delegate onAdClicked:adPlaceId type:type];
@@ -1045,7 +1057,7 @@ static id s_sharedInstance;
 
 -(void) onAdLoadFailed:(NSString*) adPlaceId  key:(NSString*)key code:(int)code
 {
-    NSLog(@"lwq, AdPlayer onAdLoadFailed , adPlaceId = %@, key = %@, code = %d", adPlaceId, key, code);
+    NSLog(@"AdPlayer onAdLoadFailed , adPlaceId = %@, key = %@, code = %d", adPlaceId, key, code);
     if(self.delegate)
     {
         [self.delegate onAdLoadFailed:adPlaceId key:key code:code];
@@ -1054,7 +1066,7 @@ static id s_sharedInstance;
 
 -(void) onAdImpression:(NSString*) adPlaceId  type:(NSString*)type
 {
-    NSLog(@"lwq, AdPlayer onAdImpression , adPlaceId = %@, type = %@", adPlaceId, type);
+    NSLog(@"AdPlayer onAdImpression , adPlaceId = %@, type = %@", adPlaceId, type);
     if(self.delegate)
     {
         [self.delegate onAdImpression:adPlaceId type:type];

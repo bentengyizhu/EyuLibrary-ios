@@ -11,7 +11,7 @@
 
 @implementation EYWMBannerAdAdapter
 -(void) loadAd {
-    NSLog(@"lwq, wm bannerAd");
+    NSLog(@" wm bannerAd");
     if([self isAdLoaded])
     {
         [self notifyOnAdLoaded];
@@ -70,12 +70,12 @@
 - (void)nativeExpressBannerAdViewDidLoad:(BUNativeExpressBannerView *)bannerAdView {
     self.isLoadSuccess = true;
     self.isLoading = false;
-    NSLog(@"lwq wmbanner ad didLoad");
+    NSLog(@"wmbanner ad didLoad");
     [self notifyOnAdLoaded];
 }
 
 - (void)nativeExpressBannerAdView:(BUNativeExpressBannerView *)bannerAdView didLoadFailWithError:(NSError *)error {
-    NSLog(@"lwq,wm banner ad failed to load with error: %@", error);
+    NSLog(@"wm banner ad failed to load with error: %@", error);
     self.isLoading = false;
     self.isLoadSuccess = false;
     [self notifyOnAdLoadFailedWithError:(int)error.code];

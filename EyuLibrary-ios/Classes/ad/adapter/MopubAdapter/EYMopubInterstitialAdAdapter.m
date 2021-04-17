@@ -10,13 +10,15 @@
 @implementation EYMopubInterstitialAdAdapter
 -(void) loadAd
 {
-    NSLog(@" lwq, mopub interstitialAd loadAd ");
+    NSLog(@"mopub interstitialAd loadAd ");
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if(self.interstitialAd == NULL)
     {
+//        NSDictionary *localExtras = @{@"testDevices" : @"683373713763c9962dbcd75e3aee1a20"};
         self.interstitialAd = [MPInterstitialAdController
                                interstitialAdControllerForAdUnitId:self.adKey.key];
+//        self.interstitialAd.localExtras = localExtras;
         self.interstitialAd.delegate = self;
         self.isLoading = true;
         [self.interstitialAd loadAd];
@@ -33,7 +35,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@" lwq, mopub interstitialAd showAd ");
+    NSLog(@"mopub interstitialAd showAd ");
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -45,19 +47,19 @@
 
 -(bool) isAdLoaded
 {
-    NSLog(@" lwq, mopub interstitialAd isAdLoaded , interstitialAd = %@", self.interstitialAd);
+    NSLog(@"mopub interstitialAd isAdLoaded , interstitialAd = %@", self.interstitialAd);
     return self.interstitialAd != NULL && self.interstitialAd.ready;
 }
 
 - (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial {
-    NSLog(@"lwq, mopub interstitialAd interstitialDidLoadAd");
+    NSLog(@" mopub interstitialAd interstitialDidLoadAd");
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
 }
 
 - (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial withError:(NSError *)error {
-    NSLog(@"lwq, mopub onInterstitialVideoLoadFail error = %@", error);
+    NSLog(@" mopub onInterstitialVideoLoadFail error = %@", error);
     self.isLoading = false;
     if(self.interstitialAd != NULL)
     {
@@ -69,7 +71,7 @@
 }
 
 - (void)interstitialDidAppear:(MPInterstitialAdController *)interstitial {
-    NSLog(@"lwq, mopub onInterstitialVideoShowSuccess");
+    NSLog(@" mopub onInterstitialVideoShowSuccess");
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
 }
@@ -79,7 +81,7 @@
 }
 
 - (void)interstitialDidDismiss:(MPInterstitialAdController *)interstitial {
-    NSLog(@"lwq, mopub InterstitialVideoAdDismissed");
+    NSLog(@" mopub InterstitialVideoAdDismissed");
     self.isShowing = NO;
     if(self.interstitialAd != NULL)
     {
@@ -90,7 +92,7 @@
 }
 
 - (void)interstitialDidReceiveTapEvent:(MPInterstitialAdController *)interstitial {
-    NSLog(@"lwq, mopub interstitialAd fullscreenVideoAdDidClick");
+    NSLog(@" mopub interstitialAd fullscreenVideoAdDidClick");
     [self notifyOnAdClicked];
 }
 

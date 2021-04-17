@@ -32,7 +32,7 @@
 }
 
 - (void)loadAdBySequence {
-    NSLog(@"lwq,加载旧版广告 adtype = %@", self.adType);
+    NSLog(@"加载旧版广告 adtype = %@", self.adType);
     if(self.adapterArray.count == 0) return;
     EYAdAdapter* adapter = self.adapterArray[self.currentAdpaterIndex];
     [adapter loadAd];
@@ -45,13 +45,13 @@
 }
 
 - (void)loadAdByValue: (bool)isCurrentIdnex {
-    NSLog(@"lwq,加载新版价值广告 adtype = %@", self.adType);
+    NSLog(@"加载新版价值广告 adtype = %@", self.adType);
     if (isCurrentIdnex == false && self.currentSuiteIndex > 0) {
-        NSLog(@"lwq,加载上一组价值更高广告currentSuiteIndex = %d adtype = %@",self.currentSuiteIndex, self.adType);
+        NSLog(@"加载上一组价值更高广告currentSuiteIndex = %d adtype = %@",self.currentSuiteIndex, self.adType);
         self.currentSuiteIndex -= 1;
         [self addAdatpers];
     } else {
-        NSLog(@"lwq,已经是价值最高广告或者强制加载本组广告currentSuiteIndex = %d adtype = %@",self.currentSuiteIndex, self.adType);
+        NSLog(@"已经是价值最高广告或者强制加载本组广告currentSuiteIndex = %d adtype = %@",self.currentSuiteIndex, self.adType);
         if (self.adapterArray.count == 0) {
             [self addAdatpers];
         }
@@ -96,7 +96,7 @@
             }
         }
     }
-    NSLog(@"lwq,初始化adapter数组: %@ adtype = %@", self.adapterArray, self.adType);
+    NSLog(@"初始化adapter数组: %@ adtype = %@", self.adapterArray, self.adType);
 }
 
 -(void)addAdatpers {
@@ -117,16 +117,16 @@
             }
         }
     }
-    NSLog(@"lwq 添加adapter %@", self.adapterArray);
+    NSLog(@"添加adapter %@", self.adapterArray);
 }
 
 -(bool)loadNextSuite {
-    NSLog(@"lwq,加载下一组广告currentSuiteIndex = %d, suiteArray = %@ adtype = %@", self.currentSuiteIndex, self.adGroup.suiteArray, self.adType);
+    NSLog(@"加载下一组广告currentSuiteIndex = %d, suiteArray = %@ adtype = %@", self.currentSuiteIndex, self.adGroup.suiteArray, self.adType);
     if (self.currentSuiteIndex >= self.adGroup.suiteArray.count-1) {
-        NSLog(@"lwq,本组没有拉取到广告并且已经是价值最低的组 adtype = %@", self.adType);
+        NSLog(@"本组没有拉取到广告并且已经是价值最低的组 adtype = %@", self.adType);
         return false;
     }
-    NSLog(@"lwq,本组没有拉取到广告放低价值加载下一组广告 adtype = %@", self.adType);
+    NSLog(@"本组没有拉取到广告放低价值加载下一组广告 adtype = %@", self.adType);
     self.currentSuiteIndex++;
     EYAdSuite *currentSuite = self.adGroup.suiteArray[self.currentSuiteIndex];
     NSMutableArray<EYAdKey*> *keyList = currentSuite.keys;
@@ -149,7 +149,7 @@
 //    {
 //        self.curLoadingIndex = -1;
 //    }
-    NSLog(@"lwq, basic onAdLoaded %d",self.currentAdValue);
+    NSLog(@" basic onAdLoaded %d",self.currentAdValue);
     adapter.tryLoadAdCount ++;
     if (self.isNewJsonSetting) {
         EYAdSuite *suite = self.adGroup.suiteArray[self.currentSuiteIndex];
@@ -173,7 +173,7 @@
 
 - (void)onAdLoadFailed:(EYAdAdapter *)adapter withError:(int)errorCode {
     EYAdKey* adKey = adapter.adKey;
-    NSLog(@"lwq,onAdLoadFailed adKey = %@, errorCode = %d", adKey.keyId, errorCode);
+    NSLog(@"onAdLoadFailed adKey = %@, errorCode = %d", adKey.keyId, errorCode);
     EYAdSuite *suite = self.adGroup.suiteArray[self.currentSuiteIndex];
     NSLog(@"%d-----%d",suite.value,self.currentAdValue);
     if(self.reportEvent){

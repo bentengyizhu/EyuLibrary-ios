@@ -13,7 +13,7 @@
 
 -(void) loadAd
 {
-    NSLog(@" lwq, load at nativeAd ");
+    NSLog(@"load at nativeAd ");
     if([self isAdLoaded])
     {   
         [self notifyOnAdLoaded];
@@ -70,7 +70,7 @@
 
 - (void)unregisterView {
     if(self.nativeAdView != NULL ){
-        NSLog(@"lwq, ATNativeAdAdapter self->nativeAdView.adChoicesView removeFromSuperview ");
+        NSLog(@" ATNativeAdAdapter self->nativeAdView.adChoicesView removeFromSuperview ");
         [self.nativeAdView removeFromSuperview];
         self.nativeAdView = NULL;
     }
@@ -78,14 +78,14 @@
 
 #pragma mark - loading delegate
 -(void) didFinishLoadingADWithPlacementID:(NSString *)placementID {
-    NSLog(@"lwq, AT didLoadAd adKey = %@", self.adKey);
+    NSLog(@" AT didLoadAd adKey = %@", self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
 }
 
 -(void) didFailToLoadADWithPlacementID:(NSString* )placementID error:(NSError *)error {
-    NSLog(@"lwq, AT reward didFailToLoadAdWithError: %d, adKey = %@", (int)error.code, self.adKey);
+    NSLog(@" AT reward didFailToLoadAdWithError: %d, adKey = %@", (int)error.code, self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoadFailedWithError:(int)error.code];
@@ -97,7 +97,7 @@
 }
 
 - (void)didEndPlayingVideoInAdView:(ATNativeADView *)adView placementID:(NSString *)placementID extra:(NSDictionary *)extra {
-    NSLog(@"lwq,at videoControllerDidEndVideoPlayback, adLoader = : %@", self);
+    NSLog(@"at videoControllerDidEndVideoPlayback, adLoader = : %@", self);
 }
 
 - (void)didEnterFullScreenVideoInAdView:(ATNativeADView *)adView placementID:(NSString *)placementID extra:(NSDictionary *)extra {
@@ -131,7 +131,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"lwq, ATNativeAdAdapter dealloc");
+    NSLog(@" ATNativeAdAdapter dealloc");
     [self unregisterView];
 }
 @end

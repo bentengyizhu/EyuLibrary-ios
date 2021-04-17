@@ -31,7 +31,7 @@
 
 -(void) loadAd
 {
-    NSLog(@"lwq, EYIronSourceRewardAdAdapter loadAd #############. adId = #%@#", self.adKey.key);
+    NSLog(@" EYIronSourceRewardAdAdapter loadAd #############. adId = #%@#", self.adKey.key);
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded]) {
@@ -44,7 +44,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@"lwq, EYIronSourceRewardAdAdapter showAd #############.");
+    NSLog(@" EYIronSourceRewardAdAdapter showAd #############.");
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -59,14 +59,14 @@
 -(bool) isAdLoaded
 {
     bool result = [IronSource hasISDemandOnlyRewardedVideo:self.adKey.key];
-    NSLog(@"lwq, EYIronSourceRewardAdAdapter hasISDemandOnlyRewardedVideo result = %d",result);
+    NSLog(@" EYIronSourceRewardAdAdapter hasISDemandOnlyRewardedVideo result = %d",result);
     return result;
 }
 
 #pragma mark - IronSource Rewarded Video Delegate Functions
 - (void)rewardedVideoDidLoad:(NSString *)instanceId
 {
-    NSLog(@"lwq, EYIronSourceRewardAdAdapter rewardedVideoDidLoad key = %@", self.adKey.key);
+    NSLog(@" EYIronSourceRewardAdAdapter rewardedVideoDidLoad key = %@", self.adKey.key);
 
     self.isLoading = false;
     [self notifyOnAdLoaded];
@@ -74,21 +74,21 @@
 
 - (void)rewardedVideoDidFailToLoadWithError:(NSError *)error instanceId:(NSString *)instanceId
 {
-    NSLog(@"lwq, EYIronSourceRewardAdAdapter rewardedVideoDidFailToLoadWithError %@", error);
+    NSLog(@" EYIronSourceRewardAdAdapter rewardedVideoDidFailToLoadWithError %@", error);
     self.isLoading = false;
     [self notifyOnAdLoadFailedWithError:error.code];
 }
 
 - (void)rewardedVideoDidOpen:(NSString *)instanceId
 {
-    NSLog(@"lwq, EYIronSourceRewardAdAdapter rewardedVideoDidOpen");
+    NSLog(@" EYIronSourceRewardAdAdapter rewardedVideoDidOpen");
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
 }
 
 - (void)rewardedVideoDidClose:(NSString *)instanceId
 {
-    NSLog(@"lwq, EYIronSourceRewardAdAdapter rewardedVideoDidClose. self->isRewarded = %d", self.isRewarded);
+    NSLog(@" EYIronSourceRewardAdAdapter rewardedVideoDidClose. self->isRewarded = %d", self.isRewarded);
     self.isClosed = true;
     self.isShowing = NO;
     if(self.isRewarded){
@@ -99,13 +99,13 @@
 
 - (void)rewardedVideoDidFailToShowWithError:(NSError *)error instanceId:(NSString *)instanceId
 {
-    NSLog(@"lwq, EYIronSourceRewardAdAdapter rewardedVideoDidFailToShowWithError, error = %@", error);
+    NSLog(@" EYIronSourceRewardAdAdapter rewardedVideoDidFailToShowWithError, error = %@", error);
     self.isShowing = NO;
 }
 
 - (void)rewardedVideoDidClick:(NSString *)instanceId
 {
-    NSLog(@"lwq, EYIronSourceRewardAdAdapter didClickRewardedVideo");
+    NSLog(@" EYIronSourceRewardAdAdapter didClickRewardedVideo");
     [self notifyOnAdClicked];
 }
 

@@ -12,7 +12,7 @@
 @implementation EYTPNativeAdAdapter
 -(void) loadAd
 {
-    NSLog(@" lwq, tp load at nativeAd ");
+    NSLog(@"tp load at nativeAd ");
     if([self isAdLoaded])
     {
         [self notifyOnAdLoaded];
@@ -68,7 +68,7 @@
 
 - (void)unregisterView {
     if(self.nativeAdView != NULL ){
-        NSLog(@"lwq, TPNativeAdAdapter self->nativeAdView.adChoicesView removeFromSuperview ");
+        NSLog(@" TPNativeAdAdapter self->nativeAdView.adChoicesView removeFromSuperview ");
         [self.nativeAdView removeFromSuperview];
         self.nativeAdView = NULL;
         self.adView = NULL;

@@ -10,6 +10,7 @@
 #import "EYAdManager.h"
 #import "EYAdConfig.h"
 #import "EYRemoteConfigHelper.h"
+#import <AdSupport/AdSupport.h>
 
 @interface EYViewController ()
 
@@ -34,6 +35,8 @@
 //    [self.gotoBtn addGestureRecognizer:gotoGesture];
 //    [gotoGesture setNumberOfTapsRequired:1];
     [EYAdManager sharedInstance].rootViewController = self;
+    
+    NSLog(@"%@", [ASIdentifierManager sharedManager].advertisingIdentifier);
     
     UITapGestureRecognizer *rewardAdGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showRewardAd:)];
     [self.rewardAdBtn addGestureRecognizer:rewardAdGesture];

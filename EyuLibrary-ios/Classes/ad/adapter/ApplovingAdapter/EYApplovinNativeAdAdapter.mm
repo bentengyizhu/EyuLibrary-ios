@@ -39,7 +39,7 @@
 
 -(void) loadAd
 {
-    NSLog(@" lwq, load applovin nativeAd ");
+    NSLog(@"load applovin nativeAd ");
     if([self isAdLoaded])
     {
         [self notifyOnAdLoaded];
@@ -62,7 +62,7 @@
 -(bool) showAdWithAdLayout:(UIView*)nativeAdLayout iconView:(UIImageView*)nativeAdIcon titleView:(UILabel*)nativeAdTitle
                   descView:(UILabel*)nativeAdDesc mediaLayout:(UIView*)mediaLayout actBtn:(UIButton*)actBtn controller:(UIViewController*)controller
 {
-    NSLog(@" lwq, applovin nativeAd showAd");
+    NSLog(@"applovin nativeAd showAd");
     if (self.nativeAd == NULL) return false;
     CGRect mediaViewBounds = CGRectMake(0,0, mediaLayout.frame.size.width, mediaLayout.frame.size.height);
     
@@ -124,7 +124,7 @@
 
 -(bool) isAdLoaded
 {
-    NSLog(@" lwq, applovin nativeAd isAdLoaded, self.nativeAd = %@", self.nativeAd);
+    NSLog(@"applovin nativeAd isAdLoaded, self.nativeAd = %@", self.nativeAd);
     return self.nativeAd!=NULL && self.isCached;
 }
 
@@ -261,7 +261,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"lwq, EYApplovinNativeAdAdapter dealloc ");
+    NSLog(@" EYApplovinNativeAdAdapter dealloc ");
     [self unregisterView];
 }
 

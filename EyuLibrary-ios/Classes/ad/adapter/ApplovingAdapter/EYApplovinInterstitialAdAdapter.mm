@@ -19,7 +19,7 @@
 
 -(void) loadAd
 {
-    NSLog(@"lwq, applovin loadAd ad = %@", self.ad);
+    NSLog(@" applovin loadAd ad = %@", self.ad);
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded]){
@@ -38,7 +38,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@"lwq, Applovin showAd [self isAdLoaded] = %d", [self isAdLoaded]);
+    NSLog(@" Applovin showAd [self isAdLoaded] = %d", [self isAdLoaded]);
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -61,7 +61,7 @@
 - (void)adService:(nonnull ALAdService *)adService didLoadAd:(nonnull ALAd *)ad
 {
     // We now have an interstitial ad we can show!
-    NSLog(@"lwq, applovin didLoadAd adKey = %@", self.adKey);
+    NSLog(@" applovin didLoadAd adKey = %@", self.adKey);
     self.ad = ad;
     self.isLoading = false;
     [self cancelTimeoutTask];
@@ -71,7 +71,7 @@
 - (void)adService:(nonnull ALAdService *)adService didFailToLoadAdWithError:(int)code
 {
     // Look at ALErrorCodes.h for the list of error codes.
-        NSLog(@"lwq, applovin interstitial didFailToLoadAdWithError: %d, adKey = %@", code, self.adKey);
+        NSLog(@" applovin interstitial didFailToLoadAdWithError: %d, adKey = %@", code, self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoadFailedWithError:(int)code];
@@ -89,7 +89,7 @@
 - (void)ad:(ALAd *)ad wasDisplayedIn:(UIView *)view
 {
     if(self.ad == ad){
-        NSLog(@"lwq, applovin interstitial ad wasDisplayedIn");
+        NSLog(@" applovin interstitial ad wasDisplayedIn");
         [self notifyOnAdShowed];
         [self notifyOnAdImpression];
     }
@@ -107,7 +107,7 @@
 - (void)ad:(ALAd *)ad wasHiddenIn:(UIView *)view
 {
     if(self.ad == ad){
-        NSLog(@"lwq, applovin interstitial ad wasHiddenIn");
+        NSLog(@" applovin interstitial ad wasHiddenIn");
         self.isShowing = NO;
         if(self.ad!= NULL)
         {
@@ -128,7 +128,7 @@
 - (void)ad:(ALAd *)ad wasClickedIn:(UIView *)view
 {
     if(self.ad == ad){
-        NSLog(@"lwq, applovin interstitial ad wasClickedIn");
+        NSLog(@" applovin interstitial ad wasClickedIn");
         [self notifyOnAdClicked];
     }
 }

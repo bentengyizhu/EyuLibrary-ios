@@ -14,7 +14,7 @@
 
 -(void) loadAd
 {
-    NSLog(@"lwq, ATRewardAdAdapter loadAd #############. adId = #%@#", self.adKey.key);
+    NSLog(@" ATRewardAdAdapter loadAd #############. adId = #%@#", self.adKey.key);
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded])
@@ -39,7 +39,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@"lwq, EYATRewardAdAdapter showAd #############.");
+    NSLog(@" EYATRewardAdAdapter showAd #############.");
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -52,14 +52,14 @@
 
 #pragma mark - loading delegate
 -(void) didFinishLoadingADWithPlacementID:(NSString *)placementID {
-    NSLog(@"lwq, AT didLoadAd adKey = %@", self.adKey);
+    NSLog(@" AT didLoadAd adKey = %@", self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
 }
 
 -(void) didFailToLoadADWithPlacementID:(NSString* )placementID error:(NSError *)error {
-    NSLog(@"lwq, AT reward didFailToLoadAdWithError: %d, adKey = %@", (int)error.code, self.adKey);
+    NSLog(@" AT reward didFailToLoadAdWithError: %d, adKey = %@", (int)error.code, self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoadFailedWithError:(int)error.code];
@@ -67,12 +67,12 @@
 
 #pragma mark - showing delegate
 -(void) rewardedVideoDidRewardSuccessForPlacemenID:(NSString *)placementID extra:(NSDictionary *)extra{
-    NSLog(@" lwq, AT Reward video ad is showed.");
+    NSLog(@"AT Reward video ad is showed.");
     self.isRewarded = true;
 }
 
 -(void) rewardedVideoDidStartPlayingForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
-    NSLog(@"lwq, at reward ad wasDisplayedIn");
+    NSLog(@" at reward ad wasDisplayedIn");
     [self notifyOnAdShowed];
     [self notifyOnAdShowedData:extra];
     [self notifyOnAdImpression];
@@ -83,14 +83,14 @@
 }
 
 -(void) rewardedVideoDidFailToPlayForPlacementID:(NSString*)placementID error:(NSError*)error extra:(NSDictionary *)extra {
-    NSLog(@"lwq, at reward ad wasDisplayedIn");
+    NSLog(@" at reward ad wasDisplayedIn");
     [self notifyOnAdShowed];
     [self notifyOnAdShowedData:extra];
     [self notifyOnAdImpression];
 }
 
 -(void) rewardedVideoDidCloseForPlacementID:(NSString*)placementID rewarded:(BOOL)rewarded extra:(NSDictionary *)extra {
-    NSLog(@"lwq, applovin reward ad wasHiddenIn isRewarded = %d", rewarded);
+    NSLog(@" applovin reward ad wasHiddenIn isRewarded = %d", rewarded);
     self.isShowing = NO;
     if(rewarded){
         [self notifyOnAdRewarded];
@@ -100,7 +100,7 @@
 }
 
 -(void) rewardedVideoDidClickForPlacementID:(NSString*)placementID extra:(NSDictionary *)extra {
-    NSLog(@"lwq, AT reward ad wasClickedIn");
+    NSLog(@" AT reward ad wasClickedIn");
     [self notifyOnAdClicked];
 }
 @end

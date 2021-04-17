@@ -16,7 +16,7 @@
 
 -(void) loadAd
 {
-    NSLog(@" lwq, fb interstitialAd loadAd ");
+    NSLog(@"fb interstitialAd loadAd ");
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if(self.interstitialAd == NULL)
@@ -38,7 +38,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@" lwq, fb interstitialAd showAd ");
+    NSLog(@"fb interstitialAd showAd ");
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -49,13 +49,13 @@
 
 -(bool) isAdLoaded
 {
-    NSLog(@" lwq, fb interstitialAd isAdLoaded , interstitialAd = %@", self.interstitialAd);
+    NSLog(@"fb interstitialAd isAdLoaded , interstitialAd = %@", self.interstitialAd);
     return self.interstitialAd != NULL && [self.interstitialAd isAdValid];
 }
 
 - (void)interstitialAdWillLogImpression:(FBInterstitialAd *)interstitialAd
 {
-    NSLog(@"lwq,The user sees the add");
+    NSLog(@"The user sees the add");
     // Use this function as indication for a user's impression on the ad.
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
@@ -63,21 +63,21 @@
 
 - (void)interstitialAdDidClick:(FBInterstitialAd *)interstitialAd
 {
-    NSLog(@"lwq,The user clicked on the ad and will be taken to its destination");
+    NSLog(@"The user clicked on the ad and will be taken to its destination");
     // Use this function as indication for a user's click on the ad.
     [self notifyOnAdClicked];
 }
 
 - (void)interstitialAdWillClose:(FBInterstitialAd *)interstitialAd
 {
-    NSLog(@"lwq,The user clicked on the close button, the ad is just about to close");
+    NSLog(@"The user clicked on the close button, the ad is just about to close");
     // Consider to add code here to resume your app's flow
     
 }
 
 - (void)interstitialAdDidClose:(FBInterstitialAd *)interstitialAd
 {
-    NSLog(@"lwq,Interstitial had been closed, %@", [NSThread currentThread]);
+    NSLog(@"Interstitial had been closed, %@", [NSThread currentThread]);
     // Consider to add code here to resume your app's flow
     self.isShowing = NO;
     if(self.interstitialAd != NULL)
@@ -95,7 +95,7 @@
  */
 - (void)interstitialAdDidLoad:(FBInterstitialAd *)interstitialAd
 {
-    NSLog(@"lwq,Interstitial did loaded");
+    NSLog(@"Interstitial did loaded");
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
@@ -103,7 +103,7 @@
 
 - (void)interstitialAd:(FBInterstitialAd *)interstitialAd didFailWithError:(NSError *)error
 {
-    NSLog(@"lwq,fb interstitial Ad failed to load");
+    NSLog(@"fb interstitial Ad failed to load");
     self.isLoading = false;
     if(self.interstitialAd != NULL)
     {

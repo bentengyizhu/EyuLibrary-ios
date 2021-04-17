@@ -10,7 +10,7 @@
 @implementation EYMopubRewardAdAdapter
 -(void) loadAd
 {
-    NSLog(@" lwq, mopub loadAd isAdLoaded = %d", [self isAdLoaded]);
+    NSLog(@"mopub loadAd isAdLoaded = %d", [self isAdLoaded]);
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded])
@@ -31,7 +31,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@" lwq, mopub showAd ");
+    NSLog(@"mopub showAd ");
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -47,19 +47,19 @@
     BOOL isAdLoaded = [MPRewardedAds hasAdAvailableForAdUnitID:self.adKey.key];
 //    bool isAdLoaded = rewards != NULL && rewards.count > 0;
 //    bool isAdLoaded = [[MTGRewardAdManager sharedInstance] isVideoReadyToPlay:self.adKey.key];
-    NSLog(@" lwq, mopub Reward video ad isAdLoaded = %d", isAdLoaded);
+    NSLog(@"mopub Reward video ad isAdLoaded = %d", isAdLoaded);
     return isAdLoaded;
 }
 
 - (void)rewardedAdDidLoadForAdUnitID:(NSString *)adUnitID {
-    NSLog(@"lwq, mopub reawrded video did load");
+    NSLog(@" mopub reawrded video did load");
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
 }
 
 - (void)rewardedAdDidFailToLoadForAdUnitID:(NSString *)adUnitID error:(NSError *)error {
-    NSLog(@"lwq, mopub rewarded video material load fail unitId = %@, error = %@", adUnitID, error);
+    NSLog(@" mopub rewarded video material load fail unitId = %@, error = %@", adUnitID, error);
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoadFailedWithError:(int)error.code];
@@ -75,7 +75,7 @@
 }
 
 - (void)rewardedAdDidPresentForAdUnitID:(NSString *)adUnitID {
-    NSLog(@"lwq, mopub rewarded video will visible, unitId = %@", adUnitID);
+    NSLog(@" mopub rewarded video will visible, unitId = %@", adUnitID);
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
 }
@@ -83,7 +83,7 @@
 - (void)rewardedAdWillDismissForAdUnitID:(NSString *)adUnitID {}
 
 - (void)rewardedAdDidDismissForAdUnitID:(NSString *)adUnitID {
-    NSLog(@"lwq, mopub rewarded video did close, unitId = %@", adUnitID);
+    NSLog(@" mopub rewarded video did close, unitId = %@", adUnitID);
     
     if(self.isRewarded){
         [self notifyOnAdRewarded];
@@ -101,7 +101,7 @@
 // Called when a rewarded ad is expired.
 
 - (void)rewardedAdDidReceiveTapEventForAdUnitID:(NSString *)adUnitID {
-    NSLog(@"lwq, mopub rewarded video did click, unitId = %@", adUnitID);
+    NSLog(@" mopub rewarded video did click, unitId = %@", adUnitID);
     [self notifyOnAdClicked];
 }
 

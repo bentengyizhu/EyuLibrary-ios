@@ -11,7 +11,7 @@
 @implementation EYATBannerAdAdapter
 -(void) loadAd
 {
-    NSLog(@" lwq, at bannerAd ");
+    NSLog(@"at bannerAd ");
     if([self isAdLoaded])
     {
         [self notifyOnAdLoaded];
@@ -63,13 +63,13 @@
 
 #pragma mark - loading delegate
 -(void) didFinishLoadingADWithPlacementID:(NSString *)placementID {
-    NSLog(@"lwq atbanner ad didLoad");
+    NSLog(@"atbanner ad didLoad");
     self.isLoading = false;
     [self notifyOnAdLoaded];
 }
 
 -(void) didFailToLoadADWithPlacementID:(NSString* )placementID error:(NSError *)error {
-    NSLog(@"lwq,at banner ad failed to load with error: %@", error);
+    NSLog(@"at banner ad failed to load with error: %@", error);
     self.isLoading = false;
     [self notifyOnAdLoadFailedWithError:(int)error.code];
 }
@@ -89,12 +89,12 @@
 
 
 - (void)bannerView:(ATBannerView *)bannerView didClickWithPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
-    NSLog(@"lwq,at bannerad didClick");
+    NSLog(@"at bannerad didClick");
     [self notifyOnAdClicked];
 }
 
 - (void)bannerView:(ATBannerView *)bannerView didShowAdWithPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
-    NSLog(@"lwq atbanner ad willLogImpression");
+    NSLog(@"atbanner ad willLogImpression");
     [self notifyOnAdShowed];
     [self notifyOnAdShowedData:extra];
     [self notifyOnAdImpression];

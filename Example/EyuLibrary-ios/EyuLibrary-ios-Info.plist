@@ -4,8 +4,6 @@
 <dict>
 	<key>AppLovinSdkKey</key>
 	<string>9aiR-8NXTyh84IIr1CWylMWBF4Fkf1Qpc8FaHc6qZoyd4FS6S-2BKZNaecIIdk6EtLq8zwzWiw8o9aucZxovU9</string>
-    <key>FacebookAppID</key>
-        <string>2873847352839918</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -26,10 +24,10 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>2000078</string>
+	<key>FacebookAppID</key>
+	<string>2873847352839918</string>
 	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-1111111111111111~1111111111</string>
-	<key>GADIsAdManagerApp</key>
-	<true/>
+	<string>ca-app-pub-9624926763614741~7511510626</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

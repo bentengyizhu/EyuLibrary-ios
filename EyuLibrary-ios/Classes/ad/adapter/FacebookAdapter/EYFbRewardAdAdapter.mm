@@ -16,7 +16,7 @@
 
 -(void) loadAd
 {
-    NSLog(@" lwq, fb loadAd isAdLoaded = %d", [self isAdLoaded]);
+    NSLog(@"fb loadAd isAdLoaded = %d", [self isAdLoaded]);
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded])
@@ -42,7 +42,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@" lwq, fb showAd ");
+    NSLog(@"fb showAd ");
     if([self isAdLoaded])
     {
         bool result = [self.rewardAd showAdFromRootViewController:controller];
@@ -59,7 +59,7 @@
 -(bool) isAdLoaded
 {
     bool isAdLoaded = self.rewardAd != NULL && [self.rewardAd isAdValid];
-    NSLog(@" lwq, fb Reward video ad isAdLoaded = %d", isAdLoaded);
+    NSLog(@"fb Reward video ad isAdLoaded = %d", isAdLoaded);
     return isAdLoaded;
 }
 
@@ -70,7 +70,7 @@
  */
 - (void)rewardedVideoAdDidLoad:(FBRewardedVideoAd *)rewardedVideoAd
 {
-    NSLog(@" lwq, fb Reward video ad is loaded.");
+    NSLog(@"fb Reward video ad is loaded.");
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
@@ -84,7 +84,7 @@
  */
 - (void)rewardedVideoAdDidClose:(FBRewardedVideoAd *)rewardedVideoAd
 {
-    NSLog(@" lwq, fb Reward video ad is closed.");
+    NSLog(@"fb Reward video ad is closed.");
     if(self.rewardAd != NULL ){
         self.rewardAd.delegate = NULL;
         self.rewardAd = NULL;
@@ -106,7 +106,7 @@
  */
 - (void)rewardedVideoAd:(FBRewardedVideoAd *)rewardedVideoAd didFailWithError:(NSError *)error
 {
-    NSLog(@" lwq, fb Reward video ad is failed to load. error = %d", (int)error.code);
+    NSLog(@"fb Reward video ad is failed to load. error = %d", (int)error.code);
     self.isLoading = false;
     if(self.rewardAd != NULL ){
         self.rewardAd.delegate = NULL;
@@ -124,7 +124,7 @@
  */
 - (void)rewardedVideoAdVideoComplete:(FBRewardedVideoAd *)rewardedVideoAd
 {
-    NSLog(@" lwq, fb Reward video ad is showed.");
+    NSLog(@"fb Reward video ad is showed.");
     self.isRewarded = true;
 }
 

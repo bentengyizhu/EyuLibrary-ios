@@ -31,7 +31,7 @@
 
 -(void) loadAd
 {
-    NSLog(@" lwq, mtg nativeAd loadAd nativeAd = %@, key = %@.", self.campaign, self.adKey.key);
+    NSLog(@"mtg nativeAd loadAd nativeAd = %@, key = %@.", self.campaign, self.adKey.key);
     if([self isAdLoaded]){
         [self notifyOnAdLoaded];
     }else if(self.nativeAd == NULL)
@@ -53,7 +53,7 @@
 -(bool) showAdWithAdLayout:(UIView*)nativeAdLayout iconView:(UIImageView*)nativeAdIcon titleView:(UILabel*)nativeAdTitle
                   descView:(UILabel*)nativeAdDesc mediaLayout:(UIView*)mediaLayout actBtn:(UIButton*)actBtn controller:(UIViewController*)controller
 {
-    NSLog(@" lwq, mtg nativeAd showAd self.nativeAd = %@.", self.nativeAd);
+    NSLog(@"mtg nativeAd showAd self.nativeAd = %@.", self.nativeAd);
     if ([self isAdLoaded]) {
         
         [self.nativeAd registerViewForInteraction:nativeAdLayout withCampaign:self.campaign];
@@ -108,7 +108,7 @@
 
 -(bool) isAdLoaded
 {
-    NSLog(@" lwq, mtg nativeAd campaign ? = %@", self.campaign);
+    NSLog(@"mtg nativeAd campaign ? = %@", self.campaign);
     return self.campaign!=nil;
 }
 
@@ -142,20 +142,20 @@
 
 - (void)nativeAdDidClick:(MTGCampaign *)nativeAd nativeManager:(nonnull MTGNativeAdManager *)nativeManager
 {
-    NSLog(@"lwq, mtg Registerview Ad is clicked");
+    NSLog(@" mtg Registerview Ad is clicked");
     [self notifyOnAdClicked];
 }
 
 - (void)nativeAdDidClick:(MTGCampaign *)nativeAd mediaView:(nonnull MTGMediaView *)mediaView
 {
-    NSLog(@"lwq, mtg Registerview Ad is clicked");
+    NSLog(@" mtg Registerview Ad is clicked");
     [self notifyOnAdClicked];
 }
 
 #pragma mark AdManger delegate
 - (void)nativeAdsLoaded:(NSArray *)nativeAds nativeManager:(nonnull MTGNativeAdManager *)nativeManager
 {
-    NSLog(@"lwq, mtg nativeAdDidLoad");
+    NSLog(@" mtg nativeAdDidLoad");
     if(nativeAds.count > 0){
         self.isLoading = false;
         self.campaign = nativeAds[0];
@@ -166,7 +166,7 @@
 
 - (void)nativeAdsFailedToLoadWithError:(NSError *)error nativeManager:(nonnull MTGNativeAdManager *)nativeManager
 {
-    NSLog(@"lwq,mtg Native ad failed to load with error: %@", error);
+    NSLog(@"mtg Native ad failed to load with error: %@", error);
     self.isLoading = false;
     if(self.nativeAd != NULL)
     {
@@ -181,14 +181,14 @@
 
 - (void)nativeAdImpressionWithType:(MTGAdSourceType)type mediaView:(MTGMediaView *)mediaView;
 {
-    NSLog(@"lwq,mtg nativeAdImpressionWithType");
+    NSLog(@"mtg nativeAdImpressionWithType");
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
 }
 
 - (void)dealloc
 {
-    NSLog(@"lwq, EYMtgNativeAdAdapter dealloc ");
+    NSLog(@" EYMtgNativeAdAdapter dealloc ");
     [self unregisterView];
 }
 

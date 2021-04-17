@@ -23,7 +23,7 @@
     return self;
 }
 -(void) loadAd {
-    NSLog(@"lwq, fb bannerAd");
+    NSLog(@" fb bannerAd");
     if([self isAdLoaded])
     {
         [self notifyOnAdLoaded];
@@ -51,7 +51,7 @@
     viewGroup.bannerAdapter = self;
     [self.bannerView removeFromSuperview];
 //    CGRect bounds = CGRectMake(0,0, self.bannerView.frame.size.width, self.bannerView.frame.size.height);
-//    NSLog(@"lwq, bannerAdView witdh = %f, height = %f ", bounds.size.width, bounds.size.height);
+//    NSLog(@" bannerAdView witdh = %f, height = %f ", bounds.size.width, bounds.size.height);
 //    self.bannerView.frame = bounds;
     CGFloat w = self.bannerView.frame.size.width;
     CGFloat h = self.bannerView.frame.size.height;
@@ -82,31 +82,31 @@
 }
 
 - (void)adViewDidLoad:(FBAdView *)adView {
-    NSLog(@"lwq fbbanner ad didLoad");
+    NSLog(@"fbbanner ad didLoad");
     self.isLoading = false;
     self.fbadLoaded = true;
     [self notifyOnAdLoaded];
 }
 
 - (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error {
-    NSLog(@"lwq,fb banner ad failed to load with error: %@", error);
+    NSLog(@"fb banner ad failed to load with error: %@", error);
     self.isLoading = false;
     self.fbadLoaded = false;
     [self notifyOnAdLoadFailedWithError:(int)error.code];
 }
 
 - (void)adViewWillLogImpression:(FBAdView *)adView {
-    NSLog(@"lwq fbbanner ad willLogImpression");
+    NSLog(@"fbbanner ad willLogImpression");
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
 }
 
 - (void)adViewDidFinishHandlingClick:(FBAdView *)adView {
-    NSLog(@"lwq,fb bannerad didFinishHandlingClick");
+    NSLog(@"fb bannerad didFinishHandlingClick");
 }
 
 - (void)adViewDidClick:(FBAdView *)adView {
-    NSLog(@"lwq,fb bannerad didClick");
+    NSLog(@"fb bannerad didClick");
     [self notifyOnAdClicked];
 }
 @end

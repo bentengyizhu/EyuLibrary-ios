@@ -10,7 +10,7 @@
 @implementation EYABUInterstitialAdAdapter
 -(void) loadAd
 {
-    NSLog(@" lwq, abu interstitialAd loadAd ");
+    NSLog(@"abu interstitialAd loadAd ");
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if(self.interstitialAd == NULL)
@@ -42,7 +42,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@" lwq, abu interstitialAd showAd ");
+    NSLog(@"abu interstitialAd showAd ");
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -53,7 +53,7 @@
 
 -(bool) isAdLoaded
 {
-    NSLog(@" lwq, abu interstitialAd isAdLoaded , interstitialAd = %@", self.interstitialAd);
+    NSLog(@"abu interstitialAd isAdLoaded , interstitialAd = %@", self.interstitialAd);
     return self.interstitialAd != NULL && self.isLoadSuccess;
 }
 
@@ -62,7 +62,7 @@
  @param error : the reason of error
  */
 - (void)fullscreenVideoAd:(ABUFullscreenVideoAd *_Nonnull)fullscreenVideoAd didFailWithError:(NSError *_Nullable)error{
-    NSLog(@"lwq, abu interstitialAd didFailWithError");
+    NSLog(@"abu interstitialAd didFailWithError");
     self.isLoading = false;
     self.isLoadSuccess = false;
     if(self.interstitialAd != NULL)
@@ -79,7 +79,7 @@
  This method is called when cached successfully.
  */
 - (void)fullscreenVideoAdDidDownLoadVideo:(ABUFullscreenVideoAd *_Nonnull)fullscreenVideoAd {
-    NSLog(@"lwq, abu interstitialAd fullscreenVideoAdDidDownLoadVideo");
+    NSLog(@"abu interstitialAd fullscreenVideoAdDidDownLoadVideo");
     self.isLoading = false;
     self.isLoadSuccess = true;
     [self cancelTimeoutTask];
@@ -100,7 +100,7 @@
  This method is called when video ad slot will be showing.
  */
 - (void)fullscreenVideoAdDidVisible:(ABUFullscreenVideoAd *_Nonnull)fullscreenVideoAd {
-    NSLog(@"lwq, abu interstitialAd fullscreenVideoAdDidVisible");
+    NSLog(@"abu interstitialAd fullscreenVideoAdDidVisible");
     [self notifyOnAdShowed];
     [self notifyOnAdShowedData:@{@"ecpm": fullscreenVideoAd.getPreEcpm}];
     [self notifyOnAdImpression];
@@ -110,7 +110,7 @@
  This method is called when video ad is clicked.
  */
 - (void)fullscreenVideoAdDidClick:(ABUFullscreenVideoAd *_Nonnull)fullscreenVideoAd {
-    NSLog(@"lwq, abu interstitialAd fullscreenVideoAdDidClick");
+    NSLog(@"abu interstitialAd fullscreenVideoAdDidClick");
     [self notifyOnAdClicked];
 }
 
@@ -118,7 +118,7 @@
  This method is called when video ad is closed.
  */
 - (void)fullscreenVideoAdDidClose:(ABUFullscreenVideoAd *_Nonnull)fullscreenVideoAd {
-    NSLog(@"lwq, abu interstitialAd fullscreenVideoAdDidClose");
+    NSLog(@"abu interstitialAd fullscreenVideoAdDidClose");
     self.isShowing = NO;
     if(self.interstitialAd != NULL)
     {

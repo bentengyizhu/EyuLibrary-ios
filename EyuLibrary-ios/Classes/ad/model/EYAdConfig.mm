@@ -49,7 +49,7 @@
 #endif
 
 #ifdef MOPUB_ENABLED
-@synthesize mopubAdUnitId = _mopubAdUnitId;
+@synthesize mopubAdParams = _mopubAdParams;
 #endif
 
 -(instancetype) initWithPlace:(NSData*)adPlaceData  key: (NSData*) adKeyData group:(NSData*) adGroupData suite:(NSData*) adSuiteData;
@@ -90,7 +90,7 @@
         self.abuAppId = nil;
 #endif
 #ifdef MOPUB_ENABLED
-        self.mopubAdUnitId = nil;
+        self.mopubAdParams = nil;
 #endif
     }
     return self;
@@ -98,7 +98,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"lwq,EYAdConfig dealloc count");
+    NSLog(@"EYAdConfig dealloc count");
 }
 
 

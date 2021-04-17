@@ -31,7 +31,7 @@
 }
 -(void) loadAd
 {
-    NSLog(@" lwq, admob bannerAd ");
+    NSLog(@"admob bannerAd ");
     if([self isAdLoaded])
     {
         [self notifyOnAdLoaded];
@@ -67,7 +67,7 @@
     viewGroup.bannerAdapter = self;
     [self.bannerAdView removeFromSuperview];
 //    CGRect bounds = CGRectMake(0,0, self.bannerAdView.frame.size.width, self.bannerAdView.frame.size.height);
-//    NSLog(@"lwq, bannerAdView witdh = %f, height = %f ", bounds.size.width, bounds.size.height);
+//    NSLog(@"bannerAdView witdh = %f, height = %f ", bounds.size.width, bounds.size.height);
 //    self.bannerAdView.frame = bounds;
     CGFloat w = self.bannerAdView.frame.size.width;
     CGFloat h = self.bannerAdView.frame.size.height;
@@ -108,7 +108,7 @@
     self.isLoading = false;
     self.adLoaded = false;
     [self.delegate onAdLoadFailed:self withError:(int)error.code];
-    NSLog(@"lwq, admob banner:didFailToReceiveAdWithError: %@, adKey = %@", [error localizedDescription], self.adKey);
+    NSLog(@"admob banner:didFailToReceiveAdWithError: %@, adKey = %@", [error localizedDescription], self.adKey);
 }
 
 - (void)bannerViewDidRecordImpression:(GADBannerView *)bannerView {
@@ -116,22 +116,22 @@
 }
 
 - (void)adViewWillPresentScreen:(GADBannerView *)bannerView {
-    NSLog(@"lwq, admob bannerWillPresentScreen");
+    NSLog(@"admob bannerWillPresentScreen");
     self.isShowing = true;
     [self notifyOnAdShowed];
 }
 
 - (void)adViewWillDismissScreen:(GADBannerView *)bannerView {
-    NSLog(@"lwq, admob bannerWillDismissScreen");
+    NSLog(@"admob bannerWillDismissScreen");
 }
 
 - (void)adViewDidDismissScreen:(GADBannerView *)bannerView {
-    NSLog(@"lwq, admob bannerDidDismissScreen");
+    NSLog(@"admob bannerDidDismissScreen");
     self.isShowing = false;
 }
 
 - (void)adViewWillLeaveApplication:(GADBannerView *)bannerView {
-    NSLog(@"lwq, admob bannerWillLeaveApplication");
+    NSLog(@"admob bannerWillLeaveApplication");
     [self notifyOnAdClicked];
 }
 @end

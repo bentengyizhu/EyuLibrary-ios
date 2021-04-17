@@ -10,7 +10,7 @@
 #import "EYAdManager.h"
 @implementation EYABUBannerAdAdapter
 -(void) loadAd {
-    NSLog(@"lwq, abu bannerAd");
+    NSLog(@"abu bannerAd");
     if([self isAdLoaded])
     {
         [self notifyOnAdLoaded];
@@ -85,7 +85,7 @@
     self.bannerView = bannerView;
     self.isLoadSuccess = true;
     self.isLoading = false;
-    NSLog(@"lwq abud ad didLoad");
+    NSLog(@"abud ad didLoad");
     [self notifyOnAdLoaded];
 }
 
@@ -96,7 +96,7 @@
 - (void)bannerAd:(ABUBannerAd *_Nonnull)bannerAd didLoadFailWithError:(NSError *_Nullable)error{
     self.bannerView = NULL;
     self.bannerAd = NULL;
-    NSLog(@"lwq,abu banner ad failed to load with error: %@", error);
+    NSLog(@"abu banner ad failed to load with error: %@", error);
     self.isLoading = false;
     self.isLoadSuccess = false;
     [self notifyOnAdLoadFailedWithError:(int)error.code];

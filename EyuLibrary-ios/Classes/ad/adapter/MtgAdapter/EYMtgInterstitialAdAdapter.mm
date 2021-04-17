@@ -28,7 +28,7 @@
 
 -(void) loadAd
 {
-    NSLog(@" lwq, mtg interstitialAd loadAd ");
+    NSLog(@"mtg interstitialAd loadAd ");
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if(self.interstitialAd == NULL)
@@ -52,7 +52,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@" lwq, mtg interstitialAd showAd ");
+    NSLog(@"mtg interstitialAd showAd ");
     if([self isAdLoaded])
     {
         self.isLoaded = NO;
@@ -65,18 +65,18 @@
 
 -(bool) isAdLoaded
 {
-    NSLog(@" lwq, mtg interstitialAd isAdLoaded , interstitialAd = %@", self.interstitialAd);
+    NSLog(@"mtg interstitialAd isAdLoaded , interstitialAd = %@", self.interstitialAd);
     return self.interstitialAd != NULL && self.isLoaded;
 }
 
 #pragma mark - Interstitial Delegate Methods
 
 - (void) onInterstitialAdLoadSuccess:(MTGInterstitialVideoAdManager *_Nonnull)adManager{
-    NSLog(@" lwq, mtg onInterstitialAdLoadSuccess");
+    NSLog(@"mtg onInterstitialAdLoadSuccess");
 }
 
 - (void) onInterstitialVideoLoadSuccess:(MTGInterstitialVideoAdManager *_Nonnull)adManager{
-    NSLog(@"lwq, mtg interstitialAd fullscreenVideoAdDidVisible");
+    NSLog(@" mtg interstitialAd fullscreenVideoAdDidVisible");
     self.isLoading = false;
     self.isLoaded = true;
     [self cancelTimeoutTask];
@@ -84,7 +84,7 @@
 }
 
 - (void) onInterstitialVideoLoadFail:(nonnull NSError *)error adManager:(MTGInterstitialVideoAdManager *_Nonnull)adManager{
-    NSLog(@"lwq, mtg onInterstitialVideoLoadFail error = %@", error);
+    NSLog(@" mtg onInterstitialVideoLoadFail error = %@", error);
     self.isLoading = false;
     self.isLoaded = false;
     if(self.interstitialAd != NULL)
@@ -97,23 +97,23 @@
 }
 
 - (void) onInterstitialVideoShowSuccess:(MTGInterstitialVideoAdManager *_Nonnull)adManager{
-    NSLog(@"lwq, mtg onInterstitialVideoShowSuccess");
+    NSLog(@" mtg onInterstitialVideoShowSuccess");
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
 }
 
 - (void) onInterstitialVideoShowFail:(nonnull NSError *)error adManager:(MTGInterstitialVideoAdManager *_Nonnull)adManager{
-    NSLog(@"lwq, mtg onInterstitialVideoShowFail error = %@", error);
+    NSLog(@" mtg onInterstitialVideoShowFail error = %@", error);
 
 }
 
 - (void) onInterstitialVideoAdClick:(MTGInterstitialVideoAdManager *_Nonnull)adManager{
-    NSLog(@"lwq, wm interstitialAd fullscreenVideoAdDidClick");
+    NSLog(@" wm interstitialAd fullscreenVideoAdDidClick");
     [self notifyOnAdClicked];
 }
 
 - (void)onInterstitialVideoAdDismissedWithConverted:(BOOL)converted adManager:(MTGInterstitialVideoAdManager *_Nonnull)adManager{
-    NSLog(@"lwq, mtg ionInterstitialVideoAdDismissedWithConverted converted = %d", converted);
+    NSLog(@" mtg ionInterstitialVideoAdDismissedWithConverted converted = %d", converted);
     self.isShowing = NO;
     if(self.interstitialAd != NULL)
     {

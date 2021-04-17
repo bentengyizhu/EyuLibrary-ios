@@ -23,7 +23,7 @@
 
 -(void) loadAd
 {
-    NSLog(@" lwq, wm loadAd isAdLoaded = %d", [self isAdLoaded]);
+    NSLog(@"wm loadAd isAdLoaded = %d", [self isAdLoaded]);
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded])
@@ -52,7 +52,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@" lwq, wm showAd ");
+    NSLog(@"wm showAd ");
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -64,32 +64,32 @@
 -(bool) isAdLoaded
 {
     bool isAdLoaded = self.rewardAd != NULL && [self.rewardAd isAdValid];
-    NSLog(@" lwq, wm Reward video ad isAdLoaded = %d", isAdLoaded);
+    NSLog(@"wm Reward video ad isAdLoaded = %d", isAdLoaded);
     return isAdLoaded;
 }
 
 #pragma mark BURewardedVideoAdDelegate
 
 - (void)rewardedVideoAdDidLoad:(BURewardedVideoAd *)rewardedVideoAd {
-    NSLog(@"lwq, wm reawrded material load success");
+    NSLog(@" wm reawrded material load success");
     
 }
 
 - (void)rewardedVideoAdVideoDidLoad:(BURewardedVideoAd *)rewardedVideoAd {
-    NSLog(@"lwq, wm reawrded video did load");
+    NSLog(@" wm reawrded video did load");
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
 }
 
 - (void)rewardedVideoAdWillVisible:(BURewardedVideoAd *)rewardedVideoAd {
-    NSLog(@"lwq, wm rewarded video will visible");
+    NSLog(@" wm rewarded video will visible");
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
 }
 
 - (void)rewardedVideoAdDidClose:(BURewardedVideoAd *)rewardedVideoAd {
-    NSLog(@"lwq, wm rewarded video did close");
+    NSLog(@" wm rewarded video did close");
     if(self.rewardAd != NULL ){
         self.rewardAd.delegate = NULL;
         self.rewardAd = NULL;
@@ -104,12 +104,12 @@
 }
 
 - (void)rewardedVideoAdDidClick:(BURewardedVideoAd *)rewardedVideoAd {
-    NSLog(@"lwq, wm rewarded video did click");
+    NSLog(@" wm rewarded video did click");
     [self notifyOnAdClicked];
 }
 
 - (void)rewardedVideoAd:(BURewardedVideoAd *)rewardedVideoAd didFailWithError:(NSError *)error {
-    NSLog(@"lwq, wm rewarded video material load fail, %@", error);
+    NSLog(@" wm rewarded video material load fail, %@", error);
     self.isLoading = false;
     if(self.rewardAd != NULL ){
         self.rewardAd.delegate = NULL;
@@ -121,21 +121,21 @@
 
 - (void)rewardedVideoAdDidPlayFinish:(BURewardedVideoAd *)rewardedVideoAd didFailWithError:(NSError *)error {
     if (error) {
-        NSLog(@"lwq, wm rewarded play error");
+        NSLog(@" wm rewarded play error");
     } else {
-        NSLog(@"lwq, wm rewarded play finish");
+        NSLog(@" wm rewarded play finish");
     }
     
 }
 
 - (void)rewardedVideoAdServerRewardDidFail:(BURewardedVideoAd *)rewardedVideoAd {
-    NSLog(@"lwq, wm rewarded verify failed");
+    NSLog(@" wm rewarded verify failed");
     
 }
 
 - (void)rewardedVideoAdServerRewardDidSucceed:(BURewardedVideoAd *)rewardedVideoAd verify:(BOOL)verify{
-    NSLog(@"lwq, wm rewarded verify succeed");
-    NSLog(@"lwq, wm verify result: %@", verify ? @"success" : @"fail");
+    NSLog(@" wm rewarded verify succeed");
+    NSLog(@" wm verify result: %@", verify ? @"success" : @"fail");
 //    if(verify){
         self.isRewarded = true;
 //    }

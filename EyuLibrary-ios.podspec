@@ -68,7 +68,7 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'admob_sdk' do |admob|
-        admob.dependency 'Google-Mobile-Ads-SDK','8.2.0'
+        admob.dependency 'Google-Mobile-Ads-SDK','8.3.0'
         admob.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ADMOB_ADS_ENABLED'}
     end
     
@@ -261,7 +261,6 @@ Pod::Spec.new do |s|
         mopub.dependency 'MoPub-Pangle-Adapters', '3.5.1.0.0'
         mopub.dependency 'MoPub-UnityAds-Adapters', '3.6.0.1'
         mopub.dependency 'MoPub-Vungle-Adapters', '6.9.1.2'
-        mopub.dependency 'MoPub-IronSource-Adapters', '7.1.4.0.0'
         mopub.dependency 'FBSDKCoreKit','9.1.0'
         mopub.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) MOPUB_ENABLED'}
     end

@@ -20,7 +20,7 @@
 
 -(void) loadAd
 {
-    NSLog(@"lwq, EYMaxRewardAdAdapter loadAd #############. adId = #%@#", self.adKey.key);
+    NSLog(@" EYMaxRewardAdAdapter loadAd #############. adId = #%@#", self.adKey.key);
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded])
@@ -46,7 +46,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@"lwq, EYMaxRewardAdAdapter showAd #############.");
+    NSLog(@" EYMaxRewardAdAdapter showAd #############.");
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -68,7 +68,7 @@
 {
     // Rewarded ad is ready to be shown. '[self.rewardedAd isReady]' will now return 'YES'
     // We now have an interstitial ad we can show!
-    NSLog(@"lwq, MAX reward didLoadAd adKey = %@", self.adKey);
+    NSLog(@" MAX reward didLoadAd adKey = %@", self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
@@ -76,27 +76,27 @@
 
 - (void)didFailToLoadAdForAdUnitIdentifier:(NSString *)adUnitIdentifier withErrorCode:(NSInteger)errorCode
 {
-    NSLog(@"lwq, MAX reward didFailToLoadAdWithError: %ld, adKey = %@", errorCode, self.adKey);
+    NSLog(@" MAX reward didFailToLoadAdWithError: %ld, adKey = %@", errorCode, self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoadFailedWithError:(int)errorCode];
 }
 
 - (void)didDisplayAd:(MAAd *)ad {
-    NSLog(@"lwq, MAX reward ad wasDisplayedIn");
+    NSLog(@" MAX reward ad wasDisplayedIn");
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
 }
 
 - (void)didClickAd:(MAAd *)ad {
-    NSLog(@"lwq, MAX reward ad wasClickedIn");
+    NSLog(@" MAX reward ad wasClickedIn");
     [self notifyOnAdClicked];
 }
 
 - (void)didHideAd:(MAAd *)ad
 {
     // Rewarded ad is hidden. Pre-load the next ad
-    NSLog(@"lwq, MAX reward ad wasHiddenIn isRewarded = %d", self.isRewarded);
+    NSLog(@" MAX reward ad wasHiddenIn isRewarded = %d", self.isRewarded);
     self.isShowing = NO;
     if(self.isRewarded){
         [self notifyOnAdRewarded];
@@ -108,7 +108,7 @@
 - (void)didFailToDisplayAd:(MAAd *)ad withErrorCode:(NSInteger)errorCode
 {
     // Rewarded ad failed to display. We recommend loading the next ad
-    NSLog(@"lwq, MAX reward ad didFailToDisplayAd %ld", errorCode);
+    NSLog(@" MAX reward ad didFailToDisplayAd %ld", errorCode);
     self.isShowing = false;
     self.isLoading = false;
     [self cancelTimeoutTask];
@@ -118,18 +118,18 @@
 #pragma mark - MARewardedAdDelegate Protocol
 
 - (void)didStartRewardedVideoForAd:(MAAd *)ad {
-    NSLog(@"lwq, MAX reward ad didStartRewardedVideoForAd");
+    NSLog(@" MAX reward ad didStartRewardedVideoForAd");
 
 }
 
 - (void)didCompleteRewardedVideoForAd:(MAAd *)ad {
-    NSLog(@"lwq, MAX reward ad didCompleteRewardedVideoForAd");
+    NSLog(@" MAX reward ad didCompleteRewardedVideoForAd");
 }
 
 - (void)didRewardUserForAd:(MAAd *)ad withReward:(MAReward *)reward
 {
     // Rewarded ad was displayed and user should receive the reward
-    NSLog(@"lwq, MAX reward ad didRewardUserForAd");
+    NSLog(@" MAX reward ad didRewardUserForAd");
     self.isRewarded = true;
 }
 

@@ -20,7 +20,7 @@
 
 -(void) loadAd
 {
-    NSLog(@" lwq, fb nativeAd loadAd nativeAd = %@, key = %@.", self.nativeAd, self.adKey.key);
+    NSLog(@"fb nativeAd loadAd nativeAd = %@, key = %@.", self.nativeAd, self.adKey.key);
     if([self isAdLoaded]){
         [self notifyOnAdLoaded];
     }else if(self.nativeAd == NULL)
@@ -47,7 +47,7 @@
 -(bool) showAdWithAdLayout:(UIView*)nativeAdLayout iconView:(UIImageView*)nativeAdIcon titleView:(UILabel*)nativeAdTitle
                   descView:(UILabel*)nativeAdDesc mediaLayout:(UIView*)mediaLayout actBtn:(UIButton*)actBtn controller:(UIViewController*)controller
 {
-    NSLog(@" lwq, fb nativeAd showAd self.nativeAd = %@.", self.nativeAd);
+    NSLog(@"fb nativeAd showAd self.nativeAd = %@.", self.nativeAd);
     if ([self.nativeAd isAdValid]) {
         [self.nativeAd unregisterView];
         
@@ -96,7 +96,7 @@
 -(bool) isAdLoaded
 {
     bool isAdLoaded = self.nativeAd!=NULL &&[self.nativeAd isAdValid];
-    NSLog(@" lwq, fb nativeAd isAdLoaded ? = %d", isAdLoaded);
+    NSLog(@"fb nativeAd isAdLoaded ? = %d", isAdLoaded);
     return isAdLoaded;
 }
 
@@ -127,7 +127,7 @@
 
 - (void)nativeAd:(FBNativeAd *)nativeAd didFailWithError:(NSError *)error
 {
-    NSLog(@"lwq,fb Native ad failed to load with error: %@", error);
+    NSLog(@"fb Native ad failed to load with error: %@", error);
     self.isLoading = false;
     if(self.nativeAd != NULL)
     {
@@ -141,7 +141,7 @@
 
 - (void)nativeAdDidLoad:(FBNativeAd *)nativeAd
 {
-    NSLog(@"lwq, nativeAdDidLoad");
+    NSLog(@" nativeAdDidLoad");
 //    self.isLoading = false;
 //    [self cancelTimeoutTask];
 //    [self notifyOnAdLoaded];
@@ -152,7 +152,7 @@
  */
 - (void)nativeAdDidDownloadMedia:(FBNativeAd *)nativeAd
 {
-    NSLog(@"lwq, nativeAdDidDownloadMedia");
+    NSLog(@" nativeAdDidDownloadMedia");
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
@@ -165,7 +165,7 @@
  */
 - (void)nativeAdWillLogImpression:(FBNativeAd *)nativeAd
 {
-    NSLog(@"lwq, fb nativeAdWillLogImpression");
+    NSLog(@" fb nativeAdWillLogImpression");
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
 }
@@ -173,16 +173,16 @@
 - (void)mediaViewDidLoad:(FBMediaView *)mediaView
 {
     CGFloat currentAspect = mediaView.frame.size.width / mediaView.frame.size.height;
-    NSLog(@"lwq, current aspect of media view: %f", currentAspect);
+    NSLog(@" current aspect of media view: %f", currentAspect);
     
     CGFloat actualAspect = mediaView.aspectRatio;
-    NSLog(@"lwq, actual aspect of media view: %f", actualAspect);
+    NSLog(@" actual aspect of media view: %f", actualAspect);
     [mediaView applyNaturalWidth];
 }
 
 - (void)dealloc
 {
-    NSLog(@"lwq, FbNativeAdAdapter dealloc ");
+    NSLog(@" FbNativeAdAdapter dealloc ");
     
     [self unregisterView];
 }

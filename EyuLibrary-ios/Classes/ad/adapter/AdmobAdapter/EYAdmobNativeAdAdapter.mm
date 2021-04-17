@@ -16,7 +16,7 @@
 
 -(void) loadAd
 {
-    NSLog(@" lwq, admob nativeAd ");
+    NSLog(@"admob nativeAd ");
     if([self isAdLoaded])
     {
         [self notifyOnAdLoaded];
@@ -48,7 +48,7 @@
 -(bool) showAdWithAdLayout:(UIView*)nativeAdLayout iconView:(UIImageView*)nativeAdIcon titleView:(UILabel*)nativeAdTitle
                   descView:(UILabel*)nativeAdDesc mediaLayout:(UIView*)mediaLayout actBtn:(UIButton*)actBtn controller:(UIViewController*)controller
 {
-    NSLog(@" lwq, admob nativeAd showAd");
+    NSLog(@"admob nativeAd showAd");
     if (self.nativeAd == NULL) return false;
 
     self.nativeAd.rootViewController = controller;
@@ -126,7 +126,7 @@
     //if(
     
     CGRect bounds = CGRectMake(0,0, nativeAdLayout.frame.size.width, nativeAdLayout.frame.size.height);
-    NSLog(@"lwq, nativeAdView witdh = %f, height = %f ", bounds.size.width, bounds.size.height);
+    NSLog(@"nativeAdView witdh = %f, height = %f ", bounds.size.width, bounds.size.height);
     self.nativeAdView.frame = bounds;
     self.nativeAdView.userInteractionEnabled = YES;
     //[nativeAdLayout addSubview:nativeAdView];
@@ -140,7 +140,7 @@
 
 -(bool) isAdLoaded
 {
-    NSLog(@" lwq, admob nativeAd isAdLoaded, self.nativeAd = %@", self.nativeAd);
+    NSLog(@"admob nativeAd isAdLoaded, self.nativeAd = %@", self.nativeAd);
     return self.nativeAd!=NULL;
 }
 
@@ -151,7 +151,7 @@
         self.nativeAd = NULL;
     }
     if(self.nativeAdView != NULL ){
-        NSLog(@"lwq, AdmobNativeAdAdapter self->nativeAdView.adChoicesView removeFromSuperview ");
+        NSLog(@"AdmobNativeAdAdapter self->nativeAdView.adChoicesView removeFromSuperview ");
         [self.nativeAdView removeFromSuperview];
         self.nativeAdView = NULL;
     }
@@ -170,7 +170,7 @@
 #pragma mark GADAdLoaderDelegate implementation
 
 - (void)adLoader:(GADAdLoader *)adLoader didReceiveNativeAd:(GADNativeAd *)nativeAd {
-    NSLog(@"lwq,admob didReceiveUnifiedNativeAd, adLoader = :%@, nativeAd = %@", self, nativeAd);
+    NSLog(@"admob didReceiveUnifiedNativeAd, adLoader = :%@, nativeAd = %@", self, nativeAd);
     self.isLoading = false;
     self.nativeAd = nativeAd;
     [self cancelTimeoutTask];
@@ -182,7 +182,7 @@
 }
 
 - (void)adLoader:(GADAdLoader *)adLoader didFailToReceiveAdWithError:(NSError *)error {
-    NSLog(@"%@lwq, admob adLoader failed with error: %@", adLoader, error);
+    NSLog(@"%@admob adLoader failed with error: %@", adLoader, error);
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoadFailedWithError:(int)error.code];
@@ -191,32 +191,32 @@
 #pragma mark GADVideoControllerDelegate implementation
 
 - (void)videoControllerDidEndVideoPlayback:(GADVideoController *)videoController {
-    NSLog(@"lwq,admob videoControllerDidEndVideoPlayback, adLoader = : %@", self);
+    NSLog(@"admob videoControllerDidEndVideoPlayback, adLoader = : %@", self);
 }
 
 #pragma mark GADUnifiedNativeAdDelegate
 
 - (void)nativeAdDidRecordClick:(GADNativeAd *)nativeAd {
-    NSLog(@"lwq,%s", __PRETTY_FUNCTION__);
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     [self notifyOnAdClicked];
 }
 
 - (void)nativeAdDidRecordImpression:(GADNativeAd *)nativeAd {
-    NSLog(@"lwq,%s", __PRETTY_FUNCTION__);
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     [self notifyOnAdImpression];
 }
 
 - (void)nativeAdWillPresentScreen:(GADNativeAd *)nativeAd {
-    NSLog(@"lwq,%s", __PRETTY_FUNCTION__);
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     [self notifyOnAdShowed];
 }
 
 - (void)nativeAdWillDismissScreen:(GADNativeAd *)nativeAd {
-    NSLog(@"lwq,%s", __PRETTY_FUNCTION__);
+    NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
 - (void)nativeAdDidDismissScreen:(GADNativeAd *)nativeAd {
-    NSLog(@"lwq,%s", __PRETTY_FUNCTION__);
+    NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
 - (void)nativeAdWillLeaveApplication:(GADNativeAd *)nativeAd {
@@ -226,7 +226,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"lwq, AdmobNativeAdAdapter dealloc ");
+    NSLog(@"AdmobNativeAdAdapter dealloc ");
     if(self.nativeAdLoader != NULL){
         self.nativeAdLoader.delegate = NULL;
         self.nativeAdLoader = NULL;

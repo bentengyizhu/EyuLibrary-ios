@@ -57,13 +57,13 @@
         self.rootView = rootView;
         
         if(self.actBtn){
-            NSLog(@"lwq, EYNativeAdView initWithFrame self.actBtn = %@",self.actBtn);
+            NSLog(@" EYNativeAdView initWithFrame self.actBtn = %@",self.actBtn);
             auto tapGesture = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector(didTapNativeAd:)];
             [self.actBtn addGestureRecognizer:tapGesture];
         }
         
         if(self.closeBtn){
-            NSLog(@"lwq, EYNativeAdView initWithFrame closeBtn = %@",self.closeBtn);
+            NSLog(@" EYNativeAdView initWithFrame closeBtn = %@",self.closeBtn);
             auto closeTapGesture = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector(didTapCloseAd:)];
             [self.closeBtn addGestureRecognizer:closeTapGesture];
         }
@@ -110,13 +110,13 @@
 
 - (void)didTapNativeAd:(UITapGestureRecognizer *)tapGesture
 {
-    NSLog(@"lwq, default native ad Redirecting from app icon click");
+    NSLog(@" default native ad Redirecting from app icon click");
     [[EYAdManager sharedInstance] onDefaultNativeAdClicked];
 }
 
 - (void)didTapCloseAd:(UITapGestureRecognizer *)tapGesture
 {
-    NSLog(@"lwq, close native ad ");
+    NSLog(@" close native ad ");
     self.isCanShow = NO;
     if(self.superview){
         [self.superview setHidden:YES];

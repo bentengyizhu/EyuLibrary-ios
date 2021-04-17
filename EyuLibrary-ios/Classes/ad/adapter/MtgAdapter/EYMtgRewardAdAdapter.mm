@@ -18,7 +18,7 @@
 
 -(void) loadAd
 {
-    NSLog(@" lwq, mtg loadAd isAdLoaded = %d", [self isAdLoaded]);
+    NSLog(@"mtg loadAd isAdLoaded = %d", [self isAdLoaded]);
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded])
@@ -40,7 +40,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@" lwq, mtg showAd ");
+    NSLog(@"mtg showAd ");
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -55,14 +55,14 @@
 {
     bool isAdLoaded = [[MTGRewardAdManager sharedInstance] isVideoReadyToPlayWithPlacementId:self.adKey.placementid unitId:self.adKey.key];
 //    bool isAdLoaded = [[MTGRewardAdManager sharedInstance] isVideoReadyToPlay:self.adKey.key];
-    NSLog(@" lwq, mtg Reward video ad isAdLoaded = %d", isAdLoaded);
+    NSLog(@"mtg Reward video ad isAdLoaded = %d", isAdLoaded);
     return self.isLoadSuccess ;
 }
 
 #pragma mark MTGRewardAdLoadDelegate
 
 - (void)onVideoAdLoadSuccess:(NSString *)placementId unitId:(NSString *)unitId {
-    NSLog(@"lwq, mtg reawrded video did load");
+    NSLog(@" mtg reawrded video did load");
     self.isLoading = false;
     [self cancelTimeoutTask];
     self.isLoadSuccess = true;
@@ -71,14 +71,14 @@
 
 
 - (void)onAdLoadSuccess:(NSString *)placementId unitId:(NSString *)unitId {
-    NSLog(@"lwq, mtg reawrded material load success");
+    NSLog(@" mtg reawrded material load success");
 //    self.isLoading = false;
 //    self.isLoadSuccess = true;
     [self cancelTimeoutTask];
 }
 
 - (void)onVideoAdLoadFailed:(NSString *)placementId unitId:(NSString *)unitId error:(NSError *)error {
-    NSLog(@"lwq, mtg rewarded video material load fail unitId = %@, error = %@", unitId, error);
+    NSLog(@" mtg rewarded video material load fail unitId = %@, error = %@", unitId, error);
     self.isLoading = false;
     self.isLoadSuccess = false;
     [self cancelTimeoutTask];
@@ -88,7 +88,7 @@
 #pragma mark MTGRewardAdShowDelegate
 
 - (void)onVideoAdShowSuccess:(NSString *)placementId unitId:(NSString *)unitId {
-    NSLog(@"lwq, mtg rewarded video will visible, unitId = %@", unitId);
+    NSLog(@" mtg rewarded video will visible, unitId = %@", unitId);
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
 }
@@ -99,7 +99,7 @@
  *  @param unitId - the unitId string of the Ad that display success.
  */
 - (void)onVideoAdShowFailed:(NSString *)placementId unitId:(NSString *)unitId withError:(NSError *)error {
-    NSLog(@"lwq, mtg onVideoAdShowFailed unitId = %@, error = %@", unitId, error);
+    NSLog(@" mtg onVideoAdShowFailed unitId = %@, error = %@", unitId, error);
 }
 
 /**
@@ -119,7 +119,7 @@
  *  @param rewardInfo  - the rewardInfo object containing the info that should be given to your user.
  */
 - (void)onVideoAdDismissed:(NSString *)placementId unitId:(NSString *)unitId withConverted:(BOOL)converted withRewardInfo:(MTGRewardAdInfo *)rewardInfo {
-    NSLog(@"lwq, mtg rewarded video did close, unitId = %@", unitId);
+    NSLog(@" mtg rewarded video did close, unitId = %@", unitId);
     if(rewardInfo){
         [self notifyOnAdRewarded];
     }

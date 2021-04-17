@@ -11,7 +11,7 @@
 @implementation EYATIntersitialAdAdapter
 -(void) loadAd
 {
-    NSLog(@"lwq, AT loadAd interstitialAd");
+    NSLog(@"AT loadAd interstitialAd");
     if([self isShowing]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if([self isAdLoaded]){
@@ -34,7 +34,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@"lwq, AT showAd [self isAdLoaded] = %d", [self isAdLoaded]);
+    NSLog(@"AT showAd [self isAdLoaded] = %d", [self isAdLoaded]);
     if([self isAdLoaded])
     {
         self.isShowing = true;
@@ -46,7 +46,7 @@
 
 #pragma mark - showing delegate
 -(void) interstitialDidShowForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
-    NSLog(@"lwq, AT interstitialWillPresentScreen");
+    NSLog(@"AT interstitialWillPresentScreen");
     [self notifyOnAdShowed];
     [self notifyOnAdShowedData:extra];
     [self notifyOnAdImpression];
@@ -69,25 +69,25 @@
 }
 
 -(void) interstitialDidCloseForPlacementID:(NSString*)placementID extra:(NSDictionary *)extra {
-    NSLog(@"lwq, AT interstitialDidDismissScreen");
+    NSLog(@"AT interstitialDidDismissScreen");
     self.isShowing = false;
     [self notifyOnAdClosed];
 }
 
 -(void) interstitialDidClickForPlacementID:(NSString*)placementID extra:(NSDictionary *)extra {
-    NSLog(@"lwq, AT interstitialWillLeaveApplication");
+    NSLog(@"AT interstitialWillLeaveApplication");
     [self notifyOnAdClicked];
 }
 
 - (void)didFailToLoadADWithPlacementID:(NSString *)placementID error:(NSError *)error {
-    NSLog(@"lwq, AT interstitial:didFailToReceiveAdWithError: %@, adKey = %@", [error localizedDescription], self.adKey);
+    NSLog(@"AT interstitial:didFailToReceiveAdWithError: %@, adKey = %@", [error localizedDescription], self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoadFailedWithError:(int)error.code];
 }
 
 - (void)didFinishLoadingADWithPlacementID:(NSString *)placementID {
-    NSLog(@"lwq, AT interstitialDidReceiveAd adKey = %@", self.adKey);
+    NSLog(@"AT interstitialDidReceiveAd adKey = %@", self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];

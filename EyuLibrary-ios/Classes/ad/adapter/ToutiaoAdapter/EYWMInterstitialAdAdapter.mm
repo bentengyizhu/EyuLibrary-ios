@@ -22,7 +22,7 @@
 
 -(void) loadAd
 {
-    NSLog(@" lwq, wm interstitialAd loadAd ");
+    NSLog(@"wm interstitialAd loadAd ");
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if(self.interstitialAd == NULL)
@@ -44,7 +44,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@" lwq, wm interstitialAd showAd ");
+    NSLog(@"wm interstitialAd showAd ");
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -55,18 +55,18 @@
 
 -(bool) isAdLoaded
 {
-    NSLog(@" lwq, wm interstitialAd isAdLoaded , interstitialAd = %@", self.interstitialAd);
+    NSLog(@"wm interstitialAd isAdLoaded , interstitialAd = %@", self.interstitialAd);
     return self.interstitialAd != NULL && [self.interstitialAd isAdValid];
 }
 
 #pragma mark BURewardedVideoAdDelegate
 
 - (void)fullscreenVideoMaterialMetaAdDidLoad:(BUFullscreenVideoAd *)fullscreenVideoAd {
-    NSLog(@"lwq, wm interstitialAd fullscreenVideoMaterialMetaAdDidLoad");
+    NSLog(@" wm interstitialAd fullscreenVideoMaterialMetaAdDidLoad");
 }
 
 - (void)fullscreenVideoAd:(BUFullscreenVideoAd *)fullscreenVideoAd didFailWithError:(NSError *)error {
-    NSLog(@"lwq, wm interstitialAd didFailWithError");
+    NSLog(@" wm interstitialAd didFailWithError");
     self.isLoading = false;
     if(self.interstitialAd != NULL)
     {
@@ -78,7 +78,7 @@
 }
 
 - (void)fullscreenVideoAdVideoDataDidLoad:(BUFullscreenVideoAd *)fullscreenVideoAd {
-    NSLog(@"lwq, wm interstitialAd fullscreenVideoAdVideoDataDidLoad");
+    NSLog(@" wm interstitialAd fullscreenVideoAdVideoDataDidLoad");
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
@@ -89,7 +89,7 @@
  */
 - (void)fullscreenVideoAdDidVisible:(BUFullscreenVideoAd *)fullscreenVideoAd
 {
-    NSLog(@"lwq, wm interstitialAd fullscreenVideoAdDidVisible");
+    NSLog(@" wm interstitialAd fullscreenVideoAdDidVisible");
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
 }
@@ -99,7 +99,7 @@
  */
 - (void)fullscreenVideoAdDidClose:(BUFullscreenVideoAd *)fullscreenVideoAd
 {
-    NSLog(@"lwq, wm interstitialAd fullscreenVideoAdDidClose");
+    NSLog(@" wm interstitialAd fullscreenVideoAdDidClose");
     self.isShowing = NO;
     if(self.interstitialAd != NULL)
     {
@@ -114,7 +114,7 @@
  */
 - (void)fullscreenVideoAdDidClick:(BUFullscreenVideoAd *)fullscreenVideoAd
 {
-    NSLog(@"lwq, wm interstitialAd fullscreenVideoAdDidClick");
+    NSLog(@" wm interstitialAd fullscreenVideoAdDidClick");
     [self notifyOnAdClicked];
 }
 

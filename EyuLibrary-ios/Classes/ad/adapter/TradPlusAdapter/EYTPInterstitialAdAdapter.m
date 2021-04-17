@@ -15,7 +15,7 @@
 
 -(void) loadAd
 {
-    NSLog(@" lwq, tp interstitialAd loadAd ");
+    NSLog(@"tp interstitialAd loadAd ");
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if(self.interstitialAd == NULL)
@@ -38,7 +38,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@" lwq, tp interstitialAd showAd ");
+    NSLog(@"tp interstitialAd showAd ");
     if([self isAdLoaded])
     {
         self.isShowing = YES;
@@ -49,7 +49,7 @@
 
 -(bool) isAdLoaded
 {
-    NSLog(@" lwq, tp interstitialAd isAdLoaded , interstitialAd = %@", self.interstitialAd);
+    NSLog(@"tp interstitialAd isAdLoaded , interstitialAd = %@", self.interstitialAd);
     return self.interstitialAd != NULL && [self.interstitialAd isAdReady];
 }
 
@@ -77,7 +77,7 @@
 //单个广告源 加载失败
 -(void)interstitialAd:(MsInterstitialAd *)interstitialAd didFailWithError:(NSError *)error
 {
-    NSLog(@"lwq,tp interstitial Ad failed to load");
+    NSLog(@"tp interstitial Ad failed to load");
     self.isLoading = false;
     if(self.interstitialAd != NULL)
     {
@@ -90,7 +90,7 @@
 
 -(void)interstitialAdShown:(MsInterstitialAd *)interstitialAd
 {
-    NSLog(@"lwq,tp The user sees the add");
+    NSLog(@"tp The user sees the add");
     // Use this function as indication for a user's impression on the ad.
     [self notifyOnAdShowed];
     [self notifyOnAdImpression];
@@ -99,7 +99,7 @@
 //视频播放结束后回调
 -(void)interstitialAdDismissed:(MsInterstitialAd *)interstitialAd
 {
-    NSLog(@"lwq,tp Interstitial had been closed, %@", [NSThread currentThread]);
+    NSLog(@"tp Interstitial had been closed, %@", [NSThread currentThread]);
     // Consider to add code here to resume your app's flow
     self.isShowing = NO;
     if(self.interstitialAd != NULL)
@@ -113,7 +113,7 @@
 //点击广告后回调。
 -(void)interstitialAdClicked:(MsInterstitialAd *)interstitialAd
 {
-    NSLog(@"lwq,tp The user clicked on the ad and will be taken to its destination");
+    NSLog(@"tp The user clicked on the ad and will be taken to its destination");
     // Use this function as indication for a user's click on the ad.
     [self notifyOnAdClicked];
 }

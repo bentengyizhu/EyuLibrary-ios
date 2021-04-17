@@ -24,7 +24,7 @@
 
 -(void) loadAd
 {
-    NSLog(@" lwq, gdt interstitialAd loadAd ");
+    NSLog(@"gdt interstitialAd loadAd ");
     if([self isShowing ]){
         [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
     }else if(self.interstitialAd == NULL)
@@ -48,7 +48,7 @@
 
 -(bool) showAdWithController:(UIViewController*) controller
 {
-    NSLog(@" lwq, gdt interstitialAd showAd ");
+    NSLog(@"gdt interstitialAd showAd ");
     if([self isAdLoaded])
     {
         [self.interstitialAd presentFullScreenAdFromRootViewController:controller];
@@ -60,7 +60,7 @@
 
 -(bool) isAdLoaded
 {
-    NSLog(@" lwq, gdt interstitialAd isAdLoaded , interstitialAd = %@", self.interstitialAd);
+    NSLog(@"gdt interstitialAd isAdLoaded , interstitialAd = %@", self.interstitialAd);
     return self.interstitialAd != NULL && [self.interstitialAd isAdValid];
 }
 
@@ -70,7 +70,7 @@
 // 详解:当接收服务器返回的广告数据成功后调用该函数
 - (void)unifiedInterstitialSuccessToLoadAd:(GDTUnifiedInterstitialAd *)unifiedInterstitial;
 {
-    NSLog(@"lwq, gdt interstitialAd interstitialSuccessToLoadAd");
+    NSLog(@" gdt interstitialAd interstitialSuccessToLoadAd");
     self.isLoading = false;
     [self cancelTimeoutTask];
     [self notifyOnAdLoaded];
@@ -81,7 +81,7 @@
 // 详解:当接收服务器返回的广告数据失败后调用该函数
 - (void)unifiedInterstitialFailToLoadAd:(GDTUnifiedInterstitialAd *)unifiedInterstitial error:(NSError *)error;
 {
-    NSLog(@"lwq, gdt interstitialFailToLoadAd, error = %@", error);
+    NSLog(@" gdt interstitialFailToLoadAd, error = %@", error);
     self.isLoading = false;
     if(self.interstitialAd != NULL)
     {
@@ -96,7 +96,7 @@
 // 详解: 插屏广告展示成功回调该函数
 - (void)unifiedInterstitialDidPresentScreen:(GDTUnifiedInterstitialAd *)unifiedInterstitial;
 {
-    NSLog(@"lwq, gdt interstitialDidPresentScreen");
+    NSLog(@" gdt interstitialDidPresentScreen");
     [self notifyOnAdShowed];
 }
 
@@ -104,7 +104,7 @@
 // 详解: 插屏广告展示结束回调该函数
 - (void)unifiedInterstitialDidDismissScreen:(GDTUnifiedInterstitialAd *)unifiedInterstitial;
 {
-    NSLog(@"lwq, gdt unifiedInterstitialDidDismissScreen");
+    NSLog(@" gdt unifiedInterstitialDidDismissScreen");
     self.isShowing = NO;
     if(self.interstitialAd != NULL)
     {
@@ -119,7 +119,7 @@
  */
 - (void)unifiedInterstitialClicked:(GDTUnifiedInterstitialAd *)unifiedInterstitial;
 {
-    NSLog(@"lwq, gdt interstitialClicked");
+    NSLog(@" gdt interstitialClicked");
     [self notifyOnAdClicked];
 }
 
@@ -128,7 +128,7 @@
  */
 - (void)unifiedInterstitialWillExposure:(GDTUnifiedInterstitialAd *)unifiedInterstitial;
 {
-    NSLog(@"lwq, gdt interstitialDidPresentScreen");
+    NSLog(@" gdt interstitialDidPresentScreen");
     [self notifyOnAdImpression];
 }
 
@@ -137,7 +137,7 @@
  */
 - (void)unifiedInterstitialAdDidDismissFullScreenModal:(GDTUnifiedInterstitialAd *)unifiedInterstitial;
 {
-    NSLog(@"lwq, gdt interstitialAdDidDismissFullScreenModal");
+    NSLog(@" gdt interstitialAdDidDismissFullScreenModal");
 }
 
 - (void)dealloc

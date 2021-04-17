@@ -31,7 +31,7 @@
 
 -(void) loadAd
 {
-    NSLog(@"lwq, vungle loadAd key = %@", self.adKey);
+    NSLog(@" vungle loadAd key = %@", self.adKey);
     VungleSDK* sdk = [VungleSDK sharedSDK];
 
     if(![sdk isInitialized])
@@ -49,7 +49,7 @@
         [sdk loadPlacementWithID:self.adKey.key error:&error];
         if(error)
         {
-            NSLog(@"lwq, vungle load interstitial Ad error %@", error);
+            NSLog(@" vungle load interstitial Ad error %@", error);
             self.isLoading = false;
             [self notifyOnAdLoadFailedWithError:(int)(error.code)];
         }else{
@@ -66,14 +66,14 @@
 -(bool) showAdWithController:(UIViewController*) controller
 {
     bool isAdLoaded = [self isAdLoaded];
-    NSLog(@"lwq, vungle showAd [self isAdLoaded] = %d", isAdLoaded);
+    NSLog(@" vungle showAd [self isAdLoaded] = %d", isAdLoaded);
     if(isAdLoaded)
     {
         VungleSDK* sdk = [VungleSDK sharedSDK];
         NSError *error;
         [sdk playAd:controller options:nil placementID:self.adKey.key error:&error];
         if (error) {
-            NSLog(@"lwq,vungle Error encountered playing ad: %@", error);
+            NSLog(@"vungle Error encountered playing ad: %@", error);
             return false;
         }else{
             self.isShowing = YES;
