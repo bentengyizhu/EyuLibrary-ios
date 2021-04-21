@@ -480,7 +480,7 @@ static id s_sharedInstance;
         sdkConfig.mediatedNetworkConfigurations = [@{@"PangleAdapterConfiguration":pangleConfig} mutableCopy];
     }
 
-    sdkConfig.loggingLevel = MPBLogLevelDebug;
+//    sdkConfig.loggingLevel = MPBLogLevelDe bug;
 //    sdkConfig.allowLegitimateInterest = YES;
     [[MoPub sharedInstance] initializeSdkWithConfiguration:sdkConfig completion:^{
         NSLog(@"SDK initialization complete");
