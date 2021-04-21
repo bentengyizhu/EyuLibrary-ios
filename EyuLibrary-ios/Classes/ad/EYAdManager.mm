@@ -473,7 +473,7 @@ static id s_sharedInstance;
     
     [ALSdk initializeSdk];
     
-    NSString *pangleId = config.mopubAdParams[@"app_id"];
+    NSString *pangleId = config.mopubAdParams[@"pangleApp_id"];
     if (pangleId) {
         sdkConfig.additionalNetworks = @[PangleAdapterConfiguration.class];
         NSDictionary *pangleConfig = @{@"app_id": pangleId};
