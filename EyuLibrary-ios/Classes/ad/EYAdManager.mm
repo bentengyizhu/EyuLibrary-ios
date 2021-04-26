@@ -690,11 +690,11 @@ static id s_sharedInstance;
 
 - (void)setRootViewController:(UIViewController *)rootViewController {
     _rootViewController = rootViewController;
-    for (EYBannerAdGroup *group in self.bannerAdGroupDict.allValues) {
-        if (group.adGroup.isAutoLoad) {
-            [group loadAd:@"auto"];
-        }
-    }
+//    for (EYBannerAdGroup *group in self.bannerAdGroupDict.allValues) {
+//        if (group.adGroup.isAutoLoad) {
+//            [group loadAd:@"auto"];
+//        }
+//    }
 }
 
 -(void)loadAutoAd {
@@ -714,6 +714,15 @@ static id s_sharedInstance;
             EYAdGroup* group = self.adGroupDict[groupName];
             if(group && group.isAutoLoad){
                 [self.rewardAdGroupDict[groupName] loadAd:@"auto"];
+            }
+        }
+    }
+    if(self.nativeAdGroupDict){
+        for(NSString* groupName in self.nativeAdGroupDict)
+        {
+            EYAdGroup* group = self.adGroupDict[groupName];
+            if(group && group.isAutoLoad){
+                [self.nativeAdGroupDict[groupName] loadAd:@"auto"];
             }
         }
     }
