@@ -2,7 +2,7 @@
     {
         "isEnabled":"true",
         "desc":"激励视频",
-        "id":"reward_ad1",
+        "id":"reward_ad",
         "nativeAdLayout":"",
         "cacheGroup":"reward_ad"
     },

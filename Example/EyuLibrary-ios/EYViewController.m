@@ -74,7 +74,7 @@
 
 - (void)showRewardAd:(UITapGestureRecognizer *)gesture {
     NSLog(@"showRewardAd");
-    [[EYAdManager sharedInstance] showRewardVideoAd:@"reward_ad1" withViewController:self];
+    [[EYAdManager sharedInstance] showRewardVideoAd:@"reward_ad" withViewController:self];
 }
 
 - (void)showInterstitialAd:(UITapGestureRecognizer *)gesture {
