@@ -124,7 +124,7 @@
         [self.adapterArray insertObject:newAdapter atIndex:index];
     }
     if (hasLoadedAdapter == false || loadAdapter == NULL) {
-        [self loadAd:@"auto"];
+        [self loadAd:self.adPlaceId];
     }
     return (EYBannerAdAdapter *)loadAdapter;
 }

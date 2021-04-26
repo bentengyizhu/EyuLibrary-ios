@@ -132,7 +132,7 @@
 -(bool) showAd:(NSString*)adPlaceId controller:(UIViewController*)controller
 {
     NSLog(@"showAd adPlaceId = %@, self = %@", adPlaceId, self);
-//    self.adPlaceId = adPlaceId;
+    self.adPlaceId = adPlaceId;
     EYInterstitialAdAdapter* loadedAdapter = NULL;
     for(EYInterstitialAdAdapter* adapter in self.adapterArray)
     {
@@ -291,7 +291,7 @@
         }
     }
     if (self.adGroup.isAutoLoad && hasAdLoaded == false) {
-        [self loadAd:@"auto"];
+        [self loadAd:self.adPlaceId];
     }
 }
 

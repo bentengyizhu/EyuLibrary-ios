@@ -15,7 +15,6 @@
 }
 
 @property(nonatomic,copy)NSString *groupId;
-@property(nonatomic,copy)NSString *placeId;
 @property(nonatomic,assign)bool isAutoLoad;
 @property(nonatomic,copy)NSString *type;
 @property(nonatomic,strong)NSMutableArray *suiteArray;

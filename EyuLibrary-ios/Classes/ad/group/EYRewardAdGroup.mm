@@ -164,7 +164,7 @@
 -(bool) showAd:(NSString*) placeId withController:(UIViewController*) controller
 {
     NSLog(@"showAd placeId = %@", placeId);
-//    self.adPlaceId = placeId;
+    self.adPlaceId = placeId;
     EYRewardAdAdapter* loadAdapter = NULL;
     for(EYRewardAdAdapter* adapter in self.adapterArray)
     {
@@ -350,7 +350,7 @@
         }
     }
     if (self.adGroup.isAutoLoad && hasAdLoaded == false) {
-        [self loadAd:@"auto"];
+        [self loadAd:self.adPlaceId];
     }
 }
 

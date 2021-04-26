@@ -23,11 +23,8 @@
     return self;
 }
 
-- (NSString *)adPlaceId {
-    return self.adGroup.placeId;
-}
-
 - (void)loadAd:(NSString *)adPlaceId {
+    self.adPlaceId = adPlaceId;
     if (self.isNewJsonSetting == false) {
         [self loadAdBySequence];
         return;

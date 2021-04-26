@@ -92,7 +92,7 @@
 
 - (bool)showAd:(NSString *)placeId withController:(UIViewController *)controller {
     NSLog(@"showAd adPlaceId = %@, self = %@", placeId, self);
-//    self.adPlaceId = placeId;
+    self.adPlaceId = placeId;
     EYSplashAdAdapter* loadedAdapter = NULL;
     for(EYSplashAdAdapter* adapter in self.adapterArray)
     {
@@ -226,7 +226,7 @@
         }
     }
     if (self.adGroup.isAutoLoad && hasAdLoaded == false) {
-        [self loadAd:@"auto"];
+        [self loadAd:self.adPlaceId];
     }
 }
 
