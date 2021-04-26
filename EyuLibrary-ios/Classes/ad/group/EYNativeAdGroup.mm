@@ -12,7 +12,6 @@
 
 @interface EYNativeAdGroup ()
 @property(nonatomic,strong)NSDictionary<NSString*, Class> *adapterClassDict;
-@property(nonatomic,copy)NSString *adPlaceId;
 
 @end
 
@@ -61,10 +60,6 @@
         self.maxTryLoadAd = ((int)self.adapterArray.count) * 2;
     }
     return self;
-}
-
-- (NSString *)adPlaceId {
-    return self.adGroup.groupId;
 }
 
 //-(void) loadAd:(NSString*)placeId

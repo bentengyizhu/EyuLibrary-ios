@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign)bool reportEvent;
 @property(nonatomic,assign)int  maxTryLoadAd;
 @property(nonatomic,assign)int tryLoadAdCount;
+@property(nonatomic,copy)NSString *adPlaceId;
 
 -(EYBasicAdGroup *)initWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig;
 -(void)loadAd:(NSString*)adPlaceId;

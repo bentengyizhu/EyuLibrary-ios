@@ -16,7 +16,7 @@
 
 @property(nonatomic,strong)NSDictionary<NSString*, Class> *adapterClassDict;
 //@property(nonatomic,strong)NSMutableArray<EYInterstitialAdAdapter*> *adapterArray;
-@property(nonatomic,copy)NSString *adPlaceId;
+//@property(nonatomic,copy)NSString *adPlaceId;
 //@property(nonatomic,assign)int  maxTryLoadAd;
 //@property(nonatomic,assign)int tryLoadAdCounter;
 //@property(nonatomic,assign)int curLoadingIndex;
@@ -34,7 +34,7 @@
 //@synthesize maxTryLoadAd = _maxTryLoadAd;
 //@synthesize curLoadingIndex = _curLoadingIndex;
 //@synthesize tryLoadAdCounter = _tryLoadAdCounter;
-@synthesize adPlaceId = _adPlaceId;
+//@synthesize adPlaceId = _adPlaceId;
 //@synthesize delegate = _delegate;
 //@synthesize reportEvent = _reportEvent;
 
@@ -113,9 +113,9 @@
     }
 }
 
-- (NSString *)adPlaceId {
-    return self.adGroup.groupId;
-}
+//- (NSString *)adPlaceId {
+//    return self.adGroup.groupId;
+//}
 
 -(bool) isCacheAvailable
 {
@@ -132,7 +132,7 @@
 -(bool) showAd:(NSString*)adPlaceId controller:(UIViewController*)controller
 {
     NSLog(@"showAd adPlaceId = %@, self = %@", adPlaceId, self);
-    self.adPlaceId = adPlaceId;
+//    self.adPlaceId = adPlaceId;
     EYInterstitialAdAdapter* loadedAdapter = NULL;
     for(EYInterstitialAdAdapter* adapter in self.adapterArray)
     {

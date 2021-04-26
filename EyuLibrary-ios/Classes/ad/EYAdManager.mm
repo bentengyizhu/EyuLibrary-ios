@@ -264,6 +264,8 @@ static id s_sharedInstance;
             NSString *groupId = adSetting[@"cacheGroup"];
             NSString *nibName = adSetting[@"nativeAdLayout"];
             EYAdPlace *adPlace = [[EYAdPlace alloc] initWithId:placeId groupId:groupId];
+            EYAdGroup *group = self.adGroupDict[groupId];
+            group.placeId = placeId;
             [self.adPlaceDict setObject:adPlace forKey:placeId];
             if(nibName){
                 [self.nativeAdViewNibDict setObject:nibName forKey:placeId];

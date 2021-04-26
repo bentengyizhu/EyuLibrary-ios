@@ -17,7 +17,6 @@
 
 //@property(nonatomic,strong)NSMutableArray<EYRewardAdAdapter*> *adapterArray;
 @property(nonatomic,strong)NSDictionary<NSString*, Class> *adapterClassDict;
-@property(nonatomic,copy)NSString *adPlaceId;
 //@property(nonatomic,assign)int  maxTryLoadAd;
 //@property(nonatomic,assign)int tryLoadAdCounter;
 //@property(nonatomic,assign)int curLoadingIndex;
@@ -123,10 +122,6 @@
     return self;
 }
 
-- (NSString *)adPlaceId {
-    return self.adGroup.groupId;
-}
-
 //-(void) loadAd:(NSString*) placeId
 //{
 //    NSLog(@"EYRewardAdGroup loadAd placeId = %@, self.curLoadingIndex = %d", placeId, self.curLoadingIndex);
@@ -169,7 +164,7 @@
 -(bool) showAd:(NSString*) placeId withController:(UIViewController*) controller
 {
     NSLog(@"showAd placeId = %@", placeId);
-    self.adPlaceId = placeId;
+//    self.adPlaceId = placeId;
     EYRewardAdAdapter* loadAdapter = NULL;
     for(EYRewardAdAdapter* adapter in self.adapterArray)
     {

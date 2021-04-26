@@ -15,7 +15,7 @@
 @interface EYBannerAdGroup()
 
 @property(nonatomic,strong)NSDictionary<NSString*, Class> *adapterClassDict;
-@property(nonatomic,copy)NSString *adPlaceId;
+//@property(nonatomic,copy)NSString *adPlaceId;
 
 //@property(nonatomic,assign)int tryLoadAdCounter;
 //@property(nonatomic,assign)int curLoadingIndex;
@@ -68,9 +68,9 @@
     return self;
 }
 
-- (NSString *)adPlaceId {
-    return self.adGroup.groupId;
-}
+//- (NSString *)adPlaceId {
+//    return self.adGroup.groupId;
+//}
 
 //-(void) loadAd:(NSString*)placeId
 //{

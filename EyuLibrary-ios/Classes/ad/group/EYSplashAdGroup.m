@@ -15,7 +15,6 @@
 @interface EYSplashAdGroup()
 //@property(nonatomic,strong)NSMutableArray<EYSplashAdAdapter*> *adapterArray;
 @property(nonatomic,strong)NSDictionary<NSString*, Class> *adapterClassDict;
-@property(nonatomic,copy)NSString *adPlaceId;
 //@property(nonatomic,assign)int  maxTryLoadAd;
 //@property(nonatomic,assign)int tryLoadAdCounter;
 //@property(nonatomic,assign)int curLoadingIndex;
@@ -93,7 +92,7 @@
 
 - (bool)showAd:(NSString *)placeId withController:(UIViewController *)controller {
     NSLog(@"showAd adPlaceId = %@, self = %@", placeId, self);
-    self.adPlaceId = placeId;
+//    self.adPlaceId = placeId;
     EYSplashAdAdapter* loadedAdapter = NULL;
     for(EYSplashAdAdapter* adapter in self.adapterArray)
     {
