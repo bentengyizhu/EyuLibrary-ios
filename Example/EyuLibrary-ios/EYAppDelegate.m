@@ -33,11 +33,14 @@
     EYAdConfig* adConfig = [[EYAdConfig alloc] init];
     //[[EYRemoteConfigHelper sharedInstance] setDefaults:dict];
 //    [[EYRemoteConfigHelper sharedInstance] getString:@"ios_ad_key_setting"];
-    adConfig.adKeyData =  [EYSdkUtils readFileWithName:@"ios_ad_key_setting"];
-    adConfig.adGroupData = [EYSdkUtils readFileWithName:@"ios_ad_cache_setting"];
-    adConfig.adPlaceData = [EYSdkUtils readFileWithName:@"ios_ad_setting"];
-    adConfig.adSuiteData = [EYSdkUtils readFileWithName:@"ios_ad_group_setting"];
-    adConfig.mopubAdParams = @{@"mopubAdUnitId": @"faeaaa4fbbc944919b358e8308eb08ab", @"pangleApp_id": @"5023932"};
+    adConfig.adKeyData =  [EYSdkUtils readFileWithName:@"ios_ad_key_setting2"];
+    adConfig.adGroupData = [EYSdkUtils readFileWithName:@"ios_ad_cache_setting2"];
+    adConfig.adPlaceData = [EYSdkUtils readFileWithName:@"ios_ad_setting2"];
+//    adConfig.adKeyData =  [EYSdkUtils readFileWithName:@"ios_ad_key_setting"];
+//    adConfig.adGroupData = [EYSdkUtils readFileWithName:@"ios_ad_cache_setting"];
+//    adConfig.adPlaceData = [EYSdkUtils readFileWithName:@"ios_ad_setting"];
+//    adConfig.adSuiteData = [EYSdkUtils readFileWithName:@"ios_ad_group_setting"];
+    adConfig.mopubAdParams = @{@"mopubAdUnitId": @"faeaaa4fbbc944919b38e8308eb08ab", @"pangleApp_id": @"5023932"};
 //    adConfig.abuAppId = @"5149732";
 //    adConfig.mtgAppId = @"142996";
 //    adConfig.mtgAppKey = @"a339a16bbaca844012276afad6f59eaa";
@@ -121,7 +124,7 @@
     NSLog(@"lw, onAdImpression adPlaceId = %@, type = %@", adPlaceId, type);
 }
 
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url  options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
 //    return [EYSdkUtils application:app openURL:url options:options];
     return false;

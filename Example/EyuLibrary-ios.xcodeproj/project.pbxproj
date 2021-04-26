@@ -14,6 +14,9 @@
 		07571B2A259ADD2600C99F68 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07571B29259ADD2600C99F68 /* WebKit.framework */; };
 		07571B2E259ADD3B00C99F68 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07571B2D259ADD3B00C99F68 /* CoreMotion.framework */; };
 		07571B32259ADD9600C99F68 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07571B31259ADD9600C99F68 /* CoreTelephony.framework */; };
+		076CEC6C26365B7D00F0668B /* ios_ad_cache_setting2.json in Resources */ = {isa = PBXBuildFile; fileRef = 076CEC6926365B7C00F0668B /* ios_ad_cache_setting2.json */; };
+		076CEC6D26365B7D00F0668B /* ios_ad_key_setting2.json in Resources */ = {isa = PBXBuildFile; fileRef = 076CEC6A26365B7C00F0668B /* ios_ad_key_setting2.json */; };
+		076CEC6E26365B7D00F0668B /* ios_ad_setting2.json in Resources */ = {isa = PBXBuildFile; fileRef = 076CEC6B26365B7C00F0668B /* ios_ad_setting2.json */; };
 		079D595B2609E4A700FFCE3B /* EYCustomNativeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 079D595A2609E4A700FFCE3B /* EYCustomNativeView.m */; };
 		4B87BD752085F532D3C4C817 /* libPods-EyuLibrary-ios_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A75768B97155249B76354D9 /* libPods-EyuLibrary-ios_Example.a */; };
 		5635DFC123EA9BDE0065566A /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5635DFC023EA9BDD0065566A /* iAd.framework */; };
@@ -66,6 +69,9 @@
 		07571B29259ADD2600C99F68 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		07571B2D259ADD3B00C99F68 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		07571B31259ADD9600C99F68 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		076CEC6926365B7C00F0668B /* ios_ad_cache_setting2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ios_ad_cache_setting2.json; sourceTree = "<group>"; };
+		076CEC6A26365B7C00F0668B /* ios_ad_key_setting2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ios_ad_key_setting2.json; sourceTree = "<group>"; };
+		076CEC6B26365B7C00F0668B /* ios_ad_setting2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ios_ad_setting2.json; sourceTree = "<group>"; };
 		079D59592609E4A700FFCE3B /* EYCustomNativeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EYCustomNativeView.h; sourceTree = "<group>"; };
 		079D595A2609E4A700FFCE3B /* EYCustomNativeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EYCustomNativeView.m; sourceTree = "<group>"; };
 		0DD451035A305C94C404E430 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -75,9 +81,6 @@
 		5635DFC023EA9BDD0065566A /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		56792D5624FDEA9F00655101 /* EyuLibrary-ios_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EyuLibrary-ios_Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		56792D5724FDEA9F00655101 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		56792D7424FF997600655101 /* max_iOSAdCacheSetting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = max_iOSAdCacheSetting.json; sourceTree = "<group>"; };
-		56792D7524FF997600655101 /* max_iOSAdSetting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = max_iOSAdSetting.json; sourceTree = "<group>"; };
-		56792D7624FF997600655101 /* max_iOSAdKeySetting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = max_iOSAdKeySetting.json; sourceTree = "<group>"; };
 		56E252C121785F5600584CB9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		56E252C321786A7C00584CB9 /* EYViewControllerB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EYViewControllerB.m; sourceTree = "<group>"; };
 		56E252C421786A7C00584CB9 /* EYViewControllerB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EYViewControllerB.h; sourceTree = "<group>"; };
@@ -150,13 +153,13 @@
 		56E252B221785EE500584CB9 /* config */ = {
 			isa = PBXGroup;
 			children = (
+				076CEC6926365B7C00F0668B /* ios_ad_cache_setting2.json */,
+				076CEC6A26365B7C00F0668B /* ios_ad_key_setting2.json */,
+				076CEC6B26365B7C00F0668B /* ios_ad_setting2.json */,
 				07098BA92625865F00B7759D /* ios_ad_cache_setting.json */,
 				07098BA82625865F00B7759D /* ios_ad_group_setting.json */,
 				07098BAA2625865F00B7759D /* ios_ad_key_setting.json */,
 				07098BAB2625865F00B7759D /* ios_ad_setting.json */,
-				56792D7424FF997600655101 /* max_iOSAdCacheSetting.json */,
-				56792D7624FF997600655101 /* max_iOSAdKeySetting.json */,
-				56792D7524FF997600655101 /* max_iOSAdSetting.json */,
 			);
 			path = config;
 			sourceTree = "<group>";
@@ -369,12 +372,15 @@
 				56E252D62178704500584CB9 /* install@2x.png in Resources */,
 				56E252D92178704500584CB9 /* guanggao_bg.png in Resources */,
 				56E252DA2178704500584CB9 /* guanggaoguanbi02@2x.png in Resources */,
+				076CEC6D26365B7D00F0668B /* ios_ad_key_setting2.json in Resources */,
 				56E252DD2178704500584CB9 /* Icon-57.png in Resources */,
+				076CEC6C26365B7D00F0668B /* ios_ad_cache_setting2.json in Resources */,
 				56E252DE2178704500584CB9 /* tubiao@2x.png in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				56E252E22178704500584CB9 /* yuanshengguanggao_dikuang01@2x.png in Resources */,
 				56E252E02178704500584CB9 /* guanggaoguanbi@2x.png in Resources */,
 				56E252D82178704500584CB9 /* ad@2x.png in Resources */,
+				076CEC6E26365B7D00F0668B /* ios_ad_setting2.json in Resources */,
 				56E252DC2178704500584CB9 /* guanggaoguanbi.png in Resources */,
 				07098BAC2625865F00B7759D /* ios_ad_group_setting.json in Resources */,
 				56E252DF2178704500584CB9 /* guanggao_bk.png in Resources */,

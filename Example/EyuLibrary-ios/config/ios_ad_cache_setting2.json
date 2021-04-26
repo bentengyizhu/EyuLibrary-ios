@@ -1,0 +1,32 @@
+[
+    {
+        "keys":"[\"reward_abu\"]",
+        "type":"rewardAd",
+        "id":"reward_ad",
+        "isAutoLoad":"true"
+    },
+    {
+        "keys":"[\"navive_abu\"]",
+        "type":"nativeAd",
+        "id":"native_ad",
+        "isAutoLoad":"true"
+    },
+    {
+        "keys":"[\"inter_abu\"]",
+        "type":"interstitialAd",
+        "id":"inter_ad",
+        "isAutoLoad":"true"
+    },
+    {
+        "keys":"[\"banner_abu\"]",
+        "type":"bannerAd",
+        "id":"banner_group",
+        "isAutoLoad":"true"
+    },
+    {
+        "keys":"[\"splash_abu\"]",
+        "type":"splashAd",
+        "id":"splash_group",
+        "isAutoLoad":"true"
+    }
+]
