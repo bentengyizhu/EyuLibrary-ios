@@ -143,17 +143,6 @@
     return adapter;
 }
 
--(bool) isCacheAvailable
-{
-    for(EYBannerAdAdapter* adapter in self.adapterArray)
-    {
-        if([adapter isAdLoaded])
-        {
-            return true;
-        }
-    }
-    return false;
-}
 
 //- (void)onAdLoaded:(EYBannerAdAdapter *)adapter {
 ////    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)

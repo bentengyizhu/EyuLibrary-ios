@@ -78,18 +78,6 @@
     }
 }
 
--(bool) isCacheAvailable
-{
-    for(EYSplashAdAdapter* adapter in self.adapterArray)
-    {
-        if([adapter isAdLoaded])
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
 - (bool)showAd:(NSString *)placeId withController:(UIViewController *)controller {
     NSLog(@"showAd adPlaceId = %@, self = %@", placeId, self);
     self.adPlaceId = placeId;
@@ -219,13 +207,7 @@
     {
         [self.delegate onAdClosed:self.adPlaceId type:ADTypeSplash];
     }
-    bool hasAdLoaded = false;
-    for (EYAdAdapter *adapter in self.adapterArray) {
-        if (adapter.isAdLoaded) {
-            hasAdLoaded = true;
-        }
-    }
-    if (self.adGroup.isAutoLoad && hasAdLoaded == false) {
+    if (self.adGroup.isAutoLoad && !self.isCacheAvailable) {
         [self loadAd:self.adPlaceId];
     }
 }

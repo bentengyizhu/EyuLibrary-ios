@@ -957,6 +957,7 @@ static id s_sharedInstance;
         EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.groupId];
         if(group!=nil)
         {
+            group.adPlaceId = placeId;
             return [group showAdGroup:viewGroup];
         }else{
             NSLog(@"showbannerAd error, group==nil, placeId = %@", placeId);
@@ -986,6 +987,7 @@ static id s_sharedInstance;
         EYNativeAdGroup *group = self.nativeAdGroupDict[adPlace.groupId];
         if(group!=nil && [group isCacheAvailable])
         {
+            group.adPlaceId = adPlaceId;
             adapter = [group getAvailableAdapter];
         }
     }

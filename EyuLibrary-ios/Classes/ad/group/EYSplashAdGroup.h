@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(EYSplashAdGroup*) initWithGroup:(EYAdGroup*)group adConfig:(EYAdConfig*) adConfig;
 //-(void) loadAd:(NSString*) placeId;
--(bool) isCacheAvailable;
 -(bool) showAd:(NSString*) placeId withController:(UIViewController*) controller;
 @end
 

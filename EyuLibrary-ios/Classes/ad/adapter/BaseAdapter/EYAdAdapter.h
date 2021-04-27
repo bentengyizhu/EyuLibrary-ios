@@ -10,7 +10,6 @@
 #import "EYAdGroup.h"
 #include "EYAdConstants.h"
 
-NS_ASSUME_NONNULL_BEGIN
 @protocol IAdDelegate;
 @interface EYAdAdapter : NSObject
 @property(nonatomic,weak)id<IAdDelegate> delegate;
@@ -32,4 +31,3 @@ NS_ASSUME_NONNULL_BEGIN
 -(void) onAdImpression:(EYAdAdapter *)adapter;
 -(void) onAdShowed:(EYAdAdapter *)adapter extraData:(NSDictionary *)extraData;
 @end
-NS_ASSUME_NONNULL_END

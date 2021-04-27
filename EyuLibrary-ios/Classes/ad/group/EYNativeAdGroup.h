@@ -12,6 +12,5 @@
 @interface EYNativeAdGroup :EYBasicAdGroup
 
 -(EYNativeAdGroup*) initWithGroup:(EYAdGroup*)group adConfig:(EYAdConfig*) adConfig;
--(bool) isCacheAvailable;
 -(EYNativeAdAdapter*) getAvailableAdapter;
 @end

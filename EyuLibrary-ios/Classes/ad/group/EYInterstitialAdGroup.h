@@ -11,6 +11,5 @@
 @interface EYInterstitialAdGroup :EYBasicAdGroup
 
 -(EYInterstitialAdGroup*) initWithGroup:(EYAdGroup*)adGroup adConfig:(EYAdConfig*) adConfig;
--(bool) isCacheAvailable;
 -(bool) showAd:(NSString*)adPlaceId controller:(UIViewController*)controller;
 @end

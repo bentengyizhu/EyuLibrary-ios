@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(EYAdAdapter*) createAdAdapterWithKey:(EYAdKey*)adKey adGroup:(EYAdGroup*)group;
 -(void)initAdatperArray;
 -(bool)loadNextSuite;
+-(bool) isCacheAvailable;
 @end
 
 NS_ASSUME_NONNULL_END

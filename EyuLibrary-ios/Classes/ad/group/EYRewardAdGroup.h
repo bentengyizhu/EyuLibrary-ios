@@ -12,7 +12,6 @@
 @interface EYRewardAdGroup :EYBasicAdGroup
 -(EYRewardAdGroup*) initWithGroup:(EYAdGroup*)group adConfig:(EYAdConfig*) adConfig;
 //-(void) loadAd:(NSString*) placeId;
--(bool) isCacheAvailable;
 -(bool) showAd:(NSString*) placeId withController:(UIViewController*) controller;
 
 @end

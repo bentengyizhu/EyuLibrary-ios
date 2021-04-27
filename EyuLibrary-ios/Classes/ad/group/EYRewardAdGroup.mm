@@ -148,19 +148,6 @@
 //    }
 //}
 
-
--(bool) isCacheAvailable
-{
-    for(EYAdAdapter* adapter in self.adapterArray)
-    {
-        if([adapter isAdLoaded])
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
 -(bool) showAd:(NSString*) placeId withController:(UIViewController*) controller
 {
     NSLog(@"showAd placeId = %@", placeId);
@@ -343,13 +330,7 @@
     {
         [self.delegate onAdClosed:self.adPlaceId type:ADTypeReward];
     }
-    bool hasAdLoaded = false;
-    for (EYAdAdapter *adapter in self.adapterArray) {
-        if (adapter.isAdLoaded) {
-            hasAdLoaded = true;
-        }
-    }
-    if (self.adGroup.isAutoLoad && hasAdLoaded == false) {
+    if (self.adGroup.isAutoLoad && !self.isCacheAvailable) {
         [self loadAd:self.adPlaceId];
     }
 }

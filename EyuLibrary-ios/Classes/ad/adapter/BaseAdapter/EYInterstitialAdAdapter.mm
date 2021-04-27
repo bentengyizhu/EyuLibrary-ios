@@ -46,6 +46,7 @@
 
 -(void) notifyOnAdLoaded
 {
+    self.isLoading = false;
     if(self.delegate!=NULL)
     {
         [self.delegate onAdLoaded:self];
@@ -54,6 +55,7 @@
 
 -(void) notifyOnAdLoadFailedWithError:(int)errorCode;
 {
+    self.isLoading = false;
     if(self.delegate!=NULL)
     {
         [self.delegate onAdLoadFailed:self withError:errorCode];

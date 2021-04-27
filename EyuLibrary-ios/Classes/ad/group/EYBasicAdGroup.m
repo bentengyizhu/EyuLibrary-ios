@@ -16,7 +16,7 @@
         self.adapterArray = [[NSMutableArray alloc] init];
         self.currentSuiteIndex = 0;
         self.currentAdValue = 0;
-        self.currentAdpaterIndex = 0;
+        self.currentAdpaterIndex = -1;
         self.tryLoadAdCount = 0;
         self.reportEvent = adConfig.reportEvent;
     }
@@ -29,12 +29,17 @@
         [self loadAdBySequence];
         return;
     }
+    if (self.isCacheAvailable) {
+        [self.delegate onAdLoaded:adPlaceId type:self.adType];
+        return;
+    }
     [self loadAdByValue:false];
 }
 
 - (void)loadAdBySequence {
     NSLog(@"加载旧版广告 adtype = %@", self.adType);
     if(self.adapterArray.count == 0) return;
+    self.currentAdpaterIndex = (self.currentAdpaterIndex+1)%self.adapterArray.count;
     EYAdAdapter* adapter = self.adapterArray[self.currentAdpaterIndex];
     [adapter loadAd];
     if (self.adGroup.isAutoLoad && self.adapterArray.count > 1) {
@@ -61,6 +66,18 @@
         adapter.tryLoadAdCount = 0;
         [adapter loadAd];
     }
+}
+
+-(bool) isCacheAvailable
+{
+    for(EYAdAdapter* adapter in self.adapterArray)
+    {
+        if([adapter isAdLoaded])
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 -(EYAdAdapter*) createAdAdapterWithKey:(EYAdKey*)adKey adGroup:(EYAdGroup*)group {
@@ -112,8 +129,6 @@
         if(adKey){
             EYAdAdapter *adapter = [self createAdAdapterWithKey:adKey adGroup:self.adGroup];
             if(adapter){
-//                adapter.tryLoadAdCount = 0;
-//                [adapter loadAd];
                 [self.adapterArray addObject:adapter];
             }
         }

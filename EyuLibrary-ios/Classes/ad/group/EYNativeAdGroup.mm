@@ -73,18 +73,6 @@
 //    [adapter loadAd];
 //}
 
--(bool) isCacheAvailable
-{
-    for(EYNativeAdAdapter* adapter in self.adapterArray)
-    {
-        if([adapter isAdLoaded])
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
 -(EYNativeAdAdapter*) getAvailableAdapter
 {
     EYAdAdapter* loadAdapter = NULL;

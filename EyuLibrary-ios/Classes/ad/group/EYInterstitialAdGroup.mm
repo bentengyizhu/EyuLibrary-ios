@@ -117,18 +117,6 @@
 //    return self.adGroup.groupId;
 //}
 
--(bool) isCacheAvailable
-{
-    for(EYAdAdapter* adapter in self.adapterArray)
-    {
-        if([adapter isAdLoaded])
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
 -(bool) showAd:(NSString*)adPlaceId controller:(UIViewController*)controller
 {
     NSLog(@"showAd adPlaceId = %@, self = %@", adPlaceId, self);
@@ -284,13 +272,7 @@
     {
         [self.delegate onAdClosed:self.adPlaceId type:ADTypeInterstitial];
     }
-    bool hasAdLoaded = false;
-    for (EYAdAdapter *adapter in self.adapterArray) {
-        if (adapter.isAdLoaded) {
-            hasAdLoaded = true;
-        }
-    }
-    if (self.adGroup.isAutoLoad && hasAdLoaded == false) {
+    if (self.adGroup.isAutoLoad && !self.isCacheAvailable) {
         [self loadAd:self.adPlaceId];
     }
 }
