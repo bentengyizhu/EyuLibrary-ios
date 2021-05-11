@@ -6,6 +6,9 @@
 //
 
 #import "EYBasicAdGroup.h"
+@interface EYBasicAdGroup()
+@property(nonatomic,assign)int currentLoadCount;
+@end
 
 @implementation EYBasicAdGroup
 - (EYBasicAdGroup *)initWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig {
@@ -18,6 +21,7 @@
         self.currentAdValue = 0;
         self.currentAdpaterIndex = -1;
         self.tryLoadAdCount = 0;
+        self.currentLoadCount = 2;
         self.reportEvent = adConfig.reportEvent;
     }
     return self;
@@ -140,10 +144,16 @@
     NSLog(@"加载下一组广告currentSuiteIndex = %d, suiteArray = %@ adtype = %@", self.currentSuiteIndex, self.adGroup.suiteArray, self.adType);
     if (self.currentSuiteIndex >= self.adGroup.suiteArray.count-1) {
         NSLog(@"本组没有拉取到广告并且已经是价值最低的组 adtype = %@", self.adType);
-        return false;
+        self.currentLoadCount -= 1;
+        if (self.currentLoadCount > 0) {
+            self.currentSuiteIndex = 0;
+        } else {
+            return false;
+        }
+    } else {
+        self.currentSuiteIndex++;
     }
     NSLog(@"本组没有拉取到广告放低价值加载下一组广告 adtype = %@", self.adType);
-    self.currentSuiteIndex++;
     EYAdSuite *currentSuite = self.adGroup.suiteArray[self.currentSuiteIndex];
     NSMutableArray<EYAdKey*> *keyList = currentSuite.keys;
     [self.adapterArray removeAllObjects];
@@ -156,7 +166,7 @@
             }
         }
     }
-    return  true;
+    return true;
 }
 
 
@@ -166,6 +176,7 @@
 //        self.curLoadingIndex = -1;
 //    }
     NSLog(@" basic onAdLoaded %d",self.currentAdValue);
+    self.currentLoadCount = 2;
     adapter.tryLoadAdCount ++;
     if (self.isNewJsonSetting) {
         EYAdSuite *suite = self.adGroup.suiteArray[self.currentSuiteIndex];
