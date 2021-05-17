@@ -37,6 +37,9 @@
         [self.delegate onAdLoaded:adPlaceId type:self.adType];
         return;
     }
+    if (self.adGroup.isAutoLoad) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    }
     [self loadAdByValue:false];
 }
 
@@ -148,6 +151,10 @@
         if (self.currentLoadCount > 0) {
             self.currentSuiteIndex = 0;
         } else {
+            self.currentLoadCount = 2;
+            if (self.adGroup.isAutoLoad) {
+                [self performSelector:@selector(reloadAdGroup) withObject:NULL afterDelay:2];
+            }
             return false;
         }
     } else {
@@ -169,6 +176,11 @@
     return true;
 }
 
+-(void)reloadAdGroup {
+    if ([self loadNextSuite]) {
+        [self loadAdByValue:true];
+    }
+}
 
 - (void)onAdLoaded:(EYAdAdapter *)adapter {
 //    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
