@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '2.1.1'
+    s.version          = '2.1.2'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -114,12 +114,12 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'bytedance_ads_cn_sdk' do |bytedance_ads_cn_sdk|
-        bytedance_ads_cn_sdk.dependency 'Ads-CN', '3.4.2.3'
+        bytedance_ads_cn_sdk.dependency 'Ads-CN-Beta', '3.6.1.2'
         bytedance_ads_cn_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) BYTE_DANCE_ADS_ENABLED'}
     end
     
     s.subspec 'bytedance_ads_global_sdk' do |bytedance_ads_global_sdk|
-        bytedance_ads_global_sdk.dependency 'Ads-Global', '3.4.2.3'
+        bytedance_ads_global_sdk.dependency 'Ads-Global-Beta', '3.6.1.2'
         bytedance_ads_global_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) BYTE_DANCE_ADS_ENABLED'}
     end
     
