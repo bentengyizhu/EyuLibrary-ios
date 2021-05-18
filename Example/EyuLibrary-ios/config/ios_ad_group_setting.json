@@ -3,24 +3,28 @@
         "keys":["mtg300", "wm300"],
         "desc":"激励视频第一组",
         "value": 300,
+        "priority": 1,
         "id":"reward1",
     },
     {
         "keys":["mtg250", "wm250"],
         "desc":"激励视频第二组",
         "value": 250,
+        "priority": 1,
         "id":"reward2",
     },
     {
         "keys":["mtg200", "wm200"],
         "desc":"激励视频第一组",
         "value": 200,
+        "priority": 2,
         "id":"reward3",
     },
     {
         "keys":["mtg150", "wm150"],
         "desc":"激励视频第一组",
         "value": 150,
+        "priority": 2,
         "id":"reward4",
     },
     {

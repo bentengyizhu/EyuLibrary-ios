@@ -18,6 +18,15 @@
 @implementation EYNativeAdGroup
 @synthesize adapterClassDict = _adapterClassDict;
 
+- (EYNativeAdGroup *)initInAdvanceWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig {
+    if (adConfig.isNewJsonSetting == false) {
+        return [self initWithGroup:adGroup adConfig:adConfig];
+    }
+    self.adType = ADTypeNative;
+    self = [super initInAdvanceWithGroup:adGroup adConfig:adConfig];
+    return self;
+}
+
 -(EYNativeAdGroup*) initWithGroup:(EYAdGroup*)group adConfig:(EYAdConfig*) adConfig
 {
     self = [super initWithGroup:group adConfig:adConfig];
@@ -75,6 +84,15 @@
 
 -(EYNativeAdAdapter*) getAvailableAdapter
 {
+    if (self.groupArray != nil) {
+        for (EYNativeAdGroup *group in self.groupArray) {
+            EYNativeAdAdapter *adapter = [group getAvailableAdapter];
+            if (adapter != nil) {
+                return adapter;
+            }
+        }
+        return nil;
+    }
     EYAdAdapter* loadAdapter = NULL;
     int index = 0;
     bool hasLoadedAdapter = false;

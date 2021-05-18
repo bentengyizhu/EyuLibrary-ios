@@ -39,6 +39,14 @@
 //@synthesize delegate = _delegate;
 //@synthesize reportEvent = _reportEvent;
 
+- (EYRewardAdGroup *)initInAdvanceWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig {
+    if (adConfig.isNewJsonSetting == false) {
+        return [self initWithGroup:adGroup adConfig:adConfig];
+    }
+    self.adType = ADTypeReward;
+    self = [super initInAdvanceWithGroup:adGroup adConfig:adConfig];
+    return self;
+}
 
 -(EYRewardAdGroup*) initWithGroup:(EYAdGroup*)group adConfig:(EYAdConfig*) adConfig
 {
@@ -151,6 +159,14 @@
 -(bool) showAd:(NSString*) placeId withController:(UIViewController*) controller
 {
     NSLog(@"showAd placeId = %@", placeId);
+    if (self.groupArray != nil) {
+        for (EYRewardAdGroup *group in self.groupArray) {
+            if ([group showAd:placeId withController:controller]) {
+                return true;
+            }
+        }
+        return false;
+    }
     self.adPlaceId = placeId;
     EYRewardAdAdapter* loadAdapter = NULL;
     for(EYRewardAdAdapter* adapter in self.adapterArray)

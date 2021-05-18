@@ -6,14 +6,68 @@
 //
 
 #import "EYBasicAdGroup.h"
+#import "EYBannerAdGroup.h"
+#import "EYNativeAdGroup.h"
+#import "EYSplashAdGroup.h"
+#import "EYRewardAdGroup.h"
+#import "EYInterstitialAdGroup.h"
+
 @interface EYBasicAdGroup()
 @property(nonatomic,assign)int currentLoadCount;
+@property(nonatomic,assign)int priority;
 @end
 
 @implementation EYBasicAdGroup
+
+- (EYBasicAdGroup *)initInAdvanceWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig {
+    self = [super init];
+    if (self) {
+        self.groupArray = [NSMutableArray array];
+        self.priority = -1;
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        for (EYAdSuite *suite in adGroup.suiteArray) {
+            NSMutableArray *arr = dic[@(suite.priority)];
+            if (arr == nil) {
+                arr = [[NSMutableArray alloc]init];
+                [arr addObject:suite];
+                dic[@(suite.priority)] = arr;
+            } else {
+                [arr addObject:suite];
+            }
+        }
+        NSArray *keyArr = [dic.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSNumber   * _Nonnull obj1, NSNumber   * _Nonnull obj2) {
+            if (obj1.intValue < obj2.intValue)  {
+                return NSOrderedAscending;
+            }
+            return NSOrderedDescending;
+        }];
+        for (NSNumber *key in keyArr) {
+            NSMutableArray *suiteArray = dic[key];
+            EYAdGroup *group = [adGroup copy];
+            group.suiteArray = suiteArray;
+            EYBasicAdGroup *g;
+            if ([self.adType isEqualToString: ADTypeBanner]) {
+                g = [[EYBannerAdGroup alloc] initWithGroup:group adConfig:adConfig];
+            } else if ([self.adType isEqualToString: ADTypeReward]) {
+                g = [[EYRewardAdGroup alloc] initWithGroup:group adConfig:adConfig];
+            }else if ([self.adType isEqualToString: ADTypeNative]) {
+                g = [[EYNativeAdGroup alloc] initWithGroup:group adConfig:adConfig];
+            }else if ([self.adType isEqualToString: ADTypeInterstitial]) {
+                g = [[EYInterstitialAdGroup alloc] initWithGroup:group adConfig:adConfig];
+            } else {
+                g = [[EYSplashAdGroup alloc] initWithGroup:group adConfig:adConfig];
+            }
+            g.priority = key.intValue;
+            [self.groupArray addObject:g];
+        }
+    }
+    return self;
+}
+
 - (EYBasicAdGroup *)initWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig {
     self = [super init];
     if (self) {
+        self.priority = -1;
         self.isNewJsonSetting = adConfig.isNewJsonSetting;
         self.adGroup = adGroup;
         self.adapterArray = [[NSMutableArray alloc] init];
@@ -27,7 +81,22 @@
     return self;
 }
 
+- (void)setDelegate:(id<EYAdDelegate>)delegate {
+    _delegate = delegate;
+    if (self.groupArray) {
+        for (EYBasicAdGroup *group in self.groupArray) {
+            group.delegate = delegate;
+        }
+    }
+}
+
 - (void)loadAd:(NSString *)adPlaceId {
+    if (self.groupArray != nil) {
+        for (EYBasicAdGroup * group in self.groupArray) {
+            [group loadAd:adPlaceId];
+        }
+        return;
+    }
     self.adPlaceId = adPlaceId;
     if (self.isNewJsonSetting == false) {
         [self loadAdBySequence];
@@ -77,6 +146,14 @@
 
 -(bool) isCacheAvailable
 {
+    if (self.groupArray) {
+        for (EYBasicAdGroup * group in self.groupArray) {
+            if (group.isCacheAvailable) {
+                return true;
+            }
+        }
+        return false;
+    }
     for(EYAdAdapter* adapter in self.adapterArray)
     {
         if([adapter isAdLoaded])

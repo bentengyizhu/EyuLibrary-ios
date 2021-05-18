@@ -12,6 +12,7 @@
 {
     self = [super init];
     if (self) {
+        self.priority = 1;
         self.keys = [NSMutableArray new];
     }
     return self;

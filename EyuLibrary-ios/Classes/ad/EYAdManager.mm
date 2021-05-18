@@ -209,8 +209,12 @@ static id s_sharedInstance;
             NSString *suiteId = adSuiteDict[@"id"];
             NSNumber *value = adSuiteDict[@"value"];
             NSArray *keys = adSuiteDict[@"keys"];
+            NSNumber *priority = adSuiteDict[@"priority"];
             EYAdSuite *suite = [[EYAdSuite alloc]init];
             suite.suiteId = suiteId;
+            if (priority != nil) {
+                suite.priority = priority.intValue;
+            }
             suite.value = value.intValue;
             for (NSString *keyId in keys) {
                 EYAdKey *adKey = self.adKeyDict[keyId];
@@ -279,7 +283,7 @@ static id s_sharedInstance;
         EYAdGroup* group = self.adGroupDict[groupId];
         if([ADTypeInterstitial isEqualToString:group.type])
         {
-            EYInterstitialAdGroup* interstitialAdGroup = [[EYInterstitialAdGroup alloc] initWithGroup:group adConfig:self.adConfig];
+            EYInterstitialAdGroup* interstitialAdGroup = [[EYInterstitialAdGroup alloc] initInAdvanceWithGroup:group adConfig:self.adConfig];
             [interstitialAdGroup setDelegate:self];
             [self.interstitialAdGroupDict setObject:interstitialAdGroup forKey:group.groupId];
             if(group.isAutoLoad && self.canLoadAd)
@@ -288,7 +292,7 @@ static id s_sharedInstance;
             }
         }else if([ADTypeNative isEqualToString:group.type])
         {
-            EYNativeAdGroup* nativeAdGroup = [[EYNativeAdGroup alloc] initWithGroup:group adConfig:self.adConfig];
+            EYNativeAdGroup* nativeAdGroup = [[EYNativeAdGroup alloc] initInAdvanceWithGroup:group adConfig:self.adConfig];
             [nativeAdGroup setDelegate:self];
             [self.nativeAdGroupDict setObject:nativeAdGroup forKey:group.groupId];
             if(group.isAutoLoad && self.canLoadAd)
@@ -297,7 +301,7 @@ static id s_sharedInstance;
             }
         }else if([ADTypeReward isEqualToString:group.type])
         {
-            EYRewardAdGroup* rewardAdGroup = [[EYRewardAdGroup alloc] initWithGroup:group adConfig:self.adConfig];
+            EYRewardAdGroup* rewardAdGroup = [[EYRewardAdGroup alloc] initInAdvanceWithGroup:group adConfig:self.adConfig];
             [rewardAdGroup setDelegate:self];
             [self.rewardAdGroupDict setObject:rewardAdGroup forKey:group.groupId];
             if(group.isAutoLoad && self.canLoadAd)
@@ -305,14 +309,14 @@ static id s_sharedInstance;
                 [rewardAdGroup loadAd:@"auto"];
             }
         } else if ([ADTypeBanner isEqualToString:group.type]) {
-            EYBannerAdGroup* bannerGroup = [[EYBannerAdGroup alloc]initWithGroup:group adConfig:self.adConfig];
+            EYBannerAdGroup* bannerGroup = [[EYBannerAdGroup alloc]initInAdvanceWithGroup:group adConfig:self.adConfig];
             [bannerGroup setDelegate:self];
             [self.bannerAdGroupDict setObject:bannerGroup forKey:group.groupId];
             if (group.isAutoLoad && self.rootViewController && self.canLoadAd) {
                 [bannerGroup loadAd:@"auto"];
             }
         } else if ([ADTypeSplash isEqualToString:group.type]) {
-            EYSplashAdGroup* splashGroup = [[EYSplashAdGroup alloc]initWithGroup:group adConfig:self.adConfig];
+            EYSplashAdGroup* splashGroup = [[EYSplashAdGroup alloc]initInAdvanceWithGroup:group adConfig:self.adConfig];
             [splashGroup setDelegate:self];
             [self.splashAdGroupDict setObject:splashGroup forKey:group.groupId];
             if (group.isAutoLoad && self.canLoadAd) {

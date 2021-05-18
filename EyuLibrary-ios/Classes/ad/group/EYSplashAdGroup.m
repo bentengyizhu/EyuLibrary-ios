@@ -34,6 +34,15 @@
 //@synthesize delegate = _delegate;
 //@synthesize reportEvent = _reportEvent;
 
+- (EYSplashAdGroup *)initInAdvanceWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig {
+    if (adConfig.isNewJsonSetting == false) {
+        return [self initWithGroup:adGroup adConfig:adConfig];
+    }
+    self.adType = ADTypeSplash;
+    self = [super initInAdvanceWithGroup:adGroup adConfig:adConfig];
+    return self;
+}
+
 - (EYSplashAdGroup *)initWithGroup:(EYAdGroup *)group adConfig:(EYAdConfig *)adConfig {
     self = [super initWithGroup:group adConfig:adConfig];
     if(self)
@@ -80,6 +89,14 @@
 
 - (bool)showAd:(NSString *)placeId withController:(UIViewController *)controller {
     NSLog(@"showAd adPlaceId = %@, self = %@", placeId, self);
+    if (self.groupArray != nil) {
+        for (EYSplashAdGroup *group in self.groupArray) {
+            if ([group showAd:placeId withController:controller]) {
+                return true;
+            }
+        }
+        return false;
+    }
     self.adPlaceId = placeId;
     EYSplashAdAdapter* loadedAdapter = NULL;
     for(EYSplashAdAdapter* adapter in self.adapterArray)

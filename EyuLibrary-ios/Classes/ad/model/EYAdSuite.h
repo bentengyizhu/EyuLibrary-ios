@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *suiteId;
 @property(nonatomic,assign)int value;
 @property(nonatomic,strong)NSMutableArray *keys;
+@property(nonatomic,assign)int priority;
 @end
 
 NS_ASSUME_NONNULL_END

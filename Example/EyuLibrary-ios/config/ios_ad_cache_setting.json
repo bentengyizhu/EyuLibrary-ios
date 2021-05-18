@@ -1,6 +1,6 @@
 [
     {
-        "child":["reward_mopub"],
+        "child":["reward1", "reward2", "reward3", "reward4"],
         "type":"rewardAd",
         "id":"reward_ad",
         "isAutoLoad":"true"

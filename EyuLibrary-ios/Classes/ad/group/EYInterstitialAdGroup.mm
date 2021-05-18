@@ -38,6 +38,15 @@
 //@synthesize delegate = _delegate;
 //@synthesize reportEvent = _reportEvent;
 
+- (EYInterstitialAdGroup *)initInAdvanceWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig {
+    if (adConfig.isNewJsonSetting == false) {
+        return [self initWithGroup:adGroup adConfig:adConfig];
+    }
+    self.adType = ADTypeInterstitial;
+    self = [super initInAdvanceWithGroup:adGroup adConfig:adConfig];
+    return self;
+}
+
 -(EYInterstitialAdGroup*) initWithGroup:(EYAdGroup*)adGroup adConfig:(EYAdConfig*) adConfig
 {
     self = [super initWithGroup:adGroup adConfig:adConfig];
@@ -120,6 +129,14 @@
 -(bool) showAd:(NSString*)adPlaceId controller:(UIViewController*)controller
 {
     NSLog(@"showAd adPlaceId = %@, self = %@", adPlaceId, self);
+    if (self.groupArray != nil) {
+        for (EYInterstitialAdGroup *group in self.groupArray) {
+            if ([group showAd:adPlaceId controller:controller]) {
+                return true;
+            }
+        }
+        return false;
+    }
     self.adPlaceId = adPlaceId;
     EYInterstitialAdAdapter* loadedAdapter = NULL;
     for(EYInterstitialAdAdapter* adapter in self.adapterArray)

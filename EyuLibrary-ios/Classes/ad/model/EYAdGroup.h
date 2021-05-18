@@ -18,6 +18,7 @@
 @property(nonatomic,assign)bool isAutoLoad;
 @property(nonatomic,copy)NSString *type;
 @property(nonatomic,strong)NSMutableArray *suiteArray;
+@property(nonatomic,strong)NSMutableArray *groupArray;
 
 -(instancetype) initWithId : (NSString*) groupId;
 

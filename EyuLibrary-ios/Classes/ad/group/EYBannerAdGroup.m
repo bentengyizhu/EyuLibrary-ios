@@ -27,6 +27,15 @@
 //@synthesize curLoadingIndex = _curLoadingIndex;
 //@synthesize tryLoadAdCounter = _tryLoadAdCounter;
 
+- (EYBannerAdGroup *)initInAdvanceWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig {
+    if (adConfig.isNewJsonSetting == false) {
+        return [self initWithGroup:adGroup adConfig:adConfig];
+    }
+    self.adType = ADTypeBanner;
+    self = [super initInAdvanceWithGroup:adGroup adConfig:adConfig];
+    return self;
+}
+
 - (EYBannerAdGroup *)initWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig {
     self = [super initWithGroup:adGroup adConfig:adConfig];
     if (self) {
@@ -87,6 +96,14 @@
 
 - (bool)showAdGroup:(UIView *)viewGroup{
     NSLog(@"showBannerAd placeId = %@", self.adPlaceId);
+    if (self.groupArray != nil) {
+        for (EYBannerAdGroup *group in self.groupArray) {
+            if ([group showAdGroup:viewGroup]) {
+                return true;
+            }
+        }
+        return false;
+    }
     EYBannerAdAdapter* loadAdapter = [self getAvailableAdapter];
     if (loadAdapter) {
         [loadAdapter showAdGroup:viewGroup];
