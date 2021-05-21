@@ -281,8 +281,12 @@ AppsFlyerDelegate *_appflyerDelegate = [AppsFlyerDelegate new];
      ThinkingAnalyticsEventTypeAppViewCrash];
 }
 
-+ (void)initThinkWithAppID:(NSString *)appId {
-    ThinkingAnalyticsSDK *instance = [ThinkingAnalyticsSDK startWithAppId:appId withUrl:@"https://receiver.ta.thinkingdata.cn"];
++ (void)initThinkWithAppID:(NSString *)appId isInCN:(BOOL)isInCN {
+    NSString *url = @"https://data-cn-qy.eyugame.com";
+    if (!isInCN) {
+        url = @"https://data-qy.gogogame.com";
+    }
+    ThinkingAnalyticsSDK *instance = [ThinkingAnalyticsSDK startWithAppId:appId withUrl:url];
     distinctId = [instance getDistinctId];
 #ifdef TRACKING_ENABLED
     if (sIsTrackingInited == true) {

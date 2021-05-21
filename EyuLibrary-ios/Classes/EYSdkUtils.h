@@ -62,7 +62,7 @@
 
 #ifdef THINKING_ENABLED
 + (void)initThinkWithAppID:(NSString *)appId Url:(NSString *)url;
-+ (void)initThinkWithAppID:(NSString *)appId;
++ (void)initThinkWithAppID:(NSString *)appId isInCN:(BOOL)isInCN;
 #endif
 
 //#ifdef MTG_ADS_ENABLED
