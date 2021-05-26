@@ -53,7 +53,7 @@
 #endif
         nil];
         
-        self.adValueKey = @"currentSplashValue";
+        self.adValueKey = [NSString stringWithFormat:@"currentSplashValue%d", self.priority+1];
         self.adType = ADTypeSplash;
         [self initAdatperArray];
         self.maxTryLoadAd = ((int)self.adapterArray.count) * 2;

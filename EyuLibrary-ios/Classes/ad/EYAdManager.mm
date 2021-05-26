@@ -826,6 +826,76 @@ static id s_sharedInstance;
     return false;
 }
 
+- (bool)isHighPriorityBannerAdLoaded:(NSString *)placeId {
+    if(!self.isInited)
+    {
+        return false;
+    }
+    EYAdPlace* adPlace = self.adPlaceDict[placeId];
+    if(adPlace != nil)
+    {
+        EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.groupId];
+        return group!= nil && [group isHighPriorityCacheAvailable];
+    }
+    return false;
+}
+
+- (bool)isHighPriorityNativeAdLoaded:(NSString *)placeId {
+    if(!self.isInited)
+    {
+        return false;
+    }
+    EYAdPlace* adPlace = self.adPlaceDict[placeId];
+    if(adPlace != nil)
+    {
+        EYNativeAdGroup *group = self.nativeAdGroupDict[adPlace.groupId];
+        return group!= nil && [group isHighPriorityCacheAvailable];
+    }
+    return false;
+}
+
+- (bool)isHighPriorityRewardAdLoaded:(NSString *)placeId {
+    if(!self.isInited)
+    {
+        return false;
+    }
+    EYAdPlace* adPlace = self.adPlaceDict[placeId];
+    if(adPlace != nil)
+    {
+        EYRewardAdGroup *group = self.rewardAdGroupDict[adPlace.groupId];
+        return group!= nil && [group isHighPriorityCacheAvailable];
+    }
+    return false;
+}
+
+- (bool)isHighPrioritySplashAdLoaded:(NSString *)placeId {
+    if(!self.isInited)
+    {
+        return false;
+    }
+    EYAdPlace* adPlace = self.adPlaceDict[placeId];
+    if(adPlace != nil)
+    {
+        EYSplashAdGroup *group = self.splashAdGroupDict[adPlace.groupId];
+        return group!= nil && [group isHighPriorityCacheAvailable];
+    }
+    return false;
+}
+
+- (bool)isHighPriorityInterstitialAdLoaded:(NSString *)placeId {
+    if(!self.isInited)
+    {
+        return false;
+    }
+    EYAdPlace* adPlace = self.adPlaceDict[placeId];
+    if(adPlace != nil)
+    {
+        EYInterstitialAdGroup *group = self.interstitialAdGroupDict[adPlace.groupId];
+        return group!= nil && [group isHighPriorityCacheAvailable];
+    }
+    return false;
+}
+
 -(void)loadNativeAd:(NSString*) placeId
 {
     if(!self.isInited)

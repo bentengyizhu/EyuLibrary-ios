@@ -64,6 +64,12 @@
 -(bool) isRewardAdLoaded:(NSString*) placeId;
 -(bool) isSplashAdLoaded:(NSString*) placeId;
 
+-(bool) isHighPriorityNativeAdLoaded:(NSString*) placeId;
+-(bool) isHighPriorityBannerAdLoaded:(NSString*) placeId;
+-(bool) isHighPriorityInterstitialAdLoaded:(NSString*) placeId;
+-(bool) isHighPriorityRewardAdLoaded:(NSString*) placeId;
+-(bool) isHighPrioritySplashAdLoaded:(NSString*) placeId;
+
 -(void) setupWithConfig:(EYAdConfig*) config;
 -(EYAdKey*) getAdKeyWithId:(NSString*) keyId;
 

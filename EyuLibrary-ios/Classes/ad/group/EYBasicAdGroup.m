@@ -14,7 +14,6 @@
 
 @interface EYBasicAdGroup()
 @property(nonatomic,assign)int currentLoadCount;
-@property(nonatomic,assign)int priority;
 @end
 
 @implementation EYBasicAdGroup
@@ -162,6 +161,14 @@
         }
     }
     return false;
+}
+
+-(bool) isHighPriorityCacheAvailable
+{
+    if (self.groupArray) {
+        return [[self.groupArray firstObject] isCacheAvailable];
+    }
+    return [self isCacheAvailable];
 }
 
 -(EYAdAdapter*) createAdAdapterWithKey:(EYAdKey*)adKey adGroup:(EYAdGroup*)group {

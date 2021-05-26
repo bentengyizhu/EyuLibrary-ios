@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign)int tryLoadAdCount;
 @property(nonatomic,copy)NSString *adPlaceId;
 @property(nonatomic,strong)NSMutableArray *groupArray;
+@property(nonatomic,assign)int priority;
 
 - (EYBasicAdGroup *)initInAdvanceWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig;
 -(EYBasicAdGroup *)initWithGroup:(EYAdGroup *)adGroup adConfig:(EYAdConfig *)adConfig;
@@ -38,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)initAdatperArray;
 -(bool)loadNextSuite;
 -(bool) isCacheAvailable;
+-(bool) isHighPriorityCacheAvailable;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -102,7 +102,7 @@
         
 //        self.maxTryLoadAd = adConfig.maxTryLoadInterstitialAd > 0 ? adConfig.maxTryLoadInterstitialAd : 7;
 //        self.curLoadingIndex = -1;
-        self.adValueKey = @"currentInterstitialValue";
+        self.adValueKey = [NSString stringWithFormat:@"currentInterstitialValue%d", self.priority + 1];
         self.adType = ADTypeInterstitial;
         [self initAdatperArray];
         self.maxTryLoadAd = ((int)self.adapterArray.count) * 2;

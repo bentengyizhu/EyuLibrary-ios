@@ -61,7 +61,7 @@
         NSClassFromString(@"EYMopubNativeAdAdapter"), ADNetworkMopub,
 #endif
         nil];
-        self.adValueKey = @"currentNativeValue";
+        self.adValueKey = [NSString stringWithFormat:@"currentNativeValue%d", self.priority+1];
         self.adType = ADTypeNative;
 
 //        self.maxTryLoadAd = adConfig.maxTryLoadNativeAd > 0 ? adConfig.maxTryLoadNativeAd : 7;

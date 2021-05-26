@@ -108,7 +108,7 @@
                                              nil];
 
 //        self.adGroup = group;
-        self.adValueKey = @"currentRewardValue";
+        self.adValueKey = [NSString stringWithFormat:@"currentRewardValue%d", self.priority+1];
         self.adType = ADTypeReward;
         [self initAdatperArray];
         

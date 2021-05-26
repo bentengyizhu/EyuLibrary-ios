@@ -67,7 +67,7 @@
             NSClassFromString(@"EYMopubBannerAdAdapter"), ADNetworkMopub,
 #endif
         nil];
-        self.adValueKey = @"currentBannerValue";
+        self.adValueKey = [NSString stringWithFormat:@"currentBannerValue%d", self.priority + 1];
         self.adType = ADTypeBanner;
 //        self.curLoadingIndex = -1;
 //        self.tryLoadAdCounter = 0;
