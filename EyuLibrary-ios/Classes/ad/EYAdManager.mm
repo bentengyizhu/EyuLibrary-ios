@@ -694,11 +694,14 @@ static id s_sharedInstance;
 
 - (void)setRootViewController:(UIViewController *)rootViewController {
     _rootViewController = rootViewController;
-//    for (EYBannerAdGroup *group in self.bannerAdGroupDict.allValues) {
-//        if (group.adGroup.isAutoLoad) {
-//            [group loadAd:@"auto"];
-//        }
-//    }
+    if (!self.isInited) {
+        return;
+    }
+    for (EYBannerAdGroup *group in self.bannerAdGroupDict.allValues) {
+        if (group.adGroup.isAutoLoad) {
+            [group loadAd:@"auto"];
+        }
+    }
 }
 
 -(void)loadAutoAd {

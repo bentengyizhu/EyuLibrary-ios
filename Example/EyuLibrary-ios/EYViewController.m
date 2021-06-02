@@ -35,7 +35,7 @@
 //    [self.gotoBtn addGestureRecognizer:gotoGesture];
 //    [gotoGesture setNumberOfTapsRequired:1];
     [EYAdManager sharedInstance].rootViewController = self;
-    
+    [[EYAdManager sharedInstance] loadBannerAd:@"banner_ad"];
     NSLog(@"%@", [ASIdentifierManager sharedManager].advertisingIdentifier);
     
     UITapGestureRecognizer *rewardAdGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showRewardAd:)];
