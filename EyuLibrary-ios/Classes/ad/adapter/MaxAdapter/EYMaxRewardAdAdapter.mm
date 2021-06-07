@@ -89,6 +89,10 @@
 //    [self notifyOnAdLoadFailedWithError:(int)errorCode];
 //}
 
+- (void)didPayRevenueForAd:(MAAd *)ad {
+    [self notifyOnAdShowedData: @{@"adsource_price": @(ad.revenue)}];
+}
+
 - (void)didDisplayAd:(MAAd *)ad {
     NSLog(@" MAX reward ad wasDisplayedIn");
     [self notifyOnAdShowed];

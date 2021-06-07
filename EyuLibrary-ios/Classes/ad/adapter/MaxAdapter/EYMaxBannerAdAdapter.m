@@ -93,6 +93,10 @@
     [self notifyOnAdClicked];
 }
 
+- (void)didPayRevenueForAd:(MAAd *)ad {
+    [self notifyOnAdShowedData: @{@"adsource_price": @(ad.revenue)}];
+}
+
 - (void)didFailToDisplayAd:(MAAd *)ad withError:(MAError *)error {
     NSLog(@"max banner ad failed to display with error: %d, userinfo: %@, message: %@", (int)error.code, error.adLoadFailureInfo, error.message);
 }

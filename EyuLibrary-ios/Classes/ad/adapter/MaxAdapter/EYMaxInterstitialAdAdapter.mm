@@ -108,6 +108,10 @@
     [self notifyOnAdImpression];
 }
 
+- (void)didPayRevenueForAd:(MAAd *)ad {
+    [self notifyOnAdShowedData: @{@"adsource_price": @(ad.revenue)}];
+}
+
 /**
  * This method is invoked when an ad is hidden.
  *
