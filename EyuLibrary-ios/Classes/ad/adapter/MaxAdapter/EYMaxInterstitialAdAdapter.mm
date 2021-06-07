@@ -81,12 +81,19 @@
  * @param adUnitIdentifier  Ad unit identifier for which the ad was requested.
  * @param errorCode         An error code representing the failure reason. Common error codes are defined in `MAErrorCode.h`.
  */
-- (void)didFailToLoadAdForAdUnitIdentifier:(NSString *)adUnitIdentifier withErrorCode:(NSInteger)errorCode
-{
-    NSLog(@" MAX interstitial didFailToLoadAdWithError: %ld, adKey = %@", errorCode, self.adKey);
+//- (void)didFailToLoadAdForAdUnitIdentifier:(NSString *)adUnitIdentifier withErrorCode:(NSInteger)errorCode
+//{
+//    NSLog(@" MAX interstitial didFailToLoadAdWithError: %ld, adKey = %@", errorCode, self.adKey);
+//       self.isLoading = false;
+//       [self cancelTimeoutTask];
+//    [self notifyOnAdLoadFailedWithError:(int)errorCode];
+//}
+
+- (void)didFailToLoadAdForAdUnitIdentifier:(NSString *)adUnitIdentifier withError:(MAError *)error {
+    NSLog(@" MAX interstitial didFailToLoadAdWithError: %d, adKey = %@, userinfo: %@, message: %@", (int)error.code, self.adKey, error.adLoadFailureInfo, error.message);
        self.isLoading = false;
        [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)errorCode];
+    [self notifyOnAdLoadFailedWithError:(int)error.code];
 }
 
 /**
@@ -132,13 +139,21 @@
  * @param ad        Ad that was just failed to display.
  * @param errorCode Error that indicates display failure. Common error codes are defined in `MAErrorCode.h`.
  */
-- (void)didFailToDisplayAd:(MAAd *)ad withErrorCode:(NSInteger)errorCode
-{
-    NSLog(@" MAX didFailToDisplayAd adKey = %@， code = %ld", self.adKey, errorCode);
+//- (void)didFailToDisplayAd:(MAAd *)ad withErrorCode:(NSInteger)errorCode
+//{
+//    NSLog(@" MAX didFailToDisplayAd adKey = %@， code = %ld", self.adKey, errorCode);
+//    self.isShowing = false;
+//    self.isLoading = false;
+//    [self cancelTimeoutTask];
+//    [self notifyOnAdLoadFailedWithError:(int)errorCode];
+//}
+
+- (void)didFailToDisplayAd:(MAAd *)ad withError:(MAError *)error {
+    NSLog(@" MAX didFailToDisplayAd adKey = %@， code = %d, message = %@", self.adKey, (int)error.code, error.message);
     self.isShowing = false;
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)errorCode];
+    [self notifyOnAdLoadFailedWithError:(int)error.code];
 }
 
 #pragma mark dealloc

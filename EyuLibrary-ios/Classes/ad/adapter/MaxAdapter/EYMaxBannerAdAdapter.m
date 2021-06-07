@@ -75,20 +75,31 @@
     [self notifyOnAdLoaded];
 }
 
-- (void)didFailToLoadAdForAdUnitIdentifier:(NSString *)adUnitIdentifier withErrorCode:(NSInteger)errorCode {
-    NSLog(@"max banner ad failed to load with error: %ld", (long)errorCode);
+//- (void)didFailToLoadAdForAdUnitIdentifier:(NSString *)adUnitIdentifier withErrorCode:(NSInteger)errorCode {
+//    NSLog(@"max banner ad failed to load with error: %ld", (long)errorCode);
+//    self.isLoading = false;
+//    self.isLoadSuccess = false;
+//    [self notifyOnAdLoadFailedWithError:(int)errorCode];
+//}
+
+- (void)didFailToLoadAdForAdUnitIdentifier:(NSString *)adUnitIdentifier withError:(MAError *)error {
+    NSLog(@"max banner ad failed to load with error: %d, userinfo: %@, message: %@", (int)error.code, error.adLoadFailureInfo, error.message);
     self.isLoading = false;
     self.isLoadSuccess = false;
-    [self notifyOnAdLoadFailedWithError:(int)errorCode];
+    [self notifyOnAdLoadFailedWithError:(int)error.code];
 }
 
 - (void)didClickAd:(MAAd *)ad {
     [self notifyOnAdClicked];
 }
 
-- (void)didFailToDisplayAd:(MAAd *)ad withErrorCode:(NSInteger)errorCode {
-    NSLog(@"max banner ad failed to display with error: %ld", (long)errorCode);
+- (void)didFailToDisplayAd:(MAAd *)ad withError:(MAError *)error {
+    NSLog(@"max banner ad failed to display with error: %d, userinfo: %@, message: %@", (int)error.code, error.adLoadFailureInfo, error.message);
 }
+
+//- (void)didFailToDisplayAd:(MAAd *)ad withErrorCode:(NSInteger)errorCode {
+//    NSLog(@"max banner ad failed to display with error: %ld", (long)errorCode);
+//}
 
 - (void)didDisplayAd:(nonnull MAAd *)ad {}
 

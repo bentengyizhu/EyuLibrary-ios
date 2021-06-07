@@ -74,13 +74,20 @@
     [self notifyOnAdLoaded];
 }
 
-- (void)didFailToLoadAdForAdUnitIdentifier:(NSString *)adUnitIdentifier withErrorCode:(NSInteger)errorCode
-{
-    NSLog(@" MAX reward didFailToLoadAdWithError: %ld, adKey = %@", errorCode, self.adKey);
+- (void)didFailToLoadAdForAdUnitIdentifier:(NSString *)adUnitIdentifier withError:(MAError *)error {
+    NSLog(@" MAX reward didFailToLoadAdWithError: %d, adKey = %@, message = %@, userinfo = %@", (int)error.code, self.adKey, error.message, error.adLoadFailureInfo);
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)errorCode];
+    [self notifyOnAdLoadFailedWithError:(int)error.code];
 }
+
+//- (void)didFailToLoadAdForAdUnitIdentifier:(NSString *)adUnitIdentifier withErrorCode:(NSInteger)errorCode
+//{
+//    NSLog(@" MAX reward didFailToLoadAdWithError: %ld, adKey = %@", errorCode, self.adKey);
+//    self.isLoading = false;
+//    [self cancelTimeoutTask];
+//    [self notifyOnAdLoadFailedWithError:(int)errorCode];
+//}
 
 - (void)didDisplayAd:(MAAd *)ad {
     NSLog(@" MAX reward ad wasDisplayedIn");
@@ -105,14 +112,22 @@
     [self notifyOnAdClosed];
 }
 
-- (void)didFailToDisplayAd:(MAAd *)ad withErrorCode:(NSInteger)errorCode
-{
-    // Rewarded ad failed to display. We recommend loading the next ad
-    NSLog(@" MAX reward ad didFailToDisplayAd %ld", errorCode);
+//- (void)didFailToDisplayAd:(MAAd *)ad withErrorCode:(NSInteger)errorCode
+//{
+//    // Rewarded ad failed to display. We recommend loading the next ad
+//    NSLog(@" MAX reward ad didFailToDisplayAd %ld", errorCode);
+//    self.isShowing = false;
+//    self.isLoading = false;
+//    [self cancelTimeoutTask];
+//    [self notifyOnAdLoadFailedWithError:(int)errorCode];
+//}
+
+- (void)didFailToDisplayAd:(MAAd *)ad withError:(MAError *)error {
+    NSLog(@" MAX reward ad didFailToDisplayAd %d, message = %@", (int)error.code, error.message);
     self.isShowing = false;
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)errorCode];
+    [self notifyOnAdLoadFailedWithError:(int)error.code];
 }
 
 #pragma mark - MARewardedAdDelegate Protocol
