@@ -106,7 +106,6 @@ static bool sIsUMInited = false;
 static bool sIsGDTInited = false;
 static bool sIsFBInited = false;
 static bool sIsTrackingInited = false;
-
     
 #ifdef FACEBOOK_ENABLED
 /**
@@ -273,6 +272,9 @@ AppsFlyerDelegate *_appflyerDelegate = [AppsFlyerDelegate new];
         [Tracking setRegisterWithAccountID: distinctId];
     }
 #endif
+#ifdef AF_ENABLED
+    [[AppsFlyerLib shared] setAdditionalData:@{@"ta_distinctId_id": distinctId}];
+#endif
      [instance enableAutoTrack:ThinkingAnalyticsEventTypeAppStart |
      ThinkingAnalyticsEventTypeAppInstall |
      ThinkingAnalyticsEventTypeAppEnd |
@@ -292,6 +294,9 @@ AppsFlyerDelegate *_appflyerDelegate = [AppsFlyerDelegate new];
     if (sIsTrackingInited == true) {
         [Tracking setRegisterWithAccountID: distinctId];
     }
+#endif
+#ifdef AF_ENABLED
+    [[AppsFlyerLib shared] setAdditionalData:@{@"ta_distinctId_id": distinctId}];
 #endif
     [instance enableAutoTrack:ThinkingAnalyticsEventTypeAppStart |
     ThinkingAnalyticsEventTypeAppInstall |
