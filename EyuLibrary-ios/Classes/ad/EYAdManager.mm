@@ -851,6 +851,20 @@ static id s_sharedInstance;
     return false;
 }
 
+- (bool)isHighPriorityAdLoaded:(NSString *)placeId {
+    if(!self.isInited)
+    {
+        return false;
+    }
+    EYAdPlace* adPlace = self.adPlaceDict[placeId];
+    if(adPlace != nil)
+    {
+        EYBasicAdGroup *group = self.basicAdGroupDict[adPlace.groupId];
+        return group!= nil && [group isHighPriorityCacheAvailable];
+    }
+    return false;
+}
+
 - (bool)isHighPriorityBannerAdLoaded:(NSString *)placeId {
     if(!self.isInited)
     {
