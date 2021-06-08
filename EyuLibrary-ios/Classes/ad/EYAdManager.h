@@ -63,6 +63,7 @@
 -(bool) isInterstitialAdLoaded:(NSString*) placeId;
 -(bool) isRewardAdLoaded:(NSString*) placeId;
 -(bool) isSplashAdLoaded:(NSString*) placeId;
+-(bool) isAdLoaaded:(NSString*) placeId;
 
 -(bool) isHighPriorityNativeAdLoaded:(NSString*) placeId;
 -(bool) isHighPriorityBannerAdLoaded:(NSString*) placeId;

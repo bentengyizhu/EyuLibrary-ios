@@ -106,6 +106,7 @@
 @property(nonatomic,strong) NSMutableDictionary<NSString*,EYRewardAdGroup*>* rewardAdGroupDict;
 @property(nonatomic,strong) NSMutableDictionary<NSString*,EYBannerAdGroup*>* bannerAdGroupDict;
 @property(nonatomic,strong) NSMutableDictionary<NSString*,EYSplashAdGroup*>* splashAdGroupDict;
+@property(nonatomic,strong) NSMutableDictionary<NSString*,EYBasicAdGroup*>* basicAdGroupDict;
 @property(nonatomic,strong) NSMutableDictionary<NSString*,NSString*>*  nativeAdViewNibDict;
 @property(nonatomic,strong) NSMutableDictionary<NSNumber*,NSMutableDictionary<NSString*,EYNativeAdView*>*>*  nativeAdViewDict;
 @property(nonatomic,weak) UIViewController* nativeAdController;
@@ -142,6 +143,7 @@ static id s_sharedInstance;
 @synthesize rewardAdGroupDict = _rewardAdGroupDict;
 @synthesize bannerAdGroupDict = _bannerAdGroupDict;
 @synthesize splashAdGroupDict = _splashAdGroupDict;
+@synthesize basicAdGroupDict = _basicAdGroupDict;
 @synthesize nativeAdViewDict = _nativeAdViewDict;
 @synthesize nativeAdViewNibDict = _nativeAdViewNibDict;
 @synthesize nativeAdController = _nativeAdController;
@@ -286,6 +288,7 @@ static id s_sharedInstance;
             EYInterstitialAdGroup* interstitialAdGroup = [[EYInterstitialAdGroup alloc] initInAdvanceWithGroup:group adConfig:self.adConfig];
             [interstitialAdGroup setDelegate:self];
             [self.interstitialAdGroupDict setObject:interstitialAdGroup forKey:group.groupId];
+            [self.basicAdGroupDict setObject:interstitialAdGroup forKey:group.groupId];
             if(group.isAutoLoad && self.canLoadAd)
             {
                 [interstitialAdGroup loadAd:@"auto"];
@@ -295,6 +298,7 @@ static id s_sharedInstance;
             EYNativeAdGroup* nativeAdGroup = [[EYNativeAdGroup alloc] initInAdvanceWithGroup:group adConfig:self.adConfig];
             [nativeAdGroup setDelegate:self];
             [self.nativeAdGroupDict setObject:nativeAdGroup forKey:group.groupId];
+            [self.basicAdGroupDict setObject:nativeAdGroup forKey:group.groupId];
             if(group.isAutoLoad && self.canLoadAd)
             {
                 [nativeAdGroup loadAd:@"auto"];
@@ -304,6 +308,7 @@ static id s_sharedInstance;
             EYRewardAdGroup* rewardAdGroup = [[EYRewardAdGroup alloc] initInAdvanceWithGroup:group adConfig:self.adConfig];
             [rewardAdGroup setDelegate:self];
             [self.rewardAdGroupDict setObject:rewardAdGroup forKey:group.groupId];
+            [self.basicAdGroupDict setObject:rewardAdGroup forKey:group.groupId];
             if(group.isAutoLoad && self.canLoadAd)
             {
                 [rewardAdGroup loadAd:@"auto"];
@@ -312,6 +317,7 @@ static id s_sharedInstance;
             EYBannerAdGroup* bannerGroup = [[EYBannerAdGroup alloc]initInAdvanceWithGroup:group adConfig:self.adConfig];
             [bannerGroup setDelegate:self];
             [self.bannerAdGroupDict setObject:bannerGroup forKey:group.groupId];
+            [self.basicAdGroupDict setObject:bannerGroup forKey:group.groupId];
             if (group.isAutoLoad && self.rootViewController && self.canLoadAd) {
                 [bannerGroup loadAd:@"auto"];
             }
@@ -319,6 +325,7 @@ static id s_sharedInstance;
             EYSplashAdGroup* splashGroup = [[EYSplashAdGroup alloc]initInAdvanceWithGroup:group adConfig:self.adConfig];
             [splashGroup setDelegate:self];
             [self.splashAdGroupDict setObject:splashGroup forKey:group.groupId];
+            [self.basicAdGroupDict setObject:splashGroup forKey:group.groupId];
             if (group.isAutoLoad && self.canLoadAd) {
                 [splashGroup loadAd:@"auto"];
             }
@@ -533,6 +540,7 @@ static id s_sharedInstance;
     self.adPlaceDict = [[NSMutableDictionary alloc] init];
     
     self.interstitialAdGroupDict = [[NSMutableDictionary alloc] init];
+    self.basicAdGroupDict = [[NSMutableDictionary alloc] init];
     self.nativeAdGroupDict = [[NSMutableDictionary alloc] init];
     self.rewardAdGroupDict = [[NSMutableDictionary alloc] init];
     self.nativeAdViewDict = [[NSMutableDictionary alloc] init];
@@ -795,6 +803,20 @@ static id s_sharedInstance;
     if(adPlace != nil)
     {
         EYInterstitialAdGroup *group = self.interstitialAdGroupDict[adPlace.groupId];
+        return group!= nil && [group isCacheAvailable];
+    }
+    return false;
+}
+
+-(bool) isAdLoaaded:(NSString*) placeId {
+    if(!self.isInited)
+    {
+        return false;
+    }
+    EYAdPlace* adPlace = self.adPlaceDict[placeId];
+    if(adPlace != nil)
+    {
+        EYBasicAdGroup *group = self.basicAdGroupDict[adPlace.groupId];
         return group!= nil && [group isCacheAvailable];
     }
     return false;
