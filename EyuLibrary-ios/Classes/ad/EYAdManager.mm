@@ -1459,6 +1459,7 @@ static id s_sharedInstance;
 #endif
     [self.rewardAdGroupDict removeAllObjects];
     [self.interstitialAdGroupDict removeAllObjects];
+    [self.basicAdGroupDict removeAllObjects];
     [self.nativeAdGroupDict removeAllObjects];
     [self.bannerAdGroupDict removeAllObjects];
     [self.nativeAdViewDict removeAllObjects];
