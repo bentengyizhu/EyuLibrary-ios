@@ -20,6 +20,7 @@
 #import "EYNativeAdView.h"
 #import "EYBannerAdGroup.h"
 #import "EYSplashAdGroup.h"
+#import "EYAdConstants.h"
 #import <CoreTelephony/CTCellularData.h>
 #ifdef FB_ADS_ENABLED
 #import "FBAdSettings.h"
@@ -195,9 +196,12 @@ static id s_sharedInstance;
     
     NSData *adSuiteData = config.adSuiteData;
     NSMutableDictionary *adSuiteDictionary = [[NSMutableDictionary alloc]init];
+    extern int TIMEOUT_TIME;
     if (adSuiteData == NULL) {
         config.isNewJsonSetting = false;
+        TIMEOUT_TIME = 16;
     } else {
+        TIMEOUT_TIME = 8;
         config.isNewJsonSetting = true;
         NSArray *adSuiteArray = [NSJSONSerialization JSONObjectWithData:adSuiteData options:kNilOptions error:nil];
         adSuiteArray = [adSuiteArray sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *  _Nonnull obj1, NSDictionary *  _Nonnull obj2) {

@@ -51,7 +51,5 @@
 #define     ERROR_AD_IS_SHOWING                         -13002
 #define     ERROR_IS_AD_LOAD_ERROR                      -13003
 
-#define     TIMEOUT_TIME                                16
-
-
+static int TIMEOUT_TIME;
 #endif /* EYAdConstants_h */

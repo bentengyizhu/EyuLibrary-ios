@@ -6,8 +6,6 @@
 //
 
 #import "EYAdAdapter.h"
-
-
 @interface EYInterstitialAdAdapter : EYAdAdapter{
     
 }
