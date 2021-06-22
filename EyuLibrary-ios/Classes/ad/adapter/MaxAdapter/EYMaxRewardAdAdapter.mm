@@ -90,7 +90,7 @@
 //}
 
 - (void)didPayRevenueForAd:(MAAd *)ad {
-    [self notifyOnAdShowedData: @{@"adsource_price": @(ad.revenue)}];
+    [self notifyOnAdShowedData: @{@"adsource_price": @(ad.revenue), @"unitId": self.adKey.key, @"unitName": self.adKey.keyId, @"placeId": self.adKey.placementid, @"adFormat": ADTypeReward, @"mediator": @"max", @"networkName": ad.networkName}];
 }
 
 - (void)didDisplayAd:(MAAd *)ad {

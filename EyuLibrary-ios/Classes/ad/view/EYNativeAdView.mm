@@ -46,7 +46,7 @@
         //self.userInteractionEnabled = false;
         NSArray *nibView;
         if ([nibName  isEqualToString: @"nativeAd"]) {
-            NSString *bundlePath = [[NSBundle bundleForClass:self] pathForResource:@"EyuLibrary" ofType:@"bundle"];
+            NSString *bundlePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"EyuLibrary" ofType:@"bundle"];
             nibView =  [[NSBundle bundleWithPath:bundlePath] loadNibNamed:nibName owner:self options:nil];
         } else {
             nibView =  [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];

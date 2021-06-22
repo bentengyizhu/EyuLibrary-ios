@@ -94,7 +94,7 @@
 }
 
 - (void)didPayRevenueForAd:(MAAd *)ad {
-    [self notifyOnAdShowedData: @{@"adsource_price": @(ad.revenue)}];
+    [self notifyOnAdShowedData: @{@"adsource_price": @(ad.revenue), @"unitId": self.adKey.key, @"unitName": self.adKey.keyId, @"placeId": self.adKey.placementid, @"adFormat": ADTypeBanner, @"mediator": @"max", @"networkName": ad.networkName}];
 }
 
 - (void)didFailToDisplayAd:(MAAd *)ad withError:(MAError *)error {

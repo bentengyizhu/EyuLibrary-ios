@@ -74,7 +74,8 @@
 -(void) rewardedVideoDidStartPlayingForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
     NSLog(@" at reward ad wasDisplayedIn");
     [self notifyOnAdShowed];
-    [self notifyOnAdShowedData:extra];
+    NSDictionary *data = @{@"adsource_price": extra[@"adsource_price"], @"unitId": self.adKey.key, @"unitName": self.adKey.keyId, @"placeId": self.adKey.placementid, @"adFormat": ADTypeReward, @"mediator": @"topon", @"networkName": extra[@"adsource_id"], @"currency": extra[@"currency"]};
+    [self notifyOnAdShowedData:data];
     [self notifyOnAdImpression];
 }
 
@@ -85,7 +86,8 @@
 -(void) rewardedVideoDidFailToPlayForPlacementID:(NSString*)placementID error:(NSError*)error extra:(NSDictionary *)extra {
     NSLog(@" at reward ad wasDisplayedIn");
     [self notifyOnAdShowed];
-    [self notifyOnAdShowedData:extra];
+    NSDictionary *data = @{@"adsource_price": extra[@"adsource_price"], @"unitId": self.adKey.key, @"unitName": self.adKey.keyId, @"placeId": self.adKey.placementid, @"adFormat": ADTypeReward, @"mediator": @"topon", @"networkName": extra[@"adsource_id"], @"currency": extra[@"currency"]};
+    [self notifyOnAdShowedData:data];
     [self notifyOnAdImpression];
 }
 
