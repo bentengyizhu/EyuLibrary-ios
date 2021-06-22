@@ -218,6 +218,9 @@
     for(EYAdKey* adKey in keyList)
     {
         if(adKey){
+            if (adKey.placementid == nil) {
+                adKey.placementid = self.adGroup.placeId;
+            }
             EYAdAdapter *adapter = [self createAdAdapterWithKey:adKey adGroup:self.adGroup];
             if(adapter){
                 [self.adapterArray addObject:adapter];
