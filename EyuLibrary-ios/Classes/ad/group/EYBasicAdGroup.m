@@ -324,7 +324,7 @@
     }
     if(self.delegate)
     {
-        [self.delegate onAdLoadFailed:self.adGroup.groupId key:adKey.keyId code:errorCode];
+        [self.delegate onAdLoadFailed:self.adGroup.groupId type:self.adType key:adKey.keyId code:errorCode];
     }
 }
 

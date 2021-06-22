@@ -115,9 +115,13 @@
 
 }
 
-- (void)onAdLoadFailed:(nonnull NSString *)adPlaceId key:(nonnull NSString *)key code:(int)code {
+- (void)onAdLoadFailed:(NSString *)adPlaceId type:(NSString *)type key:(NSString *)key code:(int)code {
     NSLog(@"lw, onAdLoadFailed adPlaceId = %@, key = %@, code = %d", adPlaceId, key, code);
 }
+
+//- (void)onAdLoadFailed:(nonnull NSString *)adPlaceId key:(nonnull NSString *)key code:(int)code {
+//    NSLog(@"lw, onAdLoadFailed adPlaceId = %@, key = %@, code = %d", adPlaceId, key, code);
+//}
 
 -(void) onAdImpression:(NSString*) adPlaceId  type:(NSString*)type
 {

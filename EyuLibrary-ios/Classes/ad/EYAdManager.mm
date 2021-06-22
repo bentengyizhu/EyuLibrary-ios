@@ -1183,11 +1183,12 @@ static id s_sharedInstance;
     }
 }
 
--(void) onAdLoadFailed:(NSString*) adPlaceId  key:(NSString*)key code:(int)code
+-(void) onAdLoadFailed:(NSString*) adPlaceId type:(NSString*)type key:(NSString*)key code:(int)code
 {
     NSLog(@"AdPlayer onAdLoadFailed , adPlaceId = %@, key = %@, code = %d", adPlaceId, key, code);
     if(self.delegate)
     {
+        [self.delegate onAdLoadFailed:adPlaceId type:type key:key code:code];
         [self.delegate onAdLoadFailed:adPlaceId key:key code:code];
     }
 }
