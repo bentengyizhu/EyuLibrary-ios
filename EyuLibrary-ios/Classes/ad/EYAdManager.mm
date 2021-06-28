@@ -1190,8 +1190,11 @@ static id s_sharedInstance;
     NSLog(@"AdPlayer onAdLoadFailed , adPlaceId = %@, key = %@, code = %d", adPlaceId, key, code);
     if(self.delegate)
     {
-        [self.delegate onAdLoadFailed:adPlaceId type:type key:key code:code];
-        [self.delegate onAdLoadFailed:adPlaceId key:key code:code];
+        if ([self.delegate respondsToSelector:@selector(onAdLoadFailed:key:code:)]) {
+            [self.delegate onAdLoadFailed:adPlaceId type:type key:key code:code];
+        } else if ([self.delegate respondsToSelector:@selector(onAdLoadFailed:key:code:)]) {
+            [self.delegate onAdLoadFailed:adPlaceId key:key code:code];
+        }
     }
 }
 
