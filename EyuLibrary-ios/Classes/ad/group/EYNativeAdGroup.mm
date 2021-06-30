@@ -194,11 +194,11 @@
 //    }
 //}
 
--(void) onAdShowed:(EYNativeAdAdapter*)adapter
+-(void) onAdShowed:(EYNativeAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
 {
     if(self.delegate)
     {
-        [self.delegate onAdShowed:self.adPlaceId type:ADTypeNative];
+        [self.delegate onAdShowed:eyuAd];
     }
     
 //    if(self.reportEvent){
@@ -208,18 +208,18 @@
 //    }
 }
 
-- (void)onAdShowed:(EYNativeAdAdapter *)adapter extraData:(NSDictionary *)extraData {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(onAdShowed:type:extraData:)])
+- (void)onAdRevenue:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onAdRevenue:)])
     {
-        [self.delegate onAdShowed:self.adPlaceId type:ADTypeNative extraData:extraData];
+        [self.delegate onAdShowed:eyuAd];
     }
 }
 
--(void) onAdClicked:(EYNativeAdAdapter*)adapter
+-(void) onAdClicked:(EYNativeAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
 {
     if(self.delegate)
     {
-        [self.delegate onAdClicked:self.adPlaceId type:ADTypeNative];
+        [self.delegate onAdClicked:eyuAd];
     }
     if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
@@ -228,11 +228,11 @@
     }
 }
 
--(void) onAdImpression:(EYNativeAdAdapter*)adapter
+-(void) onAdImpression:(EYNativeAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
 {
     if(self.delegate)
     {
-        [self.delegate onAdImpression:self.adPlaceId type:ADTypeNative];
+        [self.delegate onAdImpression:eyuAd];
     }
     EYAdKey *adKey = adapter.adKey;
     if(adKey){
@@ -245,10 +245,10 @@
     }
 }
 
-- (void)onAdClosed:(EYNativeAdAdapter *)adapter {
+- (void)onAdClosed:(EYNativeAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd {
     if(self.delegate)
     {
-        [self.delegate onAdClosed:self.adPlaceId type:ADTypeNative];
+        [self.delegate onAdClosed:eyuAd];
     }
 }
 @end

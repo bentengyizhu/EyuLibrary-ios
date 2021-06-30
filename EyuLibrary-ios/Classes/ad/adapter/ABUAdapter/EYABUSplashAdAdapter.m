@@ -14,10 +14,12 @@
 {
     NSLog(@"abusplash loadAd isAdLoaded = %d", [self isAdLoaded]);
     if([self isShowing]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if([self isAdLoaded])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else if(![self isLoading])
     {
         if(self.splashAd!=NULL)
@@ -77,7 +79,17 @@
     NSLog(@"abu splashAd splashAdDidLoad");
     self.isLoadSuccess = true;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeSplash;
+    ad.mediator = @"abu";
+    return ad;
 }
 
 /**
@@ -94,7 +106,9 @@
         self.splashAd = NULL;
     }
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 /**
@@ -102,8 +116,10 @@
  */
 - (void)splashAdWillVisible:(ABUSplashAd *_Nonnull)splashAd {
     NSLog(@"abu splashAd splashAdWillVisible");
-    [self notifyOnAdShowedData:@{@"ecpm": splashAd.getPreEcpm}];
-    [self notifyOnAdImpression];
+    EYuAd *ad = [self getEyuAd];
+    [self notifyOnAdImpression: ad];
+    ad.adRevenue = splashAd.getPreEcpm;
+    [self notifyOnAdRevenue:ad];
 }
 
 /**
@@ -111,7 +127,7 @@
  */
 - (void)splashAdDidClick:(ABUSplashAd *_Nonnull)splashAd {
     NSLog(@"abu splashAd splashAdDidClick");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 
 /**
@@ -125,7 +141,7 @@
         self.splashAd.delegate = NULL;
         self.splashAd = NULL;
     }
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed: [self getEyuAd]];
 }
 
 /**

@@ -16,7 +16,7 @@
     if([self isAdLoaded])
     {
         self.isLoadSuccess = true;
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
         return;
     } else if (!self.isLoading) {
         self.isLoadSuccess = false;
@@ -33,6 +33,16 @@
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeBanner;
+    ad.mediator = @"tradplus";
+    return ad;
 }
 
 - (bool)isAdLoaded {
@@ -80,17 +90,19 @@
     self.isLoadSuccess = true;
     self.isLoading = false;
     NSLog(@"tpbanner ad didLoad");
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 - (void)MsBannerView:(MsBannerView *)adView didFailWithError:(NSError *)error
 {
     NSLog(@"tp banner ad failed to load with error: %@", error);
     self.isLoading = false;
     self.isLoadSuccess = false;
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 - (void)MsBannerViewClicked:(MsBannerView *)adView {
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 @end
 #endif

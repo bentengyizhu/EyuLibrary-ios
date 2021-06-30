@@ -30,15 +30,27 @@
 {
     NSLog(@" EYIronSourceInterstitialAdAdapter loadAd key = %@", self.adKey.key);
     if([self isShowing ]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if([self isAdLoaded]) {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }
     else if(!self.isLoading) {
         self.isLoading = true;
 //        [IronSource loadInterstitial];
         [IronSource loadISDemandOnlyInterstitial:self.adKey.key];
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeInterstitial;
+    ad.mediator = @"icornsource";
+    return ad;
 }
 
 -(bool) showAdWithController:(UIViewController*) controller
@@ -69,7 +81,7 @@
 {
     NSLog(@" EYIronSourceInterstitialAdAdapter interstitialDidLoad, instance id = %@", instanceId);
     self.isLoading = false;
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 /**
@@ -81,7 +93,9 @@
 {
     NSLog(@" EYIronSourceInterstitialAdAdapter interstitialDidFailToLoadWithError, error = %@", error);
     self.isLoading = false;
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 /**
@@ -90,8 +104,8 @@
 - (void)interstitialDidOpen:(NSString *)instanceId
 {
     NSLog(@" EYIronSourceInterstitialAdAdapter interstitialDidOpen");
-    [self notifyOnAdShowed];
-    [self notifyOnAdImpression];
+    [self notifyOnAdShowed: [self getEyuAd]];
+    [self notifyOnAdImpression: [self getEyuAd]];
 }
 
 /**
@@ -101,7 +115,7 @@
 {
     NSLog(@" EYIronSourceInterstitialAdAdapter interstitialDidClose");
     self.isShowing = NO;
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed: [self getEyuAd]];
 }
 
 /**
@@ -119,7 +133,7 @@
 - (void)didClickInterstitial:(NSString *)instanceId
 {
     NSLog(@" EYIronSourceInterstitialAdAdapter didClickInterstitial");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 
 @end

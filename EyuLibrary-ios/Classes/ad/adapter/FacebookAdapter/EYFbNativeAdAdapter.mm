@@ -22,7 +22,7 @@
 {
     NSLog(@"fb nativeAd loadAd nativeAd = %@, key = %@.", self.nativeAd, self.adKey.key);
     if([self isAdLoaded]){
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded:[self getEyuAd]];
     }else if(self.nativeAd == NULL)
     {
         self.nativeAd = [[FBNativeAd alloc] initWithPlacementID:self.adKey.key];
@@ -93,6 +93,16 @@
     return false;
 }
 
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeNative;
+    ad.mediator = @"facebook";
+    return ad;
+}
+
 -(bool) isAdLoaded
 {
     bool isAdLoaded = self.nativeAd!=NULL &&[self.nativeAd isAdValid];
@@ -136,7 +146,9 @@
         self.nativeAd = NULL;
     }
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 - (void)nativeAdDidLoad:(FBNativeAd *)nativeAd
@@ -155,7 +167,7 @@
     NSLog(@" nativeAdDidDownloadMedia");
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded:[self getEyuAd]];
 }
 
 /**
@@ -166,8 +178,8 @@
 - (void)nativeAdWillLogImpression:(FBNativeAd *)nativeAd
 {
     NSLog(@" fb nativeAdWillLogImpression");
-    [self notifyOnAdShowed];
-    [self notifyOnAdImpression];
+    [self notifyOnAdShowed:[self getEyuAd]];
+    [self notifyOnAdImpression:[self getEyuAd]];
 }
 
 - (void)mediaViewDidLoad:(FBMediaView *)mediaView

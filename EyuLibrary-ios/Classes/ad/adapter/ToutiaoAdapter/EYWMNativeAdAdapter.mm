@@ -30,7 +30,7 @@
 {
     NSLog(@"wm nativeAd loadAd nativeAd = %@, key = %@.", self.nativeAd, self.adKey.key);
     if([self isAdLoaded]){
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else if(self.nativeAd == NULL)
     {
         self.nativeAd = [[BUNativeAd alloc] init];;
@@ -56,6 +56,16 @@
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeNative;
+    ad.mediator = @"wm";
+    return ad;
 }
 
 -(bool) showAdWithAdLayout:(UIView*)nativeAdLayout iconView:(UIImageView*)nativeAdIcon titleView:(UILabel*)nativeAdTitle
@@ -182,7 +192,7 @@
     self.isLoading = false;
     self.isLoaded = true;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 - (void)nativeAd:(BUNativeAd *)nativeAd didFailWithError:(NSError *_Nullable)error
@@ -197,19 +207,21 @@
         self.nativeAd = NULL;
     }
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 - (void)nativeAdDidClick:(BUNativeAd *)nativeAd withView:(UIView *)view
 {
     NSLog(@"wm nativeAdDidClick");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 
 - (void)nativeAdDidBecomeVisible:(BUNativeAd *)nativeAd
 {
-    [self notifyOnAdShowed];
-    [self notifyOnAdImpression];
+    [self notifyOnAdShowed: [self getEyuAd]];
+    [self notifyOnAdImpression: [self getEyuAd]];
 }
 
 - (void)dealloc

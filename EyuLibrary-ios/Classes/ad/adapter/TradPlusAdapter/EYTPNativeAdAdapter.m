@@ -15,7 +15,7 @@
     NSLog(@"tp load at nativeAd ");
     if([self isAdLoaded])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else if (!self.isLoading){
         self.isLoading = true;
         _adsLoader = [[MsNativeAdsLoader alloc] init];
@@ -31,6 +31,16 @@
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeNative;
+    ad.mediator = @"tradplus";
+    return ad;
 }
 
 -(bool)showAdWithAdLayout:(UIView *)nativeAdLayout iconView:(UIImageView *)nativeAdIcon titleView:(UILabel *)nativeAdTitle descView:(UILabel *)nativeAdDesc mediaLayout:(UIView *)mediaLayout actBtn:(UIButton *)actBtn controller:(UIViewController *)controller {
@@ -82,9 +92,11 @@
         MSNativeAd *nativeAd = readyAds[0];
         self.adView = [nativeAd retrieveAdViewWithError:[EYTPNativeAdView class] error:nil];
         self.nativeAdView = (EYTPNativeAdView *)self.adView.subviews.firstObject;
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     } else {
-        [self notifyOnAdLoadFailedWithError:(int)error.code];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = error;
+        [self notifyOnAdLoadFailedWithError:ad];
     }
 }
 @end

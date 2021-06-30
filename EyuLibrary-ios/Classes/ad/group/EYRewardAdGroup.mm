@@ -241,7 +241,7 @@
 //    [toast show];
 }
 
--(void) onAdLoaded:(EYRewardAdAdapter *)adapter
+-(void) onAdLoaded:(EYRewardAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd
 {
 //    NSLog(@"onAdLoaded adapter = %@, self.isLoadingDialogShowed = %d", adapter, self.isLoadingDialogShowed);
 //    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
@@ -258,7 +258,7 @@
 //    {
 //        [self.delegate onAdLoaded:self.adPlaceId type:ADTypeReward];
 //    }
-    [super onAdLoaded:adapter];
+    [super onAdLoaded:adapter eyuAd:eyuAd];
     if(self.isLoadingDialogShowed)
     {
         [self hideLoadingDialog];
@@ -267,9 +267,10 @@
     }
 }
 
--(void) onAdLoadFailed:(EYRewardAdAdapter*)adapter withError:(int)errorCode
+
+-(void) onAdLoadFailed:(EYRewardAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
 {
-    [super onAdLoadFailed:adapter withError:errorCode];
+    [super onAdLoadFailed:adapter eyuAd:eyuAd];
 //    EYAdKey* adKey = adapter.adKey;
 //    NSLog(@"onAdLoadFailed adKey = %@, errorCode = %d", adKey.keyId, errorCode);
 //
@@ -307,11 +308,11 @@
 //    }
 }
 
--(void) onAdShowed:(EYRewardAdAdapter*)adapter
+-(void) onAdShowed:(EYRewardAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
 {
     if(self.delegate)
     {
-        [self.delegate onAdShowed:self.adPlaceId type:ADTypeReward];
+        [self.delegate onAdShowed:eyuAd];
     }
 //    if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
@@ -320,18 +321,18 @@
 //    }
 }
 
-- (void)onAdShowed:(EYRewardAdAdapter *)adapter extraData:(NSDictionary *)extraData {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(onAdShowed:type:extraData:)])
+- (void)onAdRevenue:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onAdRevenue:)])
     {
-        [self.delegate onAdShowed:self.adPlaceId type:ADTypeReward extraData:extraData];
+        [self.delegate onAdRevenue:eyuAd];
     }
 }
 
--(void) onAdClicked:(EYRewardAdAdapter*)adapter
+-(void) onAdClicked:(EYRewardAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
 {
     if(self.delegate)
     {
-        [self.delegate onAdClicked:self.adPlaceId type:ADTypeReward];
+        [self.delegate onAdClicked:eyuAd];
     }
     if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
@@ -340,22 +341,22 @@
     }
 }
 
--(void) onAdClosed:(EYRewardAdAdapter*)adapter
+-(void) onAdClosed:(EYRewardAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
 {
     if(self.delegate)
     {
-        [self.delegate onAdClosed:self.adPlaceId type:ADTypeReward];
+        [self.delegate onAdClosed:eyuAd];
     }
     if (self.adGroup.isAutoLoad && !self.isCacheAvailable) {
         [self loadAd:self.adPlaceId];
     }
 }
 
--(void) onAdRewarded:(EYRewardAdAdapter *)adapter
+-(void) onAdRewarded:(EYRewardAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd
 {
     if(self.delegate)
     {
-        [self.delegate onAdReward:self.adPlaceId type:ADTypeReward];
+        [self.delegate onAdReward:eyuAd];
     }
 
 //    if(self.reportEvent){
@@ -365,11 +366,11 @@
 //    }
 }
 
--(void) onAdImpression:(EYRewardAdAdapter*)adapter
+-(void) onAdImpression:(EYRewardAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
 {
     if(self.delegate)
     {
-        [self.delegate onAdImpression:self.adPlaceId type:ADTypeReward];
+        [self.delegate onAdImpression:eyuAd];
     }
     EYAdKey *adKey = adapter.adKey;
     if(adKey){

@@ -7,22 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "EYuAd.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol EYAdDelegate <NSObject>
 
--(void) onAdLoaded:(NSString*) adPlaceId type:(NSString*)type;
--(void) onAdReward:(NSString*) adPlaceId  type:(NSString*)type;
--(void) onAdShowed:(NSString*) adPlaceId  type:(NSString*)type;
--(void) onAdClosed:(NSString*) adPlaceId  type:(NSString*)type;
--(void) onAdClicked:(NSString*) adPlaceId  type:(NSString*)type;
--(void) onAdLoadFailed:(NSString*) adPlaceId type:(NSString*)type key:(NSString*)key code:(int)code;
--(void) onAdLoadFailed:(NSString*) adPlaceId key:(NSString*)key code:(int)code DEPRECATED_ATTRIBUTE;
--(void) onAdImpression:(NSString*) adPlaceId  type:(NSString*)type;
--(void) onDefaultNativeAdClicked;
+-(void) onAdLoaded:(EYuAd*) eyuAd;
+-(void) onAdReward:(EYuAd*) eyuAd;
+-(void) onAdShowed:(EYuAd*) eyuAd;
+-(void) onAdClosed:(EYuAd*) eyuAd;
+-(void) onAdClicked:(EYuAd*) eyuAd;
+-(void) onAdLoadFailed:(EYuAd*) eyuAd;
+-(void) onAdImpression:(EYuAd*) eyuAd;
 @optional
--(void) onAdShowed:(NSString*) adPlaceId  type:(NSString*)type extraData:(NSDictionary *)extraData;
+-(void) onAdRevenue:(EYuAd*) eyuAd;
+-(void) onDefaultNativeAdClicked;
 @end
 
 NS_ASSUME_NONNULL_END

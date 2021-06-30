@@ -12,10 +12,12 @@
 {
     NSLog(@"abu loadAd isAdLoaded = %d", [self isAdLoaded]);
     if([self isShowing ]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if([self isAdLoaded])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else if(![self isLoading] )
     {
         if(self.rewardAd!=NULL)
@@ -47,6 +49,16 @@
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeReward;
+    ad.mediator = @"abu";
+    return ad;
 }
 
 -(bool) showAdWithController:(UIViewController*) controller
@@ -85,7 +97,9 @@
         self.rewardAd = NULL;
     }
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 /**
@@ -105,7 +119,7 @@
     NSLog(@"abu reawrded video did download");
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 /**
@@ -113,9 +127,11 @@
  */
 - (void)rewardedVideoAdDidVisible:(ABURewardedVideoAd *_Nonnull)rewardedVideoAd {
     NSLog(@"abu rewarded video will visible");
-    [self notifyOnAdShowed];
-    [self notifyOnAdShowedData:@{@"ecpm": rewardedVideoAd.getPreEcpm}];
-    [self notifyOnAdImpression];
+    EYuAd *ad = [self getEyuAd];
+    [self notifyOnAdShowed: ad];
+    [self notifyOnAdImpression: ad];
+    ad.adRevenue = rewardedVideoAd.getPreEcpm;
+    [self notifyOnAdRevenue:ad];
 }
 
 /**
@@ -129,11 +145,11 @@
     }
     
     if(self.isRewarded){
-        [self notifyOnAdRewarded];
+        [self notifyOnAdRewarded: [self getEyuAd]];
     }
     self.isShowing = NO;
     self.isRewarded = NO;
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed: [self getEyuAd]];
 }
 
 /**
@@ -141,7 +157,7 @@
  */
 - (void)rewardedVideoAdDidClick:(ABURewardedVideoAd *_Nonnull)rewardedVideoAd {
     NSLog(@"abu rewarded video did click");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 
 - (void)rewardedVideoAdServerRewardDidSucceed:(ABURewardedVideoAd *)rewardedVideoAd rewardInfo:(ABUAdapterRewardAdInfo *)rewardInfo verify:(BOOL)verify {

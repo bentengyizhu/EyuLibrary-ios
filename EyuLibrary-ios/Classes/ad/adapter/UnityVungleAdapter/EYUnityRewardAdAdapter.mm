@@ -28,16 +28,30 @@
     return self;
 }
 
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeReward;
+    ad.mediator = @"unity";
+    return ad;
+}
+
 -(void) loadAd
 {
     NSLog(@"unity loadAd isAdLoaded = %d", [self isAdLoaded]);
     if([self isShowing ]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if([UnityAds isReady:self.adKey.key])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else{
-        [self notifyOnAdLoadFailedWithError:ERROR_UNITY_AD_NOT_LOADED];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"loadaderrordomain" code:ERROR_UNITY_AD_NOT_LOADED userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }
 }
 
@@ -61,24 +75,26 @@
 }
 
 - (void)unityAdsReady:(NSString *)placementId{
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 - (void)unityAdsDidError:(UnityAdsError)error withMessage:(NSString *)message{
-    [self notifyOnAdLoadFailedWithError:error];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 - (void)unityAdsDidStart:(NSString *)placementId{
-    [self notifyOnAdShowed];
-    [self notifyOnAdImpression];
+    [self notifyOnAdShowed: [self getEyuAd]];
+    [self notifyOnAdImpression: [self getEyuAd]];
 }
 
 - (void)unityAdsDidFinish:(NSString *)placementId withFinishState:(UnityAdsFinishState)state{
     if(state == UnityAdsFinishState::kUnityAdsFinishStateCompleted){
-        [self notifyOnAdRewarded];
+        [self notifyOnAdRewarded: [self getEyuAd]];
     }
     self.isShowing = NO;
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed: [self getEyuAd]];
 }
 
 - (void)dealloc

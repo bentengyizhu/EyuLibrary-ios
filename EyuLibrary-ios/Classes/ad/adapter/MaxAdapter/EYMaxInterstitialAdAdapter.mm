@@ -21,9 +21,11 @@
 {
     NSLog(@" MAX loadAd ad = %@", self.ad);
     if([self isShowing ]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if([self isAdLoaded]){
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded:[self getEyuAd]];
     }else if(!self.isLoading){
         self.isLoading = true;
         if(_ad == nil){
@@ -38,6 +40,16 @@
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeInterstitial;
+    ad.mediator = @"max";
+    return ad;
 }
 
 -(bool) showAdWithController:(UIViewController*) controller
@@ -67,7 +79,7 @@
     NSLog(@" MAX didLoadAd adKey = %@", self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 /**
@@ -93,7 +105,9 @@
     NSLog(@" MAX interstitial didFailToLoadAdWithError: %d, adKey = %@, userinfo: %@, message: %@", (int)error.code, self.adKey, error.adLoadFailureInfo, error.message);
        self.isLoading = false;
        [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = [[NSError alloc]initWithDomain:@"adloaderrordomain" code:error.code userInfo:nil];
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 /**
@@ -104,12 +118,15 @@
 - (void)didDisplayAd:(MAAd *)ad
 {
     NSLog(@" MAX interstitial ad wasDisplayedIn");
-    [self notifyOnAdShowed];
-    [self notifyOnAdImpression];
+    [self notifyOnAdShowed: [self getEyuAd]];
+    [self notifyOnAdImpression: [self getEyuAd]];
 }
 
 - (void)didPayRevenueForAd:(MAAd *)ad {
-    [self notifyOnAdShowedData: @{@"adsource_price": @(ad.revenue), @"unitId": self.adKey.key, @"unitName": self.adKey.keyId, @"placeId": self.adKey.placementid, @"adFormat": ADTypeInterstitial, @"mediator": @"max", @"networkName": ad.networkName}];
+    EYuAd *eyuAd = [self getEyuAd];
+    eyuAd.adRevenue = [NSString stringWithFormat:@"%f",ad.revenue];
+    eyuAd.networkName = ad.networkName;
+    [self notifyOnAdRevenue:eyuAd];
 }
 
 /**
@@ -121,7 +138,7 @@
 {
     NSLog(@" MAX interstitial ad wasHiddenIn");
     self.isShowing = NO;
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed: [self getEyuAd]];
 }
 
 /**
@@ -132,7 +149,7 @@
 - (void)didClickAd:(MAAd *)ad
 {
     NSLog(@" MAX interstitial ad wasClickedIn");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 
 /**
@@ -157,7 +174,9 @@
     self.isShowing = false;
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *eyuad = [self getEyuAd];
+    eyuad.error = [[NSError alloc]initWithDomain:@"adloaderrordomain" code:error.code userInfo:nil];
+    [self notifyOnAdLoadFailedWithError:eyuad];
 }
 
 #pragma mark dealloc

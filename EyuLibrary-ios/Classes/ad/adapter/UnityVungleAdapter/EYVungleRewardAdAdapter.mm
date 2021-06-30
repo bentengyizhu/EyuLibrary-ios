@@ -36,13 +36,17 @@
     
     if(![sdk isInitialized])
     {
-        [self notifyOnAdLoadFailedWithError:ERROR_SDK_UNINITED];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"loadaderrordomain" code:ERROR_SDK_UNINITED userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
         return;
     }
     if([self isShowing ]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if([self isAdLoaded]){
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else if(!self.isLoading){
         self.isLoading = true;
         NSError* error;
@@ -51,7 +55,9 @@
         {
             NSLog(@" vungle load interstitial Ad error %@", error);
             self.isLoading = false;
-            [self notifyOnAdLoadFailedWithError:(int)(error.code)];
+            EYuAd *ad = [self getEyuAd];
+            ad.error = error;
+            [self notifyOnAdLoadFailedWithError:ad];
         }else{
             [self startTimeoutTask];
         }
@@ -61,6 +67,16 @@
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeReward;
+    ad.mediator = @"vungle";
+    return ad;
 }
 
 -(bool) showAdWithController:(UIViewController*) controller
@@ -107,9 +123,11 @@
         [self cancelTimeoutTask];
         if(error)
         {
-            [self notifyOnAdLoadFailedWithError:(int)(error.code)];
+            EYuAd *ad = [self getEyuAd];
+            ad.error = error;
+            [self notifyOnAdLoadFailedWithError:ad];
         }else if(isAdPlayable){
-            [self notifyOnAdLoaded];
+            [self notifyOnAdLoaded: [self getEyuAd]];
         }
     }
 }
@@ -124,8 +142,8 @@
     NSLog(@"vungleWillShowAdForPlacementID , placementId = %@", placementID);
     if([self.adKey.key isEqualToString:placementID] )
     {
-        [self notifyOnAdShowed];
-        [self notifyOnAdImpression];
+        [self notifyOnAdShowed: [self getEyuAd]];
+        [self notifyOnAdImpression: [self getEyuAd]];
     }
 }
 
@@ -140,14 +158,14 @@
     {
         if(info && info.didDownload)
         {
-            [self notifyOnAdClicked];
+            [self notifyOnAdClicked: [self getEyuAd]];
         }
         if(info && info.completedView)
         {
-            [self notifyOnAdRewarded];
+            [self notifyOnAdRewarded: [self getEyuAd]];
         }
         self.isShowing = NO;
-        [self notifyOnAdClosed];
+        [self notifyOnAdClosed: [self getEyuAd]];
     }
 }
 

@@ -26,7 +26,7 @@
     NSLog(@" fb bannerAd");
     if([self isAdLoaded])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded:[self getEyuAd]];
         return;
     } else if (!self.isLoading) {
         if (self.bannerView == NULL) {
@@ -42,6 +42,16 @@
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeBanner;
+    ad.mediator = @"facebook";
+    return ad;
 }
 
 - (bool)showAdGroup:(UIView *)viewGroup {
@@ -85,20 +95,22 @@
     NSLog(@"fbbanner ad didLoad");
     self.isLoading = false;
     self.fbadLoaded = true;
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded:[self getEyuAd]];
 }
 
 - (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error {
     NSLog(@"fb banner ad failed to load with error: %@", error);
     self.isLoading = false;
     self.fbadLoaded = false;
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 - (void)adViewWillLogImpression:(FBAdView *)adView {
     NSLog(@"fbbanner ad willLogImpression");
-    [self notifyOnAdShowed];
-    [self notifyOnAdImpression];
+    [self notifyOnAdShowed:[self getEyuAd]];
+    [self notifyOnAdImpression:[self getEyuAd]];
 }
 
 - (void)adViewDidFinishHandlingClick:(FBAdView *)adView {
@@ -107,7 +119,7 @@
 
 - (void)adViewDidClick:(FBAdView *)adView {
     NSLog(@"fb bannerad didClick");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked:[self getEyuAd]];
 }
 @end
 #endif /*FB_ADS_ENABLED*/

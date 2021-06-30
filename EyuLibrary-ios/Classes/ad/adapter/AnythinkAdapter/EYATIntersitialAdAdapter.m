@@ -13,9 +13,11 @@
 {
     NSLog(@"AT loadAd interstitialAd");
     if([self isShowing]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if([self isAdLoaded]){
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else if (!self.isLoading){
         [[ATAdManager sharedManager] loadADWithPlacementID:self.adKey.key extra:@{} delegate:self];
         [self startTimeoutTask];
@@ -25,6 +27,16 @@
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeInterstitial;
+    ad.mediator = @"topon";
+    return ad;
 }
 
 -(bool) isAdLoaded
@@ -47,9 +59,13 @@
 #pragma mark - showing delegate
 -(void) interstitialDidShowForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
     NSLog(@"AT interstitialWillPresentScreen");
-    [self notifyOnAdShowed];
-    [self notifyOnAdShowedData:extra];
-    [self notifyOnAdImpression];
+    EYuAd *ad = [self getEyuAd];
+    [self notifyOnAdShowed:ad];
+    [self notifyOnAdImpression: ad];
+    NSNumberFormatter* numberFormatter = [[NSNumberFormatteralloc] init];
+    ad.networkName = extra[@"adsource_id"];
+    ad.adRevenue = [numberFormatter stringFromNumber:extra[@"adsource_price"]];
+    [self notifyOnAdRevenue:ad];
 }
 
 -(void) interstitialFailedToShowForPlacementID:(NSString*)placementID error:(NSError*)error extra:(NSDictionary *)extra {
@@ -71,26 +87,28 @@
 -(void) interstitialDidCloseForPlacementID:(NSString*)placementID extra:(NSDictionary *)extra {
     NSLog(@"AT interstitialDidDismissScreen");
     self.isShowing = false;
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed: [self getEyuAd]];
 }
 
 -(void) interstitialDidClickForPlacementID:(NSString*)placementID extra:(NSDictionary *)extra {
     NSLog(@"AT interstitialWillLeaveApplication");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 
 - (void)didFailToLoadADWithPlacementID:(NSString *)placementID error:(NSError *)error {
     NSLog(@"AT interstitial:didFailToReceiveAdWithError: %@, adKey = %@", [error localizedDescription], self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 - (void)didFinishLoadingADWithPlacementID:(NSString *)placementID {
     NSLog(@"AT interstitialDidReceiveAd adKey = %@", self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 @end
 #endif

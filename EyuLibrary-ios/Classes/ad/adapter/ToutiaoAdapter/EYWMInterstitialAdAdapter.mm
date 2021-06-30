@@ -24,7 +24,9 @@
 {
     NSLog(@"wm interstitialAd loadAd ");
     if([self isShowing ]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if(self.interstitialAd == NULL)
     {
         self.interstitialAd = [[BUFullscreenVideoAd alloc] initWithSlotID:self.adKey.key];
@@ -33,13 +35,23 @@
         [self.interstitialAd loadAdData];
         [self startTimeoutTask];
     }else if([self isAdLoaded]){
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else{
         if(self.loadingTimer == nil)
         {
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeInterstitial;
+    ad.mediator = @"wm";
+    return ad;
 }
 
 -(bool) showAdWithController:(UIViewController*) controller
@@ -74,14 +86,16 @@
         self.interstitialAd = NULL;
     }
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 - (void)fullscreenVideoAdVideoDataDidLoad:(BUFullscreenVideoAd *)fullscreenVideoAd {
     NSLog(@" wm interstitialAd fullscreenVideoAdVideoDataDidLoad");
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 /**
@@ -90,8 +104,8 @@
 - (void)fullscreenVideoAdDidVisible:(BUFullscreenVideoAd *)fullscreenVideoAd
 {
     NSLog(@" wm interstitialAd fullscreenVideoAdDidVisible");
-    [self notifyOnAdShowed];
-    [self notifyOnAdImpression];
+    [self notifyOnAdShowed: [self getEyuAd]];
+    [self notifyOnAdImpression: [self getEyuAd]];
 }
 
 /**
@@ -106,7 +120,7 @@
         self.interstitialAd.delegate = NULL;
         self.interstitialAd = NULL;
     }
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed: [self getEyuAd]];
 }
 
 /**
@@ -115,7 +129,7 @@
 - (void)fullscreenVideoAdDidClick:(BUFullscreenVideoAd *)fullscreenVideoAd
 {
     NSLog(@" wm interstitialAd fullscreenVideoAdDidClick");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 
 - (void)dealloc

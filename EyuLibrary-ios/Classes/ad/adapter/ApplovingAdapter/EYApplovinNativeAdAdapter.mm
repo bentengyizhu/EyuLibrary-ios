@@ -42,7 +42,7 @@
     NSLog(@"load applovin nativeAd ");
     if([self isAdLoaded])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else if (!self.isLoading){
         self.isLoading = true;
         if(self.nativeAd==NULL){
@@ -159,6 +159,16 @@
     }
 }
 
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeNative;
+    ad.mediator = @"apploving";
+    return ad;
+}
+
 - (void)didTapNativeAd:(UITapGestureRecognizer *)tapGesture
 {
     NSLog(@"Redirecting from app icon click");
@@ -189,7 +199,9 @@
         NSLog(@"Native ad failed to load with error code %d", (int)code);        self.isCached = false;
         self.isLoading = false;
         [self cancelTimeoutTask];
-        [self notifyOnAdLoadFailedWithError:(int)code];
+        EYuAd *ad = [[self getEyuAd]];
+        ad.error = [[NSError alloc]initWithDomain:@"adloaderrordomain" code:code userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     });
 }
 
@@ -209,7 +221,7 @@
         NSLog( @"Native ad done precaching");
         self.isCached = true;
         [self cancelTimeoutTask];
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     });
 }
 
@@ -227,7 +239,9 @@
         self.isCached = false;
         self.isLoading = false;
         [self cancelTimeoutTask];
-        [self notifyOnAdLoadFailedWithError:(int)errorCode];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"adloaderrordomain" code:code userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     });
 }
 
@@ -237,7 +251,7 @@
     [ad trackImpressionAndNotify: self];
     dispatch_async(dispatch_get_main_queue(), ^{
         // Impression tracked!
-        [self notifyOnAdShowed];
+        [self notifyOnAdShowed: [self getEyuAd]];
     });
 }
 
@@ -246,7 +260,7 @@
     // Callbacks may not happen on main queue
     dispatch_async(dispatch_get_main_queue(), ^{
         // Impression tracked!
-        [self notifyOnAdImpression];
+        [self notifyOnAdImpression: [self getEyuAd]];
     });
 }
 

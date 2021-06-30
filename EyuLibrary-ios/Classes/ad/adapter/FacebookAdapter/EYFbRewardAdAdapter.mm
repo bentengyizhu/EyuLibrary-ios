@@ -18,10 +18,12 @@
 {
     NSLog(@"fb loadAd isAdLoaded = %d", [self isAdLoaded]);
     if([self isShowing ]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if([self isAdLoaded])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded:[self getEyuAd]];
     }else if(![self isLoading] )
     {
         if(self.rewardAd!=NULL)
@@ -49,11 +51,21 @@
         if(result)
         {
             self.isShowing = YES;
-            [self notifyOnAdShowed];
+            [self notifyOnAdShowed:[self getEyuAd]];
         }
         return result;
     }
     return false;
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeReward;
+    ad.mediator = @"facebook";
+    return ad;
 }
 
 -(bool) isAdLoaded
@@ -73,7 +85,7 @@
     NSLog(@"fb Reward video ad is loaded.");
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded:[self getEyuAd]];
 }
 
 /**
@@ -91,11 +103,11 @@
     }
     
     if(self.isRewarded){
-        [self notifyOnAdRewarded];
+        [self notifyOnAdRewarded:[self getEyuAd]];
     }
     self.isShowing = NO;
     self.isRewarded = NO;
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed:[self getEyuAd]];
 }
 
 /**
@@ -113,7 +125,9 @@
         self.rewardAd = NULL;
     }
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 /**
@@ -135,7 +149,7 @@
  */
 - (void)rewardedVideoAdWillLogImpression:(FBRewardedVideoAd *)rewardedVideoAd
 {
-    [self notifyOnAdImpression];
+    [self notifyOnAdImpression:[self getEyuAd]];
 }
 @end
 #endif /*FB_ADS_ENABLED*/

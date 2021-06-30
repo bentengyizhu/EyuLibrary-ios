@@ -12,7 +12,9 @@
 {
     NSLog(@"abu interstitialAd loadAd ");
     if([self isShowing ]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if(self.interstitialAd == NULL)
     {
         self.interstitialAd = [[ABUFullscreenVideoAd alloc] initWithAdUnitID:self.adKey.key];
@@ -31,13 +33,23 @@
             }];
         }
     }else if([self isAdLoaded]){
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else{
         if(self.loadingTimer == nil)
         {
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeInterstitial;
+    ad.mediator = @"abu";
+    return ad;
 }
 
 -(bool) showAdWithController:(UIViewController*) controller
@@ -71,7 +83,9 @@
         self.interstitialAd = NULL;
     }
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 
@@ -83,7 +97,7 @@
     self.isLoading = false;
     self.isLoadSuccess = true;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 /**
@@ -101,9 +115,11 @@
  */
 - (void)fullscreenVideoAdDidVisible:(ABUFullscreenVideoAd *_Nonnull)fullscreenVideoAd {
     NSLog(@"abu interstitialAd fullscreenVideoAdDidVisible");
-    [self notifyOnAdShowed];
-    [self notifyOnAdShowedData:@{@"ecpm": fullscreenVideoAd.getPreEcpm}];
-    [self notifyOnAdImpression];
+    EYuAd *ad = [self getEyuAd];
+    [self notifyOnAdShowed: ad];
+    [self notifyOnAdImpression: ad];
+    ad.adRevenue = fullscreenVideoAd.getPreEcpm;
+    [self notifyOnAdRevenue:ad];
 }
 
 /**
@@ -111,7 +127,7 @@
  */
 - (void)fullscreenVideoAdDidClick:(ABUFullscreenVideoAd *_Nonnull)fullscreenVideoAd {
     NSLog(@"abu interstitialAd fullscreenVideoAdDidClick");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 
 /**
@@ -125,7 +141,7 @@
         self.interstitialAd.delegate = NULL;
         self.interstitialAd = NULL;
     }
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed: [self getEyuAd]];
 }
 
 /**

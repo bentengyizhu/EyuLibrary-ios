@@ -102,7 +102,10 @@
         return;
     }
     if (self.isCacheAvailable) {
-        [self.delegate onAdLoaded:adPlaceId type:self.adType];
+        EYuAd *ad = [[EYuAd alloc]init];
+        ad.adFormat = self.adType;
+        ad.placeId = adPlaceId;
+        [self.delegate onAdLoaded:ad];
         return;
     }
     if (self.adGroup.isAutoLoad) {
@@ -116,10 +119,16 @@
     if(self.adapterArray.count == 0) return;
     self.currentAdpaterIndex = (self.currentAdpaterIndex+1)%self.adapterArray.count;
     EYAdAdapter* adapter = self.adapterArray[self.currentAdpaterIndex];
+    if (adapter.adKey.placementid == nil) {
+        adapter.adKey.placementid = self.adGroup.placeId;
+    }
     [adapter loadAd];
     if (self.adGroup.isAutoLoad && self.adapterArray.count > 1) {
         self.currentAdpaterIndex = (self.currentAdpaterIndex+1)%self.adapterArray.count;
         EYAdAdapter* adp = self.adapterArray[self.currentAdpaterIndex];
+        if (adp.adKey.placementid == nil) {
+            adp.adKey.placementid = self.adGroup.placeId;
+        }
         adp.tryLoadAdCount = 0;
         [adp loadAd];
     }
@@ -269,7 +278,7 @@
     }
 }
 
-- (void)onAdLoaded:(EYAdAdapter *)adapter {
+- (void)onAdLoaded:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd{
 //    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
 //    {
 //        self.curLoadingIndex = -1;
@@ -288,7 +297,7 @@
     
     if(self.delegate)
     {
-        [self.delegate onAdLoaded:self.adGroup.groupId type:self.adType];
+        [self.delegate onAdLoaded:eyuAd];
     }
 //    if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
@@ -297,14 +306,14 @@
 //    }
 }
 
-- (void)onAdLoadFailed:(EYAdAdapter *)adapter withError:(int)errorCode {
+- (void)onAdLoadFailed:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd {
     EYAdKey* adKey = adapter.adKey;
-    NSLog(@"onAdLoadFailed adKey = %@, errorCode = %d", adKey.keyId, errorCode);
+    NSLog(@"onAdLoadFailed adKey = %@, errorCode = %ld", adKey.keyId, eyuAd.error.code);
     EYAdSuite *suite = self.adGroup.suiteArray[self.currentSuiteIndex];
     NSLog(@"%d-----%d",suite.value,self.currentAdValue);
     if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setObject:[[NSString alloc] initWithFormat:@"%d",errorCode] forKey:@"code"];
+        [dic setObject:[[NSString alloc] initWithFormat:@"%ld",eyuAd.error.code] forKey:@"code"];
         [dic setObject:adKey.keyId forKey:@"type"];
         [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_FAILED]  parameters:dic];
     }
@@ -323,11 +332,11 @@
             }
         }
     } else {
-        [self tryAgain:adapter withError:errorCode];
+        [self tryAgain:adapter withError:(int)eyuAd.error.code];
     }
     if(self.delegate)
     {
-        [self.delegate onAdLoadFailed:self.adGroup.groupId type:self.adType key:adKey.keyId code:errorCode];
+        [self.delegate onAdLoadFailed:eyuAd];
     }
 }
 

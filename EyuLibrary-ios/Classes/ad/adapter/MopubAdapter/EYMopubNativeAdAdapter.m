@@ -13,7 +13,7 @@
 {
     NSLog(@"mopub nativeAd loadAd key = %@.", self.adKey.key);
     if([self isAdLoaded]){
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded:[self getEyuAd]];
     }else if(self.nativeAd == NULL)
     {
         MPStaticNativeAdRendererSettings *settings = [[MPStaticNativeAdRendererSettings alloc] init];
@@ -34,13 +34,15 @@
                      self.nativeAd = NULL;
                  }
                  [self cancelTimeoutTask];
-                 [self notifyOnAdLoadFailedWithError:(int)error.code];
+                 EYuAd *ad = [self getEyuAd];
+                 ad.error = error;
+                 [self notifyOnAdLoadFailedWithError:ad];
              } else {
                  self.isLoading = false;
                  self.nativeAd = response;
                  self.nativeAd.delegate = self;
                  [self cancelTimeoutTask];
-                 [self notifyOnAdLoaded];
+                 [self notifyOnAdLoaded:[self getEyuAd]];
 //                 nativeAdView.frame = self.yourNativeAdViewContainer.bounds;
 //                 [self.yourNativeAdViewContainer addSubview:nativeAdView];
              }
@@ -52,6 +54,16 @@
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeNative;
+    ad.mediator = @"mopub";
+    return ad;
 }
 
 -(bool) showAdWithAdLayout:(UIView*)nativeAdLayout iconView:(UIImageView*)nativeAdIcon titleView:(UILabel*)nativeAdTitle

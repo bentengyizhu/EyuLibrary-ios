@@ -20,13 +20,17 @@
 {
     NSLog(@"AdmobRewardAdAdapter loadAd #############. adId = #%@#", self.adKey.key);
     if([self isShowing ]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        [EYuAd *ad = [self getEyuAd];
+         ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+         [self notifyOnAdLoadFailedWithError:ad];
     }else if([self isAdLoaded])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else if([self isAdLoaded]){
         NSLog(@"one AdmobRewardAdAdapter was already loaded.");
-        [self notifyOnAdLoadFailedWithError:ERROR_OTHER_ADMOB_REWARD_AD_LOADED];
+        EYuAd *ad = [self getEyuAd];
+         ad.error = [[NSError alloc]initWithDomain:@"loaderrordomain" code:ERROR_OTHER_ADMOB_REWARD_AD_LOADED userInfo:nil];
+         [self notifyOnAdLoadFailedWithError:ad];
     }else if(!self.isLoading)
     {
         self.isLoading = YES;
@@ -45,12 +49,14 @@
             [self cancelTimeoutTask];
             if (error) {
                 NSLog(@"admob Rewarded ad failed to load with error: %@", [error localizedDescription]);
-                [self notifyOnAdLoadFailedWithError:(int)error.code];
+                EYuAd *ad = [self getEyuAd];
+                ad.error = error;
+                [self notifyOnAdLoadFailedWithError:ad];
                 return;
             }
             self.rewardedAd = ad;
             self.rewardedAd.fullScreenContentDelegate = self;
-            [self notifyOnAdLoaded];
+            [self notifyOnAdLoaded: [self getEyuAd]];
             NSLog(@"Admob Rewarded ad loaded.");
         }];
         [self startTimeoutTask];
@@ -59,6 +65,16 @@
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeReward;
+    ad.mediator = @"admob";
+    return ad;
 }
 
 -(bool) showAdWithController:(UIViewController*) controller
@@ -94,23 +110,23 @@ didFailToPresentFullScreenContentWithError:(nonnull NSError *)error {
 /// Tells the delegate that the ad presented full screen content.
 - (void)adDidPresentFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
     NSLog(@"admobAd did present full screen content.");
-    [self notifyOnAdShowed];
+    [self notifyOnAdShowed: [self getEyuAd]];
 }
 
 /// Tells the delegate that the ad dismissed full screen content.
 - (void)adDidDismissFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
    NSLog(@"admobAd did dismiss full screen content.");
     if(self.isRewarded){
-        [self notifyOnAdRewarded];
+        [self notifyOnAdRewarded: [self getEyuAd]];
     }
     self.rewardedAd = NULL;
     self.isShowing = NO;
     self.isRewarded = NO;
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed: [self getEyuAd]];
 }
 
 - (void)adDidRecordImpression:(id<GADFullScreenPresentingAd>)ad {
-    [self notifyOnAdImpression];
+    [self notifyOnAdImpression: [self getEyuAd]];
 }
 
 @end

@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "EYAdKey.h"
 #import "EYAdGroup.h"
+#import "EYuAd.h"
 #include "EYAdConstants.h"
 
 @protocol IAdDelegate;
@@ -22,12 +23,12 @@
 
 @protocol IAdDelegate <NSObject>
 @optional
--(void) onAdLoaded:(EYAdAdapter *)adapter;
--(void) onAdLoadFailed:(EYAdAdapter *)adapter withError:(int)errorCode;
--(void) onAdShowed:(EYAdAdapter *)adapter;
--(void) onAdClicked:(EYAdAdapter *)adapter;
--(void) onAdClosed:(EYAdAdapter *)adapter;
--(void) onAdRewarded:(EYAdAdapter *)adapter;
--(void) onAdImpression:(EYAdAdapter *)adapter;
--(void) onAdShowed:(EYAdAdapter *)adapter extraData:(NSDictionary *)extraData;
+-(void) onAdLoaded:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd;
+-(void) onAdLoadFailed:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd;
+-(void) onAdShowed:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd;
+-(void) onAdClicked:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd;
+-(void) onAdClosed:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd;
+-(void) onAdRewarded:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd;
+-(void) onAdImpression:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd;
+-(void) onAdRevenue:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd;
 @end

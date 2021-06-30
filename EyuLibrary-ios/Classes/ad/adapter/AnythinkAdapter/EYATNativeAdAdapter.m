@@ -16,7 +16,7 @@
     NSLog(@"load at nativeAd ");
     if([self isAdLoaded])
     {   
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else if (!self.isLoading){
         self.isLoading = true;
         [[ATAdManager sharedManager] loadADWithPlacementID:self.adKey.key extra:@{} delegate:self];
@@ -68,6 +68,16 @@
     return [[ATAdManager sharedManager] nativeAdReadyForPlacementID:self.adKey.key];
 }
 
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeNative;
+    ad.mediator = @"topon";
+    return ad;
+}
+
 - (void)unregisterView {
     if(self.nativeAdView != NULL ){
         NSLog(@" ATNativeAdAdapter self->nativeAdView.adChoicesView removeFromSuperview ");
@@ -81,19 +91,21 @@
     NSLog(@" AT didLoadAd adKey = %@", self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 -(void) didFailToLoadADWithPlacementID:(NSString* )placementID error:(NSError *)error {
     NSLog(@" AT reward didFailToLoadAdWithError: %d, adKey = %@", (int)error.code, self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 #pragma mark - native delegate
 - (void)didClickNativeAdInAdView:(ATNativeADView *)adView placementID:(NSString *)placementID extra:(NSDictionary *)extra {
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 
 - (void)didEndPlayingVideoInAdView:(ATNativeADView *)adView placementID:(NSString *)placementID extra:(NSDictionary *)extra {
@@ -116,9 +128,13 @@
 //    if (!self.nativeAdView.mainImageView.image) {
 //        self.nativeAdView.mainImageView.image = self.nativeAdView.nativeAd.mainImage;
 //    }
-    [self notifyOnAdShowed];
-    [self notifyOnAdShowedData:extra];
-    [self notifyOnAdImpression];
+    EYuAd *ad = [self getEyuAd];
+    [self notifyOnAdShowed:ad];
+    [self notifyOnAdImpression: ad];
+    NSNumberFormatter* numberFormatter = [[NSNumberFormatteralloc] init];
+    ad.networkName = extra[@"adsource_id"];
+    ad.adRevenue = [numberFormatter stringFromNumber:extra[@"adsource_price"]];
+    [self notifyOnAdRevenue:ad];
 }
 
 - (void)didStartPlayingVideoInAdView:(ATNativeADView *)adView placementID:(NSString *)placementID extra:(NSDictionary *)extra {

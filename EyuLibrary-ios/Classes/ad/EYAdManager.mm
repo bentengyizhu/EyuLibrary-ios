@@ -264,22 +264,22 @@ static id s_sharedInstance;
         adGroup.isAutoLoad = [@"true" isEqualToString:isAutoLoadStr];
         adGroup.type = type;
         [self.adGroupDict setObject:adGroup forKey:groupId];
-        
-        NSData* adSettingData = config.adPlaceData;
-        NSArray *adArray = [NSJSONSerialization JSONObjectWithData:adSettingData options:kNilOptions error:nil];
-        NSLog(@"loadAdConfig adSettingStr = %@", adArray);
-        for(NSDictionary* adSetting:adArray)
-        {
-            NSString *placeId = adSetting[@"id"];
-            NSString *groupId = adSetting[@"cacheGroup"];
-            NSString *nibName = adSetting[@"nativeAdLayout"];
-            EYAdGroup* group = self.adGroupDict[@"groupId"];
-            group.placeId = placeId;
-            EYAdPlace *adPlace = [[EYAdPlace alloc] initWithId:placeId groupId:groupId];
-            [self.adPlaceDict setObject:adPlace forKey:placeId];
-            if(nibName){
-                [self.nativeAdViewNibDict setObject:nibName forKey:placeId];
-            }
+    }
+    
+    NSData* adSettingData = config.adPlaceData;
+    NSArray *adArray = [NSJSONSerialization JSONObjectWithData:adSettingData options:kNilOptions error:nil];
+    NSLog(@"loadAdConfig adSettingStr = %@", adArray);
+    for(NSDictionary* adSetting:adArray)
+    {
+        NSString *placeId = adSetting[@"id"];
+        NSString *groupId = adSetting[@"cacheGroup"];
+        NSString *nibName = adSetting[@"nativeAdLayout"];
+        EYAdGroup* group = self.adGroupDict[groupId];
+        group.placeId = placeId;
+        EYAdPlace *adPlace = [[EYAdPlace alloc] initWithId:placeId groupId:groupId];
+        [self.adPlaceDict setObject:adPlace forKey:placeId];
+        if(nibName){
+            [self.nativeAdViewNibDict setObject:nibName forKey:placeId];
         }
     }
 }
@@ -1127,83 +1127,68 @@ static id s_sharedInstance;
     }
 }
 
--(void) onAdLoaded:(NSString*) adPlaceId type:(NSString*)type
-{
-    NSLog(@"AdPlayer onAdLoaded , adPlaceId = %@, type = %@", adPlaceId, type);
+- (void)onAdLoaded:(EYuAd *)eyuAd {
+    NSLog(@"AdPlayer onAdLoaded , adPlaceId = %@, type = %@", eyuAd.placeId, eyuAd.adFormat);
     if(self.delegate)
     {
-        [self.delegate onAdLoaded:adPlaceId type:type];
+        [self.delegate onAdLoaded:eyuAd];
     }
     
-    if([ADTypeNative isEqualToString:type])
+    if([ADTypeNative isEqualToString:eyuAd.adFormat])
     {
-        [self onNativeAdLoaded:adPlaceId];
+        [self onNativeAdLoaded:eyuAd.placeId];
     }
 }
 
--(void) onAdReward:(NSString*) adPlaceId  type:(NSString*)type
-{
-    NSLog(@"AdPlayer onAdReward , adPlaceId = %@, type = %@", adPlaceId, type);
+- (void)onAdReward:(EYuAd *)eyuAd {
+    NSLog(@"AdPlayer onAdReward , adPlaceId = %@, type = %@", eyuAd.placeId, eyuAd.adFormat);
     if(self.delegate)
     {
-        [self.delegate onAdReward:adPlaceId type:type];
+        [self.delegate onAdReward:eyuAd];
     }
 }
 
--(void) onAdShowed:(NSString*) adPlaceId  type:(NSString*)type
-{
-    NSLog(@"AdPlayer onAdShowed , adPlaceId = %@, type = %@", adPlaceId, type);
+- (void)onAdShowed:(EYuAd *)eyuAd {
+    NSLog(@"AdPlayer onAdShowed , adPlaceId = %@, type = %@", eyuAd.placeId, eyuAd.adFormat);
     if(self.delegate)
     {
-        [self.delegate onAdShowed:adPlaceId type:type];
+        [self.delegate onAdShowed:eyuAd];
     }
 }
 
-- (void)onAdShowed:(NSString *)adPlaceId type:(NSString *)type extraData:(NSDictionary *)extraData {
-    NSLog(@"AdPlayer onAdShowedData , adPlaceId = %@, type = %@", adPlaceId, type);
-    if(self.delegate && [self.delegate respondsToSelector:@selector(onAdShowed:type:extraData:)])
+- (void)onAdRevenue:(EYuAd *)eyuAd {
+    NSLog(@"AdPlayer onAdShowedData , adPlaceId = %@, type = %@", eyuAd.placeId, eyuAd.adFormat);
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onAdRevenue:)])
     {
-        [self.delegate onAdShowed:adPlaceId type:type extraData:extraData];
+        [self.delegate onAdRevenue:eyuAd];
     }
 }
 
--(void) onAdClosed:(NSString*) adPlaceId  type:(NSString*)type
-{
-    NSLog(@"AdPlayer onAdClosed , adPlaceId = %@, type = %@", adPlaceId, type);
+- (void)onAdClosed:(EYuAd *)eyuAd {
+    NSLog(@"AdPlayer onAdClosed , adPlaceId = %@, type = %@", eyuAd.placeId, eyuAd.adFormat);
     if(self.delegate)
     {
-        [self.delegate onAdClosed:adPlaceId type:type];
+        [self.delegate onAdClosed:eyuAd];
     }
 }
 
--(void) onAdClicked:(NSString*) adPlaceId  type:(NSString*)type
-{
-    NSLog(@"AdPlayer onAdClicked , adPlaceId = %@, type = %@", adPlaceId, type);
+- (void)onAdClicked:(EYuAd *)eyuAd {
+    NSLog(@"AdPlayer onAdClicked , adPlaceId = %@, type = %@", eyuAd.placeId, eyuAd.adFormat);
     if(self.delegate)
     {
-        [self.delegate onAdClicked:adPlaceId type:type];
+        [self.delegate onAdClicked:eyuAd];
     }
 }
 
--(void) onAdLoadFailed:(NSString*) adPlaceId type:(NSString*)type key:(NSString*)key code:(int)code
-{
-    NSLog(@"AdPlayer onAdLoadFailed , adPlaceId = %@, key = %@, code = %d", adPlaceId, key, code);
-    if(self.delegate)
-    {
-        if ([self.delegate respondsToSelector:@selector(onAdLoadFailed:key:code:)]) {
-            [self.delegate onAdLoadFailed:adPlaceId type:type key:key code:code];
-        } else if ([self.delegate respondsToSelector:@selector(onAdLoadFailed:key:code:)]) {
-            [self.delegate onAdLoadFailed:adPlaceId key:key code:code];
-        }
-    }
+- (void)onAdLoadFailed:(EYuAd *)eyuAd {
+    NSLog(@"AdPlayer onAdLoadFailed , adPlaceId = %@, key = %@, code = %ld",  eyuAd.placeId, eyuAd.unitId, eyuAd.error.code);
 }
 
--(void) onAdImpression:(NSString*) adPlaceId  type:(NSString*)type
-{
-    NSLog(@"AdPlayer onAdImpression , adPlaceId = %@, type = %@", adPlaceId, type);
+- (void)onAdImpression:(EYuAd *)eyuAd {
+    NSLog(@"AdPlayer onAdImpression , adPlaceId = %@, type = %@", eyuAd.placeId, eyuAd.adFormat);
     if(self.delegate)
     {
-        [self.delegate onAdImpression:adPlaceId type:type];
+        [self.delegate onAdImpression:eyuAd];
     }
 }
 

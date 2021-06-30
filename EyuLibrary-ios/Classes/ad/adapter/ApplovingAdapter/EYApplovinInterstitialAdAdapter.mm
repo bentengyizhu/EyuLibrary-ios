@@ -21,9 +21,11 @@
 {
     NSLog(@" applovin loadAd ad = %@", self.ad);
     if([self isShowing ]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if([self isAdLoaded]){
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else if(!self.isLoading){
         self.isLoading = true;
         [[ALSdk shared].adService loadNextAdForZoneIdentifier:self.adKey.key andNotify: self];
@@ -34,6 +36,16 @@
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeInterstitial;
+    ad.mediator = @"applovin";
+    return ad;
 }
 
 -(bool) showAdWithController:(UIViewController*) controller
@@ -65,7 +77,7 @@
     self.ad = ad;
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 - (void)adService:(nonnull ALAdService *)adService didFailToLoadAdWithError:(int)code
@@ -74,7 +86,9 @@
         NSLog(@" applovin interstitial didFailToLoadAdWithError: %d, adKey = %@", code, self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = [[NSError alloc]initWithDomain:@"adloaderrordomain" code:code userInfo:nil];
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 #pragma mark - ALAdDisplayDelegate
@@ -90,8 +104,8 @@
 {
     if(self.ad == ad){
         NSLog(@" applovin interstitial ad wasDisplayedIn");
-        [self notifyOnAdShowed];
-        [self notifyOnAdImpression];
+        [self notifyOnAdShowed: [self getEyuAd]];
+        [self notifyOnAdImpression: [self getEyuAd]];
     }
 }
 
@@ -113,7 +127,7 @@
         {
             self.ad = NULL;
         }
-        [self notifyOnAdClosed];
+        [self notifyOnAdClosed: [self getEyuAd]];
     }
 }
 
@@ -129,7 +143,7 @@
 {
     if(self.ad == ad){
         NSLog(@" applovin interstitial ad wasClickedIn");
-        [self notifyOnAdClicked];
+        [self notifyOnAdClicked: [self getEyuAd]];
     }
 }
 

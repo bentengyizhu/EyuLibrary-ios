@@ -14,7 +14,7 @@
     NSLog(@"at bannerAd ");
     if([self isAdLoaded])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
         return;
     } else if (!self.isLoading) {
         self.isLoading = true;
@@ -25,6 +25,16 @@
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeBanner;
+    ad.mediator = @"topon";
+    return ad;
 }
 
 - (bool)isAdLoaded {
@@ -65,13 +75,15 @@
 -(void) didFinishLoadingADWithPlacementID:(NSString *)placementID {
     NSLog(@"atbanner ad didLoad");
     self.isLoading = false;
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 -(void) didFailToLoadADWithPlacementID:(NSString* )placementID error:(NSError *)error {
     NSLog(@"at banner ad failed to load with error: %@", error);
     self.isLoading = false;
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 #pragma mark - banner delegate
@@ -90,14 +102,17 @@
 
 - (void)bannerView:(ATBannerView *)bannerView didClickWithPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
     NSLog(@"at bannerad didClick");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 
 - (void)bannerView:(ATBannerView *)bannerView didShowAdWithPlacementID:(NSString *)placementID extra:(NSDictionary *)extra {
     NSLog(@"atbanner ad willLogImpression");
-    [self notifyOnAdShowed];
-    [self notifyOnAdShowedData:extra];
-    [self notifyOnAdImpression];
+    EYuAd *ad = [self getEyuAd];
+    [self notifyOnAdShowed:ad];
+    [self notifyOnAdImpression: ad];
+    NSNumberFormatter* numberFormatter = [[NSNumberFormatteralloc] init];
+    ad.adRevenue = [numberFormatter stringFromNumber:extra[@"adsource_price"]];
+    [self notifyOnAdRevenue:ad];
 }
 
 - (void)bannerView:(ATBannerView *)bannerView didDeepLinkOrJumpForPlacementID:(NSString *)placementID extra:(NSDictionary *)extra result:(BOOL)success {

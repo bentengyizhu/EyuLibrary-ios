@@ -20,10 +20,12 @@
 {
     NSLog(@"mtg loadAd isAdLoaded = %d", [self isAdLoaded]);
     if([self isShowing ]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if([self isAdLoaded])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else if(![self isLoading] )
     {
         self.isLoading = true;
@@ -36,6 +38,16 @@
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeReward;
+    ad.mediator = @"mtg";
+    return ad;
 }
 
 -(bool) showAdWithController:(UIViewController*) controller
@@ -66,7 +78,7 @@
     self.isLoading = false;
     [self cancelTimeoutTask];
     self.isLoadSuccess = true;
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 
@@ -82,15 +94,17 @@
     self.isLoading = false;
     self.isLoadSuccess = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 #pragma mark MTGRewardAdShowDelegate
 
 - (void)onVideoAdShowSuccess:(NSString *)placementId unitId:(NSString *)unitId {
     NSLog(@" mtg rewarded video will visible, unitId = %@", unitId);
-    [self notifyOnAdShowed];
-    [self notifyOnAdImpression];
+    [self notifyOnAdShowed: [self getEyuAd]];
+    [self notifyOnAdImpression: [self getEyuAd]];
 }
 
 /**
@@ -121,11 +135,11 @@
 - (void)onVideoAdDismissed:(NSString *)placementId unitId:(NSString *)unitId withConverted:(BOOL)converted withRewardInfo:(MTGRewardAdInfo *)rewardInfo {
     NSLog(@" mtg rewarded video did close, unitId = %@", unitId);
     if(rewardInfo){
-        [self notifyOnAdRewarded];
+        [self notifyOnAdRewarded: [self getEyuAd]];
     }
     self.isLoadSuccess = false;
     self.isShowing = NO;
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed: [self getEyuAd]];
 }
 
 @end

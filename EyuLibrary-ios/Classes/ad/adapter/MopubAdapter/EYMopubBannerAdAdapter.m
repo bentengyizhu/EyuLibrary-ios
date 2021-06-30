@@ -13,7 +13,7 @@
     NSLog(@" mopub bannerAd");
     if([self isAdLoaded])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded:[self getEyuAd]];
         self.isLoadSuccess = true;
         return;
     } else if (!self.isLoading) {
@@ -31,6 +31,16 @@
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeBanner;
+    ad.mediator = @"mopub";
+    return ad;
 }
 
 - (bool)isAdLoaded {
@@ -70,7 +80,7 @@
     self.isLoadSuccess = true;
     self.isLoading = false;
     NSLog(@"mopub ad didLoad");
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded:[self getEyuAd]];
 }
 
 - (void)adView:(MPAdView *)view didFailToLoadAdWithError:(NSError *)error {
@@ -78,7 +88,9 @@
     NSLog(@"mopub banner ad failed to load with error: %@", error);
     self.isLoading = false;
     self.isLoadSuccess = false;
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 - (UIViewController *)viewControllerForPresentingModalView {

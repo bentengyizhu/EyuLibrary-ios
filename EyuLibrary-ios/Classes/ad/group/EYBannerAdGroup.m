@@ -206,10 +206,10 @@
 //    }
 //}
 
-- (void)onAdShowed:(EYBannerAdAdapter *)adapter {
+- (void)onAdShowed:(EYBannerAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd {
     if(self.delegate)
     {
-        [self.delegate onAdShowed:self.adPlaceId type:ADTypeBanner];
+        [self.delegate onAdShowed:eyuAd];
     }
 //    if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
@@ -218,17 +218,17 @@
 //    }
 }
 
-- (void)onAdShowed:(EYBannerAdAdapter *)adapter extraData:(NSDictionary *)extraData {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(onAdShowed:type:extraData:)])
+- (void)onAdRevenue:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onAdRevenue:)])
     {
-        [self.delegate onAdShowed:self.adPlaceId type:ADTypeBanner extraData:extraData];
+        [self.delegate onAdRevenue:eyuAd];
     }
 }
 
-- (void)onAdClicked:(EYBannerAdAdapter *)adapter {
+- (void)onAdClicked:(EYBannerAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd {
     if(self.delegate)
     {
-        [self.delegate onAdClicked:self.adPlaceId type:ADTypeBanner];
+        [self.delegate onAdClicked:eyuAd];
     }
     if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
@@ -237,10 +237,10 @@
     }
 }
 
-- (void)onAdImpression:(EYBannerAdAdapter *)adapter {
+- (void)onAdImpression:(EYBannerAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd {
     if(self.delegate)
     {
-        [self.delegate onAdImpression:self.adPlaceId type:ADTypeBanner];
+        [self.delegate onAdImpression:eyuAd];
     }
     EYAdKey *adKey = adapter.adKey;
     if(adKey){
@@ -253,11 +253,11 @@
     }
 }
 
--(void) onAdClosed:(EYInterstitialAdAdapter*)adapter
+-(void) onAdClosed:(EYInterstitialAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
 {
     if(self.delegate)
     {
-        [self.delegate onAdClosed:self.adPlaceId type:ADTypeBanner];
+        [self.delegate onAdClosed:eyuAd];
     }
 }
 @end

@@ -196,21 +196,20 @@
 //    }
 //}
 
-- (void)onAdShowed:(EYSplashAdAdapter *)adapter extraData:(NSDictionary *)extraData {
+- (void)onAdRevenue:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd {
     if(self.delegate)
     {
-        [self.delegate onAdShowed:self.adPlaceId type:ADTypeSplash];
-        if ([self.delegate respondsToSelector:@selector(onAdShowed:type:extraData:)]) {
-            [self.delegate onAdShowed:self.adPlaceId type:ADTypeSplash extraData:extraData];
+        if ([self.delegate respondsToSelector:@selector(onAdRevenue:)]) {
+            [self.delegate onAdRevenue:eyuAd];
         }
     }
 }
 
--(void) onAdClicked:(EYSplashAdAdapter*)adapter
+-(void) onAdClicked:(EYSplashAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
 {
     if(self.delegate)
     {
-        [self.delegate onAdClicked:self.adPlaceId type:ADTypeSplash];
+        [self.delegate onAdClicked:eyuAd];
     }
     if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
@@ -218,22 +217,22 @@
         [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_CLICKED]  parameters:dic];
     }
 }
--(void) onAdClosed:(EYSplashAdAdapter*)adapter
+-(void) onAdClosed:(EYSplashAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
 {
     if(self.delegate)
     {
-        [self.delegate onAdClosed:self.adPlaceId type:ADTypeSplash];
+        [self.delegate onAdClosed:eyuAd];
     }
     if (self.adGroup.isAutoLoad && !self.isCacheAvailable) {
         [self loadAd:self.adPlaceId];
     }
 }
 
--(void) onAdImpression:(EYSplashAdAdapter*)adapter
+-(void) onAdImpression:(EYSplashAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
 {
     if(self.delegate)
     {
-        [self.delegate onAdImpression:self.adPlaceId type:ADTypeSplash];
+        [self.delegate onAdImpression:eyuAd];
     }
     EYAdKey *adKey = adapter.adKey;
     if(adKey){
@@ -246,4 +245,13 @@
     }
 }
 
+- (void)onAdShowed:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd {
+    if(self.delegate)
+    {
+        [self.delegate onAdShowed:eyuAd];
+    }
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:adapter.adKey.keyId forKey:@"type"];
+    [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_SHOW]  parameters:dic];
+}
 @end

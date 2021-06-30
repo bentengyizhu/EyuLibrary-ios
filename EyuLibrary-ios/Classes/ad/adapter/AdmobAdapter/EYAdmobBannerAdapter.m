@@ -34,7 +34,7 @@
     NSLog(@"admob bannerAd ");
     if([self isAdLoaded])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
         return;
     } else if (!self.isLoading) {
         if (self.bannerAdView == NULL) {
@@ -58,6 +58,16 @@
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeBanner;
+    ad.mediator = @"admob";
+    return ad;
 }
 
 - (bool)showAdGroup:(UIView *)viewGroup {
@@ -101,24 +111,26 @@
 - (void)adViewDidReceiveAd:(GADBannerView *)bannerView {
     self.isLoading = false;
     self.adLoaded = true;
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 - (void)bannerView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(NSError *)error {
     self.isLoading = false;
     self.adLoaded = false;
-    [self.delegate onAdLoadFailed:self withError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
     NSLog(@"admob banner:didFailToReceiveAdWithError: %@, adKey = %@", [error localizedDescription], self.adKey);
 }
 
 - (void)bannerViewDidRecordImpression:(GADBannerView *)bannerView {
-    [self notifyOnAdImpression];
+    [self notifyOnAdImpression: [self getEyuAd]];
 }
 
 - (void)adViewWillPresentScreen:(GADBannerView *)bannerView {
     NSLog(@"admob bannerWillPresentScreen");
     self.isShowing = true;
-    [self notifyOnAdShowed];
+    [self notifyOnAdShowed: [self getEyuAd]];
 }
 
 - (void)adViewWillDismissScreen:(GADBannerView *)bannerView {
@@ -132,7 +144,7 @@
 
 - (void)adViewWillLeaveApplication:(GADBannerView *)bannerView {
     NSLog(@"admob bannerWillLeaveApplication");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 @end
 #endif /*ADMOB_ADS_ENABLED*/

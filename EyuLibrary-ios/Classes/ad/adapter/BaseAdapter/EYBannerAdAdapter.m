@@ -32,72 +32,71 @@
     return NULL;
 }
 
--(void) notifyOnAdLoaded
+- (void)notifyOnAdLoaded:(EYuAd *)eyuAd {
+    self.isLoading = false;
+    [self cancelTimeoutTask];
+    if(self.delegate!=NULL)
+    {
+        [self.delegate onAdLoaded:self eyuAd:eyuAd];
+    }
+}
+
+-(void) notifyOnAdLoadFailedWithError:(EYuAd *)eyuAd;
 {
     self.isLoading = false;
     [self cancelTimeoutTask];
     if(self.delegate!=NULL)
     {
-        [self.delegate onAdLoaded:self];
+        [self.delegate onAdLoadFailed:self eyuAd:eyuAd];
     }
 }
 
--(void) notifyOnAdLoadFailedWithError:(int)errorCode;
-{
-    self.isLoading = false;
-    [self cancelTimeoutTask];
-    if(self.delegate!=NULL)
-    {
-        [self.delegate onAdLoadFailed:self withError:errorCode];
-    }
-}
-
--(void) notifyOnAdShowed
+-(void) notifyOnAdShowed:(EYuAd *)eyuAd
 {
     if(self.delegate!=NULL)
     {
-        [self.delegate onAdShowed:self];
+        [self.delegate onAdShowed:self eyuAd:eyuAd];
     }
 }
 
--(void) notifyOnAdClicked
+-(void) notifyOnAdClicked:(EYuAd *)eyuAd
 {
     if(self.delegate!=NULL)
     {
-        [self.delegate onAdClicked:self];
+        [self.delegate onAdClicked:self eyuAd:eyuAd];
     }
 }
 
--(void) notifyOnAdRewarded
+-(void) notifyOnAdRewarded:(EYuAd *)eyuAd
 {
     if(self.delegate!=NULL)
     {
-        [self.delegate onAdRewarded:self];
+        [self.delegate onAdRewarded:self eyuAd:eyuAd];
     }
 }
 
--(void) notifyOnAdClosed
+-(void) notifyOnAdClosed:(EYuAd *)eyuAd
 {
     self.isLoading = false;
     if(self.delegate!=NULL)
     {
-        [self.delegate onAdClosed:self];
+        [self.delegate onAdClosed:self eyuAd:eyuAd];
     }
 }
 
-- (void)notifyOnAdShowedData:(NSDictionary *)data {
+- (void)notifyOnAdRevenue:(EYuAd *)eyuAd {
     self.isLoading = false;
     if(self.delegate!=NULL)
     {
-        [self.delegate onAdShowed:self extraData:data];
+        [self.delegate onAdShowed:self eyuAd:eyuAd];
     }
 }
 
--(void) notifyOnAdImpression
+-(void) notifyOnAdImpression:(EYuAd *)eyuAd
 {
     if(self.delegate!=NULL)
     {
-        [self.delegate onAdImpression:self];
+        [self.delegate onAdImpression:self eyuAd:eyuAd];
     }
 }
 
@@ -112,7 +111,12 @@
     NSLog(@" timeout");
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:ERROR_TIMEOUT];
+    EYuAd *eyuAd = [EYuAd new];
+    eyuAd.adFormat = ADTypeBanner;
+    eyuAd.unitId = self.adKey.key;
+    eyuAd.unitName = self.adKey.keyId;
+    eyuAd.error = [[NSError alloc]initWithDomain:@"timeoutDomian" code:ERROR_TIMEOUT userInfo:nil];
+    [self notifyOnAdLoadFailedWithError:eyuAd];
 }
 
 -(void) cancelTimeoutTask

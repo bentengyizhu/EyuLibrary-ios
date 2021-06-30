@@ -33,7 +33,7 @@
 {
     NSLog(@"mtg nativeAd loadAd nativeAd = %@, key = %@.", self.campaign, self.adKey.key);
     if([self isAdLoaded]){
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else if(self.nativeAd == NULL)
     {
         self.nativeAd = [[MTGNativeAdManager alloc]initWithPlacementId:self.adKey.placementid unitID:self.adKey.key supportedTemplates:@[[MTGTemplate templateWithType:MTGAD_TEMPLATE_BIG_IMAGE adsNum:1]] autoCacheImage:NO adCategory:MTGAD_CATEGORY_ALL presentingViewController:nil];
@@ -106,6 +106,16 @@
     return false;
 }
 
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeInterstitial;
+    ad.mediator = @"mtg";
+    return ad;
+}
+
 -(bool) isAdLoaded
 {
     NSLog(@"mtg nativeAd campaign ? = %@", self.campaign);
@@ -143,13 +153,13 @@
 - (void)nativeAdDidClick:(MTGCampaign *)nativeAd nativeManager:(nonnull MTGNativeAdManager *)nativeManager
 {
     NSLog(@" mtg Registerview Ad is clicked");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 
 - (void)nativeAdDidClick:(MTGCampaign *)nativeAd mediaView:(nonnull MTGMediaView *)mediaView
 {
     NSLog(@" mtg Registerview Ad is clicked");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 
 #pragma mark AdManger delegate
@@ -160,7 +170,7 @@
         self.isLoading = false;
         self.campaign = nativeAds[0];
         [self cancelTimeoutTask];
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }
 }
 
@@ -176,14 +186,16 @@
     }
     
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 - (void)nativeAdImpressionWithType:(MTGAdSourceType)type mediaView:(MTGMediaView *)mediaView;
 {
     NSLog(@"mtg nativeAdImpressionWithType");
-    [self notifyOnAdShowed];
-    [self notifyOnAdImpression];
+    [self notifyOnAdShowed: [self getEyuAd]];
+    [self notifyOnAdImpression: [self getEyuAd]];
 }
 
 - (void)dealloc

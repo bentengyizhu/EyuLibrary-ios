@@ -22,10 +22,12 @@
 {
     NSLog(@" EYApplovinRewardAdAdapter loadAd #############. adId = #%@#", self.adKey.key);
     if([self isShowing ]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if([self isAdLoaded])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else if(!self.isLoading)
     {
         self.isLoading = true;
@@ -57,6 +59,16 @@
     return false;
 }
 
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeReward;
+    ad.mediator = @"apploving";
+    return ad;
+}
+
 -(bool) isAdLoaded
 {
     return self.ad != NULL && [self.ad isReadyForDisplay];
@@ -70,7 +82,7 @@
     NSLog(@" applovin didLoadAd adKey = %@", self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 - (void)adService:(nonnull ALAdService *)adService didFailToLoadAdWithError:(int)code
@@ -79,7 +91,9 @@
     NSLog(@" applovin reward didFailToLoadAdWithError: %d, adKey = %@", code, self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)code];
+    EYuAd *ad = [[self getEyuAd]];
+    ad.error = [[NSError alloc]initWithDomain:@"adloaderrordomain" code:code userInfo:nil];
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 #pragma mark - ALAdDisplayDelegate
@@ -95,8 +109,8 @@
 {
 //    if(self.ad == ad){
         NSLog(@" applovin reward ad wasDisplayedIn");
-        [self notifyOnAdShowed];
-        [self notifyOnAdImpression];
+        [self notifyOnAdShowed:[self getEyuAd]];
+        [self notifyOnAdImpression:[self getEyuAd]];
 //    }
 }
 
@@ -114,10 +128,10 @@
     NSLog(@" applovin reward ad wasHiddenIn isRewarded = %d", self.isRewarded);
     self.isShowing = NO;
     if(self.isRewarded){
-        [self notifyOnAdRewarded];
+        [self notifyOnAdRewarded:[self getEyuAd]];
         self.isRewarded = false;
     }
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed:[self getEyuAd]];
 }
 
 /**
@@ -131,7 +145,7 @@
 - (void)ad:(ALAd *)ad wasClickedIn:(UIView *)view
 {
     NSLog(@" applovin reward ad wasClickedIn");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked:[self getEyuAd]];
 }
 
 - (void)rewardValidationRequestForAd:(ALAd *)ad didSucceedWithResponse:(NSDictionary *)response

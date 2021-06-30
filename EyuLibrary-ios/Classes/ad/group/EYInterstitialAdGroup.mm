@@ -251,11 +251,11 @@
 //    }
 //}
 
--(void) onAdShowed:(EYInterstitialAdAdapter*)adapter
+-(void) onAdShowed:(EYInterstitialAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
 {
     if(self.delegate)
     {
-        [self.delegate onAdShowed:self.adPlaceId type:ADTypeInterstitial];
+        [self.delegate onAdShowed:eyuAd];
     }
 //    if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
@@ -264,18 +264,18 @@
 //    }
 }
 
-- (void)onAdShowed:(EYInterstitialAdAdapter *)adapter extraData:(NSDictionary *)extraData {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(onAdShowed:type:extraData:)])
+- (void)onAdRevenue:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onAdRevenue:)])
     {
-        [self.delegate onAdShowed:self.adPlaceId type:ADTypeInterstitial extraData:extraData];
+        [self.delegate onAdRevenue:eyuAd];
     }
 }
 
--(void) onAdClicked:(EYInterstitialAdAdapter*)adapter
+-(void) onAdClicked:(EYInterstitialAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
 {
     if(self.delegate)
     {
-        [self.delegate onAdClicked:self.adPlaceId type:ADTypeInterstitial];
+        [self.delegate onAdClicked:eyuAd];
     }
     if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
@@ -283,22 +283,22 @@
         [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_CLICKED]  parameters:dic];
     }
 }
--(void) onAdClosed:(EYInterstitialAdAdapter*)adapter
+-(void) onAdClosed:(EYInterstitialAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
 {
     if(self.delegate)
     {
-        [self.delegate onAdClosed:self.adPlaceId type:ADTypeInterstitial];
+        [self.delegate onAdClosed:eyuAd];
     }
     if (self.adGroup.isAutoLoad && !self.isCacheAvailable) {
         [self loadAd:self.adPlaceId];
     }
 }
 
--(void) onAdImpression:(EYInterstitialAdAdapter*)adapter
+-(void) onAdImpression:(EYInterstitialAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
 {
     if(self.delegate)
     {
-        [self.delegate onAdImpression:self.adPlaceId type:ADTypeInterstitial];
+        [self.delegate onAdImpression:eyuAd];
     }
     EYAdKey *adKey = adapter.adKey;
     if(adKey){

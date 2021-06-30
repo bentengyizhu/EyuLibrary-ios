@@ -19,7 +19,7 @@
     NSLog(@"admob nativeAd ");
     if([self isAdLoaded])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
         return;
     }
     if(self.nativeAdLoader == NULL)
@@ -43,6 +43,16 @@
         }
     }
 
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeNative;
+    ad.mediator = @"admob";
+    return ad;
 }
 
 -(bool) showAdWithAdLayout:(UIView*)nativeAdLayout iconView:(UIImageView*)nativeAdIcon titleView:(UILabel*)nativeAdTitle
@@ -174,7 +184,7 @@
     self.isLoading = false;
     self.nativeAd = nativeAd;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 - (void)adLoaderDidFinishLoading:(GADAdLoader *) adLoader {
@@ -185,7 +195,9 @@
     NSLog(@"%@admob adLoader failed with error: %@", adLoader, error);
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 #pragma mark GADVideoControllerDelegate implementation
@@ -198,17 +210,17 @@
 
 - (void)nativeAdDidRecordClick:(GADNativeAd *)nativeAd {
     NSLog(@"%s", __PRETTY_FUNCTION__);
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 
 - (void)nativeAdDidRecordImpression:(GADNativeAd *)nativeAd {
     NSLog(@"%s", __PRETTY_FUNCTION__);
-    [self notifyOnAdImpression];
+    [self notifyOnAdImpression: [self getEyuAd]];
 }
 
 - (void)nativeAdWillPresentScreen:(GADNativeAd *)nativeAd {
     NSLog(@"%s", __PRETTY_FUNCTION__);
-    [self notifyOnAdShowed];
+    [self notifyOnAdShowed: [self getEyuAd]];
 }
 
 - (void)nativeAdWillDismissScreen:(GADNativeAd *)nativeAd {

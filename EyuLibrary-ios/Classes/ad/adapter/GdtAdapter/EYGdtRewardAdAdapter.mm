@@ -27,10 +27,12 @@
 {
     NSLog(@"gdt EYGdtRewardAdAdapter loadAd isAdLoaded = %d", [self isAdLoaded]);
     if([self isShowing ]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if([self isAdLoaded])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded:[self getEyuAd]];
     }else if(![self isLoading] )
     {
         if(self.rewardAd!=NULL)
@@ -62,6 +64,16 @@
     return false;
 }
 
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeReward;
+    ad.mediator = @"gdt";
+    return ad;
+}
+
 -(bool) isAdLoaded
 {
     bool isAdLoaded = self.rewardAd != NULL && [self.rewardAd isAdValid] && self.rewardAd.expiredTimestamp > [[NSDate date] timeIntervalSince1970];
@@ -80,14 +92,14 @@
     NSLog(@" gdt gdt_rewardVideoAdVideoDidLoad");
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded:[self getEyuAd]];
 }
 
 - (void)gdt_rewardVideoAdDidExposed:(GDTRewardVideoAd *)rewardedVideoAd
 {
     NSLog(@" gdt 广告已曝光");
-    [self notifyOnAdShowed];
-    [self notifyOnAdImpression];
+    [self notifyOnAdShowed:[self getEyuAd]];
+    [self notifyOnAdImpression:[self getEyuAd]];
 }
 
 - (void)gdt_rewardVideoAdDidClose:(GDTRewardVideoAd *)rewardedVideoAd
@@ -99,18 +111,18 @@
     }
     
     if(self.isRewarded){
-        [self notifyOnAdRewarded];
+        [self notifyOnAdRewarded:[self getEyuAd]];
     }
     self.isRewarded = false;
     self.isShowing = false;
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed:[self getEyuAd]];
 }
 
 
 - (void)gdt_rewardVideoAdDidClicked:(GDTRewardVideoAd *)rewardedVideoAd
 {
     NSLog(@" gdt 广告已点击");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked:[self getEyuAd]];
 }
 
 - (void)gdt_rewardVideoAd:(GDTRewardVideoAd *)rewardedVideoAd didFailWithError:(NSError *)error
@@ -137,7 +149,9 @@
         self.rewardAd = NULL;
     }
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 - (void)gdt_rewardVideoAdDidRewardEffective:(GDTRewardVideoAd *)rewardedVideoAd

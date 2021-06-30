@@ -26,7 +26,9 @@
 {
     NSLog(@"gdt interstitialAd loadAd ");
     if([self isShowing ]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if(self.interstitialAd == NULL)
     {
         EYAdManager* manager = [EYAdManager sharedInstance];
@@ -37,13 +39,23 @@
         [self.interstitialAd loadAd];
         [self startTimeoutTask];
     }else if([self isAdLoaded]){
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded:[self getEyuAd]];
     }else{
         if(self.loadingTimer == nil)
         {
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeInterstitial;
+    ad.mediator = @"gdt";
+    return ad;
 }
 
 -(bool) showAdWithController:(UIViewController*) controller
@@ -73,7 +85,7 @@
     NSLog(@" gdt interstitialAd interstitialSuccessToLoadAd");
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded:[self getEyuAd]];
 }
 
 // 广告预加载失败回调
@@ -89,7 +101,9 @@
         self.interstitialAd = NULL;
     }
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 // 插屏广告视图展示成功回调
@@ -97,7 +111,7 @@
 - (void)unifiedInterstitialDidPresentScreen:(GDTUnifiedInterstitialAd *)unifiedInterstitial;
 {
     NSLog(@" gdt interstitialDidPresentScreen");
-    [self notifyOnAdShowed];
+    [self notifyOnAdShowed:[self getEyuAd]];
 }
 
 // 插屏广告展示结束回调
@@ -111,7 +125,7 @@
         self.interstitialAd.delegate = NULL;
         self.interstitialAd = NULL;
     }
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed:[self getEyuAd]];
 }
 
 /**
@@ -120,7 +134,7 @@
 - (void)unifiedInterstitialClicked:(GDTUnifiedInterstitialAd *)unifiedInterstitial;
 {
     NSLog(@" gdt interstitialClicked");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked:[self getEyuAd]];
 }
 
 /**
@@ -129,7 +143,7 @@
 - (void)unifiedInterstitialWillExposure:(GDTUnifiedInterstitialAd *)unifiedInterstitial;
 {
     NSLog(@" gdt interstitialDidPresentScreen");
-    [self notifyOnAdImpression];
+    [self notifyOnAdImpression:[self getEyuAd]];
 }
 
 /**

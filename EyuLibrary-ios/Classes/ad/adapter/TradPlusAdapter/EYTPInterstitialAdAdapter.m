@@ -17,7 +17,9 @@
 {
     NSLog(@"tp interstitialAd loadAd ");
     if([self isShowing ]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if(self.interstitialAd == NULL)
     {
         self.interstitialAd = [[MsInterstitialAd alloc] init];
@@ -27,13 +29,23 @@
         [self.interstitialAd loadAd];
         [self startTimeoutTask];
     }else if([self isAdLoaded]){
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else{
         if(self.loadingTimer == nil)
         {
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeInterstitial;
+    ad.mediator = @"tradplus";
+    return ad;
 }
 
 -(bool) showAdWithController:(UIViewController*) controller
@@ -71,7 +83,7 @@
     NSLog(@"tp,Interstitial did loaded");
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 //单个广告源 加载失败
@@ -85,15 +97,17 @@
         self.interstitialAd = NULL;
     }
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 -(void)interstitialAdShown:(MsInterstitialAd *)interstitialAd
 {
     NSLog(@"tp The user sees the add");
     // Use this function as indication for a user's impression on the ad.
-    [self notifyOnAdShowed];
-    [self notifyOnAdImpression];
+    [self notifyOnAdShowed: [self getEyuAd]];
+    [self notifyOnAdImpression: [self getEyuAd]];
 }
 
 //视频播放结束后回调
@@ -107,7 +121,7 @@
         self.interstitialAd.delegate = NULL;
         self.interstitialAd = NULL;
     }
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed: [self getEyuAd]];
 }
 
 //点击广告后回调。
@@ -115,7 +129,7 @@
 {
     NSLog(@"tp The user clicked on the ad and will be taken to its destination");
     // Use this function as indication for a user's click on the ad.
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 @end
 

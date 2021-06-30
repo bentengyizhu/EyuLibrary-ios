@@ -84,48 +84,48 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
--(void) onAdLoaded:(NSString*) adPlaceId type:(NSString*)type
-{
-    NSLog(@"lw, onAdLoaded adPlaceId = %@, type = %@", adPlaceId, type);
-}
--(void) onAdReward:(NSString*) adPlaceId  type:(NSString*)type
-{
-    NSLog(@"lw, onAdReward adPlaceId = %@, type = %@", adPlaceId, type);
-
-}
--(void) onAdShowed:(NSString*) adPlaceId  type:(NSString*)type
-{
-    NSLog(@"lw, onAdShowed adPlaceId = %@, type = %@", adPlaceId, type);
-}
--(void) onAdClosed:(NSString*) adPlaceId  type:(NSString*)type
-{
-    NSLog(@"lw, onAdClosed adPlaceId = %@, type = %@", adPlaceId, type);
-}
--(void) onAdClicked:(NSString*) adPlaceId  type:(NSString*)type
-{
-    NSLog(@"lw, onAdClicked adPlaceId = %@, type = %@", adPlaceId, type);
-
+- (void)onAdLoaded:(EYuAd *)eyuAd {
+    NSLog(@"lw, onAdLoaded adPlaceId = %@, type = %@", eyuAd.placeId, eyuAd.adFormat);
 }
 
-- (void)onAdShowed:(NSString *)adPlaceId type:(NSString *)type extraData:(NSDictionary *)extraData {
-    NSLog(@"广告展示数据 extraData = %@", extraData);
+-(void) onAdReward:(EYuAd *)eyuAd
+{
+    NSLog(@"lw, onAdReward adPlaceId = %@, type = %@", eyuAd.placeId, eyuAd.adFormat);
+
+}
+-(void) onAdShowed:(EYuAd *)eyuAd
+{
+    NSLog(@"lw, onAdShowed adPlaceId = %@, type = %@", eyuAd.placeId, eyuAd.adFormat);
+}
+-(void) onAdClosed:(EYuAd *)eyuAd
+{
+    NSLog(@"lw, onAdClosed adPlaceId = %@, type = %@", eyuAd.placeId, eyuAd.adFormat);
+}
+-(void) onAdClicked:(EYuAd *)eyuAd
+{
+    NSLog(@"lw, onAdClicked adPlaceId = %@, type = %@", eyuAd.placeId, eyuAd.adFormat);
+
+}
+
+- (void)onAdRevenue:(EYuAd *)eyuAd {
+    NSLog(@"广告展示数据 extraData = %@", eyuAd.adRevenue);
 }
 
 - (void)onDefaultNativeAdClicked {
 
 }
 
-- (void)onAdLoadFailed:(NSString *)adPlaceId type:(NSString *)type key:(NSString *)key code:(int)code {
-    NSLog(@"lw, onAdLoadFailed adPlaceId = %@, key = %@, code = %d", adPlaceId, key, code);
+- (void)onAdLoadFailed:(EYuAd *)eyuAd {
+    NSLog(@"lw, onAdLoadFailed adPlaceId = %@, key = %@, code = %ld", eyuAd.placeId, eyuAd.unitId, eyuAd.error.code);
 }
 
 //- (void)onAdLoadFailed:(nonnull NSString *)adPlaceId key:(nonnull NSString *)key code:(int)code {
 //    NSLog(@"lw, onAdLoadFailed adPlaceId = %@, key = %@, code = %d", adPlaceId, key, code);
 //}
 
--(void) onAdImpression:(NSString*) adPlaceId  type:(NSString*)type
+-(void) onAdImpression:(EYuAd *)eyuAd
 {
-    NSLog(@"lw, onAdImpression adPlaceId = %@, type = %@", adPlaceId, type);
+    NSLog(@"lw, onAdImpression adPlaceId = %@, type = %@", eyuAd.placeId, eyuAd.adFormat);
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url  options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options

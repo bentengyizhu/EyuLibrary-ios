@@ -33,13 +33,25 @@
 {
     NSLog(@" EYIronSourceRewardAdAdapter loadAd #############. adId = #%@#", self.adKey.key);
     if([self isShowing ]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if([self isAdLoaded]) {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }
     else {
         [IronSource loadISDemandOnlyRewardedVideo:self.adKey.key];
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeReward;
+    ad.mediator = @"icornsource";
+    return ad;
 }
 
 -(bool) showAdWithController:(UIViewController*) controller
@@ -69,21 +81,23 @@
     NSLog(@" EYIronSourceRewardAdAdapter rewardedVideoDidLoad key = %@", self.adKey.key);
 
     self.isLoading = false;
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 - (void)rewardedVideoDidFailToLoadWithError:(NSError *)error instanceId:(NSString *)instanceId
 {
     NSLog(@" EYIronSourceRewardAdAdapter rewardedVideoDidFailToLoadWithError %@", error);
     self.isLoading = false;
-    [self notifyOnAdLoadFailedWithError:error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 - (void)rewardedVideoDidOpen:(NSString *)instanceId
 {
     NSLog(@" EYIronSourceRewardAdAdapter rewardedVideoDidOpen");
-    [self notifyOnAdShowed];
-    [self notifyOnAdImpression];
+    [self notifyOnAdShowed: [self getEyuAd]];
+    [self notifyOnAdImpression: [self getEyuAd]];
 }
 
 - (void)rewardedVideoDidClose:(NSString *)instanceId
@@ -92,9 +106,9 @@
     self.isClosed = true;
     self.isShowing = NO;
     if(self.isRewarded){
-        [self notifyOnAdRewarded];
+        [self notifyOnAdRewarded: [self getEyuAd]];
     }
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed: [self getEyuAd]];
 }
 
 - (void)rewardedVideoDidFailToShowWithError:(NSError *)error instanceId:(NSString *)instanceId
@@ -106,14 +120,14 @@
 - (void)rewardedVideoDidClick:(NSString *)instanceId
 {
     NSLog(@" EYIronSourceRewardAdAdapter didClickRewardedVideo");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 
 - (void)rewardedVideoAdRewarded:(NSString *)instanceId
 {
     self.isRewarded = true;
     if(self.isClosed) {
-        [self notifyOnAdRewarded];
+        [self notifyOnAdRewarded: [self getEyuAd]];
     }
 }
     

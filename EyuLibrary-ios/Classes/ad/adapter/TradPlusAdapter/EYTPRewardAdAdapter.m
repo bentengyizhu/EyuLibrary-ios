@@ -16,10 +16,12 @@
 {
     NSLog(@"tp loadAd isAdLoaded = %d", [self isAdLoaded]);
     if([self isShowing]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if([self isAdLoaded])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else if(![self isLoading] )
     {
         if(self.rewardedVideoAd!=NULL)
@@ -39,6 +41,16 @@
     }
 }
 
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeReward;
+    ad.mediator = @"tradplus";
+    return ad;
+}
+
 -(bool) showAdWithController:(UIViewController*) controller
 {
     NSLog(@"tp showAd ");
@@ -48,7 +60,7 @@
         if(result)
         {
             self.isShowing = YES;
-            [self notifyOnAdShowed];
+            [self notifyOnAdShowed: [self getEyuAd]];
         }
         return result;
     }
@@ -68,7 +80,7 @@
     NSLog(@"tp Reward video ad is loaded.");
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 //单个广告源加载失败
@@ -81,14 +93,16 @@
         self.rewardedVideoAd = NULL;
     }
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 //开始播放视频后回调
 -(void)rewardedVideoAdShown:(MsRewardedVideoAd *)rewardedVideoAd
 {
-    [self notifyOnAdShowed];
-    [self notifyOnAdImpression];
+    [self notifyOnAdShowed: [self getEyuAd]];
+    [self notifyOnAdImpression: [self getEyuAd]];
 }
 
 //视频播放结束后，关闭落地页
@@ -100,11 +114,11 @@
         self.rewardedVideoAd = NULL;
     }
     if(self.isRewarded){
-        [self notifyOnAdRewarded];
+        [self notifyOnAdRewarded: [self getEyuAd]];
     }
     self.isShowing = NO;
     self.isRewarded = NO;
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed: [self getEyuAd]];
 }
 
 //点击广告后回调。

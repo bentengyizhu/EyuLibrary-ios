@@ -12,7 +12,7 @@
 {
     NSLog(@"abu nativeAd loadAd admanager = %@, key = %@.", self.adManager, self.adKey.key);
     if([self isAdLoaded]){
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded:[self getEyuAd]];
     }else if(self.adManager == NULL)
     {
         ABUAdUnit *slot1 = [[ABUAdUnit alloc] init];
@@ -45,6 +45,16 @@
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeNative;
+    ad.mediator = @"abu";
+    return ad;
 }
 
 -(bool) showAdWithAdLayout:(UIView*)nativeAdLayout iconView:(UIImageView*)nativeAdIcon titleView:(UILabel*)nativeAdTitle
@@ -161,7 +171,7 @@
     self.isLoading = false;
     self.isLoaded = true;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded:[self getEyuAd]];
 }
 
 - (void)nativeAdsManager:(ABUNativeAdsManager *_Nonnull)adsManager didFailWithError:(NSError *_Nullable)error {
@@ -174,7 +184,9 @@
         self.adManager = NULL;
     }
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 # pragma mark ---<ABUNativeAdViewDelegate>---
@@ -194,9 +206,11 @@
  This method is called when native ad slot has been shown.
  */
 - (void)nativeAdDidBecomeVisible:(ABUNativeAdView *_Nonnull)nativeAdView {
-    [self notifyOnAdShowed];
-    [self notifyOnAdShowedData:@{@"ecpm": nativeAdView.getPreEcpm}];
-    [self notifyOnAdImpression];
+    EYuAd *ad = [self getEyuAd];
+    [self notifyOnAdShowed: ad];
+    [self notifyOnAdImpression: ad];
+    ad.adRevenue = nativeAdView.getPreEcpm;
+    [self notifyOnAdRevenue:ad];
 }
 
 /**
@@ -204,7 +218,7 @@
  */
 - (void)nativeAdDidClick:(ABUNativeAdView *_Nonnull)nativeAdView withView:(UIView *_Nullable)view {
     NSLog(@"abu nativeAdDidClick");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked:[self getEyuAd]];
 }
 
 /**
@@ -219,7 +233,7 @@
     self.adManager.delegate = NULL;
     self.adManager = NULL;
     self.nativeAdView = NULL;
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed:[self getEyuAd]];
 }
 
 # pragma mark ---<ABUNativeAdVideoDelegate>---

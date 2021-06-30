@@ -22,10 +22,12 @@
 {
     NSLog(@" EYMaxRewardAdAdapter loadAd #############. adId = #%@#", self.adKey.key);
     if([self isShowing ]){
-        [self notifyOnAdLoadFailedWithError:ERROR_AD_IS_SHOWING];
+        EYuAd *ad = [self getEyuAd];
+        ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
+        [self notifyOnAdLoadFailedWithError:ad];
     }else if([self isAdLoaded])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
     }else if(!self.isLoading)
     {
         self.isLoading = true;
@@ -42,6 +44,16 @@
             [self startTimeoutTask];
         }
     }
+}
+
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeReward;
+    ad.mediator = @"max";
+    return ad;
 }
 
 -(bool) showAdWithController:(UIViewController*) controller
@@ -71,14 +83,16 @@
     NSLog(@" MAX reward didLoadAd adKey = %@", self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 - (void)didFailToLoadAdForAdUnitIdentifier:(NSString *)adUnitIdentifier withError:(MAError *)error {
     NSLog(@" MAX reward didFailToLoadAdWithError: %d, adKey = %@, message = %@, userinfo = %@", (int)error.code, self.adKey, error.message, error.adLoadFailureInfo);
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = [[NSError alloc]initWithDomain:@"adloaderrordomain" code:error.code userInfo:nil];
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 //- (void)didFailToLoadAdForAdUnitIdentifier:(NSString *)adUnitIdentifier withErrorCode:(NSInteger)errorCode
@@ -90,18 +104,21 @@
 //}
 
 - (void)didPayRevenueForAd:(MAAd *)ad {
-    [self notifyOnAdShowedData: @{@"adsource_price": @(ad.revenue), @"unitId": self.adKey.key, @"unitName": self.adKey.keyId, @"placeId": self.adKey.placementid, @"adFormat": ADTypeReward, @"mediator": @"max", @"networkName": ad.networkName}];
+    EYuAd *eyuAd = [self getEyuAd];
+    eyuAd.adRevenue = [NSString stringWithFormat:@"%f",ad.revenue];
+    eyuAd.networkName = ad.networkName;
+    [self notifyOnAdRevenue:eyuAd];
 }
 
 - (void)didDisplayAd:(MAAd *)ad {
     NSLog(@" MAX reward ad wasDisplayedIn");
-    [self notifyOnAdShowed];
-    [self notifyOnAdImpression];
+    [self notifyOnAdShowed: [self getEyuAd]];
+    [self notifyOnAdImpression: [self getEyuAd]];
 }
 
 - (void)didClickAd:(MAAd *)ad {
     NSLog(@" MAX reward ad wasClickedIn");
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 
 - (void)didHideAd:(MAAd *)ad
@@ -110,10 +127,10 @@
     NSLog(@" MAX reward ad wasHiddenIn isRewarded = %d", self.isRewarded);
     self.isShowing = NO;
     if(self.isRewarded){
-        [self notifyOnAdRewarded];
+        [self notifyOnAdRewarded: [self getEyuAd]];
         self.isRewarded = false;
     }
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed: [self getEyuAd]];
 }
 
 //- (void)didFailToDisplayAd:(MAAd *)ad withErrorCode:(NSInteger)errorCode
@@ -131,7 +148,9 @@
     self.isShowing = false;
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *eyuAd = [self getEyuAd];
+    eyuAd.error = [[NSError alloc]initWithDomain:@"adloaderrordomain" code:error.code userInfo:nil];
+    [self notifyOnAdLoadFailedWithError:eyuAd];
 }
 
 #pragma mark - MARewardedAdDelegate Protocol

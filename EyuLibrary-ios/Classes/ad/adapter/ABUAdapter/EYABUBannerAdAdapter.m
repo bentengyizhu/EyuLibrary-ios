@@ -13,7 +13,7 @@
     NSLog(@"abu bannerAd");
     if([self isAdLoaded])
     {
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded:[self getEyuAd]];
         self.isLoadSuccess = true;
         return;
     } else if (!self.isLoading) {
@@ -44,6 +44,8 @@
         }
     }
 }
+
+
 
 - (bool)isAdLoaded {
     return self.bannerView != NULL && self.isLoadSuccess;
@@ -77,6 +79,16 @@
     return self.bannerView;
 }
 
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeBanner;
+    ad.mediator = @"abu";
+    return ad;
+}
+
 /**
  This method is called when bannerAdView ad slot loaded successfully.
  @param bannerView : view for bannerView
@@ -86,7 +98,7 @@
     self.isLoadSuccess = true;
     self.isLoading = false;
     NSLog(@"abud ad didLoad");
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded:[self getEyuAd]];
 }
 
 /**
@@ -99,16 +111,20 @@
     NSLog(@"abu banner ad failed to load with error: %@", error);
     self.isLoading = false;
     self.isLoadSuccess = false;
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = error;
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 /**
 This method is called when bannerAdView ad slot success to show.
 */
 - (void)bannerAdDidBecomVisible:(ABUBannerAd *_Nonnull)ABUBannerAd bannerView:(UIView *)bannerView{
-    [self notifyOnAdShowed];
-    [self notifyOnAdShowedData:@{@"ecpm": ABUBannerAd.getPreEcpm}];
-    [self notifyOnAdImpression];
+    EYuAd *ad = [self getEyuAd];
+    [self notifyOnAdShowed: ad];
+    [self notifyOnAdImpression: ad];
+    ad.adRevenue = ABUBannerAd.getPreEcpm;
+    [self notifyOnAdRevenue:ad];
 }
 
 /**
@@ -131,7 +147,7 @@ This method is called when bannerAdView ad slot success to show.
  This method is called when bannerAdView is clicked.
  */
 - (void)bannerAdDidClick:(ABUBannerAd *_Nonnull)ABUBannerAd bannerView:(UIView *)bannerView{
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 
 /**
@@ -144,7 +160,7 @@ This method is called when bannerAdView ad slot success to show.
     [self.bannerView removeFromSuperview];
     self.bannerView = NULL;
     self.bannerAd = NULL;
-    [self notifyOnAdClosed];
+    [self notifyOnAdClosed: [self getEyuAd]];
 }
 @end
 #endif

@@ -16,7 +16,7 @@
     if([self isAdLoaded])
     {
         self.isLoadSuccess = true;
-        [self notifyOnAdLoaded];
+        [self notifyOnAdLoaded: [self getEyuAd]];
         return;
     } else if (!self.isLoading) {
         self.isLoading = true;
@@ -58,6 +58,16 @@
     return true;
 }
 
+-(EYuAd *) getEyuAd{
+    EYuAd *ad = [EYuAd new];
+    ad.unitId = self.adKey.key;
+    ad.unitName = self.adKey.keyId;
+    ad.placeId = self.adKey.placementid;
+    ad.adFormat = ADTypeBanner;
+    ad.mediator = @"max";
+    return ad;
+}
+
 - (UIView *)getBannerView {
     return self.adView;
 }
@@ -72,7 +82,7 @@
     self.isLoadSuccess = true;
     self.isLoading = false;
     NSLog(@"max banner ad didLoad");
-    [self notifyOnAdLoaded];
+    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 //- (void)didFailToLoadAdForAdUnitIdentifier:(NSString *)adUnitIdentifier withErrorCode:(NSInteger)errorCode {
@@ -86,15 +96,20 @@
     NSLog(@"max banner ad failed to load with error: %d, userinfo: %@, message: %@", (int)error.code, error.adLoadFailureInfo, error.message);
     self.isLoading = false;
     self.isLoadSuccess = false;
-    [self notifyOnAdLoadFailedWithError:(int)error.code];
+    EYuAd *ad = [self getEyuAd];
+    ad.error = [[NSError alloc]initWithDomain:@"adloaderrordomain" code:error.code userInfo:nil];
+    [self notifyOnAdLoadFailedWithError:ad];
 }
 
 - (void)didClickAd:(MAAd *)ad {
-    [self notifyOnAdClicked];
+    [self notifyOnAdClicked: [self getEyuAd]];
 }
 
 - (void)didPayRevenueForAd:(MAAd *)ad {
-    [self notifyOnAdShowedData: @{@"adsource_price": @(ad.revenue), @"unitId": self.adKey.key, @"unitName": self.adKey.keyId, @"placeId": self.adKey.placementid, @"adFormat": ADTypeBanner, @"mediator": @"max", @"networkName": ad.networkName}];
+    EYuAd *eyuAd = [self getEyuAd];
+    eyuAd.adRevenue = [NSString stringWithFormat:@"%f",ad.revenue];
+    eyuAd.networkName = ad.networkName;
+    [self notifyOnAdRevenue:eyuAd];
 }
 
 - (void)didFailToDisplayAd:(MAAd *)ad withError:(MAError *)error {

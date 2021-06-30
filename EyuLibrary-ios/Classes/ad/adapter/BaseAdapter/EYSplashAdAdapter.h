@@ -21,12 +21,12 @@ NS_ASSUME_NONNULL_BEGIN
 -(bool) showAdWithController:(UIViewController*) controller;
 -(bool) isAdLoaded;
 
--(void) notifyOnAdLoaded;
--(void) notifyOnAdLoadFailedWithError:(int)errorCode;
--(void) notifyOnAdClicked;
--(void) notifyOnAdClosed;
--(void) notifyOnAdImpression;
--(void) notifyOnAdShowedData:(nullable NSDictionary *)data;
+-(void) notifyOnAdLoaded:(EYuAd *)eyuAd;
+-(void) notifyOnAdLoadFailedWithError:(EYuAd *)eyuAd;
+-(void) notifyOnAdClicked:(EYuAd *)eyuAd;
+-(void) notifyOnAdClosed:(EYuAd *)eyuAd;
+-(void) notifyOnAdImpression:(EYuAd *)eyuAd;
+-(void) notifyOnAdRevenue:(EYuAd *)eyuAd;
 
 -(void) startTimeoutTask;
 -(void) cancelTimeoutTask;

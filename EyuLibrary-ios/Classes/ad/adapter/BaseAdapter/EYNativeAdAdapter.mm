@@ -47,60 +47,63 @@
     NSAssert(true, @"子类中实现");
 }
 
--(void) notifyOnAdLoaded
+- (void)notifyOnAdLoaded:(EYuAd *)eyuAd {
+    self.isLoading = false;
+    [self cancelTimeoutTask];
+    if(self.delegate!=NULL)
+    {
+        [self.delegate onAdLoaded:self eyuAd:eyuAd];
+    }
+}
+
+-(void) notifyOnAdLoadFailedWithError:(EYuAd *)eyuAd;
+{
+    self.isLoading = false;
+    [self cancelTimeoutTask];
+    if(self.delegate!=NULL)
+    {
+        [self.delegate onAdLoadFailed:self eyuAd:eyuAd];
+    }
+}
+-(void) notifyOnAdShowed:(EYuAd *)eyuAd
+{
+    if(self.delegate!=NULL)
+    {
+        [self.delegate onAdShowed:self eyuAd:eyuAd];
+    }
+}
+
+
+-(void) notifyOnAdClicked:(EYuAd *)eyuAd
+{
+    if(self.delegate!=NULL)
+    {
+        [self.delegate onAdClicked:self eyuAd:eyuAd];
+    }
+}
+
+- (void)notifyOnAdRevenue:(EYuAd *)eyuAd {
+    self.isLoading = false;
+    if(self.delegate!=NULL)
+    {
+        [self.delegate onAdShowed:self eyuAd:eyuAd];
+    }
+}
+
+-(void) notifyOnAdClosed:(EYuAd *)eyuAd
 {
     self.isLoading = false;
     if(self.delegate!=NULL)
     {
-        [self.delegate onAdLoaded:self];
+        [self.delegate onAdClosed:self eyuAd:eyuAd];
     }
 }
 
--(void) notifyOnAdLoadFailedWithError:(int)errorCode
-{
-    self.isLoading = false;
-    if(self.delegate!=NULL)
-    {
-        [self.delegate onAdLoadFailed:self withError:errorCode];
-    }
-}
-
--(void) notifyOnAdShowed
+-(void) notifyOnAdImpression:(EYuAd *)eyuAd
 {
     if(self.delegate!=NULL)
     {
-        [self.delegate onAdShowed:self];
-    }
-}
-
-- (void)notifyOnAdShowedData:(NSDictionary *)data {
-    if(self.delegate!=NULL)
-    {
-        [self.delegate onAdShowed:self extraData:data];
-    }
-}
-
--(void) notifyOnAdClicked
-{
-    if(self.delegate!=NULL)
-    {
-        [self.delegate onAdClicked:self];
-    }
-}
-
--(void) notifyOnAdImpression
-{
-    if(self.delegate!=NULL)
-    {
-        [self.delegate onAdImpression:self];
-    }
-}
-
-- (void)notifyOnAdClosed
-{
-    if(self.delegate!=NULL)
-    {
-        [self.delegate onAdClosed:self];
+        [self.delegate onAdImpression:self eyuAd:eyuAd];
     }
 }
 
@@ -119,7 +122,12 @@
     NSLog(@" timeout");
     self.isLoading = false;
     [self cancelTimeoutTask];
-    [self notifyOnAdLoadFailedWithError:ERROR_TIMEOUT];
+    EYuAd *eyuAd = [EYuAd new];
+    eyuAd.adFormat = ADTypeNative;
+    eyuAd.unitId = self.adKey.key;
+    eyuAd.unitName = self.adKey.keyId;
+    eyuAd.error = [[NSError alloc]initWithDomain:@"timeoutDomian" code:ERROR_TIMEOUT userInfo:nil];
+    [self notifyOnAdLoadFailedWithError:eyuAd];
 }
 
 -(void) cancelTimeoutTask

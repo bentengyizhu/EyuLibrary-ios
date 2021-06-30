@@ -23,13 +23,13 @@
 -(bool) isAdLoaded;
 -(void) unregisterView;
 
--(void) notifyOnAdLoaded;
--(void) notifyOnAdLoadFailedWithError:(int)errorCode;
--(void) notifyOnAdShowed;
--(void) notifyOnAdClicked;
--(void) notifyOnAdImpression;
--(void) notifyOnAdClosed;
--(void) notifyOnAdShowedData:(NSDictionary *)data;
+-(void) notifyOnAdLoaded:(EYuAd *)eyuAd;
+-(void) notifyOnAdLoadFailedWithError:(EYuAd *)eyuAd;
+-(void) notifyOnAdShowed:(EYuAd *)eyuAd;
+-(void) notifyOnAdClicked:(EYuAd *)eyuAd;
+-(void) notifyOnAdImpression:(EYuAd *)eyuAd;
+-(void) notifyOnAdClosed:(EYuAd *)eyuAd;
+-(void) notifyOnAdRevenue:(EYuAd *)eyuAd;
 
 -(void) startTimeoutTask;
 -(void) cancelTimeoutTask;
