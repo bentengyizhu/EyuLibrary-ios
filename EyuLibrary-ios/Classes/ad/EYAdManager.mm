@@ -603,7 +603,7 @@ static id s_sharedInstance;
         EYRewardAdGroup *group = self.rewardAdGroupDict[adPlace.groupId];
         if(group!=nil)
         {
-            if(![group showAd:placeId withController:controller]){
+            if(![group showAd:placeId controller:controller]){
                 [self checkNetworkStatus];
             }
         }else{
@@ -721,7 +721,7 @@ static id s_sharedInstance;
         EYSplashAdGroup *group = self.splashAdGroupDict[adPlace.groupId];
         if(group!=nil)
         {
-            if(![group showAd:placeId withController:controller])
+            if(![group showAd:placeId controller:controller])
             {
                 [self checkNetworkStatus];
             }

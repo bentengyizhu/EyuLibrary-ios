@@ -156,18 +156,18 @@
 //    }
 //}
 
--(bool) showAd:(NSString*) placeId withController:(UIViewController*) controller
+-(bool) showAd:(NSString*) adPlaceId controller:(UIViewController*) controller
 {
-    NSLog(@"showAd placeId = %@", placeId);
+    NSLog(@"showAd placeId = %@", adPlaceId);
     if (self.groupArray != nil) {
         for (EYRewardAdGroup *group in self.groupArray) {
-            if ([group showAd:placeId withController:controller]) {
+            if ([group showAd:adPlaceId withController:controller]) {
                 return true;
             }
         }
         return false;
     }
-    self.adPlaceId = placeId;
+    self.adPlaceId = adPlaceId;
     EYRewardAdAdapter* loadAdapter = NULL;
     for(EYRewardAdAdapter* adapter in self.adapterArray)
     {

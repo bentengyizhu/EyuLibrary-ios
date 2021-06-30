@@ -12,6 +12,6 @@
 @interface EYRewardAdGroup :EYBasicAdGroup
 -(EYRewardAdGroup*) initWithGroup:(EYAdGroup*)group adConfig:(EYAdConfig*) adConfig;
 //-(void) loadAd:(NSString*) placeId;
--(bool) showAd:(NSString*) placeId withController:(UIViewController*) controller;
+-(bool) showAd:(NSString*)adPlaceId controller:(UIViewController*)controller;
 
 @end

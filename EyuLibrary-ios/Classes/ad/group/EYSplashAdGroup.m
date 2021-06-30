@@ -87,17 +87,17 @@
     }
 }
 
-- (bool)showAd:(NSString *)placeId withController:(UIViewController *)controller {
-    NSLog(@"showAd adPlaceId = %@, self = %@", placeId, self);
+- (bool)showAd:(NSString *)adPlaceId controller:(UIViewController *)controller {
+    NSLog(@"showAd adPlaceId = %@, self = %@", adPlaceId, self);
     if (self.groupArray != nil) {
         for (EYSplashAdGroup *group in self.groupArray) {
-            if ([group showAd:placeId withController:controller]) {
+            if ([group showAd:adPlaceId withController:controller]) {
                 return true;
             }
         }
         return false;
     }
-    self.adPlaceId = placeId;
+    self.adPlaceId = adPlaceId;
     EYSplashAdAdapter* loadedAdapter = NULL;
     for(EYSplashAdAdapter* adapter in self.adapterArray)
     {
