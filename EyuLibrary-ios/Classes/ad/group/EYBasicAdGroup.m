@@ -185,6 +185,11 @@
     return nil;
 }
 
+- (bool)showAd:(NSString *)adPlaceId controller:(UIViewController *)controller {
+    NSLog(@"子类实现");
+    return false;
+}
+
 -(void)initAdatperArray {
     if (self.isNewJsonSetting) {
         NSInteger value = [[NSUserDefaults standardUserDefaults]integerForKey:self.adValueKey];

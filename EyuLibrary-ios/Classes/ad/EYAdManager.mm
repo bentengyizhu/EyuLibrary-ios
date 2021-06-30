@@ -657,6 +657,34 @@ static id s_sharedInstance;
     }
 }
 
+- (bool)showAd:(NSString *)placeId withViewController:(UIViewController *)controller {
+    if(!self.isInited)
+    {
+        return false;
+    }
+    EYAdPlace* adPlace = self.adPlaceDict[placeId];
+    if(adPlace != nil)
+    {
+        EYBasicAdGroup *group = self.basicAdGroupDict[adPlace.groupId];
+        if(group!=nil)
+        {
+            if(![group showAd:placeId controller:controller])
+            {
+                [self checkNetworkStatus];
+                return false;
+            } else {
+                return true;
+            }
+        }else{
+            NSLog(@"showAd error, group==nil, placeId = %@", placeId);
+            return false;
+        }
+    }else{
+        NSLog(@"showAd error, adPlace==nil, placeId = %@", placeId);
+        return false;
+    }
+}
+
 -(void) showInterstitialAd:(NSString*) placeId withViewController:(UIViewController*)controller
 {
     if(!self.isInited)

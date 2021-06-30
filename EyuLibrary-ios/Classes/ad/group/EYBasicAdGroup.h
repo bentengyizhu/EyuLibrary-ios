@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(bool)loadNextSuite;
 -(bool) isCacheAvailable;
 -(bool) isHighPriorityCacheAvailable;
+-(bool) showAd:(NSString*)adPlaceId controller:(UIViewController*)controller;
 @end
 
 NS_ASSUME_NONNULL_END
