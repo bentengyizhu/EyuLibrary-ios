@@ -91,7 +91,7 @@
     NSLog(@"showAd adPlaceId = %@, self = %@", adPlaceId, self);
     if (self.groupArray != nil) {
         for (EYSplashAdGroup *group in self.groupArray) {
-            if ([group showAd:adPlaceId withController:controller]) {
+            if ([group showAd:adPlaceId controller:controller]) {
                 return true;
             }
         }

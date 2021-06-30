@@ -161,7 +161,7 @@
     NSLog(@"showAd placeId = %@", adPlaceId);
     if (self.groupArray != nil) {
         for (EYRewardAdGroup *group in self.groupArray) {
-            if ([group showAd:adPlaceId withController:controller]) {
+            if ([group showAd:adPlaceId controller:controller]) {
                 return true;
             }
         }
@@ -263,7 +263,7 @@
     {
         [self hideLoadingDialog];
         UIViewController* controller = [UIApplication sharedApplication].keyWindow.rootViewController;
-        [self showAd:self.adPlaceId withController:controller];
+        [self showAd:self.adPlaceId controller:controller];
     }
 }
 
