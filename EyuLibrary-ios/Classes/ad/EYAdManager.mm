@@ -1068,7 +1068,7 @@ static id s_sharedInstance;
         if (viewGroup) {
             rect = viewGroup.frame;
         } else {
-            rect = CGRectZero;
+            rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 200);
         }
         rect.origin.x = 0;
         rect.origin.y = 0;
