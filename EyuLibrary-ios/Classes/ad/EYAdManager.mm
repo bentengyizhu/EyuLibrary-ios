@@ -614,6 +614,12 @@ static id s_sharedInstance;
     }
 }
 
+- (NSString *)getAdType:(NSString *)placeId {
+    EYAdPlace* adPlace = self.adPlaceDict[placeId];
+    EYAdGroup *group = self.adGroupDict[adPlace.groupId];
+    return group.type;
+}
+
 -(void) loadInterstitialAd:(NSString*) placeId
 {
     if(!self.isInited)

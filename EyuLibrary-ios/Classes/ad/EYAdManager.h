@@ -49,6 +49,8 @@
 -(void) loadBannerAd:(NSString*) placeId;
 -(void) loadSplashAd:(NSString*) placeId;
 
+-(NSString *) getAdType:(NSString*) placeId;
+
 -(bool) showAd:(NSString*) placeId withViewController:(UIViewController*)controller;
 -(void) showSplashAd:(NSString*) placeId withViewController:(UIViewController*)controller;
 -(void) showRewardVideoAd:(NSString*) placeId withViewController:(UIViewController*)controller;
