@@ -23,7 +23,7 @@
 }
 
 -(void)setBannerAdapter:(EYBannerAdAdapter *)bannerAdapter{
-    objc_setAssociatedObject(self, @selector(bannerAdapter), bannerAdapter, OBJC_ASSOCIATION_RETAIN);
+    objc_setAssociatedObject(self, @selector(bannerAdapter), bannerAdapter, OBJC_ASSOCIATION_ASSIGN);
     //objc_setAssociatedObject(self, &kAssociatedNewName, newName, OBJC_ASSOCIATION_RETAIN);
 }
 @end

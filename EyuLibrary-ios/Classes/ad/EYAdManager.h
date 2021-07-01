@@ -51,7 +51,7 @@
 
 -(NSString *) getAdType:(NSString*) placeId;
 -(UIView *) getBannerView:(NSString*) placeId;
--(UIView *) getNativeView:(NSString*) placeId;
+- (UIView *)getNativeView:(NSString *)placeId controller: (UIViewController *)controller;
 
 -(bool) showAd:(NSString*) placeId withViewController:(UIViewController*)controller;
 -(void) showSplashAd:(NSString*) placeId withViewController:(UIViewController*)controller;

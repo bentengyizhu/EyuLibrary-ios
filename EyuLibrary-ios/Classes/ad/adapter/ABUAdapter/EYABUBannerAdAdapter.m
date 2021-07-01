@@ -76,6 +76,7 @@
 }
 
 - (UIView *)getBannerView {
+    self.bannerView.bannerAdapter = self;
     return self.bannerView;
 }
 
