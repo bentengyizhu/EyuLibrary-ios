@@ -1080,6 +1080,16 @@ static id s_sharedInstance;
 
 - (UIView *)getNativeView:(NSString *)placeId controller: (UIViewController *)controller {
     EYNativeAdView* view = [self getNativeAdView:placeId withViewController:controller viewGroup:nil];
+    if(view){
+        view.isNeedUpdate = false;
+        view.isCanShow = true;
+        EYNativeAdAdapter* adapter = [self getNativeAdAdapter:placeId];
+        if (adapter) {
+            [view updateNativeAdAdapter:adapter controller:controller];
+        } else {
+            [self loadNativeAd:placeId];
+        }
+    }
     return view;
 }
 

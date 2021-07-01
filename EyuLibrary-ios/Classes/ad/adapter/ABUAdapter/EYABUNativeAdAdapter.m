@@ -72,7 +72,6 @@
         self.adManager.rootViewController = controller;
         [self.nativeAdView render];
         [nativeAdLayout addSubview:self.nativeAdView];
-        [nativeAdLayout addSubview:self.nativeAdView];
         NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.nativeAdView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:nativeAdLayout attribute:NSLayoutAttributeLeft multiplier:1 constant:0];
         NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self.nativeAdView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:nativeAdLayout attribute:NSLayoutAttributeRight multiplier:1 constant:0];
         NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.nativeAdView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:nativeAdLayout attribute:NSLayoutAttributeTop multiplier:1 constant:0];
