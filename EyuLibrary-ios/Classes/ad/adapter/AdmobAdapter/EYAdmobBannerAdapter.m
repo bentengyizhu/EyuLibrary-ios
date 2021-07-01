@@ -99,8 +99,18 @@
 }
 
 - (UIView *)getBannerView {
-    self.bannerView.bannerAdapter = self;
-    return self.bannerAdView;
+    UIView *viewGroup = [UIView new];
+    viewGroup.bannerAdapter = self;
+    [viewGroup addSubview:self.bannerAdView];
+    NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.bannerAdView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeLeft multiplier:1 constant:0];
+    NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self.bannerAdView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeRight multiplier:1 constant:0];
+    NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.bannerAdView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeTop multiplier:1 constant:0];
+    NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:self.bannerAdView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:viewGroup attribute:NSLayoutAttributeBottom multiplier:1 constant:0];
+    [viewGroup addConstraint:centerX];
+    [viewGroup addConstraint:centerY];
+    [viewGroup addConstraint:width];
+    [viewGroup addConstraint:height];
+    return viewGroup;
 }
 
 -(bool) isAdLoaded
