@@ -112,6 +112,24 @@
     return false;
 }
 
+- (UIView *)getBannerView {
+    NSLog(@"getBannerAd placeId = %@", self.adPlaceId);
+    if (self.groupArray != nil) {
+        for (EYBannerAdGroup *group in self.groupArray) {
+            UIView *view = [group getBannerView];
+            if (view) {
+                return view;
+            }
+        }
+        return nil;
+    }
+    EYBannerAdAdapter* loadAdapter = [self getAvailableAdapter];
+    if (loadAdapter) {
+        return [loadAdapter getBannerView];
+    }
+    return nil;
+}
+
 -(EYBannerAdAdapter*) getAvailableAdapter
 {
     EYAdAdapter* loadAdapter = NULL;

@@ -1064,13 +1064,22 @@ static id s_sharedInstance;
         view = [nibView firstObject];
         CGRect viewRect = viewGroup.frame;
         view.frame = viewRect;*/
-        CGRect rect = viewGroup.frame;
+        CGRect rect;
+        if (viewGroup) {
+            rect = viewGroup.frame;
+        } else {
+            rect = CGRectZero;
+        }
         rect.origin.x = 0;
         rect.origin.y = 0;
         view = [[_nativeClass alloc] initWithFrame:rect nibName:nativeAdViewNib];
-//        [viewGroup addSubview:view];
         [self putNativeAdViewToCache:view placeId:placeId withViewController:controller];
     }
+    return view;
+}
+
+- (UIView *)getNativeView:(NSString *)placeId controller: (UIViewController *)controller {
+    EYNativeAdView* view = [self getNativeAdView:placeId withViewController:controller viewGroup:nil];
     return view;
 }
 
@@ -1097,6 +1106,23 @@ static id s_sharedInstance;
             [self loadNativeAd:placeId];
         }
     }
+}
+
+- (UIView *)getBannerView:(NSString *)placeId {
+    EYAdPlace* adPlace = self.adPlaceDict[placeId];
+    if(adPlace != nil)
+    {
+        EYBannerAdGroup *group = self.bannerAdGroupDict[adPlace.groupId];
+        if(group!=nil)
+        {
+            group.adPlaceId = placeId;
+            return [group getBannerView];
+        }else{
+            NSLog(@"getbannerview error, group==nil, placeId = %@", placeId);
+            return nil;
+        }
+    }
+    return nil;
 }
 
 - (bool)showBannerAd:(NSString *)placeId viewGroup:(UIView *)viewGroup {

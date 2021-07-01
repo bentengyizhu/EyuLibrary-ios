@@ -13,5 +13,6 @@
 
 -(EYBannerAdGroup*) initWithGroup:(EYAdGroup*)adGroup adConfig:(EYAdConfig*) adConfig;
 -(bool) showAdGroup:(UIView *)viewGroup;
+- (UIView *)getBannerView;
 //-(void) loadAd:(NSString*)adPlaceId;
 @end
