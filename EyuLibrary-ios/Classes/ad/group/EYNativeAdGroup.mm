@@ -211,7 +211,8 @@
 - (void)onAdRevenue:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd {
     if(self.delegate && [self.delegate respondsToSelector:@selector(onAdRevenue:)])
     {
-        [self.delegate onAdShowed:eyuAd];
+        [self.delegate onAdReward:eyuAd];
+//        [self.delegate onAdShowed:eyuAd];
     }
 }
 

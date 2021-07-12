@@ -88,7 +88,8 @@
     self.isLoading = false;
     if(self.delegate!=NULL)
     {
-        [self.delegate onAdShowed:self eyuAd:eyuAd];
+        [self.delegate onAdRevenue:self eyuAd:eyuAd];
+//        [self.delegate onAdShowed:self eyuAd:eyuAd];
     }
 }
 
