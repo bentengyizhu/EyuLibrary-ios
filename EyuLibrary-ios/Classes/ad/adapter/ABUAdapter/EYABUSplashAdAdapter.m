@@ -30,7 +30,7 @@
         self.splashAd = [[ABUSplashAd alloc] initWithAdUnitID:self.adKey.key];
         self.splashAd.delegate = self;
         self.splashAd.tolerateTimeout = 3.f;
-        self.splashAd.getExpressAdIfCan = YES;
+//        self.splashAd.getExpressAdIfCan = YES;
         
         ABUSplashUserData *userData = [[ABUSplashUserData alloc] init];
         userData.adnType = ABUAdnPangle;

@@ -15,8 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *appID;
 @property (nonatomic, copy) NSString *appKey;
 
-@property (nonatomic, copy) NSString *publisherDidStr; // 用于第三方的did传递给穿山甲(目前用于Ohayoo)
-
 @property (nonatomic, assign) BOOL testUnityAd; // 设置unityAdSDK测试模式；无配置默认为NO
 
 @end

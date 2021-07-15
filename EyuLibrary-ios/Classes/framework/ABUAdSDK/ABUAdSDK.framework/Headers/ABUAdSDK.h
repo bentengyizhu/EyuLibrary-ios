@@ -41,3 +41,4 @@ FOUNDATION_EXPORT const unsigned char ABUAdSDKVersionString[];
 #import "ABUAdViewWitnessChecker.h"
 
 #import "ABUAdUnit.h"
+#import "ABUVersion.h"

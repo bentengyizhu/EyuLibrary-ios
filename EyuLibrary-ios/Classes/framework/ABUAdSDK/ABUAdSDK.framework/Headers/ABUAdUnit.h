@@ -47,7 +47,7 @@ typedef NS_ENUM(NSInteger, ABUAdSlotPosition) {
 @property (nonatomic, copy) NSString *ID;
 
 
-/// Get a express Ad if SDK can.Default is NO.Only for native Ad
+/// Get a express Ad if SDK can.Default is NO.Only for native Ad.And v2700+ the property will be prioritized based on the platform configuration.
 @property (nonatomic, assign, readwrite) BOOL getExpressAdIfCan;
 
 /// required. Ad type.

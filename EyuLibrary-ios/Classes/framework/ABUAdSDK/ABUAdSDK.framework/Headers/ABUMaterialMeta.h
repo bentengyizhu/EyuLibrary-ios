@@ -38,47 +38,58 @@ typedef NS_ENUM (NSInteger, ABUFeedADMode) {
 /// interaction types supported by ads.
 @property (nonatomic, assign) ABUInteractionType interactionType;
 
-/// material pictures.
+/// material pictures.If there is a picture width and height, please use the default width and height first
 @property (nonatomic, strong) NSArray<ABUImage *> *imageAry;
 
-/// ad logo icon.
+/// icon of App. Return the ABUImage.image first, if the picture is nil, try to return the ABUImage.imageURL. AndIf there is a picture width and height, please use the default width and height first.empty if there is no value.
 @property (nonatomic, strong) ABUImage *icon;
 
-/// ad headline.
+/// adLogo. Return the ABUImage.image first, if the picture is nil, try to return the ABUImage.imageURL. AndIf there is a picture width and height, please use the default width and height first.empty if there is no value.
+@property (nonatomic, strong) ABUImage *adLogo;
+
+/// ad adk Logo. Return the ABUImage.image first, if the picture is nil, try to return the ABUImage.imageURL. AndIf there is a picture width and height, please use the default width and height first.empty if there is no value.
+@property (nonatomic, strong) ABUImage *sdkLogo;
+
+/// ad headline.empty if there is no value.
 @property (nonatomic, copy) NSString *AdTitle;
 
-/// ad description.
+/// ad description.empty if there is no value.
 @property (nonatomic, copy) NSString *AdDescription;
 
-/// ad source.
+/// ad source.empty if there is no value.
 @property (nonatomic, copy) NSString *source;
 
-/// text displayed on the creative button.
+/// text displayed on the creative button.empty if there is no value.
 @property (nonatomic, copy) NSString *buttonText;
 
-/// display format of the in-feed ad, other ads ignores it.
+/// display format of the in-feed ad, other ads ignores it.empty if there is no value.
 @property (nonatomic, assign) ABUFeedADMode imageMode;
 
-/// Star rating, range from 1 to 5.
+/// Star rating, range from 1 to 5. Return -1 if there is no value.
 @property (nonatomic, assign) NSInteger score;
 
-/// Number of comments.
+/// Number of comments.Return -1 if there is no value.
 @property (nonatomic, assign) NSInteger commentNum;
 
-/// ad installation package size, unit byte.
+/// ad installation package size, unit byte.Return -1 if there is no value.
 @property (nonatomic, assign) NSInteger appSize;
 
-/// video duration
+/// video duration,empty if there is no value.
 @property (nonatomic, assign) NSInteger videoDuration;
 
-/// media configuration parameters.
+/// media configuration parameters.empty if there is no value.
 @property (nonatomic, copy) NSDictionary *mediaExt;
 
-/// String representation of the app's price
+/// String representation of the app's price,empty if there is no value.
 @property (nonatomic, strong) NSString *appPrice;
 
-/// Identifies the advertiser. For example, the advertiser’s name or visible URL.
+/// Identifies the advertiser. For example, the advertiser’s name or visible URL.empty if there is no value.
 @property (nonatomic, copy) NSString *advertiser;
+
+/// Brand name, empty if there is no value.
+/// 品牌名称，若广告返回中无品牌名称则为空
+@property (copy, nonatomic) NSString *brandName;
+
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)error;
 

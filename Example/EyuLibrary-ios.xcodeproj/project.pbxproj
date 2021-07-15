@@ -406,6 +406,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-resources.sh",
+				"${PODS_ROOT}/Ads-CN/PangleSDK/LICENSE",
 				"${PODS_ROOT}/Ads-CN/PangleSDK/BUAdSDK.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/EyuLibrary-ios/EyuLibrary.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FFToast/FFToast.bundle",
@@ -415,6 +416,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LICENSE",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BUAdSDK.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EyuLibrary.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FFToast.bundle",
@@ -630,7 +632,6 @@
 					TRACKING_ENABLED,
 					THINKING_ENABLED,
 					ABUADSDK_ENABLED,
-					MOPUB_ENABLED,
 					BYTE_DANCE_ADS_ENABLED,
 				);
 				HEADER_SEARCH_PATHS = (

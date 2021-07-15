@@ -10,39 +10,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//@interface ABURewardInfo : NSObject
-//
-///**
-// *  The reward name as defined on Self Service. Just for Admob and Mintergral.
-// */
-//@property (nonatomic, copy) NSString *rewardName;
-//
-///**
-// *  Amount of reward type given to the user. Just for Admob and Mintergral..
-// */
-//@property (nonatomic, assign) NSInteger rewardAmount;
-//
-///**
-// *  Id for trade from reward ad verify. Just for Gdt
-// */
-//@property (nonatomic, copy) NSString *tradeId;
-//
-//@end
-
 @interface ABUAdapterRewardAdInfo : NSObject
 
 /**
- *  The reward name as defined on Self Service. Just for Admob and Mintergral.
+ *  The reward name as defined on Self Service. Just for Admob & Mintergral & Sigmob.
  */
 @property (nonatomic, copy) NSString *rewardName;
 
 /**
- *  Amount of reward type given to the user. Just for Admob and Mintergral..
+ *  Amount of reward type given to the user. Just for Admob & Mintergral & Sigmob.
  */
 @property (nonatomic, assign) NSInteger rewardAmount;
 
 /**
- *  Id for trade from reward ad verify. Just for Gdt
+ *  Id for trade from reward ad verify. Just for Gdt & Sigmob.
  */
 @property (nonatomic, copy) NSString *tradeId;
 

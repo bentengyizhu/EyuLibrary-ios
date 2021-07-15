@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL videoCached;      // 视频是否缓存完毕，可能是M定义的cache
 @property (nonatomic, assign) BOOL hasDownloadCallback;   // 广告是否有真实的视频下载回调，仅用于激励/全屏视频广告
 
+@property (nonatomic, strong) UIView *splashZoomoutView;   // 开屏点睛View
+@property (nonatomic, assign) CGSize splashZoomoutSize;   // 开屏点睛View建议大小
+
 @end
 
 NS_ASSUME_NONNULL_END

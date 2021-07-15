@@ -24,8 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) UIViewController *rootViewController;
 @property (nonatomic, assign) CGSize adSize;
 @property (nonatomic, assign) BOOL IsSupportDeepLink;
-@property (nonatomic, assign) NSInteger tolerateTimeout;    // 开屏超时时间
 @property (nonatomic, assign) NSInteger autoRefreshTime;    // banner刷新时间
+@property (nonatomic, copy) NSString *userdataForM2Pangle;    // M传给穿山甲的userdata，请求粒度的设置
 
 // For  nativeAd
 @property (nonatomic, assign) NSInteger nativeAdLoadCount;
@@ -34,9 +34,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 // For splash Ad
 @property (nonatomic, strong, nullable) UIView *customBottomView;   // 开发者自定义的底部view
+@property (nonatomic, assign) NSInteger tolerateTimeout;    // 开屏超时时间
+/// Whether to open the splash video zoomout function if adn AdSDK supported.Now BUAdSDK(zoomoutView), GDTAdSDK(Video V+), and KSAdSDK(MiniWindow) are supported.
+@property (nonatomic, assign) BOOL needZoomOutIfCan;
 
 // For server bidding ad
 @property (atomic, copy) NSString *adm; // 来自服务端Bidding的广告物料，只有server bidding情况下回有值
+
+// 广告预览信息，仅用于穿山甲
+@property (nonatomic, copy, readonly) NSDictionary *adPreviewInfoMap;
 
 @end
 

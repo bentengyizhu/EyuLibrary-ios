@@ -21,7 +21,7 @@
  Get a express Ad if SDK can.Default is NO.
  必须设置且只对支持模板广告的第三方SDK有效,默认为NO.
  */
-@property (nonatomic, assign, readwrite) BOOL getExpressAdIfCan;
+@property (nonatomic, assign, readwrite) BOOL getExpressAdIfCan ABU_DEPRECATED_MSG_ATTRIBUTE("接口即将废弃，在SDK V2900以上全屏视频客户端将无需区分模板非模板");
 
 /**
  2021-02
@@ -54,6 +54,10 @@
 /// Configure whether the request is successful
 @property (nonatomic, assign, readonly) BOOL hasAdConfig;
 
+/// use express 2.0 first if it is supported, only for gdt, required gdt version ≥ 4.11.60.And v2700+ the property will be prioritized based on the platform configuration.
+@property (nonatomic, assign) BOOL useExpress2IfCanForGDT;
+
+
 /**
  Initializes video ad with slot id.
  @param adUnitID : the unique identifier of video ad.
@@ -82,6 +86,15 @@
  @param rootViewController : root view controller for displaying ad.
  @return : whether it is successfully displayed.
  */
-- (BOOL)showAdFromRootViewController:(UIViewController *_Nonnull)rootViewController;
+- (BOOL)showAdFromRootViewController:(UIViewController *_Nonnull)rootViewController ;
+
+/**
+ Display video ad.
+ @param rootViewController : root view controller for displaying ad.
+ @param extroInfos : extroInfos for show.And the keys of the dictionary need to be provided by the SDK, and the developer assigns values to these keys. Otherwise it will not take effect.See ABUShowExtroInfoKey.
+ @return : whether it is successfully displayed.
+ */
+- (BOOL)showAdFromRootViewController:(UIViewController *_Nonnull)rootViewController extroInfos:(NSDictionary *_Nonnull)extroInfos;
+
 
 @end

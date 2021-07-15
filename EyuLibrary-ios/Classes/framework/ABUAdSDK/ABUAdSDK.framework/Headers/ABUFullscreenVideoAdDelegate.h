@@ -42,6 +42,11 @@ typedef NS_ENUM (NSUInteger, ABUFullScreenVideoAdType) {
 - (void)fullscreenVideoAdDidVisible:(ABUFullscreenVideoAd *_Nonnull)fullscreenVideoAd;
 
 /**
+ This method is called when video ad show API is called failed.
+ */
+- (void)fullscreenVideoAdDidShowFailed:(ABUFullscreenVideoAd *_Nonnull)fullscreenVideoAd error:(NSError *_Nonnull)error;
+
+/**
  This method is called when video ad is clicked.
  */
 - (void)fullscreenVideoAdDidClick:(ABUFullscreenVideoAd *_Nonnull)fullscreenVideoAd;

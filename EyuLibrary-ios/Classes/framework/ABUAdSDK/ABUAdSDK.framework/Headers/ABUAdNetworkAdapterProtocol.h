@@ -59,6 +59,8 @@
 /// When set up fails, the SDK may try to set up the adapter again.
 - (void)setUp;
 
++ (BOOL)canLoadAdInBackgroundThread;
+
 /// 告诉adapter如何获取广告数据，SDK会在收到setUp成功的回调时调用此方法
 /// 数据可用调用connector的adapterAdDidLoad:
 /// 不可用调用connector的adapter:didAdFailToLoadwithError:
@@ -71,13 +73,20 @@
 /// -2未知(无可用方法) -1三方adn返回过期，0M判断过期，1未过期，
 - (ABUAdValidStatus)adValidStatus;
 
+/// 广告是否准备好，无对应接口  返回ABUAdValidStatusV2Unknown即可
+- (ABUAdValidStatusV2)adReady;
+/// 广告是否可用，无对应接口  返回ABUAdValidStatusV2Unknown即可
+- (ABUAdValidStatusV2)adValid;
+/// 广告是否过期，无对应接口  返回ABUAdValidStatusV2Unknown即可
+- (ABUAdValidStatusV2)adExpried;
+
 /// 告诉adapter如何展示一个广告，SDK会在展示广告时调用此方法
 /// 展示成功返回YES，展示失败返回NO
 /// /// Tells the adapter to show the  ad with the provided view controller.
 /// Show success returns YES, show failure returns NO.
 /// @param viewController 要显示的控制器
 /// @param custemScene 自定义配置
-- (BOOL)showAdFromRootViewController:(UIViewController *_Nonnull)viewController custemScene:(ABUCustemSceneModel *_Nullable)custemScene;
+- (BOOL)showAdFromRootViewController:(UIViewController *_Nonnull)viewController custemScene:(ABUCustemSceneModel *_Nullable)customScene;
 
 /// 针对开屏广告的展示方法
 /// @param window 展示容器
@@ -85,6 +94,9 @@
 
 /// 关闭时销毁ad
 - (void)destorySplashAd;
+
+/// 设置zoomout开屏view的vc
+- (void)setupZoomoutViewController:(UIViewController *_Nonnull)viewController;
 
 /// 为原生自渲染广告注册容器，用于原生自渲染NativeAd
 /// @param container 容器结构，eg:父视图，click范围

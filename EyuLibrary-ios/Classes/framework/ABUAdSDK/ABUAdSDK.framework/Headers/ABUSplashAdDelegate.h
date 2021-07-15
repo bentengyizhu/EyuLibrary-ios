@@ -30,6 +30,11 @@
 - (void)splashAdWillVisible:(ABUSplashAd *_Nonnull)splashAd;
 
 /**
+ This method is called when splash ad slot will be showing.
+ */
+- (void)splashAdDidShowFailed:(ABUSplashAd *_Nonnull)splashAd error:(NSError *)error;
+
+/**
  This method is called when splash ad is clicked.
  */
 - (void)splashAdDidClick:(ABUSplashAd *_Nonnull)splashAd;

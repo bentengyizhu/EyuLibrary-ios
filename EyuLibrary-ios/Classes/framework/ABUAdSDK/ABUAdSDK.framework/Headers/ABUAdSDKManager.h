@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "ABUAdSDKDefines.h"
+#import "ABUUserInfoForSegment.h"
 
 /// ABUAdSDKManager
 @interface ABUAdSDKManager : NSObject
@@ -40,5 +41,21 @@
 
 /// get isPaidApp
 + (BOOL)isPaidApp;
+
+/**
+ *  user info for segment
+ *  @param  userInfo
+ *  can't be null
+ *  please enter the values according to the format and rule
+ *  ps: value changed,reload config,be care for.
+ *
+ */
++ (void)setUserInfoForSegment:(nonnull ABUUserInfoForSegment *)userInfo;
+
+/// Set theme mode for iOS. Just valid for BuadSDK ad, the default is normal.
++ (void)setThemeStatus:(ABUAdSDKThemeStatus)themeStatus;
+
+/// current theme mode
++ (ABUAdSDKThemeStatus)themeStatus;
 
 @end

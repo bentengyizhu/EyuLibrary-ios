@@ -38,6 +38,10 @@
 /// Configure whether the request is successful
 @property (nonatomic, assign, readonly) BOOL hasAdConfig;
 
+/// use express 2.0 first if it is supported, only for gdt, required gdt version ≥ 4.11.60.And v2700+ the property will be prioritized based on the platform configuration.
+@property (nonatomic, assign) BOOL useExpress2IfCanForGDT;
+
+
 /// The method is called if the hasAdConfig is NO.
 /// @param callback  loadData called in the callback
 - (void)setConfigSuccessCallback:(void (^_Nullable)(void))callback;

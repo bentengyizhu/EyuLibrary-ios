@@ -11,6 +11,7 @@
 #import "ABUBaseAggregationAd.h"
 #import "ABUSplashAdDelegate.h"
 #import "ABUSplashUserData.h"
+#import "ABUSplashZoomOutView.h"
 
 /// ABUSplashAd
 @interface ABUSplashAd : ABUBaseAggregationAd
@@ -19,9 +20,6 @@
 
 /// Maximum allowable load timeout, default 3s, unit s.
 @property (nonatomic, assign) NSTimeInterval tolerateTimeout;
-
-///  Get a express Ad if SDK can.Default is NO.
-@property (nonatomic, assign, readwrite) BOOL getExpressAdIfCan;
 
 /// Is a express Ad Generally if there is a return value available in the receive method "AdDidVisible".Only for BuAdSDK.
 @property (nonatomic, assign, readonly) BOOL hasExpressAdGot;
@@ -38,8 +36,14 @@
 /// custom bottom view for Splash Ad View.Developers can set logo and other elements here.If not set, the ad size will fill the screen. The max height can not exceed 25% of the screen height.If the height is over range,it will be set according to the maximum value available.Adn it is invalid for ksSDK.
 @property (nonatomic, strong, nullable) UIView *customBottomView;
 
+/// Whether to open the splash video zoomout function if adn AdSDK supported.Now BUAdSDK(zoomoutView), GDTAdSDK(Video V+), and KSAdSDK(MiniWindow) are supported.
+@property (nonatomic, assign) BOOL needZoomOutIfCan;
 
-/// Initializes splash ad with slot id and frame.
+///  When the ad hits the zoom out advertisement, it has value. Now BUAdSDK(zoomoutView), GDTAdSDK(Video V+), and KSAdSDK(MiniWindow) are supported.
+@property (nonatomic, strong, readonly) ABUSplashZoomOutView * _Nullable zoomOutView;
+
+
+/// Initializes splash ad with slot id.
 /// @param adUnitID the unique identifier of splash ad
 - (instancetype _Nonnull)initWithAdUnitID:(NSString *_Nonnull)adUnitID;
 

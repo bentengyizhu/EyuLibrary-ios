@@ -107,4 +107,27 @@ Sent when a playerw playback status changed.
 # pragma mark - For splash ad
 - (void)adapterAdSplashLifeTime:(id<ABUAdNetworkAdapterProtocol>_Nonnull)adAdapter lifeTime:(NSInteger)time;
 
+# pragma mark - For zoomout splash ad
+
+/**
+ This method is called when splash ad is clicked.
+ */
+- (void)adapterAdSplashZoomOutDidClick:(UIView *_Nonnull)splashZoomOutView;
+
+/**
+ This method is called when splash ad is closed.
+ */
+- (void)adapterAdSplashZoomOutDidClose:(UIView *_Nonnull)splashZoomOutView;
+
+/**
+ This method is called when another controller has been opened.
+ */
+- (void)adapterAdSplashZoomOutDidPresentFullScreenModal:(UIView *_Nonnull)splashZoomOutView;
+
+/**
+ This method is called when another controller has been closed.
+ */
+- (void)adapterAdSplashZoomOutDidDismissFullScreenModal:(UIView *_Nonnull)splashZoomOutView;
+
+
 @end

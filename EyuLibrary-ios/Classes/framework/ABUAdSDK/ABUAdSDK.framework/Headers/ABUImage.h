@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 
 @interface ABUImage : NSObject <NSCoding>
+// image.If is nil,Please use imageURL as the standard to display image.
+@property (nonatomic, copy) UIImage *image;
 
 // image address URL
 @property (nonatomic, copy) NSURL *imageURL;

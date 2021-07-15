@@ -80,7 +80,7 @@
 /*************************************************自渲染接口 Start********************************************************************/
 
 /**
- Ad slot material.It use to render ads by developer themselves when isExpressAd is NO.
+ Ad material.It use to render ads by developer themselves when isExpressAd is NO.
  广告物料，当isExpressAd=NO时用于开发者自行渲染广告
  */
 @property (nonatomic, strong, readonly, nullable) ABUMaterialMeta *data;
@@ -120,7 +120,7 @@
 @property (nonatomic, strong) UIButton *_Nullable callToActionBtn;
 
 /// Ad logo. Need to judge whether the value is empty.If If customized, it needs to be added to self(ABUNativeAdView).
-@property (nonatomic, strong, nullable) UIView *adLogoView;
+@property (nonatomic, strong, nullable) UIView *adLogoView ABU_DEPRECATED_MSG_ATTRIBUTE("接口即将废弃，请使用 ABUMaterialMeta里的adLogo自行渲染");
 
 /// dislikeBtn.Need to judge whether the value is empty.If If customized, it needs to be added to self(ABUNativeAdView)
 @property (nonatomic, strong, nullable) UIView *advertiserView;
@@ -145,7 +145,7 @@
 @property (nonatomic, assign, readonly) BOOL hasExpressAdGot;
 
 /**
- required if isExpressAd=YES
+ required if hasExpressAdGot=YES
  */
 - (void)render;
 

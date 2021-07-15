@@ -1,5 +1,5 @@
 //
-//  ABUAdPersonaliseCfgAdapter.h
+//  ABUPanglePersonaliseConfigAdapter.h
 //  ABUDemo
 //
 //  Created by wangchao on 2020/4/16.

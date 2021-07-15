@@ -44,6 +44,11 @@ typedef NS_ENUM (NSUInteger, ABUVideoAdType) {
 - (void)rewardedVideoAdDidVisible:(ABURewardedVideoAd *_Nonnull)rewardedVideoAd;
 
 /**
+ This method is called when video ad show API is called failed.
+ */
+- (void)rewardedVideoAdDidShowFailed:(ABURewardedVideoAd *_Nonnull)rewardedVideoAd error:(NSError *_Nonnull)error;
+
+/**
  This method is called when video ad is clicked.
  */
 - (void)rewardedVideoAdDidClick:(ABURewardedVideoAd *_Nonnull)rewardedVideoAd;

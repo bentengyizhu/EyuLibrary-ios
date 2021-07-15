@@ -40,15 +40,15 @@
 /// size expected ad view size，when size.height is zero, acture height will match size.width rsetep when getExpressAdIfCan is YES
 @property (nonatomic, assign, readwrite) CGSize adSize;
 
-/// use express 2.0 first if it is supported, only for gdt, required gdt version ≥ 4.11.9
-@property (nonatomic, assign) BOOL useExpress2IfCanFroGDT;
+/// use express 2.0 first if it is supported, only for gdt, required gdt version ≥ 4.11.9.And v2700+ the property will be prioritized based on the platform configuration. Valid Only getExpressAdIfCan = YES.
+@property (nonatomic, assign) BOOL useExpress2IfCanForGDT ABU_DEPRECATED_MSG_ATTRIBUTE("接口即将废弃，在SDK V2900以上结合GDT V4.12.80以上 Gdt的原生模板广告在客户端无需区分2.0和1.0");
 
 /// Initialization method
 /// @param adSlot Data for loading ads
 - (instancetype _Nonnull)initWithSlot:(ABUAdUnit *_Nullable)adSlot;
 
 /// Load ads
-/// @param count Number of ads loaded
+/// @param count Number of ads load.The maximum value is 3 if adSlot.getExpressAdIfCan is YES, Otherwise the maximum value is 5.But the number of ads filled by different adn may be different.
 - (void)loadAdDataWithCount:(NSInteger)count;
 
 /**
@@ -59,5 +59,6 @@
 //required.
 //清除广告资源，在广告使用完毕（当前页面销毁）手动调用
 - (void)destroyAd;
+
 
 @end

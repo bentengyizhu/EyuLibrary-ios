@@ -29,8 +29,14 @@
 /// material pictures.
 @property (nonatomic, strong, readonly) NSArray<ABUImage *> *_Nullable imageAry;
 
-/// ad logo icon.
+/// ad logo icon For app.
 @property (nonatomic, strong, readonly) ABUImage *_Nullable icon;
+
+/// ad logo icon.
+@property (nonatomic, strong, readonly) ABUImage *_Nullable adLogo;
+
+/// sdk logo icon For app.
+@property (nonatomic, strong, readonly) ABUImage *_Nullable sdkLogo;
 
 /// ad headline.
 @property (nonatomic, copy, readonly) NSString *_Nullable AdTitle;
@@ -68,6 +74,9 @@
 /// Identifies the advertiser. For example, the advertiser’s name or visible URL.
 @property (nonatomic, copy, readonly) NSString *_Nullable advertiser;
 
+/// brandName
+@property (nonatomic, copy, readonly) NSString *_Nullable brandName;
+
 /// mediaView video
 @property (nonatomic, strong, readonly) UIView *_Nullable mediaView;
 
@@ -86,6 +95,7 @@
 @property (nonatomic, strong, readonly) UILabel *_Nullable imageView;
 
 @property (nonatomic, strong, readonly) UIView *_Nullable adLogoView;
+@property (nonatomic, strong, readonly) UIView *_Nullable sdkLogoView;
 
 @property (nonatomic, strong, readonly) UIView *_Nullable starRatingView;
 

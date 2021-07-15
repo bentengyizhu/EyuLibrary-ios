@@ -38,6 +38,11 @@
 - (void)interstitialAdDidVisible:(ABUInterstitialAd *_Nonnull)interstitialAd;
 
 /**
+ This method is called when video interstitialAd show API is called failed.
+ */
+- (void)interstitialAdDidShowFailed:(ABUInterstitialAd *_Nonnull)interstitialAd error:(NSError *_Nonnull)error;
+
+/**
  This method is called when interstitial ad is clicked.
  */
 - (void)interstitialAdDidClick:(ABUInterstitialAd *_Nonnull)interstitialAd;
