@@ -69,6 +69,10 @@
 		07571B29259ADD2600C99F68 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		07571B2D259ADD3B00C99F68 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		07571B31259ADD9600C99F68 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		076C1CE5269FE985003C66A9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		076C1CE9269FE9AD003C66A9 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		076C1CED269FE9D0003C66A9 /* SensorKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SensorKit.framework; path = System/Library/Frameworks/SensorKit.framework; sourceTree = SDKROOT; };
+		076C1CEF269FE9EB003C66A9 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		076CEC6926365B7C00F0668B /* ios_ad_cache_setting2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ios_ad_cache_setting2.json; sourceTree = "<group>"; };
 		076CEC6A26365B7C00F0668B /* ios_ad_key_setting2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ios_ad_key_setting2.json; sourceTree = "<group>"; };
 		076CEC6B26365B7C00F0668B /* ios_ad_setting2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ios_ad_setting2.json; sourceTree = "<group>"; };
@@ -208,6 +212,10 @@
 		6003F58C195388D20070C39A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				076C1CEF269FE9EB003C66A9 /* SceneKit.framework */,
+				076C1CED269FE9D0003C66A9 /* SensorKit.framework */,
+				076C1CE9269FE9AD003C66A9 /* SpriteKit.framework */,
+				076C1CE5269FE985003C66A9 /* StoreKit.framework */,
 				07571B31259ADD9600C99F68 /* CoreTelephony.framework */,
 				07571B2D259ADD3B00C99F68 /* CoreMotion.framework */,
 				07571B29259ADD2600C99F68 /* WebKit.framework */,

@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '2.3.1'
+    s.version          = '2.3.2'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -236,7 +236,7 @@ Pod::Spec.new do |s|
         abu.dependency 'Ads-CN', '3.7.0.7'
         abu.dependency 'GDTMobSDK','4.12.81'
         abu.dependency 'UnityAds','3.7.2'
-        abu.dependency 'SigmobAd-iOS', '3.1.0'
+        abu.dependency 'SigmobAd-iOS', '3.1.2'
         abu.dependency 'MintegralAdSDK/InterstitialVideoAd','6.9.4.0'
         abu.dependency 'MintegralAdSDK/RewardVideoAd','6.9.4.0'
         abu.dependency 'MintegralAdSDK','6.9.4.0'
