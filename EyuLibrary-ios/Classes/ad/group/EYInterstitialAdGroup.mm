@@ -149,6 +149,7 @@
     }
     if(loadedAdapter != nil)
     {
+        loadedAdapter.adKey.placementid = self.adPlaceId;
         [loadedAdapter showAdWithController:controller];
         return true;
     }else{

@@ -111,6 +111,7 @@
     }
     if(loadAdapter != NULL)
     {
+        loadAdapter.adKey.placementid = self.adPlaceId;
         [self.adapterArray removeObject:loadAdapter];
         EYAdKey* adKey = loadAdapter.adKey;
         EYAdAdapter* newAdapter = [self createAdAdapterWithKey:adKey adGroup:self.adGroup];

@@ -106,6 +106,7 @@
     }
     EYBannerAdAdapter* loadAdapter = [self getAvailableAdapter];
     if (loadAdapter) {
+        loadAdapter.adKey.placementid = self.adPlaceId;
         [loadAdapter showAdGroup:viewGroup];
         return true;
     }
