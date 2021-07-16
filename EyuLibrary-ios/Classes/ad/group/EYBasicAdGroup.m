@@ -120,14 +120,14 @@
     self.currentAdpaterIndex = (self.currentAdpaterIndex+1)%self.adapterArray.count;
     EYAdAdapter* adapter = self.adapterArray[self.currentAdpaterIndex];
     if (adapter.adKey.placementid == nil) {
-        adapter.adKey.placementid = self.adGroup.placeId;
+        adapter.adKey.placementid = self.adPlaceId;
     }
     [adapter loadAd];
     if (self.adGroup.isAutoLoad && self.adapterArray.count > 1) {
         self.currentAdpaterIndex = (self.currentAdpaterIndex+1)%self.adapterArray.count;
         EYAdAdapter* adp = self.adapterArray[self.currentAdpaterIndex];
         if (adp.adKey.placementid == nil) {
-            adp.adKey.placementid = self.adGroup.placeId;
+            adp.adKey.placementid = self.adPlaceId;
         }
         adp.tryLoadAdCount = 0;
         [adp loadAd];
@@ -233,7 +233,7 @@
     {
         if(adKey){
             if (adKey.placementid == nil) {
-                adKey.placementid = self.adGroup.placeId;
+                adKey.placementid = self.adPlaceId;
             }
             EYAdAdapter *adapter = [self createAdAdapterWithKey:adKey adGroup:self.adGroup];
             if(adapter){
