@@ -21,7 +21,7 @@
 @implementation EYGdtInterstitialAdAdapter
 
 @synthesize interstitialAd = _interstitialAd;
-
+ 
 -(void) loadAd
 {
     NSLog(@"gdt interstitialAd loadAd ");
