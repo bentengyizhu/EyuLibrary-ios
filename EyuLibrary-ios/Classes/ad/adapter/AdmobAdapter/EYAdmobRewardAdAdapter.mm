@@ -20,7 +20,7 @@
 {
     NSLog(@"AdmobRewardAdAdapter loadAd #############. adId = #%@#", self.adKey.key);
     if([self isShowing ]){
-        [EYuAd *ad = [self getEyuAd];
+         EYuAd *ad = [self getEyuAd];
          ad.error = [[NSError alloc]initWithDomain:@"isshowingdomain" code:ERROR_AD_IS_SHOWING userInfo:nil];
          [self notifyOnAdLoadFailedWithError:ad];
     }else if([self isAdLoaded])

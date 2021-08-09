@@ -261,7 +261,7 @@
 //    if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setObject:adapter.adKey.keyId forKey:@"type"];
-        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_SHOW]  parameters:dic];
+        [EYEventUtils logEvent:[self.adPlaceId stringByAppendingString:EVENT_SHOW]  parameters:dic];
 //    }
 }
 
@@ -281,7 +281,7 @@
     if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setObject:adapter.adKey.keyId forKey:@"type"];
-        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_CLICKED]  parameters:dic];
+        [EYEventUtils logEvent:[self.adPlaceId stringByAppendingString:EVENT_CLICKED]  parameters:dic];
     }
 }
 -(void) onAdClosed:(EYInterstitialAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
