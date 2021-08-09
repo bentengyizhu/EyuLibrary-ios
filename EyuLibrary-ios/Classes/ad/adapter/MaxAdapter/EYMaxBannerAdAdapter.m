@@ -102,8 +102,8 @@
     self.isLoading = false;
     if (self.isShowing == false) {
         [self notifyOnAdLoaded: [self getEyuAd]];
+        [self.adView stopAutoRefresh];
     }
-    [self.adView stopAutoRefresh];
     NSLog(@"max banner ad didLoad");
 }
 
