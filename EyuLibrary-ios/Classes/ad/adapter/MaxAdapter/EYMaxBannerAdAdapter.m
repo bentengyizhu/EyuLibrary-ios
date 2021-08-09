@@ -21,6 +21,7 @@
     } else if (!self.isLoading) {
         self.isLoading = true;
         self.isLoadSuccess = false;
+        self.isShowing = false;
         self.adView = [[MAAdView alloc] initWithAdUnitIdentifier: self.adKey.key];
         self.adView.delegate = self;
         self.adView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50);
@@ -72,6 +73,9 @@
 }
 
 - (UIView *)getBannerView {
+    [self.adView startAutoRefresh];
+    [self notifyOnAdShowed: [self getEyuAd]];
+    [self notifyOnAdImpression: [self getEyuAd]];
     return self.adView;
 //    UIView *viewGroup = [UIView new];
 //    viewGroup.bannerAdapter = self;
@@ -96,9 +100,11 @@
 - (void)didLoadAd:(MAAd *)ad {
     self.isLoadSuccess = true;
     self.isLoading = false;
+    if (self.isShowing == false) {
+        [self notifyOnAdLoaded: [self getEyuAd]];
+    }
     [self.adView stopAutoRefresh];
     NSLog(@"max banner ad didLoad");
-    [self notifyOnAdLoaded: [self getEyuAd]];
 }
 
 //- (void)didFailToLoadAdForAdUnitIdentifier:(NSString *)adUnitIdentifier withErrorCode:(NSInteger)errorCode {

@@ -18,6 +18,7 @@
         self.adKey = adKey;
         self.adGroup = group;
         self.isLoading = false;
+        self.isShowing = false;
     }
     return self;
 }
@@ -53,6 +54,7 @@
 
 -(void) notifyOnAdShowed:(EYuAd *)eyuAd
 {
+    self.isShowing = true;
     if(self.delegate!=NULL)
     {
         [self.delegate onAdShowed:self eyuAd:eyuAd];
