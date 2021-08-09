@@ -25,7 +25,6 @@
         self.adView.delegate = self;
         self.adView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50);
         [self.adView loadAd];
-        [self.adView stopAutoRefresh];
         [self startTimeoutTask];
     } else {
         self.isLoadSuccess = false;
@@ -56,6 +55,9 @@
     [viewGroup addConstraint:centerY];
     [viewGroup addConstraint:width];
     [viewGroup addConstraint:height];
+    [self.adView startAutoRefresh];
+    [self notifyOnAdShowed: [self getEyuAd]];
+    [self notifyOnAdImpression: [self getEyuAd]];
     return true;
 }
 
@@ -94,6 +96,7 @@
 - (void)didLoadAd:(MAAd *)ad {
     self.isLoadSuccess = true;
     self.isLoading = false;
+    [self.adView stopAutoRefresh];
     NSLog(@"max banner ad didLoad");
     [self notifyOnAdLoaded: [self getEyuAd]];
 }
@@ -134,9 +137,7 @@
 //}
 
 - (void)didDisplayAd:(nonnull MAAd *)ad {
-    [self.adView startAutoRefresh];
-    [self notifyOnAdShowed: [self getEyuAd]];
-    [self notifyOnAdImpression: [self getEyuAd]];
+
 }
 
 - (void)didHideAd:(nonnull MAAd *)ad {
