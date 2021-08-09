@@ -216,11 +216,12 @@
 - (void)nativeAdDidRecordImpression:(GADNativeAd *)nativeAd {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     [self notifyOnAdImpression: [self getEyuAd]];
+    [self notifyOnAdShowed: [self getEyuAd]];
 }
 
 - (void)nativeAdWillPresentScreen:(GADNativeAd *)nativeAd {
     NSLog(@"%s", __PRETTY_FUNCTION__);
-    [self notifyOnAdShowed: [self getEyuAd]];
+//    [self notifyOnAdShowed: [self getEyuAd]];
 }
 
 - (void)nativeAdWillDismissScreen:(GADNativeAd *)nativeAd {

@@ -25,6 +25,7 @@
         self.adView.delegate = self;
         self.adView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50);
         [self.adView loadAd];
+        [self.adView stopAutoRefresh];
         [self startTimeoutTask];
     } else {
         self.isLoadSuccess = false;
@@ -132,9 +133,15 @@
 //    NSLog(@"max banner ad failed to display with error: %ld", (long)errorCode);
 //}
 
-- (void)didDisplayAd:(nonnull MAAd *)ad {}
+- (void)didDisplayAd:(nonnull MAAd *)ad {
+    [self.adView startAutoRefresh];
+    [self notifyOnAdShowed: [self getEyuAd]];
+    [self notifyOnAdImpression: [self getEyuAd]];
+}
 
-- (void)didHideAd:(nonnull MAAd *)ad {}
+- (void)didHideAd:(nonnull MAAd *)ad {
+    
+}
 
 - (void)didCollapseAd:(nonnull MAAd *)ad {}
 
