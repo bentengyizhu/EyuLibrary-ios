@@ -301,7 +301,7 @@
 //    if(self.reportEvent){
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setObject:adapter.adKey.keyId forKey:@"type"];
-        [EYEventUtils logEvent:[self.adPlaceId stringByAppendingString:EVENT_LOAD_SUCCESS]  parameters:dic];
+        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_SUCCESS]  parameters:dic];
 //    }
 }
 
@@ -314,7 +314,7 @@
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
         [dic setObject:[[NSString alloc] initWithFormat:@"%ld",eyuAd.error.code] forKey:@"code"];
         [dic setObject:adKey.keyId forKey:@"type"];
-        [EYEventUtils logEvent:[self.adPlaceId stringByAppendingString:EVENT_LOAD_FAILED]  parameters:dic];
+        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_FAILED]  parameters:dic];
     }
     adapter.tryLoadAdCount ++;
     if (self.isNewJsonSetting) {
@@ -345,7 +345,7 @@
         if(self.reportEvent){
             NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
             [dic setObject:adapter.adKey.keyId forKey:@"type"];
-            [EYEventUtils logEvent:[self.adPlaceId stringByAppendingString:EVENT_LOADING]  parameters:dic];
+            [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOADING]  parameters:dic];
         }
         int second = 0;
         if ([self.adType isEqualToString:ADTypeBanner]) {
