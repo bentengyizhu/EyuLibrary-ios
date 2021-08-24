@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '2.3.16'
+    s.version          = '2.3.17'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -139,9 +139,9 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'fb_login_sdk' do |fb|
-        fb.dependency 'FBSDKCoreKit','9.1.0'
-        fb.dependency 'FBSDKShareKit','9.1.0'
-        fb.dependency 'FBSDKLoginKit','9.1.0'
+        fb.dependency 'FBSDKCoreKit','11.1.0'
+        fb.dependency 'FBSDKShareKit','11.1.0'
+        fb.dependency 'FBSDKLoginKit','11.1.0'
         fb.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) FACEBOOK_LOGIN_ENABLED FACEBOOK_ENABLED'}
     end
     
