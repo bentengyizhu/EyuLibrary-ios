@@ -387,7 +387,7 @@ static id s_sharedInstance;
      **/
 #ifdef APPLOVIN_MAX_ENABLED
     [FBAdSettings setAdvertiserTrackingEnabled:YES];
-    [FBSDKSettings setAdvertiserIDCollectionEnabled:YES];
+//    [FBSDKSettings setAdvertiserIDCollectionEnabled:YES];
 //    let settings = ALSdkSettings()
 //    settings.consentFlowSettings.isEnabled = true
 //    settings.consentFlowSettings.privacyPolicyURL = URL(string: "https://your_company_name.com/privacy_policy")
@@ -452,8 +452,8 @@ static id s_sharedInstance;
 #endif
     
 #ifdef TRADPLUS_ENABLED
-    [FBAdSettings setAdvertiserTrackingEnabled:YES];\
-    [FBSDKSettings setAdvertiserIDCollectionEnabled:YES];
+    [FBAdSettings setAdvertiserTrackingEnabled:YES];
+//    [FBSDKSettings setAdvertiserIDCollectionEnabled:YES];
     [MsSDKUtils msSDKInit:^(NSError * _Nonnull error) {
         NSLog(@"TPSDKInit %@", error);
     }];
@@ -533,11 +533,11 @@ static id s_sharedInstance;
     }
 #ifdef FB_ADS_ENABLED
     [FBAdSettings setAdvertiserTrackingEnabled:YES];
-    [FBSDKSettings setAdvertiserIDCollectionEnabled:YES];
+//    [FBSDKSettings setAdvertiserIDCollectionEnabled:YES];
 #endif
 #ifdef ADMOB_MEDIATION_ENABLED
     [FBAdSettings setAdvertiserTrackingEnabled:YES];
-    [FBSDKSettings setAdvertiserIDCollectionEnabled:YES];
+//    [FBSDKSettings setAdvertiserIDCollectionEnabled:YES];
 #endif
     [self initSdk:config];
     

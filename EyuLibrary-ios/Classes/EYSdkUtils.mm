@@ -117,6 +117,7 @@ static bool sIsTrackingInited = false;
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
     [FBSDKSettings setAutoLogAppEventsEnabled:YES];
+    [FBSDKSettings setAdvertiserTrackingEnabled:YES];
 //    [FBSDKSettings setAutoInitEnabled: YES ];
     [FBSDKSettings setAdvertiserIDCollectionEnabled:YES];
     [self fetchDeferredAppLink:launchOptions];
