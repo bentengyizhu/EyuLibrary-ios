@@ -113,6 +113,7 @@
         [loadedAdapter showAdWithController:controller];
         return true;
     }else{
+        [self loadAd:self.adPlaceId];
         return false;
     }
 }

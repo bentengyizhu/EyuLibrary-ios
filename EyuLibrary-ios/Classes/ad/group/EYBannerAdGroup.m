@@ -110,6 +110,7 @@
         [loadAdapter showAdGroup:viewGroup];
         return true;
     }
+    [self loadAd:self.adPlaceId];
     return false;
 }
 
