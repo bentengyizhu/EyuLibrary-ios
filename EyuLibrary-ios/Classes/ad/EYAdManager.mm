@@ -1218,16 +1218,22 @@ static id s_sharedInstance;
 -(void) onNativeAdLoaded:(NSString*) adPlaceId
 {
     NSLog(@"AdPlayer onNativeAdLoaded , adPlaceId = %@", adPlaceId);
-//    [self getNativeAdViewFromCache:adPlaceId withCustomkey:<#(NSString *)#>]
-//    EYNativeAdView* view = [self getNativeAdViewFromCache:adPlaceId withViewController:self.nativeAdController];
-//    if(view && view.isCanShow && view.isNeedUpdate)
-//    {
-//        EYNativeAdAdapter* adapter = [self getNativeAdAdapter:adPlaceId];
-//        if(adapter)
-//        {
-//            [view updateNativeAdAdapter:adapter controller:self.nativeAdController];
-//        }
-//    }
+    NSDictionary *dic = self.nativeAdViewDict[adPlaceId];
+    EYNativeAdView* view;
+    for (EYNativeAdView *v in dic.allValues) {
+        if (v.getAdapter == nil) {
+            view = v;
+            break;
+        }
+    }
+    if(view && view.isCanShow && view.isNeedUpdate)
+    {
+        EYNativeAdAdapter* adapter = [self getNativeAdAdapter:adPlaceId];
+        if(adapter)
+        {
+            [view updateNativeAdAdapter:adapter controller:nil];
+        }
+    }
 }
 
 - (void)onAdLoaded:(EYuAd *)eyuAd {
