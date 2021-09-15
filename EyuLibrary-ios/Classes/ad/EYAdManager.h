@@ -51,17 +51,18 @@
 
 -(NSString *) getAdType:(NSString*) placeId;
 -(UIView *) getBannerView:(NSString*) placeId;
-- (UIView *)getNativeView:(NSString *)placeId controller: (UIViewController *)controller;
+- (UIView *)getNativeView:(NSString *)placeId customKey: (NSString *)customKey controller: (UIViewController *)controller page:(NSString *)page;
 
 -(bool) showAd:(NSString*) placeId withViewController:(UIViewController*)controller;
 -(void) showSplashAd:(NSString*) placeId withViewController:(UIViewController*)controller;
 -(void) showRewardVideoAd:(NSString*) placeId withViewController:(UIViewController*)controller;
 -(void) showInterstitialAd:(NSString*) placeId withViewController:(UIViewController*)controller;
 -(EYNativeAdAdapter*) getNativeAdAdapter:(NSString*) adPlaceId;
--(void) showNativeAd:(NSString*) placeId withViewController:(UIViewController*)controller viewGroup:(UIView*)viewGroup;
+-(void) showNativeAd:(NSString*) placeId withCustomKey:(NSString*)customKey viewGroup:(UIView*)viewGroup controller: (UIViewController *)controller;
 -(bool) showBannerAd:(NSString*) placeId  viewGroup:(UIView*)viewGroup;
--(void) hideNativeAd:(NSString*) placeId forController:(UIViewController*)controller;
--(void) removeNativeAdViewCache:(UIViewController*)controller;
+-(void) hideNativeAd:(NSString*) placeId forCustomKey:(NSString*)customKey;
+-(void) removeNativeAdViewCache:(NSString*)placeId withCustomKey:(NSString*)customKey;
+-(void) removeNativeAdViewCache:(NSString *)page;
 
 -(bool) isNativeAdLoaded:(NSString*) placeId;
 -(bool) isBannerAdLoaded:(NSString*) placeId;

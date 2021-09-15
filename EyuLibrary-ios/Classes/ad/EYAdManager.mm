@@ -109,8 +109,9 @@
 @property(nonatomic,strong) NSMutableDictionary<NSString*,EYSplashAdGroup*>* splashAdGroupDict;
 @property(nonatomic,strong) NSMutableDictionary<NSString*,EYBasicAdGroup*>* basicAdGroupDict;
 @property(nonatomic,strong) NSMutableDictionary<NSString*,NSString*>*  nativeAdViewNibDict;
-@property(nonatomic,strong) NSMutableDictionary<NSNumber*,NSMutableDictionary<NSString*,EYNativeAdView*>*>*  nativeAdViewDict;
-@property(nonatomic,weak) UIViewController* nativeAdController;
+@property(nonatomic,strong) NSMutableDictionary<NSString*,NSMutableDictionary<NSString*,EYNativeAdView*>*>*  nativeAdViewDict;
+@property(nonatomic,strong) NSMutableDictionary<NSString*,NSMutableArray*>* nativePageDict;
+//@property(nonatomic,weak) UIViewController* nativeAdController;
 
 @property(nonatomic, strong) Class nativeClass;
 
@@ -146,8 +147,9 @@ static id s_sharedInstance;
 @synthesize splashAdGroupDict = _splashAdGroupDict;
 @synthesize basicAdGroupDict = _basicAdGroupDict;
 @synthesize nativeAdViewDict = _nativeAdViewDict;
+@synthesize nativePageDict = _nativePageDict;
 @synthesize nativeAdViewNibDict = _nativeAdViewNibDict;
-@synthesize nativeAdController = _nativeAdController;
+//@synthesize nativeAdController = _nativeAdController;
 #ifdef UNITY_ADS_ENABLED
 @synthesize unityAdsDelegateDict = _unityAdsDelegateDict;
 #endif
@@ -550,10 +552,11 @@ static id s_sharedInstance;
     self.nativeAdGroupDict = [[NSMutableDictionary alloc] init];
     self.rewardAdGroupDict = [[NSMutableDictionary alloc] init];
     self.nativeAdViewDict = [[NSMutableDictionary alloc] init];
+    self.nativePageDict = [[NSMutableDictionary alloc] init];
     self.nativeAdViewNibDict = [[NSMutableDictionary alloc] init];
     self.bannerAdGroupDict = [[NSMutableDictionary alloc] init];
     self.splashAdGroupDict = [[NSMutableDictionary alloc] init];
-    self.nativeAdController = nil;
+//    self.nativeAdController = nil;
     self.nativeClass = [EYNativeAdView class];
 #ifdef UNITY_ADS_ENABLED
     self.unityAdsDelegateDict = [[NSMutableDictionary alloc] init];
@@ -1022,42 +1025,65 @@ static id s_sharedInstance;
     self.nativeClass = nativeClass;
 }
 
--(EYNativeAdView*) getNativeAdViewFromCache:(NSString* )placeId withViewController:(UIViewController*)controller
+-(EYNativeAdView*) getNativeAdViewFromCache:(NSString* )placeId withCustomkey:(NSString*)customkey
 {
+    if (customkey == nil) {
+        customkey = @"default";
+    }
     EYNativeAdView* view = nil;
-    auto viewDict = self.nativeAdViewDict[@((long)controller)];
-    if(viewDict && viewDict[placeId]){
-        view = viewDict[placeId];
+    auto viewDict = self.nativeAdViewDict[placeId];
+    if(viewDict && viewDict[customkey]){
+        view = viewDict[customkey];
     }
     return view;
 }
 
--(void) putNativeAdViewToCache:(EYNativeAdView*) adView placeId:(NSString* )placeId withViewController:(UIViewController*)controller
+-(void) putNativeAdViewToCache:(EYNativeAdView*) adView placeId:(NSString* )placeId withCustomkey:(NSString*)customkey
 {
-    auto viewDict = self.nativeAdViewDict[@((long)controller)];
+    if (customkey == nil) {
+        customkey = @"default";
+    }
+    auto viewDict = self.nativeAdViewDict[placeId];
     if(viewDict==nil){
         viewDict = [[NSMutableDictionary alloc] init];
-        [self.nativeAdViewDict setObject:viewDict forKey:@((long)controller)];
+        [self.nativeAdViewDict setObject:viewDict forKey:placeId];
     }
-    viewDict[placeId] = adView;
+    viewDict[customkey] = adView;
 }
 
--(void) removeNativeAdViewCache:(UIViewController*) controller
+-(void) removeNativeAdViewCache:(NSString *)page {
+    NSMutableArray *array = self.nativePageDict[page];
+    for (NSDictionary *dic in array) {
+        [self removeNativeAdViewCache:dic[@"placeId"] withCustomKey:dic[@"key"]];
+        [array removeObject:dic];
+    }
+    [self.nativePageDict removeObjectForKey:page];
+}
+
+-(void) removeNativeAdViewCache:(NSString *)placeId withCustomKey:(NSString *)customKey
 {
-    auto viewDict = self.nativeAdViewDict[@((long)controller)];
-    if(viewDict){
+    auto viewDict = self.nativeAdViewDict[placeId];
+    if (customKey == nil) {
         for(EYNativeAdView* view:[viewDict allValues])
         {
             [view removeFromSuperview];
             [view unregisterView];
         }
-        [self.nativeAdViewDict removeObjectForKey:@((long)controller)];
+        [self.nativeAdViewDict removeObjectForKey:placeId];
+    } else {
+        EYNativeAdView* view = viewDict[customKey];
+        [view removeFromSuperview];
+        [view unregisterView];
+        [viewDict removeObjectForKey:customKey];
+        if (viewDict.count == 0) {
+            [self.nativeAdViewDict removeObjectForKey:placeId];
+        }
     }
 }
 
--(EYNativeAdView*) getNativeAdView:(NSString* )placeId withViewController:(UIViewController*)controller viewGroup:(UIView*)viewGroup
+-(EYNativeAdView*) getNativeAdView:(NSString* )placeId withCustomkey:(NSString*)customkey viewGroup:(UIView*)viewGroup
 {
-    EYNativeAdView* view = [self getNativeAdViewFromCache:placeId withViewController:controller];
+    EYNativeAdView* view = [self getNativeAdViewFromCache:placeId withCustomkey:customkey];
     if(view == nil){
         auto nativeAdViewNib = self.nativeAdViewNibDict[placeId];
         /*NSArray* nibView = [[NSBundle mainBundle] loadNibNamed:nativeAdViewNib owner:controller options:nil];
@@ -1073,13 +1099,13 @@ static id s_sharedInstance;
         rect.origin.x = 0;
         rect.origin.y = 0;
         view = [[_nativeClass alloc] initWithFrame:rect nibName:nativeAdViewNib];
-        [self putNativeAdViewToCache:view placeId:placeId withViewController:controller];
+        [self putNativeAdViewToCache:view placeId:placeId withCustomkey:customkey];
     }
     return view;
 }
 
-- (UIView *)getNativeView:(NSString *)placeId controller: (UIViewController *)controller {
-    EYNativeAdView* view = [self getNativeAdView:placeId withViewController:controller viewGroup:nil];
+- (UIView *)getNativeView:(NSString *)placeId customKey:(NSString *)customKey controller:(UIViewController *)controller page:(NSString *)page {
+    EYNativeAdView* view = [self getNativeAdView:placeId withCustomkey:customKey viewGroup:nil];
     if(view){
         view.isNeedUpdate = false;
         view.isCanShow = true;
@@ -1089,19 +1115,25 @@ static id s_sharedInstance;
         } else {
             [self loadNativeAd:placeId];
         }
+        NSMutableArray *arr = self.nativePageDict[page];
+        if (arr == nil) {
+            arr = [NSMutableArray array];
+        }
+        [arr addObject:@{@"placeId": placeId, @"key": customKey}];
+        self.nativePageDict[page] = arr;
     }
     return view;
 }
 
--(void) showNativeAd:(NSString*) placeId withViewController:(UIViewController*)controller viewGroup:(UIView*)viewGroup
+- (void)showNativeAd:(NSString *)placeId withCustomKey:(NSString *)customKey viewGroup:(UIView *)viewGroup controller:(UIViewController *)controller
 {
     if(!self.isInited)
     {
         return;
     }
-    EYNativeAdView* view = [self getNativeAdView:placeId withViewController:controller viewGroup:viewGroup];
+    EYNativeAdView* view = [self getNativeAdView:placeId withCustomkey:customKey viewGroup:viewGroup];
     if(view){
-        self.nativeAdController = controller;
+//        self.nativeAdController = controller;
         EYNativeAdAdapter* adapter = [view getAdapter];
 //        if(adapter){
 //            [view setHidden:false];
@@ -1158,9 +1190,9 @@ static id s_sharedInstance;
     }
 }
 
--(void) hideNativeAd:(NSString*) placeId forController:(UIViewController*)controller
+-(void) hideNativeAd:(NSString*) placeId forCustomKey:(NSString*)customKey
 {
-    EYNativeAdView* view = [self getNativeAdViewFromCache:placeId withViewController:controller];
+    EYNativeAdView* view = [self getNativeAdViewFromCache:placeId withCustomkey:customKey];
     if(view){
 //        [view setHidden:true];
         view.isCanShow = false;
@@ -1186,15 +1218,16 @@ static id s_sharedInstance;
 -(void) onNativeAdLoaded:(NSString*) adPlaceId
 {
     NSLog(@"AdPlayer onNativeAdLoaded , adPlaceId = %@", adPlaceId);
-    EYNativeAdView* view = [self getNativeAdViewFromCache:adPlaceId withViewController:self.nativeAdController];
-    if(view && view.isCanShow && view.isNeedUpdate)
-    {
-        EYNativeAdAdapter* adapter = [self getNativeAdAdapter:adPlaceId];
-        if(adapter)
-        {
-            [view updateNativeAdAdapter:adapter controller:self.nativeAdController];
-        }
-    }
+//    [self getNativeAdViewFromCache:adPlaceId withCustomkey:<#(NSString *)#>]
+//    EYNativeAdView* view = [self getNativeAdViewFromCache:adPlaceId withViewController:self.nativeAdController];
+//    if(view && view.isCanShow && view.isNeedUpdate)
+//    {
+//        EYNativeAdAdapter* adapter = [self getNativeAdAdapter:adPlaceId];
+//        if(adapter)
+//        {
+//            [view updateNativeAdAdapter:adapter controller:self.nativeAdController];
+//        }
+//    }
 }
 
 - (void)onAdLoaded:(EYuAd *)eyuAd {
