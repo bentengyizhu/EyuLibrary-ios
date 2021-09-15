@@ -90,7 +90,8 @@
 
 - (void)showNativeAd:(UITapGestureRecognizer *)gesture {
     NSLog(@"A showNativeAd");
-    [[EYAdManager sharedInstance] showNativeAd:@"native_ad" withViewController:self viewGroup:self.nativeRootView];
+    [[EYAdManager sharedInstance] showNativeAd:@"native_ad" withCustomKey:nil viewGroup:self.nativeRootView controller:self];
+//    [[EYAdManager sharedInstance] showNativeAd:@"native_ad" withViewController:self viewGroup:self.nativeRootView];
 }
 
 - (void)showBanner:(UITapGestureRecognizer *)gesture {
