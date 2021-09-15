@@ -1222,6 +1222,7 @@ static id s_sharedInstance;
     EYNativeAdView* view;
     for (EYNativeAdView *v in dic.allValues) {
         if (v.getAdapter == nil) {
+            v.isNeedUpdate = true;
             view = v;
             break;
         }
