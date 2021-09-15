@@ -110,7 +110,7 @@
 @property(nonatomic,strong) NSMutableDictionary<NSString*,EYBasicAdGroup*>* basicAdGroupDict;
 @property(nonatomic,strong) NSMutableDictionary<NSString*,NSString*>*  nativeAdViewNibDict;
 @property(nonatomic,strong) NSMutableDictionary<NSString*,NSMutableDictionary<NSString*,EYNativeAdView*>*>*  nativeAdViewDict;
-@property(nonatomic,strong) NSMutableDictionary<NSString*,NSMutableArray*>* nativePageDict;
+@property(nonatomic,strong) NSMutableDictionary<NSString*,NSMutableDictionary*>* nativePageDict;
 //@property(nonatomic,weak) UIViewController* nativeAdController;
 
 @property(nonatomic, strong) Class nativeClass;
@@ -1052,10 +1052,10 @@ static id s_sharedInstance;
 }
 
 -(void) removeNativeAdViewCache:(NSString *)page {
-    NSMutableArray *array = self.nativePageDict[page];
-    for (NSDictionary *dic in array) {
-        [self removeNativeAdViewCache:dic[@"placeId"] withCustomKey:dic[@"key"]];
-        [array removeObject:dic];
+    NSMutableDictionary *dict = self.nativePageDict[page];
+    for (NSString *key in dict.allKeys) {
+        [self removeNativeAdViewCache:dict[key] withCustomKey:key];
+        [dict removeObjectForKey:key];
     }
     [self.nativePageDict removeObjectForKey:page];
 }
@@ -1115,12 +1115,12 @@ static id s_sharedInstance;
         } else {
             [self loadNativeAd:placeId];
         }
-        NSMutableArray *arr = self.nativePageDict[page];
-        if (arr == nil) {
-            arr = [NSMutableArray array];
+        NSMutableDictionary *dict = self.nativePageDict[page];
+        if (dict == nil) {
+            dict = [NSMutableDictionary dictionary];
         }
-        [arr addObject:@{@"placeId": placeId, @"key": customKey}];
-        self.nativePageDict[page] = arr;
+        dict[customKey] = placeId;
+        self.nativePageDict[page] = dict;
     }
     return view;
 }
