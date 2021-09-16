@@ -44,6 +44,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         //self.userInteractionEnabled = false;
+        self.isNeedUpdate = true;
+        self.isCanShow = false;
+        
         NSArray *nibView;
         if ([nibName  isEqualToString: @"nativeAd"]) {
             NSString *bundlePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"EyuLibrary" ofType:@"bundle"];
@@ -93,6 +96,7 @@
         }
         [self.adAdapter showAdWithAdLayout:self.nativeAdLayout iconView:self.nativeAdIcon titleView:self.nativeAdTitle descView:self.nativeAdDesc mediaLayout:self.mediaLayout actBtn:self.actBtn controller:controller];
         self.isNeedUpdate = false;
+        self.isCanShow = true;
         if(self.isCanShow && self.superview){
             [self.superview setHidden:NO];
         }
@@ -106,6 +110,8 @@
         [self.adAdapter unregisterView];
         self.adAdapter = nil;
     }
+    self.isNeedUpdate = true;
+    self.isCanShow = false;
 }
 
 - (void)didTapNativeAd:(UITapGestureRecognizer *)tapGesture

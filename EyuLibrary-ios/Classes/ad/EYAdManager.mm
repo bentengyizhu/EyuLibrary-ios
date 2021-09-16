@@ -1107,13 +1107,13 @@ static id s_sharedInstance;
 - (UIView *)getNativeView:(NSString *)placeId customKey:(NSString *)customKey controller:(UIViewController *)controller page:(NSString *)page {
     EYNativeAdView* view = [self getNativeAdView:placeId withCustomkey:customKey viewGroup:nil];
     if(view){
-        view.isNeedUpdate = false;
-        view.isCanShow = true;
-        EYNativeAdAdapter* adapter = [self getNativeAdAdapter:placeId];
-        if (adapter) {
-            [view updateNativeAdAdapter:adapter controller:controller];
-        } else {
-            [self loadNativeAd:placeId];
+        if (view.isNeedUpdate) {
+            EYNativeAdAdapter* adapter = [self getNativeAdAdapter:placeId];
+            if (adapter) {
+                [view updateNativeAdAdapter:adapter controller:controller];
+            } else {
+                [self loadNativeAd:placeId];
+            }
         }
         NSMutableDictionary *dict = self.nativePageDict[page];
         if (dict == nil) {
@@ -1134,18 +1134,20 @@ static id s_sharedInstance;
     EYNativeAdView* view = [self getNativeAdView:placeId withCustomkey:customKey viewGroup:viewGroup];
     if(view){
 //        self.nativeAdController = controller;
-        EYNativeAdAdapter* adapter = [view getAdapter];
+//        EYNativeAdAdapter* adapter = [view getAdapter];
 //        if(adapter){
 //            [view setHidden:false];
 //        }
-        view.isNeedUpdate = false;
-        view.isCanShow = true;
-        adapter = [self getNativeAdAdapter:placeId];
-        if(adapter){
+        if (view.isNeedUpdate) {
+            EYNativeAdAdapter* adapter = [self getNativeAdAdapter:placeId];
+            if(adapter){
+                [view updateNativeAdAdapter:adapter controller:controller];
+                [viewGroup addSubview:view];
+            } else {
+                [self loadNativeAd:placeId];
+            }
+        } else {
             [viewGroup addSubview:view];
-            [view updateNativeAdAdapter:adapter controller:controller];
-        }else{
-            [self loadNativeAd:placeId];
         }
     }
 }
@@ -1194,8 +1196,8 @@ static id s_sharedInstance;
 {
     EYNativeAdView* view = [self getNativeAdViewFromCache:placeId withCustomkey:customKey];
     if(view){
-//        [view setHidden:true];
-        view.isCanShow = false;
+        [view setHidden:true];
+//        view.isCanShow = false;
     }
 }
 
@@ -1227,7 +1229,7 @@ static id s_sharedInstance;
             break;
         }
     }
-    if(view && view.isCanShow && view.isNeedUpdate)
+    if(view && view.isNeedUpdate)
     {
         EYNativeAdAdapter* adapter = [self getNativeAdAdapter:adPlaceId];
         if(adapter)
