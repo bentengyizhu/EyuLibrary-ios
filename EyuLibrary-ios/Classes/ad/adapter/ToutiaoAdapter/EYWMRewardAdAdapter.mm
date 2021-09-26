@@ -112,7 +112,7 @@
     }
     self.isShowing = NO;
     self.isRewarded = NO;
-    [self notifyOnAdClosed: [self getEyuAd];
+    [self notifyOnAdClosed: [self getEyuAd]];
 }
 
 - (void)rewardedVideoAdDidClick:(BURewardedVideoAd *)rewardedVideoAd {
