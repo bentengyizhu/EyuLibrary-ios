@@ -80,7 +80,7 @@
 
 - (void)unityAdsDidError:(UnityAdsError)error withMessage:(NSString *)message{
     EYuAd *ad = [self getEyuAd];
-    ad.error = error;
+    ad.error = [[NSError alloc]initWithDomain:@"unityloaderror" code:error userInfo:nil];
     [self notifyOnAdLoadFailedWithError:ad];
 }
 
