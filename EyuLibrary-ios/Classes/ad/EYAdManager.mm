@@ -78,6 +78,11 @@
 #import "PangleAdapterConfiguration.h"
 #import <AppLovinSDK/AppLovinSDK.h>
 #endif
+
+#ifdef GDT_ADS_ENABLED
+#import "GDTSDKConfig.h"
+#endif
+
 //#ifndef BYTE_DANCE_ONLY
 //@interface EYAdManager()<UnityAdsDelegate, VungleSDKDelegate, ISDemandOnlyInterstitialDelegate, ISDemandOnlyRewardedVideoDelegate>
 //#else
@@ -484,6 +489,10 @@ static id s_sharedInstance;
     
 #ifdef ABUADSDK_ENABLED
     [ABUAdSDKManager setAppID:config.abuAppId];
+#endif
+    
+#ifdef GDT_ADS_ENABLED
+    [GDTSDKConfig registerAppId:config.gdtAppId];
 #endif
     
 #ifdef MOPUB_ENABLED
