@@ -348,9 +348,9 @@
             [dic setObject:adapter.adKey.keyId forKey:@"type"];
             [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOADING]  parameters:dic];
         }
-        int second = 0;
+        int second = 2;
         if ([self.adType isEqualToString:ADTypeBanner]) {
-            second = 10;
+            second = 3;
         }
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(second * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.currentAdpaterIndex = (self.currentAdpaterIndex+1)%self.adapterArray.count;
