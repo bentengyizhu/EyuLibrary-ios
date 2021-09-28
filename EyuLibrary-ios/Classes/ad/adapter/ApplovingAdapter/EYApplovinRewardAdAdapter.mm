@@ -91,7 +91,7 @@
     NSLog(@" applovin reward didFailToLoadAdWithError: %d, adKey = %@", code, self.adKey);
     self.isLoading = false;
     [self cancelTimeoutTask];
-    EYuAd *ad = [[self getEyuAd]];
+    EYuAd *ad = [self getEyuAd];
     ad.error = [[NSError alloc]initWithDomain:@"adloaderrordomain" code:code userInfo:nil];
     [self notifyOnAdLoadFailedWithError:ad];
 }

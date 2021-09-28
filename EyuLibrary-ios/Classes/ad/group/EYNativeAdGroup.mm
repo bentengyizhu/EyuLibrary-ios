@@ -39,9 +39,9 @@
 #ifdef ADMOB_ADS_ENABLED
         NSClassFromString(@"EYAdmobNativeAdAdapter"), ADNetworkAdmob,
 #endif
-#ifdef APPLOVIN_ADS_ENABLED
-        NSClassFromString(@"EYApplovinNativeAdAdapter"), ADNetworkApplovin,
-#endif
+//#ifdef APPLOVIN_ADS_ENABLED
+//        NSClassFromString(@"EYApplovinNativeAdAdapter"), ADNetworkApplovin,
+//#endif
 #ifdef BYTE_DANCE_ADS_ENABLED
         NSClassFromString(@"EYWMNativeAdAdapter"), ADNetworkWM,
 #endif

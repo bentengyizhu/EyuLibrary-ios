@@ -1,22 +1,22 @@
+////
+////  EYApplovinNativeAdAdapter.h
+////  ballzcpp-mobile
+////
+////  Created by apple on 2018/3/9.
+////
+//#ifdef APPLOVIN_ADS_ENABLED
+//#ifndef EYApplovinNativeAdAdapter_h
+//#define EYApplovinNativeAdAdapter_h
 //
-//  EYApplovinNativeAdAdapter.h
-//  ballzcpp-mobile
+//#import "EYNativeAdAdapter.h"
 //
-//  Created by apple on 2018/3/9.
+//@interface EYApplovinNativeAdAdapter : EYNativeAdAdapter {
 //
-#ifdef APPLOVIN_ADS_ENABLED
-#ifndef EYApplovinNativeAdAdapter_h
-#define EYApplovinNativeAdAdapter_h
-
-#import "EYNativeAdAdapter.h"
-
-@interface EYApplovinNativeAdAdapter : EYNativeAdAdapter {
-
-}
-
-
-@end
-
-#endif /* EYApplovinNativeAdAdapter_h */
-
-#endif /**APPLOVIN_ADS_ENABLED*/
+//}
+//
+//
+//@end
+//
+//#endif /* EYApplovinNativeAdAdapter_h */
+//
+//#endif /**APPLOVIN_ADS_ENABLED*/
