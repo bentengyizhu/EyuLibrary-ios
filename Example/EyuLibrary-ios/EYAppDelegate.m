@@ -21,7 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 //    [EYSdkUtils initUMMobSdk:@"test" channel:@"eyu"];
-//    [EYSdkUtils initAppFlyer:@"test" appId:@"test"];
+    [EYSdkUtils initAppFlyer:@"test" appId:@"test"];
 //    [EYSdkUtils initGDTActionSdk:@"test" secretkey:@"test"];
 //    [EYSdkUtils initFirebaseSdk];
 //    [EYSdkUtils initTrackingWithAppKey:@"475938c702f7451a88eaffb524962649"];
