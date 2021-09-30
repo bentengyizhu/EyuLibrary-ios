@@ -90,7 +90,7 @@
     EYuAd *ad = [self getEyuAd];
     [self notifyOnAdShowed:ad];
     [self notifyOnAdImpression: ad];
-    NSNumberFormatter* numberFormatter = [[NSNumberFormatteralloc] init];
+    NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
     ad.adRevenue = [numberFormatter stringFromNumber:extra[@"adsource_price"]];
     ad.networkName = extra[@"adsource_id"];
     [self notifyOnAdRevenue:ad];
@@ -105,7 +105,7 @@
     EYuAd *ad = [self getEyuAd];
     [self notifyOnAdShowed:ad];
     [self notifyOnAdImpression: ad];
-    NSNumberFormatter* numberFormatter = [[NSNumberFormatteralloc] init];
+    NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
     ad.adRevenue = [numberFormatter stringFromNumber:extra[@"adsource_price"]];
     ad.networkName = extra[@"adsource_id"];
     [self notifyOnAdRevenue:ad];

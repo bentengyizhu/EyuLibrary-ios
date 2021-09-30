@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
     #    s.use_frameworks!
     s.name             = 'EyuLibrary-ios'
-    s.version          = '2.4.12'
+    s.version          = '2.4.13'
     s.summary          = 'A short description of EyuLibrary-ios.'
     
     # This description is used to generate tags and improve search results.
@@ -119,7 +119,7 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'bytedance_ads_global_sdk' do |bytedance_ads_global_sdk|
-        bytedance_ads_global_sdk.dependency 'Ads-Global-Beta', '3.6.1.2'
+        bytedance_ads_global_sdk.dependency 'Ads-Global', '3.9.0.4'
         bytedance_ads_global_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) BYTE_DANCE_ADS_ENABLED'}
     end
     
@@ -181,14 +181,14 @@ Pod::Spec.new do |s|
     
     s.subspec 'anythink_sdk' do |anythink|
 #        anythink.vendored_frameworks = 'EyuLibrary-ios/Classes/framework/AnyThinkMTGAdapter/*.framework'
-        anythink.dependency 'AnyThinkiOS', '5.7.11'
-        anythink.dependency 'AnyThinkiOS/AnyThinkTouTiaoAdapter', '5.7.11'
-        anythink.dependency 'AnyThinkiOS/AnyThinkMintegralAdapter', '5.7.11'
-        anythink.dependency 'AnyThinkiOS/AnyThinkGDTAdapter', '5.7.11'
-        anythink.dependency 'AnyThinkiOS/AnyThinkAdmobAdapter', '5.7.11'
-        anythink.dependency 'AnyThinkiOS/AnyThinkSigmobAdapter', '5.7.11'
-        anythink.dependency 'AnyThinkiOS/AnyThinkUnityAdsAdapter', '5.7.11'
-        anythink.dependency 'AnyThinkiOS/AnyThinkVungleAdapter', '5.7.11'
+        anythink.dependency 'AnyThinkiOS', '5.7.77'
+        anythink.dependency 'AnyThinkiOS/AnyThinkPangleAdapter', '5.7.77'
+        anythink.dependency 'AnyThinkiOS/AnyThinkMintegralAdapter', '5.7.77'
+        anythink.dependency 'AnyThinkiOS/AnyThinkGDTAdapter', '5.7.77'
+        anythink.dependency 'AnyThinkiOS/AnyThinkAdmobAdapter', '5.7.77'
+        anythink.dependency 'AnyThinkiOS/AnyThinkSigmobAdapter', '5.7.77'
+        anythink.dependency 'AnyThinkiOS/AnyThinkUnityAdsAdapter', '5.7.77'
+        anythink.dependency 'AnyThinkiOS/AnyThinkVungleAdapter', '5.7.77'
         anythink.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ANYTHINK_ENABLED'}
     end
     

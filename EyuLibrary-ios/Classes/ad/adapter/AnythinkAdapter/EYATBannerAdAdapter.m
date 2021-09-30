@@ -110,7 +110,7 @@
     EYuAd *ad = [self getEyuAd];
     [self notifyOnAdShowed:ad];
     [self notifyOnAdImpression: ad];
-    NSNumberFormatter* numberFormatter = [[NSNumberFormatteralloc] init];
+    NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
     ad.adRevenue = [numberFormatter stringFromNumber:extra[@"adsource_price"]];
     [self notifyOnAdRevenue:ad];
 }
