@@ -21,7 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 //    [EYSdkUtils initUMMobSdk:@"test" channel:@"eyu"];
-    [EYSdkUtils initAppFlyer:@"test" appId:@"test"];
+//    [EYSdkUtils initAppFlyer:@"test" appId:@"test"];
 //    [EYSdkUtils initGDTActionSdk:@"test" secretkey:@"test"];
 //    [EYSdkUtils initFirebaseSdk];
 //    [EYSdkUtils initTrackingWithAppKey:@"475938c702f7451a88eaffb524962649"];
@@ -41,7 +41,7 @@
 //    adConfig.adPlaceData = [EYSdkUtils readFileWithName:@"ios_ad_setting"];
 //    adConfig.adSuiteData = [EYSdkUtils readFileWithName:@"ios_ad_group_setting"];
 //    adConfig.mopubAdParams = @{@"mopubAdUnitId": @"faeaaa4fbbc944919b38e8308eb08ab", @"pangleApp_id": @"5023932"};
-//    adConfig.abuAppId = @"5149732";
+    adConfig.abuAppId = @"5149732";
 //    adConfig.mtgAppId = @"142996";
 //    adConfig.mtgAppKey = @"a339a16bbaca844012276afad6f59eaa";
 //    adConfig.admobClientId = @"ca-app-pub-1111111111111111~1111111111";

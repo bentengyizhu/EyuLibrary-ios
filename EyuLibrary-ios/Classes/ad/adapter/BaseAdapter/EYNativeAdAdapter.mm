@@ -111,6 +111,7 @@
 -(void) startTimeoutTask
 {
     [self cancelTimeoutTask];
+    NSLog(@"%d", TIMEOUT_TIME);
 //    self.loadingTimer = [NSTimer scheduledTimerWithTimeInterval:TIMEOUT_TIME repeats:false block:^(NSTimer * _Nonnull timer) {
 //        [self cancelTimeoutTask];
 //        [self notifyOnAdLoadFailedWithError:ERROR_TIMEOUT];

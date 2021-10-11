@@ -203,7 +203,7 @@ static id s_sharedInstance;
     
     NSData *adSuiteData = config.adSuiteData;
     NSMutableDictionary *adSuiteDictionary = [[NSMutableDictionary alloc]init];
-    extern int TIMEOUT_TIME;
+//    extern int TIMEOUT_TIME;
     if (adSuiteData == NULL) {
         config.isNewJsonSetting = false;
         TIMEOUT_TIME = 16;

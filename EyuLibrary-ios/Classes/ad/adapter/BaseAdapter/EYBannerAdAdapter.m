@@ -106,7 +106,6 @@
 -(void) startTimeoutTask
 {
     [self cancelTimeoutTask];
-   
     self.loadingTimer = [NSTimer scheduledTimerWithTimeInterval:TIMEOUT_TIME target:self selector:@selector(timeout) userInfo:nil repeats:false];
 }
 
