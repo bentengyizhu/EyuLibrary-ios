@@ -60,6 +60,10 @@
 @property(nonatomic,strong)NSDictionary *mopubAdParams;
 #endif
 
+#ifdef APPLOVIN_MAX_ENABLED
+@property(nonatomic,copy)NSString *maxUserId;
+#endif
+
 -(instancetype) initWithPlace:(NSData*)adPlaceData  key: (NSData*) adKeyData group:(NSData*) adGroupData suite:(NSData*) adSuiteData;
 
 @end
