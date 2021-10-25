@@ -424,8 +424,10 @@ static id s_sharedInstance;
 //            }
 //        }
     }];
-    NSString* maxUserId = config.maxUserId;
-    [ALSdk shared].userIdentifier = maxUserId;
+    if(config.maxUserId == NULL || [config.maxUserId isEqualToString:@""]) {
+        NSString* maxUserId = config.maxUserId;
+        [ALSdk shared].userIdentifier = maxUserId;
+    }
 
 #endif
     
