@@ -59,6 +59,11 @@ static id s_sharedRemoteConfigHelperIOS;
     }];
 }
 
+-(void)fetchRemoteConfig
+{
+    [self.remoteConfig fetchWithExpirationDuration:0 completionHandler:nil];
+}
+
 - (NSData*)getData:(NSString*) key
 {
     if(self->_remoteConfig[key] != NULL){
@@ -109,7 +114,7 @@ static id s_sharedRemoteConfigHelperIOS;
     NSString *key = [dict objectForKey:@"key"];
     if (key == nil) {
         NSLog(@"getBoolean key is nil");
-        return nil;
+        return false;
     }
     return [[EYRemoteConfigHelper sharedInstance] getBoolean:key];
 }

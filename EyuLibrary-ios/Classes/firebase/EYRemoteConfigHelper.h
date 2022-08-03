@@ -25,6 +25,7 @@
 + (NSString*)getString:(NSDictionary*) dict;
 + (long)getLong:(NSDictionary*) dict;
 + (double)getDouble:(NSDictionary*) dict;
+- (void)fetchRemoteConfig;
 @end
 #endif
 #endif /* EYRemoteConfigHelper_h */
