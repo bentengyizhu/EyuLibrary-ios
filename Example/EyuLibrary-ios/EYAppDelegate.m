@@ -54,6 +54,7 @@
     [[EYAdManager sharedInstance] registerNativeAdCustomClass:[EYCustomNativeView class]];
     [[EYAdManager sharedInstance] setDelegate:self];
 //    [EYSdkUtils initFacebookSdkWithApplication:application options:launchOptions];
+    adConfig.maxUserId = @"xx";
     return YES;
 }
 
