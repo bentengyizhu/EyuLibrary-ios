@@ -415,7 +415,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EyuLibrary-ios_Example/Pods-EyuLibrary-ios_Example-resources.sh",
 				"${PODS_ROOT}/Ads-Global/PangleSDK/BUAdSDK.bundle",
-				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-10.3.4/AppLovinSDKResources.bundle",
+				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-11.5.0/AppLovinSDKResources.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/EyuLibrary-ios/EyuLibrary.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit/FacebookSDKStrings.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FFToast/FFToast.bundle",
