@@ -183,7 +183,6 @@
         [loadAdapter showAdWithController:controller];
         return true;
     }else{
-        [self showLoadingDialog];
         [self loadAd:self.adPlaceId];
         return false;
     }
@@ -204,7 +203,7 @@
     return adapter;
 }
 
--(void) showLoadingDialog;
+-(void) showLoadingDialog
 {
     self.isLoadingDialogShowed = true;
     [SVProgressHUD showWithStatus:nil];
