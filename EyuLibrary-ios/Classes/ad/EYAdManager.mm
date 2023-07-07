@@ -1292,6 +1292,14 @@ static id s_sharedInstance;
     }
 }
 
+- (void)onAdShowLoadFailed:(EYuAd *)eyuAd {
+{
+    if(self.delegate)
+    {
+        [self.delegate onAdShowLoadFailed:eyuAd];
+    }
+}
+
 - (void)onAdClosed:(EYuAd *)eyuAd {
     NSLog(@"AdPlayer onAdClosed , adPlaceId = %@, type = %@", eyuAd.placeId, eyuAd.adFormat);
     if(self.delegate)
