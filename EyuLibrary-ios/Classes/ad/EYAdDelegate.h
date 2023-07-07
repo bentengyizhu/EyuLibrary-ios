@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void) onAdClicked:(EYuAd*) eyuAd;
 -(void) onAdLoadFailed:(EYuAd*) eyuAd;
 -(void) onAdImpression:(EYuAd*) eyuAd;
+-(void) onAdShowLoadFailed: (EYuAd*) eyuAd;
 @optional
 -(void) onAdRevenue:(EYuAd*) eyuAd;
 -(void) onDefaultNativeAdClicked;

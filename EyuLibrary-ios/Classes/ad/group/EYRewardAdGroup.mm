@@ -55,77 +55,77 @@
     {
         self.adapterClassDict = [[NSDictionary alloc] initWithObjectsAndKeys:
 #ifdef FB_ADS_ENABLED
-            NSClassFromString(@"EYFbRewardAdAdapter"), ADNetworkFacebook,
+                                 NSClassFromString(@"EYFbRewardAdAdapter"), ADNetworkFacebook,
 #endif
                                  
 #ifdef ADMOB_ADS_ENABLED
-            NSClassFromString(@"EYAdmobRewardAdAdapter"), ADNetworkAdmob,
+                                 NSClassFromString(@"EYAdmobRewardAdAdapter"), ADNetworkAdmob,
 #endif
                                  
 #ifdef UNITY_ADS_ENABLED
-            NSClassFromString(@"EYUnityRewardAdAdapter"), ADNetworkUnity,
+                                 NSClassFromString(@"EYUnityRewardAdAdapter"), ADNetworkUnity,
 #endif
                                  
 #ifdef VUNGLE_ADS_ENABLED
-            NSClassFromString(@"EYVungleRewardAdAdapter"), ADNetworkVungle,
+                                 NSClassFromString(@"EYVungleRewardAdAdapter"), ADNetworkVungle,
 #endif
                                  
 #ifdef APPLOVIN_ADS_ENABLED
-            NSClassFromString(@"EYApplovinRewardAdAdapter"), ADNetworkApplovin,
+                                 NSClassFromString(@"EYApplovinRewardAdAdapter"), ADNetworkApplovin,
 #endif
                                  
 #ifdef APPLOVIN_MAX_ENABLED
-            NSClassFromString(@"EYMaxRewardAdAdapter"), ADNetworkMAX,
+                                 NSClassFromString(@"EYMaxRewardAdAdapter"), ADNetworkMAX,
 #endif
                                  
 #ifdef BYTE_DANCE_ADS_ENABLED
-            NSClassFromString(@"EYWMRewardAdAdapter"), ADNetworkWM,
+                                 NSClassFromString(@"EYWMRewardAdAdapter"), ADNetworkWM,
 #endif
-        
+                                 
 #ifdef GDT_ADS_ENABLED
-            NSClassFromString(@"EYGdtRewardAdAdapter"), ADNetworkGdt,
+                                 NSClassFromString(@"EYGdtRewardAdAdapter"), ADNetworkGdt,
 #endif
                                  
 #ifdef MTG_ADS_ENABLED
-            NSClassFromString(@"EYMtgRewardAdAdapter"), ADNetworkMtg,
+                                 NSClassFromString(@"EYMtgRewardAdAdapter"), ADNetworkMtg,
 #endif
-
+                                 
 #ifdef IRON_ADS_ENABLED
-            NSClassFromString(@"EYIronSourceRewardAdAdapter"), ADNetworkIronSource,
+                                 NSClassFromString(@"EYIronSourceRewardAdAdapter"), ADNetworkIronSource,
 #endif
 #ifdef ANYTHINK_ENABLED
-            NSClassFromString(@"EYATRewardAdAdapter"), ADNetworkAnyThink,
+                                 NSClassFromString(@"EYATRewardAdAdapter"), ADNetworkAnyThink,
 #endif
 #ifdef TRADPLUS_ENABLED
-            NSClassFromString(@"EYTPRewardAdAdapter"), ADNetworkTradPlus,
+                                 NSClassFromString(@"EYTPRewardAdAdapter"), ADNetworkTradPlus,
 #endif
 #ifdef ABUADSDK_ENABLED
-            NSClassFromString(@"EYABURewardAdAdapter"), ADNetworkABU,
+                                 NSClassFromString(@"EYABURewardAdAdapter"), ADNetworkABU,
 #endif
 #ifdef MOPUB_ENABLED
-            NSClassFromString(@"EYMopubRewardAdAdapter"), ADNetworkMopub,
+                                 NSClassFromString(@"EYMopubRewardAdAdapter"), ADNetworkMopub,
 #endif
-                                             nil];
-
-//        self.adGroup = group;
+                                 nil];
+        
+        //        self.adGroup = group;
         self.adValueKey = [NSString stringWithFormat:@"currentRewardValue%d", self.priority+1];
         self.adType = ADTypeReward;
         [self initAdatperArray];
         
-//        NSArray<EYAdKey*>* keyList = group.keyArray;
+        //        NSArray<EYAdKey*>* keyList = group.keyArray;
         
-//        for(EYAdKey* adKey:keyList)
-//        {
-//            if(adKey){
-//                EYRewardAdAdapter *adapter = [self createAdAdapterWithKey:adKey adGroup:group];
-//                if(adapter){
-//                    [self.adapterArray addObject:adapter];
-//                }
-//            }
-//        }
+        //        for(EYAdKey* adKey:keyList)
+        //        {
+        //            if(adKey){
+        //                EYRewardAdAdapter *adapter = [self createAdAdapterWithKey:adKey adGroup:group];
+        //                if(adapter){
+        //                    [self.adapterArray addObject:adapter];
+        //                }
+        //            }
+        //        }
         
         self.maxTryLoadAd = ((int)self.adapterArray.count) * 2;
-
+        
     }
     return self;
 }
@@ -183,6 +183,7 @@
         [loadAdapter showAdWithController:controller];
         return true;
     }else{
+        [self showLoadingDialog];
         [self loadAd:self.adPlaceId];
         return false;
     }
@@ -228,36 +229,28 @@
     NSLog(@" timeout");
     [self showLoadAdFailedToast];
     [self hideLoadingDialog];
+    if(self.delegate)
+    {
+        EYuAd *eyuAd = [EYuAd new];
+        eyuAd.adFormat = ADTypeReward;
+        eyuAd.placeId = self.adPlaceId;
+        eyuAd.error = [[NSError alloc]initWithDomain:@"timeoutDomian" code:ERROR_TIMEOUT userInfo:nil];
+        [self.delegate onAdShowLoadFailed:eyuAd];
+    }
 }
 
 -(void) showLoadAdFailedToast
 {
     [FFToast showToastWithTitle:NSLocalizedString(@"sorry", @"Sorry") message:NSLocalizedString(@"ad_load_failed", @"Ads is not available，try again later") iconImage:nil duration:3 toastType:FFToastTypeDefault];
-    
-//    FFToast *toast = [[FFToast alloc] initToastWithTitle:@"Sorry!" message:@"Ads is not available，try again later" iconImage:nil];
-//    toast.toastCornerRadius = 5.0f;
-//    toast.toastPosition = FFToastPositionCentreWithFillet;
-//    toast.toastType = FFToastTypeDefault;
-//    [toast show];
+}
+
+-(void) onAdShowLoadFailed:(EYRewardAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd
+{
+    [super onAdShowLoadFailed:adapter eyuAd:eyuAd];
 }
 
 -(void) onAdLoaded:(EYRewardAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd
 {
-//    NSLog(@"onAdLoaded adapter = %@, self.isLoadingDialogShowed = %d", adapter, self.isLoadingDialogShowed);
-//    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
-//    {
-//        self.curLoadingIndex = -1;
-//    }
-////    if(self.reportEvent){
-//        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-//        [dic setObject:adapter.adKey.keyId forKey:@"type"];
-//        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_SUCCESS]  parameters:dic];
-////    }
-//
-//    if(self.delegate)
-//    {
-//        [self.delegate onAdLoaded:self.adPlaceId type:ADTypeReward];
-//    }
     [super onAdLoaded:adapter eyuAd:eyuAd];
     if(self.isLoadingDialogShowed)
     {
@@ -271,41 +264,6 @@
 -(void) onAdLoadFailed:(EYRewardAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
 {
     [super onAdLoadFailed:adapter eyuAd:eyuAd];
-//    EYAdKey* adKey = adapter.adKey;
-//    NSLog(@"onAdLoadFailed adKey = %@, errorCode = %d", adKey.keyId, errorCode);
-//
-//    if(self.reportEvent){
-//        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-//        [dic setObject:[[NSString alloc] initWithFormat:@"%d",errorCode] forKey:@"code"];
-//        [dic setObject:adKey.keyId forKey:@"type"];
-//        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_FAILED]  parameters:dic];
-//    }
-//
-//    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
-//    {
-//        if(self.tryLoadAdCounter >= self.maxTryLoadAd){
-//            self.curLoadingIndex = -1;
-//            if(self.isLoadingDialogShowed)
-//            {
-//                [self showLoadAdFailedToast];
-//                [self hideLoadingDialog];
-//            }
-//        }else{
-//            self.tryLoadAdCounter++;
-//            self.curLoadingIndex = (self.curLoadingIndex+1)%self.adapterArray.count;
-//            EYRewardAdAdapter* adapter = self.adapterArray[self.curLoadingIndex];
-//            [adapter loadAd];
-//            if(self.reportEvent){
-//                NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-//                [dic setObject:adapter.adKey.keyId forKey:@"type"];
-//                [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOADING]  parameters:dic];
-//            }
-//        }
-//    }
-//    if(self.delegate)
-//    {
-//        [self.delegate onAdLoadFailed:self.adPlaceId key:adKey.keyId code:errorCode];
-//    }
 }
 
 -(void) onAdShowed:(EYRewardAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
@@ -314,11 +272,11 @@
     {
         [self.delegate onAdShowed:eyuAd];
     }
-//    if(self.reportEvent){
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setObject:adapter.adKey.keyId forKey:@"type"];
-        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_SHOW]  parameters:dic];
-//    }
+    //    if(self.reportEvent){
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:adapter.adKey.keyId forKey:@"type"];
+    [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_SHOW]  parameters:dic];
+    //    }
 }
 
 - (void)onAdRevenue:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd {
@@ -358,12 +316,12 @@
     {
         [self.delegate onAdReward:eyuAd];
     }
-
-//    if(self.reportEvent){
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setObject:adapter.adKey.keyId forKey:@"type"];
-        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_REWARDED]  parameters:dic];
-//    }
+    
+    //    if(self.reportEvent){
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:adapter.adKey.keyId forKey:@"type"];
+    [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_REWARDED]  parameters:dic];
+    //    }
 }
 
 -(void) onAdImpression:(EYRewardAdAdapter*)adapter eyuAd:(EYuAd *)eyuAd
