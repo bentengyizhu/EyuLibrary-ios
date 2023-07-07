@@ -1292,7 +1292,7 @@ static id s_sharedInstance;
     }
 }
 
-- (void)onAdShowLoadFailed:(EYuAd *)eyuAd {
+- (void)onAdShowLoadFailed:(EYuAd *)eyuAd
 {
     if(self.delegate)
     {
