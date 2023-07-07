@@ -31,4 +31,5 @@
 -(void) onAdRewarded:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd;
 -(void) onAdImpression:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd;
 -(void) onAdRevenue:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd;
+-(void) onAdShowLoadFailed:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd;
 @end

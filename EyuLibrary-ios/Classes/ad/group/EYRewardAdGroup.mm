@@ -244,10 +244,10 @@
     [FFToast showToastWithTitle:NSLocalizedString(@"sorry", @"Sorry") message:NSLocalizedString(@"ad_load_failed", @"Ads is not available，try again later") iconImage:nil duration:3 toastType:FFToastTypeDefault];
 }
 
--(void) onAdShowLoadFailed:(EYRewardAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd
-{
-    [super onAdShowLoadFailed:adapter eyuAd:eyuAd];
-}
+//-(void) onAdShowLoadFailed:(EYRewardAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd
+//{
+//    [super onAdShowLoadFailed:adapter eyuAd:eyuAd];
+//}
 
 -(void) onAdLoaded:(EYRewardAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd
 {

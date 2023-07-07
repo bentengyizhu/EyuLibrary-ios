@@ -279,10 +279,10 @@
 }
 
 - (void)onAdLoaded:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd{
-//    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
-//    {
-//        self.curLoadingIndex = -1;
-//    }
+    //    if(self.curLoadingIndex>=0 && self.adapterArray[self.curLoadingIndex] == adapter)
+    //    {
+    //        self.curLoadingIndex = -1;
+    //    }
     NSLog(@" basic onAdLoaded %d",self.currentAdValue);
     self.currentLoadCount = 2;
     adapter.tryLoadAdCount ++;
@@ -299,11 +299,11 @@
     {
         [self.delegate onAdLoaded:eyuAd];
     }
-//    if(self.reportEvent){
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setObject:adapter.adKey.keyId forKey:@"type"];
-        [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_SUCCESS]  parameters:dic];
-//    }
+    //    if(self.reportEvent){
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:adapter.adKey.keyId forKey:@"type"];
+    [EYEventUtils logEvent:[self.adGroup.groupId stringByAppendingString:EVENT_LOAD_SUCCESS]  parameters:dic];
+    //    }
 }
 
 - (void)onAdLoadFailed:(EYAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd {
@@ -340,6 +340,14 @@
     }
 }
 
+//- (void)onAdShowLoadFailed:(EYRewardAdAdapter *)adapter eyuAd:(EYuAd *)eyuAd
+//{
+//    if(self.delegate)
+//    {
+//        [self.delegate onAdShowLoadFailed:eyuAd];
+//    }
+//}
+
 - (void)tryAgain:(EYAdAdapter *)adapter withError:(int)errorCode {
     if(self.tryLoadAdCount < self.maxTryLoadAd) {
         self.tryLoadAdCount++;
@@ -356,7 +364,7 @@
             self.currentAdpaterIndex = (self.currentAdpaterIndex+1)%self.adapterArray.count;
             EYAdAdapter *adp = self.adapterArray[self.currentAdpaterIndex];
             [adp loadAd];
-         });
+        });
     }
 }
 @end
