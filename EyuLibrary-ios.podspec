@@ -20,14 +20,14 @@ Pod::Spec.new do |s|
     
     s.description      = 'EyuLibrary'
      
-    s.homepage         = 'https://github.com/EyugameQy/EyuLibrary-ios'
+    s.homepage         = 'https://github.com/bentengyizhu/EyuLibrary-ios'
     # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
     s.license          = { :type => 'MIT', :file => 'LICENSE' }
     s.author           = { 'WeiqiangLuo' => 'weiqiangluo@qianyuan.tv' }
-    s.source           = { :git => 'https://github.com/EyugameQy/EyuLibrary-ios.git', :tag => s.version.to_s }
+    s.source           = { :git => 'https://github.com/bentengyizhu/EyuLibrary-ios.git', :tag => s.version.to_s }
     # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
     s.prefix_header_file = 'EyuLibrary-ios/Classes/PrefixHeader.pch'
-    s.ios.deployment_target = '10.0'
+    s.ios.deployment_target = '11.0'
     s.static_framework = true
     s.subspec 'Core' do |b|
         b.source_files = 'EyuLibrary-ios/Classes/**/*.{h,m,mm}'
@@ -36,6 +36,9 @@ Pod::Spec.new do |s|
 #        b.exclude_files = 'EyuLibrary-ios/Classes/framework/ABUAdSDK/**/*'
         b.dependency 'SVProgressHUD'
         b.dependency 'FFToast'
+        b.dependency 'AFNetworking'
+        b.dependency 'Masonry'
+        b.dependency 'SDWebImage'
         # a.resource_bundles = {
         #   'BUAdSDK' => ['EyuLibrary-ios/Assets/BUAdSDK.bundle/*']
         #}
@@ -58,7 +61,7 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'af_sdk' do |af|
-        af.dependency 'AppsFlyerFramework','6.2.5'
+        af.dependency 'AppsFlyerFramework','6.6.0'
         af.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) AF_ENABLED'}
     end
     
@@ -68,13 +71,13 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'admob_sdk' do |admob|
-        admob.dependency 'Google-Mobile-Ads-SDK','8.9.0'
+        admob.dependency 'Google-Mobile-Ads-SDK','10.14.0'
         admob.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) ADMOB_ADS_ENABLED'}
     end
     
     s.subspec 'fb_ads_sdk' do |fb_ads_sdk|
         fb_ads_sdk.dependency 'FBAudienceNetwork','6.5.1'
-        fb_ads_sdk.dependency 'FBSDKCoreKit','11.1.0'
+        fb_ads_sdk.dependency 'FBSDKCoreKit','12.3.2'
         fb_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) FB_ADS_ENABLED FACEBOOK_ENABLED'}
     end
     
@@ -85,21 +88,21 @@ Pod::Spec.new do |s|
     # end
     
     s.subspec 'applovin_ads_sdk' do |applovin_ads_sdk|
-        applovin_ads_sdk.dependency 'AppLovinSDK','10.3.2'
+        applovin_ads_sdk.dependency 'AppLovinSDK','12.1.0'
         applovin_ads_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) APPLOVIN_ADS_ENABLED'}
     end
     
     s.subspec 'applovin_max_sdk' do |applovin_max_sdk|
-        applovin_max_sdk.dependency 'AppLovinSDK','11.5.0'
+        applovin_max_sdk.dependency 'AppLovinSDK','12.1.0'
         applovin_max_sdk.dependency 'AppLovinMediationFacebookAdapter','6.5.1.0'
         applovin_max_sdk.dependency 'AppLovinMediationMintegralAdapter','7.2.6.0.1'
-        applovin_max_sdk.dependency 'AppLovinMediationGoogleAdapter','8.9.0.0'
+        applovin_max_sdk.dependency 'AppLovinMediationGoogleAdapter','10.14.0.1'
         applovin_max_sdk.dependency 'AppLovinMediationIronSourceAdapter','7.1.6.1.0'
         applovin_max_sdk.dependency 'AppLovinMediationByteDanceAdapter','4.6.2.2'
         applovin_max_sdk.dependency 'AppLovinMediationUnityAdsAdapter','3.7.5.0'
         applovin_max_sdk.dependency 'AppLovinMediationVungleAdapter','6.10.1.0'
         applovin_max_sdk.dependency 'AppLovinMediationFyberAdapter','7.8.3.2'
-        applovin_max_sdk.dependency 'FBSDKCoreKit','11.1.0'
+        applovin_max_sdk.dependency 'FBSDKCoreKit','12.3.2'
         applovin_max_sdk.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) APPLOVIN_MAX_ENABLED' }
     end
     
@@ -139,26 +142,32 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'fb_login_sdk' do |fb|
-        fb.dependency 'FBSDKCoreKit','11.1.0'
-        fb.dependency 'FBSDKShareKit','11.1.0'
-        fb.dependency 'FBSDKLoginKit','11.1.0'
+        fb.dependency 'FBSDKCoreKit','12.3.2'
+        fb.dependency 'FBSDKShareKit','12.3.2'
+        fb.dependency 'FBSDKLoginKit','12.3.2'
         fb.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) FACEBOOK_LOGIN_ENABLED FACEBOOK_ENABLED'}
     end
     
     s.subspec 'crashlytics_sdk' do |crash|
-        crash.dependency 'Firebase/Crashlytics', '8.6.0'
+        crash.dependency 'Firebase/Crashlytics', '9.0.0'
     end
     
+#    s.subspec 'firebase_sdk' do |firebase|
+#        firebase.dependency 'Firebase/Analytics', '9.0.0'
+#        firebase.dependency 'Firebase/Core', '9.0.0'
+#        firebase.dependency 'Firebase/Messaging', '9.0.0'
+#        firebase.dependency 'Firebase/RemoteConfig', '9.0.0'
+#        firebase.dependency 'Firebase/Auth', '9.0.0'
+#        firebase.dependency 'Firebase/Firestore', '9.0.0'
+#        firebase.dependency 'Firebase/Storage', '9.0.0'
+#        firebase.dependency 'Firebase/DynamicLinks', '9.0.0'
+##        firebase.dependency 'Firebase/AdMob', '7.8.0'
+#        firebase.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) FIREBASE_ENABLED'}
+#    end
     s.subspec 'firebase_sdk' do |firebase|
         firebase.dependency 'Firebase/Analytics', '8.6.0'
-        firebase.dependency 'Firebase/Core', '8.6.0'
-        firebase.dependency 'Firebase/Messaging', '8.6.0'
-        firebase.dependency 'Firebase/RemoteConfig', '8.6.0'
-        firebase.dependency 'Firebase/Auth', '8.6.0'
-        firebase.dependency 'Firebase/Firestore', '8.6.0'
-        firebase.dependency 'Firebase/Storage', '8.6.0'
-        firebase.dependency 'Firebase/DynamicLinks', '8.6.0'
-#        firebase.dependency 'Firebase/AdMob', '7.8.0'
+#        firebase.dependency 'GoogleUtilities', '7.12.0'
+#        firebase.dependency 'Firebase/Analytics', '10.20.0'
         firebase.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) FIREBASE_ENABLED'}
     end
     
@@ -193,10 +202,10 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'admob_mediation_sdk' do |admob_mediation|
-        admob_mediation.dependency 'Google-Mobile-Ads-SDK','8.2.0'
+        admob_mediation.dependency 'Google-Mobile-Ads-SDK','10.14.0'
         admob_mediation.dependency 'GoogleMobileAdsMediationAppLovin', '10.0.1.0'
         admob_mediation.dependency 'GoogleMobileAdsMediationFacebook', '6.3.0.0'
-        admob_mediation.dependency 'FBSDKCoreKit','9.1.0'
+        admob_mediation.dependency 'FBSDKCoreKit','12.3.2'
         admob_mediation.dependency 'GoogleMobileAdsMediationFyber', '7.8.2.0'
         admob_mediation.dependency 'GoogleMobileAdsMediationIronSource', '7.1.3.0'
         admob_mediation.dependency 'GoogleMobileAdsMediationUnity', '3.6.0.0'
@@ -232,7 +241,7 @@ Pod::Spec.new do |s|
 #       'HEADER_SEARCH_PATHS' => "${PODS_ROOT}/#{s.name}/framework/ReYunTracking/Headers/**",
 #        abu.preserve_paths = 'EyuLibrary-ios/Classes/framework/ABUAdSDK/*.framework'
         abu.vendored_frameworks = 'EyuLibrary-ios/Classes/framework/ABUAdSDK/*.framework'
-        abu.dependency 'Google-Mobile-Ads-SDK','8.6.0'
+        abu.dependency 'Google-Mobile-Ads-SDK','10.14.0'
         abu.dependency 'Ads-CN', '3.7.0.7'
         abu.dependency 'GDTMobSDK','4.12.81'
         abu.dependency 'UnityAds','3.7.2'
@@ -264,7 +273,7 @@ Pod::Spec.new do |s|
         mopub.dependency 'MoPub-Pangle-Adapters', '3.5.1.0.0'
         mopub.dependency 'MoPub-UnityAds-Adapters', '3.6.0.1'
         mopub.dependency 'MoPub-Vungle-Adapters', '6.9.1.2'
-        mopub.dependency 'FBSDKCoreKit','9.1.0'
+        mopub.dependency 'FBSDKCoreKit','12.3.2'
         mopub.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) MOPUB_ENABLED'}
     end
 end
