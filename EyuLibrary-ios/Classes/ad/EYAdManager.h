@@ -48,6 +48,8 @@
 -(void) loadNativeAd:(NSString*) placeId;
 -(void) loadBannerAd:(NSString*) placeId;
 -(void) loadSplashAd:(NSString*) placeId;
+//max  设置maxUserId
+-(void) SetMaxUserId:(NSString*)maxUserId;
 
 -(NSString *) getAdType:(NSString*) placeId;
 -(UIView *) getBannerView:(NSString*) placeId;

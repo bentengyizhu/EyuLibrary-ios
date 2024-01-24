@@ -682,6 +682,19 @@ static id s_sharedInstance;
     }
 }
 
+#ifdef APPLOVIN_ADS_ENABLED
+//max  设置maxUserId
+-(void)SetMaxUserId:(NSString*)maxUserId{
+
+    if(maxUserId == NULL || [maxUserId isEqualToString:@""]) {
+        NSLog(@"登录后设置maxUserId ==  NULL");
+    } else {
+        NSLog(@"登录后设置maxUserId =  %@", maxUserId);
+        [ALSdk shared].userIdentifier = maxUserId;
+    }
+}
+#endif
+
 - (bool)showAd:(NSString *)placeId withViewController:(UIViewController *)controller {
     if(!self.isInited)
     {
