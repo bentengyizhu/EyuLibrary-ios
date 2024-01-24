@@ -26,7 +26,7 @@
     {
         GADNativeAdViewAdOptions *adsOptions = [[GADNativeAdViewAdOptions alloc] init];
         adsOptions.preferredAdChoicesPosition = GADAdChoicesPositionTopLeftCorner;
-        self.nativeAdLoader = [[GADAdLoader alloc] initWithAdUnitID:self.adKey.key rootViewController:nil adTypes:@[kGADAdLoaderAdTypeNative] options:@[adsOptions]];
+        self.nativeAdLoader = [[GADAdLoader alloc] initWithAdUnitID:self.adKey.key rootViewController:nil adTypes:@[GADAdLoaderAdTypeNative] options:@[adsOptions]];
         self.nativeAdLoader.delegate = self;
         self.nativeAdView = [[GADNativeAdView alloc] init];
         self.isLoading = true;
